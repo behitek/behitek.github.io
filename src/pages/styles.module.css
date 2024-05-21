@@ -1,0 +1,80 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+.heroBanner {
+  background-color: var(--ifm-color-secondary-darker);
+  color: var(--ifm-color-secondary-lightest);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3.6rem 1.2rem;
+}
+
+.heroBannerWrapper {
+  min-height: 1024px;
+}
+
+.heroBanner h1 {
+  font-size: 4.8rem;
+  line-height: 5.4rem;
+  font-weight: 600;
+}
+
+.heroBanner p {
+  font-size: 1.2rem;
+  margin: 0 4px;
+  max-width: 512px;
+}
+
+.aboutHeader {
+  background-color: var(--ifm-color-secondary-darker);
+  color: var(--ifm-color-secondary-lighter);
+  padding: 3.6rem 0 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.aboutHeader h2 {
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.about {
+  background-color: var(--ifm-color-secondary-lightest);
+  color: var(--ifm-color-secondary-darker);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 3.6rem 1.2rem;
+}
+
+.aboutProfilePic {
+  border-radius: 5%;
+  max-height: 296px;
+  max-width: 296px;
+}
+
+.aboutText {
+  max-width: 512px;
+}
+
+.aboutText a {
+  font-weight: bold;
+}
+
+.directory {
+  background-color: var(--ifm-color-secondary-darker);
+  color: var(--ifm-color-secondary-lightest);
+  padding: 3.6rem 0.4rem;
+  width: 100%;
+}
+
+@media screen and (max-width: 966px) {
+  .about {
+    flex-direction: column;
+  }
+}
