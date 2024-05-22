@@ -38,7 +38,7 @@ function Home() {
           <p>Hi, my name is</p>
           <h1 className="text-success">Hieu Nguyen.</h1>
           <p>
-            I am an <span className="text-success">Machine Learning Engineer</span> or{" "}
+            I am a <span className="text-success">Machine Learning Engineer</span> or{" "}
             <span className="text-success">AI Engineer</span> passionate about
             bring AI applications to real life.
           </p>
@@ -66,53 +66,18 @@ function Home() {
             />
           </div>
           <div className={styles.aboutText}>
-            <h2>Hi</h2>
+            <h2>Hello there 👋</h2>
             <p>
-              🇸🇬 I am Evan, a Full Stack Software Engineer and Certified Cloud
-              Engineer based in Singapore.
+              🇻🇳 I am Hieu Nguyen, a Machine Learning Engineer from Vietnam.
             </p>
             <p>
-              🚀 I love building cool and meaningful things with tech like{" "}
-              <Link to={useBaseUrl("projects/")}>
-                websites, applications or games
-              </Link>
-              .
+              🚀 I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLM, and document retrieval.
             </p>
             <p>
-              🌏 To me, coding is the closest thing to magic we have on Earth.
+              🎓 I hold a Master of Information Science degree from the Japan Advanced Institute of Science and Technology (JAIST).
             </p>
             <p>
-              👨‍💻 I have been writing beautiful code at{" "}
-              <a href="https://padlet.com">Padlet</a> since 2021.
-            </p>
-            <p>
-              🎒 I was a{" "}
-              <a href="https://www.comp.nus.edu.sg/programmes/ug/cs/">
-                Computer Science major
-              </a>{" "}
-              at the{" "}
-              <a href="https://www.comp.nus.edu.sg/">
-                National University of Singapore
-              </a>{" "}
-              from 2017 to 2020.
-            </p>
-            <p>
-              🧑‍🏫 Back then, I was a{" "}
-              <a href="https://github.com/DigiPie/CS1010-Tutorial-C09">
-                Teaching Assistant
-              </a>{" "}
-              for Programming Methodology and Networking courses.
-            </p>
-            <p>
-              🛼 I was also Deputy Head of Technology for the{" "}
-              <a href="https://dscnustech.github.io/">
-                NUS Google Developer Student Club
-              </a>
-              , and President of the{" "}
-              <a href="https://www.instagram.com/nusskating/">
-                NUS Skating Club
-              </a>
-              .
+              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's r/selfhosted and playing Clash of Clans.
             </p>
           </div>
         </div>
