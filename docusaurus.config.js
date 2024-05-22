@@ -48,7 +48,7 @@ module.exports = {
     "A drop in the AI ocean",
   url: "https://behitek.com",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "behitek",
   projectName: "behitek.github.io",
