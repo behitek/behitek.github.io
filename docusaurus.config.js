@@ -18,7 +18,7 @@ const internetProfiles = {
   },
   email: {
     label: "Email",
-    href: "mailto:hieunv.dev@gmail.com",
+    href: "mailto:hello@behitek.com",
   },
   blog: {
     label: "Blog",
@@ -123,11 +123,14 @@ module.exports = {
           editCurrentVersion: false,
           remarkPlugins: [math],
           rehypePlugins: [katex],
+          // editUrl: "https://github.com/behitek/behitek.github.io/tree/main/",
         },
         blog: {
           showReadingTime: true,
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
           // Please change this to your repo.
-          editUrl: "https://github.com/DigiPie/kaya-folio/tree/main/website/",
+          // editUrl: "https://github.com/behitek/behitek.github.io/tree/main/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -137,11 +140,11 @@ module.exports = {
   ],
   stylesheets: [
     {
-      href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css",
-      type: "text/css",
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css',
+      type: 'text/css',
       integrity:
-        "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X",
-      crossorigin: "anonymous",
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
     },
   ],
   plugins: [
