@@ -35,13 +35,8 @@ function Home() {
             display: isLoading ? "none" : "block",
           }}
         >
-          <p>Hi, my name is</p>
-          <h1 className="text-success">Hieu Nguyen.</h1>
-          <p>
-            I am a <span className="text-success">Machine Learning Engineer</span> or{" "}
-            <span className="text-success">AI Engineer</span> passionate about
-            bring AI applications to real life.
-          </p>
+          <p>Hi, I am <span className={styles.behitek}>Behitek</span>!</p>
+          <h2>A drop in the AI ocean!</h2>
           <SocialLinks />
           <p>
             <a href="#main">
@@ -55,7 +50,7 @@ function Home() {
       <main id="main" ref={mainRef} hidden={true}>
         <div className={styles.aboutHeader}>
           <h2 className="border-0 border-b-4 border-solid border-success">
-            Who am I
+            About me
           </h2>
         </div>
         <div className={styles.about}>
@@ -77,7 +72,7 @@ function Home() {
               🎓 I hold a Master of Information Science degree from the Japan Advanced Institute of Science and Technology (JAIST).
             </p>
             <p>
-              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's r/selfhosted and playing Clash of Clans.
+              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's <a href="https://www.reddit.com/r/selfhosted/" target="_blank">r/selfhosted</a> and playing <a href="/clashofclan" target="_blank">Clash of Clans</a>
             </p>
           </div>
         </div>

@@ -12,18 +12,45 @@
 
 .heroBannerWrapper {
   min-height: 1024px;
+  text-align: center;
 }
 
-.heroBanner h1 {
-  font-size: 4.8rem;
+.heroBanner h2 {
+  font-size: 80px !important;
   line-height: 5.4rem;
   font-weight: 600;
 }
 
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.behitek {
+  background: linear-gradient(90deg, #f12711, #f5af19, #f5af19, #f12711);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-weight: 500;
+  color: transparent;
+}
+
 .heroBanner p {
-  font-size: 1.2rem;
+  font-size: 20px;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 300;
   margin: 0 4px;
-  max-width: 512px;
+
+  /* max-width: 512px; */
 }
 
 .aboutHeader {
@@ -53,9 +80,16 @@
 }
 
 .aboutProfilePic {
-  border-radius: 5%;
-  max-height: 296px;
-  max-width: 296px;
+  -webkit-mask-image: url('/img/mark-avatar.svg');
+  mask-image: url('/img/mark-avatar.svg');
+  -webkit-mask-size: auto;
+  mask-size: auto;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  max-height: 450px;
+  max-width: 450px;
 }
 
 .aboutText {

@@ -20,7 +20,7 @@ const socialLinks = [
   {
     faIcon: faPaperPlane,
     alt: "Email",
-    url: "mailto:hieunv.dev@gmail.com",
+    url: "mailto:hello@behitek.com",
   },
 ];
 
