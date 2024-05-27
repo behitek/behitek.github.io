@@ -23,7 +23,7 @@ Bạn có thể cuộn xuống [mục 4](#các-ứng-dụng-của-python-decorat
 
 Quan sát ảnh phía dưới, nếu bạn đã biết về Python thì `@app.route ...` chắc hẳn bạn đã thấy hoặc dùng không ít lần. Nó chính là 1 decorator được dùng để chỉ định `route` cho hàm ngay phía dưới nó.
 
-![Python decorator được sử dụng để routing trong FastAPI / Flask](https://behitek.com/wp-content/uploads/2024/03/image-1709827454913.png)
+![Python decorator được sử dụng để routing trong FastAPI / Flask](/img/blog/1709987562856.jpeg)
 
 Mục đích chính của việc sử dụng decorator là để áp dụng các nguyên tắc “DRY” (Don't Repeat Yourself - Không viết lại mã code) và "SoC" (Separation of Concerns - Phân chia trách nhiệm), cho phép chúng ta tách rời các phần mã không thuộc về logic chính của hàm như xác thực, logging, đo thời gian thực thi, xử lý ngoại lệ,... Decorator giúp chúng ta làm được điều này mà không cần sửa đổi nội dung bên trong đối tượng gốc.
 
