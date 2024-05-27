@@ -158,5 +158,11 @@ module.exports = {
         },
       };
     },
+    [
+      '@docusaurus/plugin-google-tag-manager',
+      {
+        containerId: 'GTM-NXX24VM',
+      },
+    ],
   ],
 };
