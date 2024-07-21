@@ -2,7 +2,7 @@
 title: Beam search algorithm
 author: Hieu Nguyen
 author_url: https://github.com/behitek
-author_title: Machine Learning Engineer
+author_title: AI Engineer
 author_image_url: https://avatars.githubusercontent.com/u/12376486
 tags: [beam search, machine learning, natural language processing, vietnamese]
 description: Beam search là một thuật toán tìm kiếm heuristic được sử dụng trong nhiều bài toán như dịch máy, nhận dạng giọng nói, tóm tắt văn bản,… Đó là các bài toán NLP có đầu ra liên quan đến việc tạo một chuỗi các từ. Trong bài viết này, Behitek sẽ cùng bạn đi tìm hiểu về thuật toán beam search, các ưu điểm của nó và đi vào thực hành sử dụng beam search trong bài toán khôi phục dấu thanh cho tiếng Việt không dấu.
