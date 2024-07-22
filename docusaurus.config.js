@@ -112,6 +112,14 @@ module.exports = {
       // Please adjust the following to your needs
       copyright: `Powered by <a href="https://behitek.com">Docusaurus</a> • Last updated on <a href="https://github.com/behitek/behitek.github.io/commits/main/">${new Date().toLocaleDateString("en-SG")}</a>`,
     },
+    algolia: {
+      appId: 'WHUI4DPU2B',
+      apiKey: '8040908c4adfc070dff77bb85b621ea7',
+      indexName: 'behitek',
+      // TODO, fix not working if contextualSearch is true
+      // https://docusaurus.io/docs/search#using-algolia-docsearch
+      contextualSearch: false,
+    }
   },
   presets: [
     [

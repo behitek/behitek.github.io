@@ -12,9 +12,10 @@
     "update:docusaurus": "yarn add @docusaurus/core @docusaurus/preset-classic"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.1.1",
-    "@docusaurus/plugin-google-tag-manager": "^3.3.2",
-    "@docusaurus/preset-classic": "^3.1.1",
+    "@docusaurus/core": "^3.4.0",
+    "@docusaurus/plugin-google-tag-manager": "^3.4.0",
+    "@docusaurus/preset-classic": "^3.4.0",
+    "@docusaurus/theme-search-algolia": "^3.4.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
@@ -23,6 +24,7 @@
     "@mdx-js/react": "^3.0.0",
     "autoprefixer": "^10.4.17",
     "clsx": "^2.1.0",
+    "disqus-react": "^1.1.5",
     "postcss": "^8.4.35",
     "prism-react-renderer": "^2.3.1",
     "react": "^18.2.0",
