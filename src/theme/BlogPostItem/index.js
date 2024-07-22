@@ -1,17 +1,16 @@
-import { useBlogPost } from '@docusaurus/theme-common/internal'
-import BlogPostItem from '@theme-original/BlogPostItem'
-import { DiscussionEmbed } from 'disqus-react'
-import React from 'react'
+import { useBlogPost } from '@docusaurus/theme-common/internal';
+import BlogPostItem from '@theme-original/BlogPostItem';
+import { DiscussionEmbed } from 'disqus-react';
+import React from 'react';
 
 export default function BlogPostItemWrapper(props) {
-  const { metadata } = useBlogPost()
-  const { frontMatter, slug, title } = metadata
-  const { comments = true } = frontMatter
+  const { metadata: { frontMatter }, isBlogPostPage } = useBlogPost();
+  const { comments = true, slug, title } = frontMatter;
 
   return (
     <>
       <BlogPostItem {...props} />
-      {comments && (
+      {comments && isBlogPostPage && (
         <DiscussionEmbed
           style={{ marginTop: 50 }}
           shortname='behitek'
@@ -24,5 +23,5 @@ export default function BlogPostItemWrapper(props) {
         />
       )}
     </>
-  )
+  );
 }
