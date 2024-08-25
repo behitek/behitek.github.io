@@ -1,10 +1,7 @@
 ---
 title: Fine-tuning BERT for the Sentence Pair Classification Task
 sidebar_label: BERT for Sentence Pair Classification
-author: Hieu Nguyen
-author_url: https://github.com/behitek
-author_title: AI Engineer
-author_image_url: https://avatars.githubusercontent.com/u/12376486
+authors: hieunv
 tags: [bert, fine-tuning, reranking, natural language processing]
 description: This tutorial will teach you how to fine-tune BERT for the Sentence Pair Classification task. In this task, each dataset sample contains two sentences and the appropriate target variable (label).
 image: /img/blog/sentence-pair-classification.jpeg

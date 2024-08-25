@@ -1,9 +1,6 @@
 ---
 title: Capture HTTP request with Selenium like DevTools
-author: Hieu Nguyen
-author_url: https://github.com/behitek
-author_title: AI Engineer
-author_image_url: https://avatars.githubusercontent.com/u/12376486
+authors: hieunv
 tags: [selenium, web crawler]
 description: This tutorial will show you how to use Selenium Wire to capture HTTP requests like the Chrome DevTools (Networks).
 image: /img/blog/selenium-wire.png

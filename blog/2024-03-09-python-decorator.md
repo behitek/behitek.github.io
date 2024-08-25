@@ -1,9 +1,6 @@
 ---
 title: Python Decorator
-author: Hieu Nguyen
-author_url: https://github.com/behitek
-author_title: AI Engineer
-author_image_url: https://avatars.githubusercontent.com/u/12376486
+authors: hieunv
 tags: [python, decorator, vietnamese]
 description: Python Decorator là một công cụ mạnh mẽ giúp chúng ta mở rộng chức năng của một hàm mà không cần thay đổi nội dung bên trong hàm đó.
 image: /img/blog/python-decorator.jpeg

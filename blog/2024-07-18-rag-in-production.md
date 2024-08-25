@@ -1,9 +1,6 @@
 ---
 title: RAG In Production - Best Practices Notes
-author: Hieu Nguyen
-author_url: https://github.com/behitek
-author_title: AI Engineer
-author_image_url: https://avatars.githubusercontent.com/u/12376486
+authors: hieunv
 tags: [LLM, RAG, chatbot, natural language processing]
 description: Retrieval-Augmented Generation (RAG) method are transforming the landscape of natural language processing by combining the strengths of retrieval-based and generative models (LLMs). When deployed in production, RAG systems can provide more accurate and contextually relevant responses. This guide outlines best practices for implementing RAG models in a production environment, ensuring robustness, scalability, and efficiency.
 image: /img/blog/rag-in-production.png
