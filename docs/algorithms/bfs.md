@@ -237,7 +237,10 @@ BFS is often used to find the shortest path between two nodes in an unweighted g
 BFS can be applied to grid-based puzzles like mazes, where each cell in the maze is considered a node, and edges represent possible movements between cells. BFS can then explore the maze and find the shortest path to the exit.
 
 :::tip
+
 There is a cool video on [YouTube](https://www.youtube.com/watch?v=rop0W4QDOUI) that demonstrates how BFS can be used to solve a maze.
+
+:::
 
 ### Web Crawling and Social Networks
 
@@ -247,8 +250,6 @@ In web crawling, BFS explores web pages by visiting each link in a breadth-first
 ## 7. Conclusion
 
 In this tutorial, we've covered the basics of BFS, including its concepts, working mechanism, and implementation in C++. We also explored various applications, challenges, and optimizations of BFS. Mastering BFS is crucial for understanding graph traversal algorithms and solving problems in areas like pathfinding, network analysis, and puzzles.
-
-## 10. Practice Problems
 
 To strengthen your understanding of BFS, try solving these problems:
 
