@@ -63,7 +63,7 @@ function Home() {
           <div className={styles.aboutText}>
             <h2>Hello there 👋</h2>
             <p>
-              🇻🇳 I am Hieu Nguyen, a Machine Learning Engineer from Vietnam.
+              🇻🇳 I am Hieu Nguyen, an AI Engineer from Vietnam.
             </p>
             <p>
               🚀 I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLM, and document retrieval.
