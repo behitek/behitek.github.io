@@ -110,7 +110,7 @@ module.exports = {
         },
       ],
       // Please adjust the following to your needs
-      copyright: `Powered by <a href="https://behitek.com">Docusaurus</a> • Last updated on <a href="https://github.com/behitek/behitek.github.io/commits/main/">${new Date().toLocaleDateString("en-SG")}</a>`,
+      copyright: `Copyright © ${new Date().getFullYear()} Behitek.com • Last updated on <a href="https://github.com/behitek/behitek.github.io/commits/main/">${new Date().toLocaleDateString("en-SG")}</a>`,
     },
     algolia: {
       appId: 'WHUI4DPU2B',
