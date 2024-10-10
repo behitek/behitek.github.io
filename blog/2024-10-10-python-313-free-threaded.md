@@ -11,7 +11,7 @@ Python 3.13 just release recently, with an amazing new feature called "Free thre
 
 <!--truncate-->
 
-## Enable Free Threaded Mode
+## Install Free Threaded Python
 
 ### Windows & MacOS users
 
@@ -131,3 +131,9 @@ But, do you see Single Thread test in `python3.13t` a bit slower than `pypy3.13`
 > I don't really understand why, so let me know if you have any explanation.
 
 :::
+
+## Conclusion
+
+I think it is good to use multi threading in python for parallel processing. But, without GIL locking mechanism, it requires developer to be careful about the "thread safety", ie. sharing data between threads.
+
+Also, we need to wait for libraries and packages update to fully support free threaded mode. That's one of the reason why this "free threaded mode" is not enabled by default for now. But, I think it will be a good feature in future.
