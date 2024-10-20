@@ -106,12 +106,15 @@ If your chunking is for semantic search (vector similarity), make sure that your
 
 :::
 
+Later, you will embedding the chunks into vector space for semantic search. So, your chunking should break document into chunks where each chunk should represent only one piece of information.
+
 ### Consider using text summarization for long documents
 
 Text summarization can be used to generate concise summaries of long documents, which can improve the efficiency of the retrieval process. By summarizing long documents, you can:
 - Remove unnecessary information that may distract the model.
 - Retain key information help improve the retrieval process.
 - Summarize help reduce the break-in-the-middle problem of the chunking process.
+- Summarize can be considered as a semantic chunking, if you summarize the document into chunks.
 
 Depending on your problem, you can use only the summary or use the summary as additional data.
 
@@ -121,7 +124,7 @@ In most cases, the search query is a question, while documents are not question.
 
 To address this issue, consider the following best practices:
 
-- Generate the fake_answer for the search query, then using the fake_answer as the search_query. Then both the search_query and the document are in the same format. This idea is originally from [Gao et al., ACL 2023](https://aclanthology.org/2023.acl-long.99/) paper.
+- Generate the fake_answer for the search query, then using the fake_answer as the search_query. Then both the search_query and the document are in the same format. This idea is originally from [Gao et al., ACL 2023](https://aclanthology.org/2023.acl-long.99/) paper, HYDE is its short name.
 
 - Using LLM to generate Q&A pairs from the document, or generate FAQs from the document. Then the search_query and the document are in the same format.
 
