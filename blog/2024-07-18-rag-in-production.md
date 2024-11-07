@@ -132,6 +132,17 @@ Personally, I prefer the second solution, because:
 - Create a good fake_answer is not easy, it is require a good LLM, such as OpenAI LLMs.
 - We have time at data processing, but user don't want to wait long time for the response.
 
+### Divide and conquer
+
+Divide and conquer is a technique for solving complex problems by breaking them down into smaller, easier-to-solve subproblems. This traditional approach can apply to many problems, including RAG.
+
+We can use this approach in both RAG backend (data processing & ingesting) and RAG frontend (user interaction with the pipeline).
+
+For example, we can divide the document into categories, or organize the data into a hierarchy structure. This helps narrow down the retrieval scope, thus improving the accuracy of the search results.
+
+On the other hand, we can also use this approach to divide the search query into categories - this is often call query router, which helps route the search query to the right pipeline. Another example is break the query into sub-queries.
+
+Thats some idea to consider, feel free to explore more or modify it to match your needs.
 
 ### Moving tasks from RAG-frontend to RAG-backend
 
