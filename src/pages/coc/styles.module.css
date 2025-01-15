@@ -128,9 +128,12 @@
 }
 
 .description {
-  margin-top: 1rem;
+  margin-top: 2rem;
   color: #ccc;
   line-height: 0.5em;
+  display: grid;
+  justify-content: center;
+  text-align: justify;
 }
 
 @media (max-width: 1024px) {

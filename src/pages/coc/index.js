@@ -73,9 +73,7 @@ export default function ClanProfile() {
                             {clanData.league}
                         </div>
                         {/* Description */}
-                        <div className={styles.description}>
-                            {clanData.description}
-                        </div>
+                        {clanData.description}
 
                         {/* Action Buttons */}
                         <div className="flex justify-center gap-4 mt-8">
