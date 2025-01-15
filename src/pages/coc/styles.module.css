@@ -1,0 +1,159 @@
+.wrapper {
+  background-color: #1a1a1a;
+  min-height: 100vh;
+  color: #ffffff;
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.header hr {
+  border: 0;
+  border-top: 1px solid #333;
+  margin: 2rem 0;
+}
+
+.leagueBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #2a2a2a;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.leagueBadge img {
+  width: 24px;
+  height: 24px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 200px 1fr 400px;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.badgeSection {
+  text-align: center;
+  align-content: space-around;
+}
+
+.mainBadge {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.clanLabels {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.clanLabels img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  padding: 4px;
+  background: #2a2a2a;
+}
+
+.statsSection, .perksSection {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.perksSection h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.statRow:last-child {
+  border-bottom: none;
+}
+
+.textSuccess {
+  color: #74d67e;
+}
+
+.textDanger {
+  color: #f76608;
+}
+
+.textGray {
+  color: #CCCCCC;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.location img {
+  width: 20px;
+  height: 15px;
+}
+
+.description {
+  margin-top: 1rem;
+  color: #ccc;
+  line-height: 0.5em;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .badgeSection {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header h2 {
+    font-size: 1.2rem;
+  }
+
+  .statRow {
+    font-size: 0.9rem;
+  }
+}
