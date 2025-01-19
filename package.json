@@ -23,6 +23,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mdx-js/react": "^3.0.0",
     "autoprefixer": "^10.4.17",
+    "axios": "^1.7.9",
     "clsx": "^2.1.0",
     "disqus-react": "^1.1.5",
     "postcss": "^8.4.35",

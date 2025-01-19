@@ -1,9 +1,9 @@
 import Layout from '@theme/Layout';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 export default function ClanProfile() {
-    const clanData = {
+    const [clanData, setClanData] = useState({
         name: "NEVER DIE",
         tag: "#2G9YRCRV2",
         league: "Crystal League I",
@@ -39,7 +39,58 @@ export default function ClanProfile() {
         },
         clanLink: "https://link.clashofclans.com/?action=OpenClanProfile&tag=2g9yrcrv2",
         zaloLink: "https://zalo.me/g/wblyoe887",
-    };
+    });
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchClanData = async () => {
+            try {
+                const response = await fetch('https://coc-apis.behitek.com/clan/%232G9YRCRV2');
+                const apiData = await response.json();
+
+                // Calculate win rate
+                const totalWars = apiData.warWins + apiData.warLosses + (apiData.warTies || 0);
+                const winRate = totalWars > 0 ? ((apiData.warWins / totalWars) * 100).toFixed(1) : "0";
+
+                // Update clan data with API values, keeping defaults for missing data
+                setClanData(prevData => ({
+                    ...prevData,
+                    name: apiData.name || prevData.name,
+                    tag: apiData.tag || prevData.tag,
+                    league: apiData.warLeague?.name || prevData.league,
+                    totalPoints: `${apiData.clanPoints || 0} | ${apiData.clanVersusPoints || 0}`,
+                    warsWon: apiData.warWins?.toString() || prevData.warsWon,
+                    winRate: `${winRate}%`,
+                    warWinStreak: apiData.warWinStreak?.toString() || prevData.warWinStreak,
+                    warResults: {
+                        wins: apiData.warWins || prevData.warResults.wins,
+                        draws: apiData.warTies || prevData.warResults.draws,
+                        losses: apiData.warLosses || prevData.warResults.losses
+                    },
+                    members: `${apiData.members || 0} / 50`,
+                    status: apiData.type || prevData.status,
+                    warFrequency: apiData.warFrequency || prevData.warFrequency,
+                    location: apiData.location?.name || prevData.location,
+                    images: {
+                        ...prevData.images,
+                        clanBadge: apiData.badgeUrls?.medium || prevData.images.clanBadge,
+                        league: apiData.warLeague?.iconUrls?.medium || prevData.images.league,
+                        flag: apiData.location?.countryCode ?
+                            `https://www.clash.ninja/images/flags/${apiData.location.countryCode}.svg` :
+                            prevData.images.flag
+                    }
+                }));
+                setIsLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setIsLoading(false);
+            }
+        };
+
+        fetchClanData();
+    }, []);
 
     const clanPerks = {
         donationWaitTime: "10 min",
@@ -49,11 +100,35 @@ export default function ClanProfile() {
         warLoot: "+25%"
     };
 
+    if (isLoading) {
+        return (
+            <Layout title="Loading Clan Profile">
+                <div className={styles.wrapper}>
+                    <div className="flex justify-center items-center h-64">
+                        <div className="text-xl">Loading clan data...</div>
+                    </div>
+                </div>
+            </Layout>
+        );
+    }
+
+    if (error) {
+        return (
+            <Layout title="Error Loading Clan Profile">
+                <div className={styles.wrapper}>
+                    <div className="flex justify-center items-center h-64">
+                        <div className="text-xl text-red-600">Error loading clan data: {error}</div>
+                    </div>
+                </div>
+            </Layout>
+        );
+    }
+
     return (
         <Layout title="Clan Profile">
             <div className={styles.wrapper}>
                 <div className={styles.container}>
-                    {/* Clan Header */}
+                    {/* Rest of your JSX remains the same */}
                     <div className={styles.header}>
                         <h1>"{clanData.name}"</h1>
                         <h2>
@@ -133,7 +208,7 @@ export default function ClanProfile() {
                                     ),
                                     'Members:': clanData.members,
                                     'Status:': clanData.status,
-                                    'War Frequency:': clanData.warFrequency,
+                                    'War Frequency:': clanData.warFrequency.charAt(0).toUpperCase() + clanData.warFrequency.slice(1),
                                     'Location:': (
                                         <span className={styles.location}>
                                             <img src={clanData.images.flag} alt="Flag" />
