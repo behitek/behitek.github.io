@@ -72,7 +72,7 @@ function Home() {
               🎓 I hold a Master of Information Science degree from the Japan Advanced Institute of Science and Technology (JAIST).
             </p>
             <p>
-              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's <a href="https://www.reddit.com/r/selfhosted/" target="_blank">r/selfhosted</a> and playing <a href="/clashofclan" target="_blank">Clash of Clans</a>
+              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's <a href="https://www.reddit.com/r/selfhosted/" target="_blank">r/selfhosted</a> and playing <a href="/coc" target="_blank">Clash of Clans</a>
             </p>
           </div>
         </div>
