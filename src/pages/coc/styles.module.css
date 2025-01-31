@@ -23,7 +23,7 @@
 }
 
 .header h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #888;
   margin-bottom: 1rem;
 }
@@ -130,10 +130,10 @@
 .description {
   margin-top: 2rem;
   color: #ccc;
-  line-height: 0.5em;
   display: grid;
   justify-content: center;
   text-align: justify;
+  white-space: pre-line;
 }
 
 @media (max-width: 1024px) {

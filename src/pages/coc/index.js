@@ -20,14 +20,7 @@ export default function ClanProfile() {
         status: "Open",
         warFrequency: "Always",
         location: "Vietnam",
-        description: (
-            <div className={styles.description}>
-                <p>🇻🇳 Welcome to <b>"NEVER DIE"</b> ⭐</p>
-                <p>Thành lập: 07/01/2023</p>
-                <p>Thích đánh war ⚔ Mê leo cúp 🏆</p>
-                <p>Đăng ký war trong tin nhắn ghim!</p>
-            </div>
-        ),
+        description: "🇻🇳 Welcome to \"NEVER DIE\" ⭐  \n🎈 Nhóm chat: behitek(.)com/coc\n🗓 Thích đánh war ⚔ Mê leo cúp 🏆  \n📌 Đăng ký war trong tin nhắn ghim!</div >",
         images: {
             clanBadge: "https://api-assets.clashofclans.com/badges/512/ctsKW63Z7yj215eoSjmU7oF364m-nwopLQYDoVz2yNw.png",
             labels: {
@@ -70,7 +63,7 @@ export default function ClanProfile() {
                         losses: apiData.warLosses || prevData.warResults.losses
                     },
                     members: `${apiData.members || 0} / 50`,
-                    status: apiData.type || prevData.status,
+                    status: (apiData.type?.charAt(0).toUpperCase() + apiData.type?.slice(1)) || prevData.status,
                     warFrequency: apiData.warFrequency || prevData.warFrequency,
                     location: apiData.location?.name || prevData.location,
                     images: {
@@ -80,7 +73,8 @@ export default function ClanProfile() {
                         flag: apiData.location?.countryCode ?
                             `https://www.clash.ninja/images/flags/${apiData.location.countryCode}.svg` :
                             prevData.images.flag
-                    }
+                    },
+                    description: apiData.description || prevData.description,
                 }));
                 setIsLoading(false);
             } catch (err) {
@@ -130,12 +124,13 @@ export default function ClanProfile() {
                 <div className={styles.container}>
                     {/* Rest of your JSX remains the same */}
                     <div className={styles.header}>
-                        <h1>"{clanData.name}"</h1>
+                        <h1>{clanData.name}</h1>
                         <h2>
                             <a
                                 href={clanData.clanLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                title="View clan in game"
                             >
                                 {clanData.tag}
                             </a>
@@ -148,19 +143,20 @@ export default function ClanProfile() {
                             {clanData.league}
                         </div>
                         {/* Description */}
-                        {clanData.description}
-
+                        <div className={styles.description}>
+                            {clanData.description}
+                        </div>
                         {/* Action Buttons */}
                         <div className="flex justify-center gap-4 mt-8">
                             <button
                                 className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors cursor-pointer"
-                                onClick={() => window.open(clanData.zaloLink, '_blank')}
+                                onClick={() => window.open(clanData.zaloLink, '_blank')} title="Join our Zalo chat"
                             >
                                 Tham gia nhóm Zalo
                             </button>
                             <button
                                 className="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors cursor-pointer"
-                                onClick={() => window.open(clanData.clanLink, '_blank')}
+                                onClick={() => window.open(clanData.clanLink, '_blank')} title="View clan in game"
                             >
                                 Tham gia Clan
                             </button>
