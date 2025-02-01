@@ -96,7 +96,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0;
+  padding: 0.25rem 0;
   border-bottom: 1px solid #333;
 }
 
@@ -134,6 +134,126 @@
   justify-content: center;
   text-align: justify;
   white-space: pre-line;
+}
+
+.warSection {
+  margin-top: 2rem;
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.warSection h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.warContent {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.warTeam {
+  text-align: center;
+}
+
+.warTeam img {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.warTeam h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.warProgress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.warProgress img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.progressBar {
+  flex: 1;
+  height: 8px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #4CAF50;
+  transition: width 0.3s ease;
+}
+
+.townHallDistribution {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.townHall {
+    /* background: #1a1a1a; */
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.townHall img {
+    width: 32px;
+    height: 32px;
+}
+
+.warInfo {
+  text-align: center;
+}
+
+.warStatus {
+  margin-bottom: 1rem;
+}
+
+.warStatus span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #888;
+}
+
+.warStatus p {
+  margin: 0.5rem 0;
+  color: #888;
+}
+
+.warDetailsBtn {
+  background: #1a1a1a;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.warDetailsBtn:hover {
+  background: #333;
 }
 
 @media (max-width: 1024px) {

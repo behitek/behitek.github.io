@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 export default function ClanProfile() {
+    const [warData, setWarData] = useState(null);
     const [clanData, setClanData] = useState({
         name: "NEVER DIE",
         tag: "#2G9YRCRV2",
@@ -36,6 +37,20 @@ export default function ClanProfile() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchWarData = async () => {
+            try {
+                const response = await fetch('https://coc-apis.behitek.com/clan/%232G9YRCRV2/currentwar');
+                const warApiData = await response.json();
+                setWarData(warApiData);
+            } catch (err) {
+                console.error('Error fetching war data:', err);
+            }
+        };
+
+        fetchWarData();
+    }, []);
 
     useEffect(() => {
         const fetchClanData = async () => {
@@ -239,8 +254,138 @@ export default function ClanProfile() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Current War Section */}
+                    {warData && (
+                        <div className={styles.warSection}>
+                            <h3>Current War</h3>
+                            <div className={styles.warContent}>
+                                <div className={styles.warTeam}>
+                                    <div className="flex items-center justify-center gap-2 mb-4">
+                                        <img
+                                            src={warData.clan.badgeUrls?.medium}
+                                            alt="Clan Badge"
+                                            className="w-8 h-8"
+                                        />
+                                        <h4 className="m-0">{warData.clan.name}</h4>
+                                    </div>
+                                    <div className={styles.warProgress}>
+                                        <span>{warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
+                                        <div className={styles.progressBar}>
+                                            <div
+                                                className={styles.progressFill}
+                                                style={{ width: `${(warData.clan.stars / (warData.teamSize * 3)) * 100}%` }}
+                                            />
+                                        </div>
+                                        <span>{((warData.clan.stars / (warData.teamSize * 3)) * 100).toFixed(2)}%</span>
+                                    </div>
+                                    <div className={styles.townHallDistribution}>
+                                        {Object.entries(
+                                            warData.clan.members?.reduce((acc, member) => {
+                                                const th = member.townhallLevel;
+                                                acc[th] = (acc[th] || 0) + 1;
+                                                return acc;
+                                            }, {}) || {}
+                                        ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
+                                            <div key={th} className={styles.townHall}>
+                                                <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
+                                                <span>{count}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className={styles.warInfo}>
+                                    <div className={styles.warStatus}>
+                                        <span>vs</span>
+                                        <p>{warData.state === 'preparation' ? 'Preparation Day' : 'Battle Day'}</p>
+                                        <p><WarTimer warData={warData} /></p>
+                                        <p>{warData.teamSize} vs {warData.teamSize}</p>
+                                    </div>
+                                    <button className={styles.warDetailsBtn}>War Details</button>
+                                </div>
+
+                                <div className={styles.warTeam}>
+                                    <div className="flex items-center justify-center gap-2 mb-4">
+                                        <img
+                                            src={warData.opponent.badgeUrls?.medium}
+                                            alt="Opponent Badge"
+                                            className="w-8 h-8"
+                                        />
+                                        <h4 className="m-0">{warData.opponent.name}</h4>
+                                    </div>
+                                    <div className={styles.warProgress}>
+                                        <span>{warData.opponent.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
+                                        <div className={styles.progressBar}>
+                                            <div
+                                                className={styles.progressFill}
+                                                style={{ width: `${(warData.opponent.stars / (warData.teamSize * 3)) * 100}%` }}
+                                            />
+                                        </div>
+                                        <span>{((warData.opponent.stars / (warData.teamSize * 3)) * 100).toFixed(2)}%</span>
+                                    </div>
+                                    <div className={styles.townHallDistribution}>
+                                        {Object.entries(warData.opponent.members?.reduce((acc, member) => {
+                                            const th = member.townhallLevel;
+                                            acc[th] = (acc[th] || 0) + 1;
+                                            return acc;
+                                        }, {}) || {}
+                                        ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
+                                            <div key={th} className={styles.townHall}>
+                                                <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
+                                                <span>{count}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </Layout>
     );
+}
+
+function WarTimer({ warData }) {
+    const [timeRemaining, setTimeRemaining] = useState('N/A');
+
+    useEffect(() => {
+        const updateTime = () => {
+            if (!warData.startTime && !warData.endTime) {
+                setTimeRemaining('N/A');
+                return;
+            }
+
+            const now = new Date();
+            let targetTime;
+
+            if (warData.state === 'preparation') {
+                targetTime = new Date(warData.startTime.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6'));
+            } else {
+                targetTime = new Date(warData.endTime.replace(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6'));
+            }
+
+            const diffMs = targetTime.getTime() - now.getTime();
+
+            if (diffMs > 0) {
+                const hours = Math.floor(diffMs / (1000 * 60 * 60));
+                const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                setTimeRemaining(`${hours}h ${minutes}m`);
+            } else {
+                setTimeRemaining('N/A');
+            }
+        };
+
+        // Initial update
+        updateTime();
+
+        // Set up interval to update every 20 seconds
+        const interval = setInterval(updateTime, 20000);
+
+        // Cleanup interval on unmount
+        return () => clearInterval(interval);
+    }, [warData.startTime, warData.endTime, warData.state]);
+
+    return timeRemaining;
 }
