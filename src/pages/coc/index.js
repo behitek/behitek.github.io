@@ -218,7 +218,7 @@ export default function ClanProfile() {
                                     </div>
                                     <div className={styles.warProgress}>
                                         <span title='Attack used / No. of attacks'>⚔ {warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar} title={`War progress: ${((warData.opponent.stars / (warData.teamSize * 3)) * 100).toFixed(1)}%`}>
+                                        <div className={styles.progressBar} title={`War progress: ${((warData.clan.stars / (warData.teamSize * 3)) * 100).toFixed(1)}%`}>
                                             <div
                                                 className={styles.progressFill}
                                                 style={{ width: `${(warData.clan.stars / (warData.teamSize * 3)) * 100}%` }}
