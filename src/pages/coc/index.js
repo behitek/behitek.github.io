@@ -106,14 +106,14 @@ export default function ClanProfile() {
                         {/* Action Buttons */}
                         <div className="flex justify-center gap-4 mt-8">
                             <button
-                                className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors cursor-pointer flex items-center gap-2"
+                                className="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors cursor-pointer flex items-center gap-2"
                                 onClick={() => window.open(clanLinks.zaloLink, '_blank')} title="Join our Zalo chat"
                             >
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" className="w-6 h-6" />
                                 Tham gia nhóm Zalo
                             </button>
                             <button
-                                className="bg-blue-500 text-white px-3 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors cursor-pointer flex items-center gap-2"
+                                className="bg-blue-500 text-white px-3 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors cursor-pointer flex items-center gap-2"
                                 onClick={() => window.open(clanLinks.clanLink, '_blank')} title="View clan in game"
                             >
                                 <img src="https://upload.wikimedia.org/wikipedia/vi/5/59/Clash_of_Clans_Logo.png" alt="Clash of Clans" className="w-6" />
