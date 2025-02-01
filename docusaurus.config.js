@@ -153,6 +153,16 @@ module.exports = {
       crossorigin: 'anonymous',
     },
   ],
+  scripts: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/canvas-nest.js/2.0.4/canvas-nest.js',
+      async: true,
+      defer: true,
+      'color': '0,157,88',
+      'opacity': '0.7',
+      'count': '99'
+    },
+  ],
   plugins: [
     async function tailwindPlugin(context, options) {
       return {
