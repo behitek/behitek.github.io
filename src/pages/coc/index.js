@@ -82,7 +82,7 @@ export default function ClanProfile() {
                     {/* Rest of your JSX remains the same */}
                     <div className={styles.header}>
                         <h1>{clanData.name || "N/A"}</h1>
-                        <h2>
+                        <div className={styles.tag}>
                             <a
                                 href={clanLinks.clanLink}
                                 target="_blank"
@@ -91,7 +91,7 @@ export default function ClanProfile() {
                             >
                                 {clanData.tag || "N/A"}
                             </a>
-                        </h2>
+                        </div>
                         <div className={styles.leagueBadge}>
                             <img
                                 src={`https://www.clash.ninja/images/warleague/${clanData.warLeague?.id}.png`}
@@ -215,14 +215,14 @@ export default function ClanProfile() {
                                         <h4 className="m-0">{warData.clan.name}</h4>
                                     </div>
                                     <div className={styles.warProgress}>
-                                        <span>{warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar}>
+                                        <span title='Attack used / No. of attacks'>⚔ {warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
+                                        <div className={styles.progressBar} title={`War progress: ${((warData.opponent.stars / (warData.teamSize * 3)) * 100).toFixed(1)}%`}>
                                             <div
                                                 className={styles.progressFill}
                                                 style={{ width: `${(warData.clan.stars / (warData.teamSize * 3)) * 100}%` }}
                                             />
                                         </div>
-                                        <span>{((warData.clan.stars / (warData.teamSize * 3)) * 100).toFixed(2)}%</span>
+                                        <span>⭐ {warData.clan.stars}/{warData.teamSize * 3}</span>
                                     </div>
                                     <div className={styles.townHallDistribution}>
                                         {Object.entries(
@@ -232,7 +232,7 @@ export default function ClanProfile() {
                                                 return acc;
                                             }, {}) || {}
                                         ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
-                                            <div key={th} className={styles.townHall}>
+                                            <div key={th} className={styles.townHall} title={`TH${th}`}>
                                                 <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
                                                 <span>{count}</span>
                                             </div>
@@ -260,14 +260,14 @@ export default function ClanProfile() {
                                         <h4 className="m-0">{warData.opponent.name}</h4>
                                     </div>
                                     <div className={styles.warProgress}>
-                                        <span>{warData.opponent.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar}>
+                                        <span title='Attack used / No. of attacks'>⚔ {warData.opponent.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
+                                        <div className={styles.progressBar} title={`War progress: ${((warData.opponent.stars / (warData.teamSize * 3)) * 100).toFixed(1)}%`}>
                                             <div
                                                 className={styles.progressFill}
                                                 style={{ width: `${(warData.opponent.stars / (warData.teamSize * 3)) * 100}%` }}
                                             />
                                         </div>
-                                        <span>{((warData.opponent.stars / (warData.teamSize * 3)) * 100).toFixed(2)}%</span>
+                                        <span>⭐ {warData.clan.stars}/{warData.teamSize * 3}</span>
                                     </div>
                                     <div className={styles.townHallDistribution}>
                                         {Object.entries(warData.opponent.members?.reduce((acc, member) => {
@@ -276,7 +276,7 @@ export default function ClanProfile() {
                                             return acc;
                                         }, {}) || {}
                                         ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
-                                            <div key={th} className={styles.townHall}>
+                                            <div key={th} className={styles.townHall} title={`TH${th}`}>
                                                 <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
                                                 <span>{count}</span>
                                             </div>

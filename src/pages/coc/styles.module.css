@@ -22,7 +22,7 @@
   font-weight: bold;
 }
 
-.header h2 {
+.tag {
   font-size: 1.3rem;
   color: #888;
   margin-bottom: 1rem;
@@ -300,7 +300,7 @@
     font-size: 2rem;
   }
 
-  .header h2 {
+  .tag {
     font-size: 1.2rem;
   }
 
