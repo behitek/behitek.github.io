@@ -269,7 +269,7 @@ export default function ClanProfile() {
                                                 style={{ width: `${(warData.opponent.stars / (warData.teamSize * 3)) * 100}%` }}
                                             />
                                         </div>
-                                        <span>⭐ {warData.clan.stars}/{warData.teamSize * 3}</span>
+                                        <span>⭐ {warData.opponent.stars}/{warData.teamSize * 3}</span>
                                     </div>
                                     <div className={styles.townHallDistribution}>
                                         {Object.entries(warData.opponent.members?.reduce((acc, member) => {
