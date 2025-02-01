@@ -55,8 +55,13 @@ export default function ClanProfile() {
         return (
             <Layout title="Loading Clan Profile">
                 <div className={styles.wrapper}>
-                    <div className="flex justify-center items-center h-64">
-                        <div className="text-xl">Loading clan data...</div>
+                    <div className="flex flex-col justify-center items-center h-64 space-y-4">
+                        <img
+                            src="https://c.tenor.com/8ilv66W4mKkAAAAd/tenor.gif"
+                            alt="Loading..."
+                            className="w-48 rounded-full"
+                        />
+                        <div className="text-xl animate-pulse">Loading clan data...</div>
                     </div>
                 </div>
             </Layout>
