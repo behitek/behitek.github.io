@@ -76,7 +76,7 @@ export default function ClanProfile() {
     }
 
     return (
-        <Layout title="Clan Profile">
+        <Layout title="NEVER DIE on Clash of Clans">
             <div className={styles.wrapper}>
                 <div className={styles.container}>
                     {/* Rest of your JSX remains the same */}
@@ -249,7 +249,13 @@ export default function ClanProfile() {
                                         <p><WarTimer warData={warData} /></p>
                                         <p>{warData.teamSize} vs {warData.teamSize}</p>
                                     </div>
-                                    <button className={styles.warDetailsBtn}>War Details</button>
+                                    <button
+                                        className={styles.warDetailsBtn}
+                                        onClick={() => window.open('https://www.clash.ninja/stats-tracker/clan/never-die-2g9yrcrv2', '_blank')}
+                                        title="View detailed clan stats on Clash.ninja"
+                                    >
+                                        View War Stats on Clash.ninja
+                                    </button>
                                 </div>
 
                                 <div className={styles.warTeam}>
