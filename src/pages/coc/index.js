@@ -218,7 +218,7 @@ export default function ClanProfile() {
                                     </div>
                                     <div className={styles.warProgress}>
                                         <span title='Attack used / No. of attacks'>⚔ {warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar} title={`War progress: ${((warData.clan.stars / (warData.teamSize * 3)) * 100).toFixed(1)}%`}>
+                                        <div className={styles.progressBar} title={`Destruction percentage: ${(warData.clan.destructionPercentage || 0).toFixed(1)}%`}>
                                             <div
                                                 className={styles.progressFill}
                                                 style={{ width: `${(warData.clan.stars / (warData.teamSize * 3)) * 100}%` }}
@@ -263,7 +263,7 @@ export default function ClanProfile() {
                                     </div>
                                     <div className={styles.warProgress}>
                                         <span title='Attack used / No. of attacks'>⚔ {warData.opponent.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar} title={`War progress: ${((warData.opponent.stars / (warData.teamSize * 3)) * 100).toFixed(1)}%`}>
+                                        <div className={styles.progressBar} title={`Destruction percentage: ${(warData.opponent.destructionPercentage || 0).toFixed(1)}%`}>
                                             <div
                                                 className={styles.progressFill}
                                                 style={{ width: `${(warData.opponent.stars / (warData.teamSize * 3)) * 100}%` }}
