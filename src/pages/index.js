@@ -66,13 +66,13 @@ function Home() {
               🇻🇳 I am Hieu Nguyen, an AI Engineer from Vietnam.
             </p>
             <p>
-              🚀 I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLM, and document retrieval.
+              🚀 I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLMs, and ìnformation retrieval.
             </p>
             <p>
               🎓 I hold a Master of Information Science degree from the Japan Advanced Institute of Science and Technology (JAIST).
             </p>
             <p>
-              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's <a href="https://www.reddit.com/r/selfhosted/" target="_blank">r/selfhosted</a> and playing <a href="/coc">Clash of Clans</a>
+              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's <a href="https://www.reddit.com/r/selfhosted/" target="_blank">r/selfhosted</a> and playing <a href="/coc">Clash of Clans</a>.
             </p>
           </div>
         </div>
