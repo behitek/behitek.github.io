@@ -160,9 +160,6 @@
   background: none !important;
 }
 
-.warSection > div button:hover {
-  background: rgba(75, 85, 99, 0.2) !important;
-}
 
 .warContent {
     display: flex;
