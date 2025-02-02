@@ -243,9 +243,19 @@ export default function ClanProfile() {
                                 <div className={styles.warContent}>
                                     <div className={styles.warInfo}>
                                         <div className={styles.warStatus}>
-                                            <span>🏰</span>
-                                            <p>Not Currently In War</p>
-                                            <p>The clan is currently not participating in any war</p>
+                                            <CheckWarLeague />
+                                            {(warLeagueStatus => {
+                                                if (warLeagueStatus === 'inactive' || warLeagueStatus === 'error') {
+                                                    return (
+                                                        <>
+                                                            <span>🏰</span>
+                                                            <p>Not Currently In War</p>
+                                                            <p>The clan is currently not participating in any war</p>
+                                                        </>
+                                                    );
+                                                }
+                                                return null;
+                                            })(<CheckWarLeague />)}
                                         </div>
                                         <button
                                             className={styles.warDetailsBtn}
@@ -350,6 +360,40 @@ export default function ClanProfile() {
             </div>
         </Layout>
     );
+}
+
+function CheckWarLeague() {
+    const [warLeagueStatus, setWarLeagueStatus] = useState(null);
+
+    useEffect(() => {
+        const checkWarLeague = async () => {
+            try {
+                const response = await fetch(getEndpoint(API_CONFIG.endpoints.warLeague));
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setWarLeagueStatus(data.state === 'notInWar' ? 'inactive' : 'active');
+            } catch (err) {
+                console.error('Error checking war league status:', err);
+                setWarLeagueStatus('error');
+            }
+        };
+
+        checkWarLeague();
+    }, []);
+
+    if (warLeagueStatus === 'active') {
+        return (
+            <div className="mt-4 p-3 bg-blue-900 rounded-lg">
+                <span>⚔️</span>
+                <p className="text-blue-300 font-semibold">Participating in War League</p>
+                <p className="text-sm text-blue-400">The clan is currently in CWL (Clan War League)</p>
+            </div>
+        );
+    }
+
+    return warLeagueStatus;
 }
 
 function WarTimer({ warData }) {

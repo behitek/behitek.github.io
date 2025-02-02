@@ -5,7 +5,7 @@ export const API_CONFIG = {
     endpoints: {
         currentWar: '/clans/{tag}/currentwar',
         clanInfo: '/clans/{tag}',
-        warLeague: 'clans/{tag}/currentwar/leaguegroup'
+        warLeague: '/clans/{tag}/currentwar/leaguegroup'
     }
 };
 
