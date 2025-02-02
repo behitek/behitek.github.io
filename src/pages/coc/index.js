@@ -70,7 +70,7 @@ export default function ClanProfile() {
 
     if (error) {
         return (
-            <Layout title="Error Loading Clan Profile">
+            <Layout title="Error Loading Clan Data">
                 <div className={styles.wrapper}>
                     <div className="flex justify-center items-center h-64">
                         <div className="text-xl text-red-600">Error loading clan data: {error}</div>
