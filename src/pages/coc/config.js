@@ -13,3 +13,11 @@ export const API_CONFIG = {
 export const getEndpoint = (endpoint) => {
     return `${API_CONFIG.BASE_URL}${endpoint.replace('{tag}', API_CONFIG.CLAN_TAG)}`;
 };
+
+// Default export for the configuration
+const config = {
+    API_CONFIG,
+    getEndpoint
+};
+
+export default config;
