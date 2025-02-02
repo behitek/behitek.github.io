@@ -144,9 +144,24 @@
 }
 
 .warSection h3 {
-  margin-top: 0;
-  margin-bottom: 3rem;
+  margin: 0;
   font-size: 1.2rem;
+}
+
+.warSection > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.refreshButton {
+  padding: 0.5rem !important;
+  background: none !important;
+}
+
+.warSection > div button:hover {
+  background: rgba(75, 85, 99, 0.2) !important;
 }
 
 .warContent {
@@ -307,4 +322,55 @@
   .statRow {
     font-size: 0.9rem;
   }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.refreshButton {
+  position: relative;
+}
+
+.refreshButton svg {
+  transition: transform 0.3s ease;
+}
+
+.refreshButton.processing svg {
+  animation: spin 1s linear infinite;
+}
+
+.refreshButton.success svg,
+.refreshButton.failure svg {
+  opacity: 0;
+}
+
+.refreshButton.success::after,
+.refreshButton.failure::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: fadeOut 2s ease forwards;
+  opacity: 1;
+}
+
+.refreshButton.success::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%234CAF50'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.refreshButton.failure::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23f44336'%3E%3Cpath fill-rule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
 }

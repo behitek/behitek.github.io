@@ -115,7 +115,7 @@ export default function ClanProfile() {
                                 onClick={() => window.open(clanLinks.zaloLink, '_blank')} title="Join our Zalo chat"
                             >
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" className="w-6 h-6" />
-                                Tham gia nhóm Zalo
+                                Vào nhóm Zalo
                             </button>
                             <button
                                 className="bg-blue-500 text-white px-3 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors cursor-pointer flex items-center gap-2"
@@ -210,7 +210,34 @@ export default function ClanProfile() {
                     {/* Current War Section */}
                     {warData && (
                         <div className={styles.warSection}>
-                            <h3>Current War</h3>
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="m-0">Current War</h3>
+                                <button
+                                    onClick={async (event) => {
+                                        const button = event.currentTarget;
+                                        button.classList.add(styles.processing);
+                                        try {
+                                            const response = await fetch('https://coc-apis.behitek.com/clan/%232G9YRCRV2/currentwar');
+                                            const warApiData = await response.json();
+                                            setWarData(warApiData);
+                                            button.classList.remove(styles.processing);
+                                            button.classList.add(styles.success);
+                                            setTimeout(() => button.classList.remove(styles.success), 2000);
+                                        } catch (err) {
+                                            console.error('Error fetching war data:', err);
+                                            button.classList.remove(styles.processing);
+                                            button.classList.add(styles.failure);
+                                            setTimeout(() => button.classList.remove(styles.failure), 2000);
+                                        }
+                                    }}
+                                    className={`${styles.refreshButton} bg-transparent border-0 text-white hover:text-gray-300 cursor-pointer p-2 rounded-full hover:bg-gray-800 transition-colors`}
+                                    title="Refresh war data"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
                             <div className={styles.warContent}>
                                 <div className={styles.warTeam}>
                                     <div className="flex items-center justify-center gap-2 mb-4">
