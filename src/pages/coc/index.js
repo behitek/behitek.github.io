@@ -16,7 +16,7 @@ export default function ClanProfile() {
     useEffect(() => {
         const fetchWarData = async () => {
             try {
-                const response = await fetch('https://coc-apis.behitek.com/clan/%232G9YRCRV2/currentwar');
+                const response = await fetch('https://coc-apis.behitek.com/clans/%232G9YRCRV2/currentwar');
                 const warApiData = await response.json();
                 setWarData(warApiData);
             } catch (err) {
@@ -30,7 +30,7 @@ export default function ClanProfile() {
     useEffect(() => {
         const fetchClanData = async () => {
             try {
-                const response = await fetch('https://coc-apis.behitek.com/clan/%232G9YRCRV2');
+                const response = await fetch('https://coc-apis.behitek.com/clans/%232G9YRCRV2');
                 const data = await response.json();
                 setClanData(data);
                 setIsLoading(false);
