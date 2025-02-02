@@ -1,5 +1,6 @@
 import Layout from '@theme/Layout';
 import React, { useEffect, useState } from 'react';
+import { API_CONFIG, getEndpoint } from './config';
 import styles from './styles.module.css';
 
 export default function ClanProfile() {
@@ -16,7 +17,7 @@ export default function ClanProfile() {
     useEffect(() => {
         const fetchWarData = async () => {
             try {
-                const response = await fetch('https://coc-apis.behitek.com/clans/%232G9YRCRV2/currentwar');
+                const response = await fetch(getEndpoint(API_CONFIG.endpoints.currentWar));
                 const warApiData = await response.json();
                 setWarData(warApiData);
             } catch (err) {
@@ -30,7 +31,7 @@ export default function ClanProfile() {
     useEffect(() => {
         const fetchClanData = async () => {
             try {
-                const response = await fetch('https://coc-apis.behitek.com/clans/%232G9YRCRV2');
+                const response = await fetch(getEndpoint(API_CONFIG.endpoints.clanInfo));
                 const data = await response.json();
                 setClanData(data);
                 setIsLoading(false);
@@ -217,7 +218,7 @@ export default function ClanProfile() {
                                         const button = event.currentTarget;
                                         button.classList.add(styles.processing);
                                         try {
-                                            const response = await fetch('https://coc-apis.behitek.com/clans/%232G9YRCRV2/currentwar');
+                                            const response = await fetch(getEndpoint(API_CONFIG.endpoints.currentWar));
                                             const warApiData = await response.json();
                                             setWarData(warApiData);
                                             button.classList.remove(styles.processing);
