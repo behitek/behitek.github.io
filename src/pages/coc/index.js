@@ -208,7 +208,7 @@ export default function ClanProfile() {
                     </div>
 
                     {/* Current War Section */}
-                    {warData && warData.state != "notInWar" && (
+                    {warData && (
                         <div className={styles.warSection}>
                             <div className="flex justify-between items-center mb-4">
                                 <h3 className="m-0">Current War</h3>
@@ -238,92 +238,111 @@ export default function ClanProfile() {
                                     </svg>
                                 </button>
                             </div>
-                            <div className={styles.warContent}>
-                                <div className={styles.warTeam}>
-                                    <div className="flex items-center justify-center gap-2 mb-4">
-                                        <img
-                                            src={warData.clan.badgeUrls?.medium}
-                                            alt="Clan Badge"
-                                            className="w-8 h-8"
-                                        />
-                                        <h4 className="m-0">{warData.clan.name}</h4>
-                                    </div>
-                                    <div className={styles.warProgress}>
-                                        <span title='Attack used / No. of attacks'>⚔ {warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar} title={`Destruction percentage: ${(warData.clan.destructionPercentage || 0).toFixed(1)}%`}>
-                                            <div
-                                                className={styles.progressFill}
-                                                style={{ width: `${(warData.clan.stars / (warData.teamSize * 3)) * 100}%` }}
-                                            />
+                            {warData.state === 'notInWar' ? (
+                                <div className={styles.warContent}>
+                                    <div className={styles.warInfo}>
+                                        <div className={styles.warStatus}>
+                                            <span>🏰</span>
+                                            <p>Not Currently In War</p>
+                                            <p>The clan is currently not participating in any war</p>
                                         </div>
-                                        <span>⭐ {warData.clan.stars}/{warData.teamSize * 3}</span>
+                                        <button
+                                            className={styles.warDetailsBtn}
+                                            onClick={() => window.open('https://www.clash.ninja/stats-tracker/clan/never-die-2g9yrcrv2', '_blank')}
+                                            title="View detailed clan stats on Clash.ninja"
+                                        >
+                                            View War Stats on Clash.ninja
+                                        </button>
                                     </div>
-                                    <div className={styles.townHallDistribution}>
-                                        {Object.entries(
-                                            warData.clan.members?.reduce((acc, member) => {
+                                </div>
+                            ) : (
+                                <div className={styles.warContent}>
+                                    <div className={styles.warTeam}>
+                                        <div className="flex items-center justify-center gap-2 mb-4">
+                                            <img
+                                                src={warData.clan.badgeUrls?.medium}
+                                                alt="Clan Badge"
+                                                className="w-8 h-8"
+                                            />
+                                            <h4 className="m-0">{warData.clan.name}</h4>
+                                        </div>
+                                        <div className={styles.warProgress}>
+                                            <span title='Attack used / No. of attacks'>⚔ {warData.clan.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
+                                            <div className={styles.progressBar} title={`Destruction percentage: ${(warData.clan.destructionPercentage || 0).toFixed(1)}%`}>
+                                                <div
+                                                    className={styles.progressFill}
+                                                    style={{ width: `${(warData.clan.stars / (warData.teamSize * 3)) * 100}%` }}
+                                                />
+                                            </div>
+                                            <span>⭐ {warData.clan.stars}/{warData.teamSize * 3}</span>
+                                        </div>
+                                        <div className={styles.townHallDistribution}>
+                                            {Object.entries(
+                                                warData.clan.members?.reduce((acc, member) => {
+                                                    const th = member.townhallLevel;
+                                                    acc[th] = (acc[th] || 0) + 1;
+                                                    return acc;
+                                                }, {}) || {}
+                                            ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
+                                                <div key={th} className={styles.townHall} title={`TH${th}`}>
+                                                    <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
+                                                    <span>{count}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.warInfo}>
+                                        <div className={styles.warStatus}>
+                                            <span>vs</span>
+                                            <p>{warData.state === 'preparation' ? 'Preparation Day' : 'Battle Day'}</p>
+                                            <p><WarTimer warData={warData} /></p>
+                                            <p>{warData.teamSize} vs {warData.teamSize}</p>
+                                        </div>
+                                        <button
+                                            className={styles.warDetailsBtn}
+                                            onClick={() => window.open('https://www.clash.ninja/stats-tracker/clan/never-die-2g9yrcrv2', '_blank')}
+                                            title="View detailed clan stats on Clash.ninja"
+                                        >
+                                            View War Stats on Clash.ninja
+                                        </button>
+                                    </div>
+
+                                    <div className={styles.warTeam}>
+                                        <div className="flex items-center justify-center gap-2 mb-4">
+                                            <img
+                                                src={warData.opponent.badgeUrls?.medium}
+                                                alt="Opponent Badge"
+                                                className="w-8 h-8"
+                                            />
+                                            <h4 className="m-0">{warData.opponent.name}</h4>
+                                        </div>
+                                        <div className={styles.warProgress}>
+                                            <span title='Attack used / No. of attacks'>⚔ {warData.opponent.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
+                                            <div className={styles.progressBar} title={`Destruction percentage: ${(warData.opponent.destructionPercentage || 0).toFixed(1)}%`}>
+                                                <div
+                                                    className={styles.progressFill}
+                                                    style={{ width: `${(warData.opponent.stars / (warData.teamSize * 3)) * 100}%` }}
+                                                />
+                                            </div>
+                                            <span>⭐ {warData.opponent.stars}/{warData.teamSize * 3}</span>
+                                        </div>
+                                        <div className={styles.townHallDistribution}>
+                                            {Object.entries(warData.opponent.members?.reduce((acc, member) => {
                                                 const th = member.townhallLevel;
                                                 acc[th] = (acc[th] || 0) + 1;
                                                 return acc;
                                             }, {}) || {}
-                                        ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
-                                            <div key={th} className={styles.townHall} title={`TH${th}`}>
-                                                <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
-                                                <span>{count}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className={styles.warInfo}>
-                                    <div className={styles.warStatus}>
-                                        <span>vs</span>
-                                        <p>{warData.state === 'preparation' ? 'Preparation Day' : 'Battle Day'}</p>
-                                        <p><WarTimer warData={warData} /></p>
-                                        <p>{warData.teamSize} vs {warData.teamSize}</p>
-                                    </div>
-                                    <button
-                                        className={styles.warDetailsBtn}
-                                        onClick={() => window.open('https://www.clash.ninja/stats-tracker/clan/never-die-2g9yrcrv2', '_blank')}
-                                        title="View detailed clan stats on Clash.ninja"
-                                    >
-                                        View War Stats on Clash.ninja
-                                    </button>
-                                </div>
-
-                                <div className={styles.warTeam}>
-                                    <div className="flex items-center justify-center gap-2 mb-4">
-                                        <img
-                                            src={warData.opponent.badgeUrls?.medium}
-                                            alt="Opponent Badge"
-                                            className="w-8 h-8"
-                                        />
-                                        <h4 className="m-0">{warData.opponent.name}</h4>
-                                    </div>
-                                    <div className={styles.warProgress}>
-                                        <span title='Attack used / No. of attacks'>⚔ {warData.opponent.attacks}/{warData.teamSize * warData.attacksPerMember}</span>
-                                        <div className={styles.progressBar} title={`Destruction percentage: ${(warData.opponent.destructionPercentage || 0).toFixed(1)}%`}>
-                                            <div
-                                                className={styles.progressFill}
-                                                style={{ width: `${(warData.opponent.stars / (warData.teamSize * 3)) * 100}%` }}
-                                            />
+                                            ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
+                                                <div key={th} className={styles.townHall} title={`TH${th}`}>
+                                                    <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
+                                                    <span>{count}</span>
+                                                </div>
+                                            ))}
                                         </div>
-                                        <span>⭐ {warData.opponent.stars}/{warData.teamSize * 3}</span>
-                                    </div>
-                                    <div className={styles.townHallDistribution}>
-                                        {Object.entries(warData.opponent.members?.reduce((acc, member) => {
-                                            const th = member.townhallLevel;
-                                            acc[th] = (acc[th] || 0) + 1;
-                                            return acc;
-                                        }, {}) || {}
-                                        ).sort((a, b) => b[0] - a[0]).map(([th, count]) => (
-                                            <div key={th} className={styles.townHall} title={`TH${th}`}>
-                                                <img src={`https://www.clash.ninja/images/entities/1_${th}.png`} alt={`TH${th}`} />
-                                                <span>{count}</span>
-                                            </div>
-                                        ))}
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     )}
                 </div>
