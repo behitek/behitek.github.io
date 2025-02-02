@@ -217,7 +217,7 @@ export default function ClanProfile() {
                                         const button = event.currentTarget;
                                         button.classList.add(styles.processing);
                                         try {
-                                            const response = await fetch('https://coc-apis.behitek.com/clan/%232G9YRCRV2/currentwar');
+                                            const response = await fetch('https://coc-apis.behitek.com/clans/%232G9YRCRV2/currentwar');
                                             const warApiData = await response.json();
                                             setWarData(warApiData);
                                             button.classList.remove(styles.processing);
