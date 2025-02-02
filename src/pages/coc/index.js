@@ -208,7 +208,7 @@ export default function ClanProfile() {
                     </div>
 
                     {/* Current War Section */}
-                    {warData && (
+                    {warData && warData.state != "notInWar" && (
                         <div className={styles.warSection}>
                             <div className="flex justify-between items-center mb-4">
                                 <h3 className="m-0">Current War</h3>
