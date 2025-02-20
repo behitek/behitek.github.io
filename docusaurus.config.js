@@ -74,7 +74,7 @@ module.exports = {
           position: "right",
         },
         { to: "blog/", label: "Blog", position: "right" },
-        { to: "projects/", label: "Projects", position: "right" },
+        { to: "minesweeper/", label: "Games", position: "right" },
         {
           href: "https://behitek.com/pdf/resume.pdf",
           label: "Resume",
