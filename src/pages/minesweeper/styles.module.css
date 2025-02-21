@@ -120,8 +120,23 @@
   margin: 0 auto;
   grid-template-columns: repeat(auto-fill, 30px);
   overflow-x: auto;
-  max-width: 100%;
+  max-width: none;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(52, 73, 94, 0.8) transparent;
+}
+
+.grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.grid::-webkit-scrollbar-thumb {
+  background-color: rgba(52, 73, 94, 0.8);
+  border-radius: 4px;
 }
 
 .cell {
@@ -189,32 +204,13 @@
 
   .gameContainer {
     padding: 1rem;
-  }
-
-  .cell {
-    width: 25px;
-    height: 25px;
-    font-size: 0.9rem;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .mobileWarning {
-    background: rgba(255, 193, 7, 0.2);
-    color: #856404;
-    padding: 0.75rem;
-    border-radius: 6px;
-    margin-bottom: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-    border: 1px solid rgba(255, 193, 7, 0.3);
+    width: 100%;
+    overflow-x: auto;
   }
 
   .grid {
-    padding: 0.5px 0.5px 0.5px;
-    margin: 0 -1rem;
-    border-radius: 0;
+    margin: 0 auto;
+    padding: 1px;
+    border-radius: 4px;
   }
 }
