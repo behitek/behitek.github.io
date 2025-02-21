@@ -87,6 +87,41 @@ const MinesweeperGame = () => {
 
         if (!timerActive) {
             setTimerActive(true);
+            // Ensure first click is safe
+            if (board[row][col].isMine) {
+                const newBoard = [...board];
+                // Remove mine from current cell
+                newBoard[row][col].isMine = false;
+                
+                // Find a new spot for the mine
+                let placed = false;
+                while (!placed) {
+                    const newRow = Math.floor(Math.random() * board.length);
+                    const newCol = Math.floor(Math.random() * board[0].length);
+                    if (!newBoard[newRow][newCol].isMine && (newRow !== row || newCol !== col)) {
+                        newBoard[newRow][newCol].isMine = true;
+                        placed = true;
+                    }
+                }
+
+                // Recalculate neighbor counts
+                for (let r = 0; r < board.length; r++) {
+                    for (let c = 0; c < board[0].length; c++) {
+                        if (!newBoard[r][c].isMine) {
+                            let count = 0;
+                            for (let i = -1; i <= 1; i++) {
+                                for (let j = -1; j <= 1; j++) {
+                                    if (r + i >= 0 && r + i < board.length && c + j >= 0 && c + j < board[0].length) {
+                                        if (newBoard[r + i][c + j].isMine) count++;
+                                    }
+                                }
+                            }
+                            newBoard[r][c].neighborMines = count;
+                        }
+                    }
+                }
+                setBoard(newBoard);
+            }
         }
 
         const newBoard = [...board];
