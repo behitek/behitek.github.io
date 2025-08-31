@@ -23,6 +23,14 @@ module.exports = {
         "algorithms/bfs",
         "algorithms/dfs",
       ]
-    }
+    },
+    {
+      type: "doc",
+      id: "git",
+    },
+    {
+      type: "doc",
+      id: "python-convention",
+    },
   ]
 };

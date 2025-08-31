@@ -25,7 +25,7 @@ const internetProfiles = {
     to: "blog",
   },
   docs: {
-    label: "Tutorials",
+    label: "Docs",
     to: "docs",
   },
   projects: {
@@ -70,7 +70,7 @@ module.exports = {
         {
           to: "docs/",
           activeBasePath: "docs",
-          label: "Tutorials",
+          label: "Docs",
           position: "right",
         },
         { to: "blog/", label: "Blog", position: "right" },
