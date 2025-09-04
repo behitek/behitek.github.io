@@ -10,6 +10,8 @@ tags: [python, dependency-management, poetry, uv, devops, best-practices]
 
 *It's 3 AM, and your production deployment just failed. Again. The same code that worked perfectly on your local machine is now throwing mysterious import errors on the server. Sound familiar?*
 
+<!--truncate-->
+
 ## The 3 AM Production Nightmare
 
 Let me paint you a picture that might feel uncomfortably familiar. You're running a Flask web application in production using Docker containers. Your team just deployed what should have been a routine update—running your test suite with pytest to ensure everything works before the new release.
