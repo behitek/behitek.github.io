@@ -8,7 +8,7 @@ comments: true
 tags: [python, dependency-management, poetry, uv, devops, best-practices]
 ---
 
-*It's 3 AM, and your production deployment just failed. Again. The same code that worked perfectly on your local machine is now throwing mysterious import errors on the server. Sound familiar?*
+It's 3 AM, and your production deployment just failed. Again. The same code that worked perfectly on your local machine is now throwing mysterious import errors on the server. Sound familiar?
 
 <!--truncate-->
 
