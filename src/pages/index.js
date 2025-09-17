@@ -40,7 +40,7 @@ function Home() {
           <SocialLinks />
           <p>
             <a href="#main">
-              <button className="border-0 rounded p-2 pl-4 pr-0 bg-primary-900 hover:bg-primary-800 transition text-white text-lg cursor-pointer">
+              <button className="border-0 rounded-lg px-6 py-3 bg-primary-600 hover:bg-primary-700 transition-all duration-200 text-white text-lg cursor-pointer font-medium shadow-medium hover:shadow-large hover:-translate-y-0.5">
                 whoami<span className="pl-1 animate-pulse">▎</span>
               </button>
             </a>

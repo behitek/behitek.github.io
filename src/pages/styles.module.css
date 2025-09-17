@@ -1,18 +1,37 @@
 /* stylelint-disable docusaurus/copyright-header */
 
 .heroBanner {
-  background-color: var(--ifm-color-secondary-darker);
-  color: var(--ifm-color-secondary-lightest);
+  background: linear-gradient(135deg, #F9FAFB 0%, #ECFDF5 100%);
+  color: var(--ifm-color-secondary-darkest);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3.6rem 1.2rem;
+  position: relative;
+}
+
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%2310B981" stop-opacity="0.1"/><stop offset="100%" stop-color="%2310B981" stop-opacity="0"/></radialGradient></defs><circle cx="500" cy="500" r="400" fill="url(%23a)"/></svg>') center/cover;
+  pointer-events: none;
+}
+
+[data-theme='dark'] .heroBanner {
+  background: linear-gradient(135deg, #0F1419 0%, #1C2128 100%);
+  color: var(--ifm-color-secondary-lightest);
 }
 
 .heroBannerWrapper {
   min-height: 1024px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .heroBanner h2 {
@@ -54,13 +73,19 @@
 }
 
 .aboutHeader {
-  background-color: var(--ifm-color-secondary-darker);
-  color: var(--ifm-color-secondary-lighter);
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-color-secondary-darkest);
   padding: 3.6rem 0 1rem;
   text-align: center;
   position: relative;
   overflow: hidden;
   display: block;
+  border-bottom: 1px solid var(--ifm-color-secondary-lightest);
+}
+
+[data-theme='dark'] .aboutHeader {
+  background-color: var(--ifm-color-secondary-darker);
+  color: var(--ifm-color-secondary-lighter);
 }
 
 .aboutHeader h2 {
@@ -69,14 +94,19 @@
 }
 
 .about {
-  background-color: var(--ifm-color-secondary-lightest);
-  color: var(--ifm-color-secondary-darker);
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-color-secondary-darkest);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 2.4rem;
   padding: 3.6rem 1.2rem;
+}
+
+[data-theme='dark'] .about {
+  background-color: var(--ifm-color-secondary-lightest);
+  color: var(--ifm-color-secondary-darker);
 }
 
 .aboutProfilePic {
@@ -101,10 +131,16 @@
 }
 
 .directory {
-  background-color: var(--ifm-color-secondary-darker);
-  color: var(--ifm-color-secondary-lightest);
+  background-color: var(--ifm-footer-background-color);
+  color: var(--ifm-color-secondary-darkest);
   padding: 3.6rem 0.4rem;
   width: 100%;
+  border-top: 1px solid var(--ifm-color-secondary-lightest);
+}
+
+[data-theme='dark'] .directory {
+  background-color: var(--ifm-color-secondary-darker);
+  color: var(--ifm-color-secondary-lightest);
 }
 
 @media screen and (max-width: 966px) {

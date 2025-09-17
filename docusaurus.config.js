@@ -54,9 +54,9 @@ module.exports = {
   projectName: "behitek.github.io",
   themeConfig: {
     colorMode: {
-      defaultMode: "dark",
-      disableSwitch: true,
-      respectPrefersColorScheme: false,
+      defaultMode: "light",
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
     },
     navbar: {
       hideOnScroll: true,
@@ -135,6 +135,8 @@ module.exports = {
         },
         blog: {
           showReadingTime: true,
+          blogSidebarCount: 10, // Show up to 10 recent posts in sidebar
+          blogSidebarTitle: 'Recent posts',
           remarkPlugins: [math],
           rehypePlugins: [katex],
           // Please change this to your repo.
