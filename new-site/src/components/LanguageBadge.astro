@@ -1,0 +1,15 @@
+---
+import { getLanguageInfo } from '@utils/helpers';
+
+interface Props {
+  language: 'en' | 'vi';
+}
+
+const { language } = Astro.props;
+const info = getLanguageInfo(language);
+---
+
+<span class={`lang-badge ${info.class}`}>
+  <span>{info.flag}</span>
+  <span>{info.label === 'English' ? 'EN' : 'VI'}</span>
+</span>

@@ -1,0 +1,53 @@
+---
+import { formatDate } from '@utils/helpers';
+import { getCategoryColor } from '@utils/helpers';
+import LanguageBadge from './LanguageBadge.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  category: string;
+  language: 'en' | 'vi';
+  slug: string;
+  readingTime?: number;
+}
+
+const { title, description, date, category, language, slug, readingTime } = Astro.props;
+---
+
+<article class="card group">
+  <div class="flex items-center gap-2 mb-3">
+    <LanguageBadge language={language} />
+    <span class={`category-badge ${getCategoryColor(category)}`}>
+      {category}
+    </span>
+  </div>
+
+  <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors">
+    <a href={`/blog/${slug}`} class="hover:underline">
+      {title}
+    </a>
+  </h3>
+
+  <p class="text-[var(--color-text-muted)] mb-4 line-clamp-3">
+    {description}
+  </p>
+
+  <div class="flex items-center justify-between text-sm text-[var(--color-text-muted)]">
+    <time datetime={date.toISOString()}>
+      {formatDate(date)}
+    </time>
+    {readingTime && <span>{readingTime} min read</span>}
+  </div>
+
+  <a
+    href={`/blog/${slug}`}
+    class="mt-4 inline-flex items-center text-primary-600 hover:text-primary-700 font-medium group"
+  >
+    Read more
+    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+    </svg>
+  </a>
+</article>

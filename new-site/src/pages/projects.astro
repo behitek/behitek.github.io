@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+
+// Get all projects
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+// Group by category
+const categories = ['Product', 'Research', 'Tutorial', 'Tool', 'Fun'] as const;
+const projectsByCategory = categories.map((category) => ({
+  category,
+  projects: sortedProjects.filter((p) => p.data.category === category),
+})).filter((group) => group.projects.length > 0);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Building solutions with AI & Code - from production platforms to research and educational content"
+>
+  <div class="container py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">🚀 Projects</h1>
+      <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
+        Building solutions with AI & Code - from production platforms to research and educational content
+      </p>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+      <button
+        class="category-filter-btn active px-4 py-2 rounded-lg font-medium transition-all"
+        data-category="all"
+      >
+        All Projects ({sortedProjects.length})
+      </button>
+      {projectsByCategory.map((group) => (
+        <button
+          class="category-filter-btn px-4 py-2 rounded-lg font-medium transition-all"
+          data-category={group.category.toLowerCase()}
+        >
+          {group.category} ({group.projects.length})
+        </button>
+      ))}
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedProjects.map((project) => (
+        <div
+          class="project-item"
+          data-category={project.data.category.toLowerCase()}
+        >
+          <ProjectCard {...project.data} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-16">
+      <p class="text-2xl text-[var(--color-text-muted)] mb-4">No projects found in this category</p>
+      <button id="reset-category-filters" class="link text-lg">
+        View all projects
+      </button>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .category-filter-btn {
+    @apply bg-slate-100 dark:bg-slate-800 text-[var(--color-text-base)] hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300;
+  }
+
+  .category-filter-btn.active {
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+  }
+</style>
+
+<script>
+  // Client-side filtering
+  const filterButtons = document.querySelectorAll('.category-filter-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+  const emptyState = document.getElementById('empty-state');
+  const resetButton = document.getElementById('reset-category-filters');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+
+      // Update active state
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter projects
+      let visibleCount = 0;
+
+      projectItems.forEach((item) => {
+        const itemCategory = item.getAttribute('data-category');
+
+        if (category === 'all' || itemCategory === category) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Show/hide empty state
+      if (visibleCount === 0) {
+        emptyState?.classList.remove('hidden');
+      } else {
+        emptyState?.classList.add('hidden');
+      }
+    });
+  });
+
+  // Reset filters
+  resetButton?.addEventListener('click', () => {
+    const allButton = document.querySelector('[data-category="all"]');
+    (allButton as HTMLButtonElement)?.click();
+  });
+</script>

@@ -1,0 +1,81 @@
+---
+import { SITE, NAV_LINKS } from '@utils/constants';
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="fixed top-0 left-0 right-0 z-40 glass border-b border-[var(--color-border)]">
+  <div class="container">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2 font-bold text-xl hover:text-primary-600 transition-colors">
+        <span class="gradient-text">{SITE.title}</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        {NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class={`font-medium transition-colors hover:text-primary-600 ${
+              currentPath.startsWith(link.href) ? 'text-primary-600' : 'text-[var(--color-text-base)]'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
+        <ThemeToggle />
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center space-x-2">
+        <ThemeToggle />
+        <button
+          id="mobile-menu-button"
+          class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg-base)]">
+    <div class="container py-4 space-y-2">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class={`block py-2 px-4 rounded-lg font-medium transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 ${
+            currentPath.startsWith(link.href) ? 'text-primary-600 bg-slate-50 dark:bg-slate-900' : ''
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<!-- Spacer to prevent content from going under fixed navbar -->
+<div class="h-16"></div>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!mobileMenuButton?.contains(e.target as Node) && !mobileMenu?.contains(e.target as Node)) {
+      mobileMenu?.classList.add('hidden');
+    }
+  });
+</script>

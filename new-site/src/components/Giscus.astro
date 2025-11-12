@@ -1,0 +1,62 @@
+---
+// Giscus Comments Component
+// You'll need to configure this with your GitHub repository
+---
+
+<div class="giscus-container mt-12 pt-8 border-t border-[var(--color-border)]">
+  <h2 class="text-2xl font-bold mb-6">💬 Comments</h2>
+  <div id="giscus"></div>
+</div>
+
+<script is:inline>
+  // Theme detection
+  const getGiscusTheme = () => {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  };
+
+  // Load Giscus
+  const loadGiscus = () => {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', 'behitek/behitek.github.io');
+    script.setAttribute('data-repo-id', 'YOUR_REPO_ID'); // You need to get this from giscus.app
+    script.setAttribute('data-category', 'Comments');
+    script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID'); // You need to get this from giscus.app
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', getGiscusTheme());
+    script.setAttribute('data-lang', 'en');
+    script.setAttribute('data-loading', 'lazy');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    document.getElementById('giscus')?.appendChild(script);
+  };
+
+  // Load when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadGiscus);
+  } else {
+    loadGiscus();
+  }
+
+  // Update theme when toggled
+  const observer = new MutationObserver(() => {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (iframe) {
+      const theme = getGiscusTheme();
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme } } },
+        'https://giscus.app'
+      );
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+</script>

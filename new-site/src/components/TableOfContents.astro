@@ -1,0 +1,64 @@
+---
+interface Heading {
+  slug: string;
+  text: string;
+  depth: number;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+---
+
+{headings.length > 0 && (
+  <nav class="toc card sticky top-20">
+    <h2 class="text-lg font-bold mb-4">📑 Table of Contents</h2>
+    <ul class="space-y-2 text-sm">
+      {headings.map((heading) => (
+        <li style={`margin-left: ${(heading.depth - 2) * 1}rem`}>
+          <a
+            href={`#${heading.slug}`}
+            class="toc-link text-[var(--color-text-muted)] hover:text-primary-600 transition-colors block py-1"
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<script>
+  // Highlight active section in TOC
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute('id');
+        const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.toc-link').forEach((link) => {
+            link.classList.remove('text-primary-600', 'font-semibold');
+            link.classList.add('text-[var(--color-text-muted)]');
+          });
+          tocLink?.classList.remove('text-[var(--color-text-muted)]');
+          tocLink?.classList.add('text-primary-600', 'font-semibold');
+        }
+      });
+    },
+    { rootMargin: '-100px 0px -66% 0px' }
+  );
+
+  document.querySelectorAll('h2, h3').forEach((heading) => {
+    observer.observe(heading);
+  });
+</script>
+
+<style>
+  .toc {
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+  }
+</style>

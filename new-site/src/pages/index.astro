@@ -1,0 +1,197 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BlogCard from '@components/BlogCard.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import { SITE, EDUCATION, TECH_STACK, STATS, SOCIAL_LINKS } from '@utils/constants';
+import { readingTime } from '@utils/helpers';
+
+// Get featured projects
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+// Get recent blog posts (will return empty until we migrate posts)
+const allPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true;
+});
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Home" description={SITE.description}>
+  <!-- Hero Section -->
+  <section class="section pt-24 pb-16 bg-gradient-to-br from-primary-50 via-white to-accent-cyan/5 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center animate-fade-in">
+        <div class="mb-6">
+          <img
+            src="/images/me.jpeg"
+            alt="Hieu Nguyen"
+            class="w-32 h-32 rounded-full mx-auto shadow-large border-4 border-white dark:border-slate-700"
+          />
+        </div>
+
+        <h1 class="text-5xl md:text-6xl font-bold mb-4">
+          Hi, I'm <span class="gradient-text">Hieu Nguyen</span>
+        </h1>
+
+        <p class="text-2xl md:text-3xl text-[var(--color-text-muted)] mb-6">
+          AI Engineer • Vietnam 🇻🇳
+        </p>
+
+        <p class="text-xl text-[var(--color-text-base)] mb-8 max-w-2xl mx-auto">
+          {SITE.bio}
+        </p>
+
+        <div class="flex items-center justify-center gap-4 mb-8">
+          <span class="category-badge category-ai">NLP</span>
+          <span class="category-badge category-ai">RAG</span>
+          <span class="category-badge category-ai">LLMs</span>
+          <span class="category-badge category-data">IR</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 flex-wrap">
+          {Object.values(SOCIAL_LINKS).map((social) => (
+            <a
+              href={social.href}
+              class="btn-secondary"
+              target={social.href.startsWith('mailto:') ? undefined : '_blank'}
+              rel="noopener noreferrer"
+            >
+              {social.icon} {social.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section - Bento Grid -->
+  <section class="section bg-[var(--color-bg-base)]">
+    <div class="container">
+      <h2 class="text-3xl font-bold mb-8 text-center">About Me</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Bio Card (Larger) -->
+        <div class="md:col-span-2 card">
+          <h3 class="text-xl font-bold mb-3">Hello there 👋</h3>
+          <div class="space-y-3 text-[var(--color-text-muted)]">
+            <p>
+              🇻🇳 I am Hieu Nguyen, an AI Engineer from Vietnam.
+            </p>
+            <p>
+              🚀 I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLMs, and information retrieval.
+            </p>
+            <p>
+              🎓 I hold a {EDUCATION.degree} from {EDUCATION.school} ({EDUCATION.country}).
+            </p>
+            <p>
+              💻 Besides coding, I enjoy exploring self-hosted solutions on Reddit's <a href="https://www.reddit.com/r/selfhosted/" class="link" target="_blank" rel="noopener noreferrer">r/selfhosted</a> and staying updated with the latest in AI/ML.
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">📊 Stats</h3>
+          <div class="space-y-3">
+            <div>
+              <p class="text-sm text-[var(--color-text-muted)]">GitHub Followers</p>
+              <p class="text-2xl font-bold text-primary-600">{STATS.followers}</p>
+            </div>
+            <div>
+              <p class="text-sm text-[var(--color-text-muted)]">Repositories</p>
+              <p class="text-2xl font-bold text-primary-600">{STATS.repositories}</p>
+            </div>
+            <div>
+              <p class="text-sm text-[var(--color-text-muted)]">Blog Posts</p>
+              <p class="text-2xl font-bold text-primary-600">{STATS.blogPosts}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Card -->
+        <div class="md:col-span-3 card">
+          <h3 class="text-xl font-bold mb-4">🛠️ Tech Stack</h3>
+          <div class="flex flex-wrap gap-3">
+            {TECH_STACK.map((tech) => (
+              <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-lg font-medium">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="section bg-[var(--color-bg-secondary)]">
+    <div class="container">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold">🚀 Featured Work</h2>
+        <a href="/projects" class="link text-lg">
+          View all projects →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredProjects.map((project) => (
+          <ProjectCard {...project.data} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Blog Posts -->
+  {recentPosts.length > 0 && (
+    <section class="section bg-[var(--color-bg-base)]">
+      <div class="container">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl font-bold">✍️ Latest from the Blog</h2>
+          <a href="/blog" class="link text-lg">
+            View all posts →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {recentPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              category={post.data.category}
+              language={post.data.language}
+              slug={post.slug}
+              readingTime={readingTime(post.body)}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="section bg-gradient-to-br from-primary-600 to-accent-cyan text-white">
+    <div class="container text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Let's Connect!
+      </h2>
+      <p class="text-xl mb-8 opacity-90">
+        Interested in AI, production ML, or RAG systems? Let's chat!
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="/contact" class="btn bg-white text-primary-600 hover:bg-slate-50">
+          Get in Touch
+        </a>
+        <a href="/blog" class="btn border-2 border-white text-white hover:bg-white/10">
+          Read the Blog
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
