@@ -1,4 +1,6 @@
 ---
+import SocialIcon from '@components/SocialIcon.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -77,7 +79,8 @@ const categoryIcons: Record<string, string> = {
           target="_blank"
           rel="noopener noreferrer"
         >
-          🐙 GitHub
+          <SocialIcon name="github" class="w-4 h-4" />
+          GitHub
         </a>
       )}
       {links.blog && (
