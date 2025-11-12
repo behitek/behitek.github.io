@@ -1,8 +1,11 @@
 ---
 import { SITE, SOCIAL_LINKS } from '@utils/constants';
 import SocialIcon from '@components/SocialIcon.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 const currentYear = new Date().getFullYear();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] mt-24">
@@ -41,17 +44,17 @@ const currentYear = new Date().getFullYear();
         <ul class="space-y-2">
           <li>
             <a href="/blog" class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
-              Blog
+              {t.nav.blog}
             </a>
           </li>
           <li>
             <a href="/projects" class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
-              Projects
+              {t.nav.projects}
             </a>
           </li>
           <li>
             <a href="/contact" class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
-              Contact
+              {t.nav.contact}
             </a>
           </li>
           <li>
@@ -66,10 +69,10 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom -->
     <div class="border-t border-[var(--color-border)] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
       <p class="text-[var(--color-text-muted)] text-sm">
-        © {currentYear} {SITE.title} • All rights reserved
+        © {currentYear} {SITE.title} • {t.footer.rights}
       </p>
       <p class="text-[var(--color-text-muted)] text-sm">
-        Built with <a href="https://astro.build" class="link" target="_blank" rel="noopener noreferrer">Astro</a> & <a href="https://tailwindcss.com" class="link" target="_blank" rel="noopener noreferrer">TailwindCSS</a>
+        {t.footer.builtWith} <a href="https://astro.build" class="link" target="_blank" rel="noopener noreferrer">Astro</a> {t.footer.and} <a href="https://tailwindcss.com" class="link" target="_blank" rel="noopener noreferrer">TailwindCSS</a>
       </p>
     </div>
   </div>

@@ -1,9 +1,18 @@
 ---
-import { SITE, NAV_LINKS } from '@utils/constants';
+import { SITE } from '@utils/constants';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 const currentPath = Astro.url.pathname;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const NAV_LINKS = [
+  { label: t.nav.blog, href: '/blog' },
+  { label: t.nav.projects, href: '/projects' },
+  { label: t.nav.contact, href: '/contact' },
+];
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-40 glass border-b border-[var(--color-border)]">

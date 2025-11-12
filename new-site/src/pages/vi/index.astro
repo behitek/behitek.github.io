@@ -1,0 +1,303 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BlogCard from '@components/BlogCard.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import SocialIcon from '@components/SocialIcon.astro';
+import { SITE, EDUCATION, TECH_STACK, STATS, SOCIAL_LINKS } from '@utils/constants';
+import { readingTime } from '@utils/helpers';
+
+// Get featured projects
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+// Get recent blog posts
+const allPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true;
+});
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Home" description={SITE.description}>
+  <!-- Hero Section - Modern & Clean -->
+  <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <!-- Animated background gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-cyan-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"></div>
+
+    <!-- Animated mesh gradient overlay -->
+    <div class="absolute inset-0 opacity-30">
+      <div class="absolute top-0 -left-4 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+      <div class="absolute top-0 -right-4 w-72 h-72 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 2s;"></div>
+      <div class="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 4s;"></div>
+    </div>
+
+    <div class="container relative z-10">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <!-- Left: Content -->
+          <div class="text-left animate-fade-in">
+            <div class="inline-block mb-4">
+              <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
+                👋 Welcome to my portfolio
+              </span>
+            </div>
+
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              Hi, I'm<br/>
+              <span class="gradient-text">Hieu Nguyen</span>
+            </h1>
+
+            <p class="text-2xl md:text-3xl text-[var(--color-text-muted)] mb-4 font-medium">
+              AI Engineer
+            </p>
+
+            <p class="text-lg text-[var(--color-text-muted)] mb-8 leading-relaxed">
+              Building production-ready AI systems with <span class="text-primary-600 dark:text-primary-400 font-semibold">NLP</span>,
+              <span class="text-primary-600 dark:text-primary-400 font-semibold">RAG</span>, and
+              <span class="text-primary-600 dark:text-primary-400 font-semibold">LLMs</span>.
+              Passionate about bringing AI into real-world applications.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap items-center gap-4 mb-8">
+              <a href="/projects" class="btn-primary">
+                View My Work
+                <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </a>
+              <a href="/contact" class="btn-secondary">
+                Get in Touch
+              </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="flex items-center gap-6">
+              {Object.entries(SOCIAL_LINKS).map(([_key, social]) => (
+                <a
+                  href={social.href}
+                  class="text-[var(--color-text-base)] hover:text-primary-600 transition-colors"
+                  target={social.href.startsWith('mailto:') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  <SocialIcon name={social.icon} class="w-6 h-6" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Right: Image & Stats -->
+          <div class="flex flex-col items-center animate-slide-up">
+            <!-- Profile Image with glow effect -->
+            <div class="relative mb-8">
+              <div class="absolute inset-0 bg-primary-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+              <img
+                src="/images/me.jpeg"
+                alt="Hieu Nguyen - AI Engineer"
+                class="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white dark:border-slate-700 shadow-2xl"
+              />
+              <!-- Status indicator -->
+              <div class="absolute bottom-8 right-8 flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-lg">
+                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-sm font-medium">Available for hire</span>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-3 gap-4 w-full max-w-sm">
+              <div class="text-center p-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-soft">
+                <p class="text-2xl font-bold text-primary-600">{STATS.followers}</p>
+                <p class="text-xs text-[var(--color-text-muted)]">Followers</p>
+              </div>
+              <div class="text-center p-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-soft">
+                <p class="text-2xl font-bold text-primary-600">{STATS.repositories}</p>
+                <p class="text-xs text-[var(--color-text-muted)]">Repositories</p>
+              </div>
+              <div class="text-center p-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-soft">
+                <p class="text-2xl font-bold text-primary-600">5+</p>
+                <p class="text-xs text-[var(--color-text-muted)]">Years Exp</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-[var(--color-text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- About Section - Bento Grid -->
+  <section class="section bg-[var(--color-bg-base)]">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">About Me</h2>
+        <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+          AI Engineer with Master's degree from JAIST, specializing in production ML systems
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Main Bio Card -->
+        <div class="md:col-span-8 card">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">👨‍💻</div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold mb-4">Hello there!</h3>
+              <div class="space-y-4 text-[var(--color-text-muted)] leading-relaxed">
+                <p>
+                  I'm Hieu Nguyen, an <strong class="text-[var(--color-text-base)]">AI Engineer from Vietnam 🇻🇳</strong> with a passion for transforming research into production-ready systems.
+                </p>
+                <p>
+                  My expertise lies in <strong class="text-[var(--color-text-base)]">Natural Language Processing, RAG systems, and Large Language Models</strong>.
+                  I specialize in building scalable AI solutions that solve real-world problems.
+                </p>
+                <p>
+                  🎓 I hold a <strong class="text-[var(--color-text-base)]">{EDUCATION.degree}</strong> from <strong class="text-[var(--color-text-base)]">{EDUCATION.school}</strong> in Japan, where I deepened my knowledge in information retrieval and machine learning.
+                </p>
+                <p>
+                  💡 When I'm not coding, you'll find me exploring <a href="https://www.reddit.com/r/selfhosted/" class="link" target="_blank" rel="noopener noreferrer">self-hosted solutions</a>,
+                  contributing to open source, or writing about AI/ML on my blog.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Card -->
+        <div class="md:col-span-4 card bg-gradient-to-br from-primary-50 to-cyan-50 dark:from-primary-950 dark:to-slate-900 border-primary-200 dark:border-primary-800">
+          <div class="text-3xl mb-3">🎓</div>
+          <h3 class="text-lg font-bold mb-2">Education</h3>
+          <p class="text-sm text-[var(--color-text-muted)] mb-2">{EDUCATION.degree}</p>
+          <p class="text-sm font-semibold text-primary-600 dark:text-primary-400">{EDUCATION.school}</p>
+          <p class="text-xs text-[var(--color-text-muted)] mt-1">{EDUCATION.country}</p>
+        </div>
+
+        <!-- Tech Stack Card -->
+        <div class="md:col-span-12 card">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="text-3xl">🛠️</div>
+            <h3 class="text-2xl font-bold">Tech Stack & Skills</h3>
+          </div>
+          <div class="space-y-6">
+            {Object.entries(TECH_STACK).map(([category, skills]) => (
+              <div>
+                <h4 class="text-lg font-semibold text-[var(--color-text-base)] mb-3">
+                  {category}
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  {skills.map((tech) => (
+                    <span class="px-3 py-1.5 bg-gradient-to-r from-primary-100 to-cyan-100 dark:from-primary-900 dark:to-slate-800 text-primary-700 dark:text-primary-300 rounded-lg text-sm font-medium shadow-soft hover:shadow-medium transition-shadow">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="section bg-[var(--color-bg-secondary)]">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">🚀 Featured Projects</h2>
+        <p class="text-lg text-[var(--color-text-muted)]">
+          Check out some of my recent work and contributions
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {featuredProjects.map((project) => (
+          <ProjectCard {...project.data} />
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href="/projects" class="btn-primary">
+          View All Projects
+          <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Blog Posts -->
+  {recentPosts.length > 0 && (
+    <section class="section bg-[var(--color-bg-base)]">
+      <div class="container">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-4">✍️ Latest Articles</h2>
+          <p class="text-lg text-[var(--color-text-muted)]">
+            Thoughts on AI, ML, and software engineering
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {recentPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              category={post.data.category}
+              language={post.data.language}
+              slug={post.slug}
+              readingTime={readingTime(post.body)}
+            />
+          ))}
+        </div>
+
+        <div class="text-center">
+          <a href="/blog" class="btn-primary">
+            View All Articles
+            <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="section bg-gradient-to-br from-primary-600 via-primary-700 to-cyan-600 text-white relative overflow-hidden">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+
+    <div class="container relative z-10 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Let's Build Something Amazing Together
+      </h2>
+      <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+        Looking for an AI engineer to bring your ideas to life?
+        I'm available for consulting, collaboration, and full-time opportunities.
+      </p>
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <a href="/contact" class="btn bg-white text-primary-600 hover:bg-slate-50 text-lg px-8 py-4">
+          📧 Get in Touch
+        </a>
+        <a href="/projects" class="btn border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-4">
+          🚀 View My Work
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

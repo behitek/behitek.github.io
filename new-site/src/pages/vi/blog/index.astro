@@ -1,0 +1,208 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BlogCard from '@components/BlogCard.astro';
+import { readingTime } from '@utils/helpers';
+
+// Get all published blog posts
+const allPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true;
+});
+
+// Sort by date (newest first)
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get unique categories and languages
+const categories = [...new Set(sortedPosts.map((post) => post.data.category))];
+const languages = [...new Set(sortedPosts.map((post) => post.data.language))];
+
+// Featured post (most recent)
+const featuredPost = sortedPosts[0];
+---
+
+<BaseLayout
+  title="Blog"
+  description="Learning, building, and sharing insights about AI, ML, NLP, and software engineering"
+>
+  <div class="container py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">✍️ Blog</h1>
+      <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
+        Learning, building, and sharing insights about AI/ML, NLP, RAG, and software engineering
+      </p>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-12" id="blog-filters">
+      <button
+        class="filter-btn active px-4 py-2 rounded-lg font-medium transition-all"
+        data-filter="all"
+      >
+        All Posts ({sortedPosts.length})
+      </button>
+      {languages.map((lang) => {
+        const count = sortedPosts.filter((p) => p.data.language === lang).length;
+        return (
+          <button
+            class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
+            data-filter={`lang-${lang}`}
+          >
+            {lang === 'en' ? '🇺🇸 English' : '🇻🇳 Vietnamese'} ({count})
+          </button>
+        );
+      })}
+      {categories.map((cat) => {
+        const count = sortedPosts.filter((p) => p.data.category === cat).length;
+        return (
+          <button
+            class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
+            data-filter={`cat-${cat.toLowerCase().replace(/\//g, '-')}`}
+          >
+            {cat} ({count})
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- Featured Post -->
+    {featuredPost && (
+      <div class="mb-16 card bg-gradient-to-br from-primary-50 to-accent-cyan/5 dark:from-primary-950 dark:to-slate-900 border-primary-200 dark:border-primary-800">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-3 py-1 bg-primary-600 text-white text-sm font-bold rounded-full">
+            📌 FEATURED
+          </span>
+        </div>
+        <h2 class="text-3xl font-bold mb-3">
+          <a href={`/blog/${featuredPost.slug}`} class="hover:text-primary-600 transition-colors">
+            {featuredPost.data.title}
+          </a>
+        </h2>
+        <p class="text-lg text-[var(--color-text-muted)] mb-4">
+          {featuredPost.data.description}
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <span class={`lang-badge ${featuredPost.data.language === 'vi' ? 'lang-badge-vi' : 'lang-badge-en'}`}>
+            {featuredPost.data.language === 'vi' ? '🇻🇳 VI' : '🇺🇸 EN'}
+          </span>
+          <span class="category-badge category-ai">{featuredPost.data.category}</span>
+          <span class="text-sm text-[var(--color-text-muted)]">
+            {new Date(featuredPost.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </span>
+          <span class="text-sm text-[var(--color-text-muted)]">
+            {readingTime(featuredPost.body)} min read
+          </span>
+        </div>
+        <a href={`/blog/${featuredPost.slug}`} class="mt-4 btn-primary inline-flex items-center">
+          Read Article
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    )}
+
+    <!-- All Posts Grid -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold mb-6">All Posts ({sortedPosts.length})</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
+      {sortedPosts.map((post) => (
+        <div
+          class="blog-post-item"
+          data-lang={post.data.language}
+          data-category={post.data.category.toLowerCase().replace(/\//g, '-')}
+        >
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            category={post.data.category}
+            language={post.data.language}
+            slug={post.slug}
+            readingTime={readingTime(post.body)}
+          />
+        </div>
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-16">
+      <p class="text-2xl text-[var(--color-text-muted)] mb-4">No posts found</p>
+      <button id="reset-filters" class="link text-lg">
+        Clear filters
+      </button>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .filter-btn {
+    @apply bg-slate-100 dark:bg-slate-800 text-[var(--color-text-base)] hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300;
+  }
+
+  .filter-btn.active {
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+  }
+</style>
+
+<script>
+  // Client-side filtering
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const postItems = document.querySelectorAll('.blog-post-item');
+  const emptyState = document.getElementById('empty-state');
+  const postsGrid = document.getElementById('posts-grid');
+  const resetButton = document.getElementById('reset-filters');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter') || 'all';
+
+      // Update active state
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter posts
+      let visibleCount = 0;
+
+      postItems.forEach((item) => {
+        if (filter === 'all') {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else if (filter.startsWith('lang-')) {
+          const lang = filter.replace('lang-', '');
+          if (item.getAttribute('data-lang') === lang) {
+            item.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+          }
+        } else if (filter.startsWith('cat-')) {
+          const category = filter.replace('cat-', '');
+          if (item.getAttribute('data-category') === category) {
+            item.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+          }
+        }
+      });
+
+      // Show/hide empty state
+      if (visibleCount === 0) {
+        postsGrid?.classList.add('hidden');
+        emptyState?.classList.remove('hidden');
+      } else {
+        postsGrid?.classList.remove('hidden');
+        emptyState?.classList.add('hidden');
+      }
+    });
+  });
+
+  // Reset filters
+  resetButton?.addEventListener('click', () => {
+    const allButton = document.querySelector('[data-filter="all"]') as HTMLButtonElement;
+    allButton?.click();
+  });
+</script>
