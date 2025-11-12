@@ -1,6 +1,7 @@
 ---
 import { SITE, NAV_LINKS } from '@utils/constants';
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -25,11 +26,13 @@ const currentPath = Astro.url.pathname;
             {link.label}
           </a>
         ))}
+        <LanguageSwitcher />
         <ThemeToggle />
       </div>
 
       <!-- Mobile Menu Button -->
       <div class="md:hidden flex items-center space-x-2">
+        <LanguageSwitcher />
         <ThemeToggle />
         <button
           id="mobile-menu-button"

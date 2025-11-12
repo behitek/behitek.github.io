@@ -1,0 +1,32 @@
+---
+import { languages, defaultLang, getLangFromUrl, getLocalizedPath } from '@i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentPath = Astro.url.pathname.replace(new RegExp(`^/${currentLang}`), '') || '/';
+
+// Generate alternate language URL
+const alternateLang = currentLang === 'en' ? 'vi' : 'en';
+const alternateUrl = getLocalizedPath(currentPath, alternateLang);
+---
+
+<div class="language-switcher">
+  <a
+    href={alternateUrl}
+    class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+    aria-label={`Switch to ${languages[alternateLang]}`}
+    title={`Switch to ${languages[alternateLang]}`}
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+    </svg>
+    <span class="text-sm font-medium">
+      {currentLang === 'en' ? 'VI' : 'EN'}
+    </span>
+  </a>
+</div>
+
+<style>
+  .language-switcher {
+    display: inline-block;
+  }
+</style>
