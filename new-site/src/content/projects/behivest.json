@@ -1,0 +1,12 @@
+{
+  "title": "Behivest",
+  "description": "A modern, production-ready Vietnamese personal finance blog and affiliate marketing platform. Features interactive financial calculators (compound interest, SIP, budget allocation), MDX-powered content, and comprehensive testing with CI/CD pipeline.",
+  "category": "Product",
+  "tech": ["Astro", "TailwindCSS", "MDX", "TypeScript", "Vitest"],
+  "links": {
+    "website": "https://behitek.com/behivest",
+    "github": "https://github.com/behitek/behivest"
+  },
+  "featured": true,
+  "order": 2
+}

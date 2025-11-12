@@ -47,7 +47,7 @@ const projectsByCategory = categories.map((category) => ({
     </div>
 
     <!-- Projects Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
       {sortedProjects.map((project) => (
         <div
           class="project-item"
@@ -56,6 +56,21 @@ const projectsByCategory = categories.map((category) => ({
           <ProjectCard {...project.data} />
         </div>
       ))}
+    </div>
+
+    <!-- View More Button -->
+    <div class="text-center mb-12">
+      <a
+        href="https://projects.behitek.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-cyan-600 hover:from-primary-700 hover:to-cyan-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+      >
+        <span>View More Projects</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+      </a>
     </div>
 
     <!-- Empty State -->

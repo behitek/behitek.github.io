@@ -1,10 +1,11 @@
 {
-  "title": "Luyện Code Online Judge",
-  "description": "An online judge platform for Vietnamese students to learn programming through practice problems and competitions. Features automated code evaluation, real-time leaderboards, and comprehensive problem sets.",
+  "title": "Luyện Code Online",
+  "description": "A modern open-source online judge and contest platform system for Vietnamese students. Features automated code evaluation, interactive programming practice, and 1000+ programming exercises with comprehensive solutions.",
   "category": "Product",
-  "tech": ["Python", "FastAPI", "PostgreSQL", "Docker", "Redis"],
+  "tech": ["Python", "C++", "Vue", "JavaScript", "Docker"],
   "links": {
-    "website": "https://luyencode.net"
+    "website": "https://luyencode.net",
+    "github": "https://github.com/luyencode"
   },
   "featured": true,
   "order": 1
