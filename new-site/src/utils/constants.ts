@@ -12,22 +12,22 @@ export const SOCIAL_LINKS = {
   email: {
     label: 'Email',
     href: 'mailto:hello@behitek.com',
-    icon: '📧',
+    icon: 'email' as const,
   },
   linkedin: {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/behitek/',
-    icon: '💼',
+    icon: 'linkedin' as const,
   },
   github: {
     label: 'GitHub',
     href: 'https://github.com/behitek',
-    icon: '🐙',
+    icon: 'github' as const,
   },
   twitter: {
     label: 'Twitter',
     href: 'https://twitter.com/behitek_',
-    icon: '🐦',
+    icon: 'twitter' as const,
   },
 };
 

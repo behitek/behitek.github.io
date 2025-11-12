@@ -1,0 +1,46 @@
+---
+interface Props {
+  name: 'github' | 'linkedin' | 'twitter' | 'email';
+  class?: string;
+}
+
+const { name, class: className = '' } = Astro.props;
+
+// Import Simple Icons data
+import * as simpleIcons from 'simple-icons';
+
+// Manual LinkedIn SVG path (official LinkedIn brand icon)
+const linkedinPath = 'M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z';
+
+// Get the icon data
+const getIconData = (iconName: string) => {
+  switch (iconName) {
+    case 'github':
+      return { path: simpleIcons.siGithub.path, title: 'GitHub' };
+    case 'linkedin':
+      return { path: linkedinPath, title: 'LinkedIn' };
+    case 'twitter':
+      return { path: simpleIcons.siX.path, title: 'X (Twitter)' };
+    case 'email':
+      return { path: simpleIcons.siGmail.path, title: 'Email' };
+    default:
+      return null;
+  }
+};
+
+const iconData = getIconData(name);
+---
+
+{iconData && (
+  <svg
+    role="img"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    class={className}
+    aria-label={iconData.title}
+  >
+    <title>{iconData.title}</title>
+    <path d={iconData.path} />
+  </svg>
+)}

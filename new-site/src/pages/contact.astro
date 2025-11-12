@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import SocialIcon from '@components/SocialIcon.astro';
 import { SITE, SOCIAL_LINKS } from '@utils/constants';
 ---
 
@@ -29,7 +30,9 @@ import { SITE, SOCIAL_LINKS } from '@utils/constants';
             rel="noopener noreferrer"
             class="card group hover:border-primary-600 transition-all flex items-center gap-4"
           >
-            <span class="text-4xl">{social.icon}</span>
+            <div class="text-primary-600">
+              <SocialIcon name={social.icon} class="w-10 h-10" />
+            </div>
             <div>
               <h3 class="font-semibold group-hover:text-primary-600 transition-colors">
                 {social.label}

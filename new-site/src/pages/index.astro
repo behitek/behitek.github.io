@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogCard from '@components/BlogCard.astro';
 import ProjectCard from '@components/ProjectCard.astro';
+import SocialIcon from '@components/SocialIcon.astro';
 import { SITE, EDUCATION, TECH_STACK, STATS, SOCIAL_LINKS } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
 
@@ -80,13 +81,13 @@ const recentPosts = allPosts
               {Object.entries(SOCIAL_LINKS).map(([_key, social]) => (
                 <a
                   href={social.href}
-                  class="text-2xl hover:text-primary-600 transition-colors"
+                  class="text-[var(--color-text-base)] hover:text-primary-600 transition-colors"
                   target={social.href.startsWith('mailto:') ? undefined : '_blank'}
                   rel="noopener noreferrer"
                   aria-label={social.label}
                   title={social.label}
                 >
-                  {social.icon}
+                  <SocialIcon name={social.icon} class="w-6 h-6" />
                 </a>
               ))}
             </div>

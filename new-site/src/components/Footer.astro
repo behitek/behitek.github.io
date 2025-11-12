@@ -1,5 +1,6 @@
 ---
 import { SITE, SOCIAL_LINKS } from '@utils/constants';
+import SocialIcon from '@components/SocialIcon.astro';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -26,7 +27,7 @@ const currentYear = new Date().getFullYear();
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span>{social.icon}</span>
+                <SocialIcon name={social.icon} class="w-4 h-4" />
                 <span>{social.label}</span>
               </a>
             </li>
