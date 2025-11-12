@@ -1,6 +1,6 @@
 export const SITE = {
   title: 'Behitek',
-  description: 'A drop in the AI ocean',
+  description: 'Turning AI research into reality',
   url: 'https://behitek.com',
   author: 'Hieu Nguyen',
   email: 'hello@behitek.com',
