@@ -157,7 +157,7 @@ const featuredPost = sortedPosts[0];
 
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const filter = button.getAttribute('data-filter');
+      const filter = button.getAttribute('data-filter') || 'all';
 
       // Update active state
       filterButtons.forEach((btn) => btn.classList.remove('active'));
@@ -202,7 +202,7 @@ const featuredPost = sortedPosts[0];
 
   // Reset filters
   resetButton?.addEventListener('click', () => {
-    const allButton = document.querySelector('[data-filter="all"]');
+    const allButton = document.querySelector('[data-filter="all"]') as HTMLButtonElement;
     allButton?.click();
   });
 </script>

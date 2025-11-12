@@ -155,7 +155,7 @@ const { title, description, date, updated, author, category, tags, language } = 
   document.getElementById('copy-link')?.addEventListener('click', async () => {
     await navigator.clipboard.writeText(window.location.href);
     const button = document.getElementById('copy-link');
-    const originalText = button?.textContent;
+    const originalText = button?.textContent || '';
     if (button) {
       button.textContent = '✓ Copied!';
       setTimeout(() => {
@@ -166,7 +166,7 @@ const { title, description, date, updated, author, category, tags, language } = 
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href') || '');
       target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
