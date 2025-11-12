@@ -186,15 +186,24 @@ const recentPosts = allPosts
 
         <!-- Tech Stack Card -->
         <div class="md:col-span-12 card">
-          <div class="flex items-center gap-3 mb-4">
+          <div class="flex items-center gap-3 mb-6">
             <div class="text-3xl">🛠️</div>
             <h3 class="text-2xl font-bold">Tech Stack & Skills</h3>
           </div>
-          <div class="flex flex-wrap gap-3">
-            {TECH_STACK.map((tech) => (
-              <span class="px-4 py-2 bg-gradient-to-r from-primary-100 to-cyan-100 dark:from-primary-900 dark:to-slate-800 text-primary-700 dark:text-primary-300 rounded-lg font-medium shadow-soft hover:shadow-medium transition-shadow">
-                {tech}
-              </span>
+          <div class="space-y-6">
+            {Object.entries(TECH_STACK).map(([category, skills]) => (
+              <div>
+                <h4 class="text-lg font-semibold text-[var(--color-text-base)] mb-3">
+                  {category}
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  {skills.map((tech) => (
+                    <span class="px-3 py-1.5 bg-gradient-to-r from-primary-100 to-cyan-100 dark:from-primary-900 dark:to-slate-800 text-primary-700 dark:text-primary-300 rounded-lg text-sm font-medium shadow-soft hover:shadow-medium transition-shadow">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

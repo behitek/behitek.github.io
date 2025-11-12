@@ -43,16 +43,48 @@ export const EDUCATION = {
   country: '🇯🇵 Japan',
 };
 
-export const TECH_STACK = [
-  'Python',
-  'PyTorch',
-  'FastAPI',
-  'Astro',
-  'TailwindCSS',
-  'RAG',
-  'NLP',
-  'Docker',
-];
+export const TECH_STACK = {
+  'AI/ML': [
+    'Agentic AI',
+    'LLMs',
+    'NLP',
+    'RAG',
+    'Document Retrieval',
+    'Language Modeling',
+    'Deep Learning',
+    'Machine Learning',
+  ],
+  'Languages': [
+    'Python',
+    'Java',
+    'JavaScript',
+    'C++',
+    'Bash',
+  ],
+  'Backend/APIs': [
+    'FastAPI',
+    'REST APIs',
+    'RESTful WebServices',
+  ],
+  'Databases': [
+    'MySQL',
+    'Redis',
+    'NoSQL',
+    'PostgreSQL',
+  ],
+  'DevOps/Tools': [
+    'Docker',
+    'Git',
+    'Linux',
+    'DevOps',
+  ],
+  'Data & Engineering': [
+    'Data Engineering',
+    'Data Mining',
+    'Web Crawling',
+    'Algorithms',
+  ],
+};
 
 export const STATS = {
   followers: '355',
