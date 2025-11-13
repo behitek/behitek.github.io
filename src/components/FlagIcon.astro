@@ -1,0 +1,35 @@
+---
+interface Props {
+  country: 'us' | 'vn';
+  class?: string;
+}
+
+const { country, class: className = 'w-4 h-4' } = Astro.props;
+---
+
+{country === 'us' && (
+  <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="24" height="24" rx="2" fill="#B22234"/>
+    <path d="M0 3.69231H24M0 6.46154H24M0 9.23077H24M0 12H24M0 14.7692H24M0 17.5385H24M0 20.3077H24" stroke="white" stroke-width="1.8"/>
+    <rect width="10" height="12.9231" rx="1" fill="#3C3B6E"/>
+    <circle cx="2.5" cy="2.5" r="0.5" fill="white"/>
+    <circle cx="5" cy="2.5" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="2.5" r="0.5" fill="white"/>
+    <circle cx="2.5" cy="5" r="0.5" fill="white"/>
+    <circle cx="5" cy="5" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="5" r="0.5" fill="white"/>
+    <circle cx="2.5" cy="7.5" r="0.5" fill="white"/>
+    <circle cx="5" cy="7.5" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="7.5" r="0.5" fill="white"/>
+    <circle cx="2.5" cy="10" r="0.5" fill="white"/>
+    <circle cx="5" cy="10" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="10" r="0.5" fill="white"/>
+  </svg>
+)}
+
+{country === 'vn' && (
+  <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="24" height="24" rx="2" fill="#DA251D"/>
+    <path d="M12 6L13.545 10.764H18.708L14.582 13.736L16.127 18.5L12 15.528L7.873 18.5L9.418 13.736L5.292 10.764H10.455L12 6Z" fill="#FFFF00"/>
+  </svg>
+)}

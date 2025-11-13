@@ -1,15 +1,17 @@
 ---
-import { getLanguageInfo } from '@utils/helpers';
+import FlagIcon from './FlagIcon.astro';
 
 interface Props {
   language: 'en' | 'vi';
 }
 
 const { language } = Astro.props;
-const info = getLanguageInfo(language);
+const country = language === 'en' ? 'us' : 'vn';
+const label = language === 'en' ? 'English' : 'Tiếng Việt';
+const badgeClass = language === 'en' ? 'lang-badge-en' : 'lang-badge-vi';
 ---
 
-<span class={`lang-badge ${info.class}`}>
-  <span>{info.flag}</span>
-  <span>{info.label === 'English' ? 'EN' : 'VI'}</span>
+<span class={`lang-badge ${badgeClass}`}>
+  <FlagIcon country={country} class="w-4 h-4" />
+  <span>{label}</span>
 </span>
