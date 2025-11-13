@@ -2,18 +2,22 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { SITE, SOCIAL_LINKS } from '@utils/constants';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <BaseLayout
-  title="Contact"
-  description="Get in touch - always happy to discuss AI, production ML, RAG systems, or self-hosted solutions"
+  title={t.contact.title}
+  description={t.contact.subtitle}
 >
   <div class="container py-12">
     <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">💬 Let's Connect</h1>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{t.contact.title}</h1>
       <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        Always happy to discuss AI, production ML, RAG systems, or self-hosted solutions
+        {t.contact.subtitle}
       </p>
     </div>
 
@@ -21,7 +25,7 @@ import { SITE, SOCIAL_LINKS } from '@utils/constants';
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
       <!-- Left: Social Links -->
       <div class="space-y-4">
-        <h2 class="text-2xl font-bold mb-6">Get in Touch</h2>
+        <h2 class="text-2xl font-bold mb-6">{t.contact.getInTouch}</h2>
 
         {Object.entries(SOCIAL_LINKS).map(([key, social]) => (
           <a
@@ -60,27 +64,27 @@ import { SITE, SOCIAL_LINKS } from '@utils/constants';
       <div class="space-y-6">
         <!-- Quick Info -->
         <div class="card">
-          <h3 class="text-xl font-bold mb-4">Quick Info</h3>
+          <h3 class="text-xl font-bold mb-4">{t.contact.quickInfo.title}</h3>
           <div class="space-y-3 text-[var(--color-text-muted)]">
             <div class="flex items-start gap-3">
               <span class="text-2xl">📍</span>
               <div>
-                <p class="font-medium text-[var(--color-text-base)]">Location</p>
-                <p>Hanoi, Vietnam 🇻🇳</p>
+                <p class="font-medium text-[var(--color-text-base)]">{t.contact.quickInfo.location}</p>
+                <p>{t.contact.quickInfo.locationValue}</p>
               </div>
             </div>
             <div class="flex items-start gap-3">
               <span class="text-2xl">💼</span>
               <div>
-                <p class="font-medium text-[var(--color-text-base)]">Role</p>
-                <p>AI Engineer</p>
+                <p class="font-medium text-[var(--color-text-base)]">{t.contact.quickInfo.role}</p>
+                <p>{t.contact.quickInfo.roleValue}</p>
               </div>
             </div>
             <div class="flex items-start gap-3">
               <span class="text-2xl">🎓</span>
               <div>
-                <p class="font-medium text-[var(--color-text-base)]">Education</p>
-                <p>Master's in Information Science (JAIST)</p>
+                <p class="font-medium text-[var(--color-text-base)]">{t.contact.quickInfo.education}</p>
+                <p>{t.contact.quickInfo.educationValue}</p>
               </div>
             </div>
           </div>
@@ -88,26 +92,26 @@ import { SITE, SOCIAL_LINKS } from '@utils/constants';
 
         <!-- Interests -->
         <div class="card">
-          <h3 class="text-xl font-bold mb-4">Interests</h3>
+          <h3 class="text-xl font-bold mb-4">{t.contact.interests.title}</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="category-badge category-ai">AI/ML</span>
-            <span class="category-badge category-ai">NLP</span>
-            <span class="category-badge category-ai">RAG</span>
-            <span class="category-badge category-ai">LLMs</span>
-            <span class="category-badge category-python">Python</span>
-            <span class="category-badge category-data">IR</span>
-            <span class="category-badge category-tutorial">Teaching</span>
+            <span class="category-badge category-ai">{t.contact.interests.aiml}</span>
+            <span class="category-badge category-ai">{t.contact.interests.nlp}</span>
+            <span class="category-badge category-ai">{t.contact.interests.rag}</span>
+            <span class="category-badge category-ai">{t.contact.interests.llms}</span>
+            <span class="category-badge category-python">{t.contact.interests.python}</span>
+            <span class="category-badge category-data">{t.contact.interests.ir}</span>
+            <span class="category-badge category-tutorial">{t.contact.interests.teaching}</span>
             <span class="px-3 py-1 text-sm font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
-              Self-hosting
+              {t.contact.interests.selfHosting}
             </span>
           </div>
         </div>
 
         <!-- Availability -->
         <div class="card bg-gradient-to-br from-primary-50 to-accent-cyan/5 dark:from-primary-950 dark:to-slate-900 border-primary-200 dark:border-primary-800">
-          <h3 class="text-xl font-bold mb-3">📬 Response Time</h3>
+          <h3 class="text-xl font-bold mb-3">{t.contact.availability.title}</h3>
           <p class="text-[var(--color-text-muted)]">
-            I typically respond to emails and LinkedIn messages within 24-48 hours. For quick questions, Twitter/X DMs work best!
+            {t.contact.availability.text}
           </p>
         </div>
       </div>
@@ -115,15 +119,15 @@ import { SITE, SOCIAL_LINKS } from '@utils/constants';
 
     <!-- CTA Section -->
     <div class="text-center mt-16 p-8 card bg-gradient-to-br from-primary-600 to-accent-cyan text-white">
-      <h2 class="text-2xl font-bold mb-3">Open to Collaboration</h2>
+      <h2 class="text-2xl font-bold mb-3">{t.contact.cta.title}</h2>
       <p class="text-lg mb-6 opacity-90">
-        Interested in collaborating on AI/ML projects, writing guest posts, or speaking opportunities?
+        {t.contact.cta.subtitle}
       </p>
       <a
         href="mailto:hello@behitek.com?subject=Collaboration Inquiry"
         class="btn bg-white text-primary-600 hover:bg-slate-50 inline-flex items-center"
       >
-        📧 Send me an email
+        {t.contact.cta.button}
         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
         </svg>
