@@ -27,7 +27,7 @@ export default {
       title: 'Về Tôi',
       subtitle: 'Kỹ sư AI với bằng Thạc sĩ từ JAIST, chuyên về hệ thống ML production',
       greeting: 'Xin chào!',
-      bio1: 'Tôi là Hiếu Nguyễn, một Kỹ sư AI từ Việt Nam 🇻🇳 với đam mê chuyển đổi nghiên cứu thành các hệ thống production.',
+      bio1: 'Tôi là Hiếu Nguyễn, một Kỹ sư AI từ Việt Nam với đam mê chuyển đổi nghiên cứu thành các hệ thống production.',
       bio2: 'Chuyên môn của tôi nằm ở Xử lý Ngôn ngữ Tự nhiên, hệ thống RAG và Mô hình Ngôn ngữ Lớn. Tôi chuyên xây dựng các giải pháp AI có khả năng mở rộng để giải quyết các vấn đề thực tế.',
       bio3: 'Tôi có bằng {degree} từ {school} ở Nhật Bản, nơi tôi đã nâng cao kiến thức về truy xuất thông tin và học máy.',
       bio4: 'Khi không code, bạn sẽ thấy tôi khám phá các giải pháp self-hosted, đóng góp cho open source, hoặc viết về AI/ML trên blog.',
@@ -87,7 +87,7 @@ export default {
     quickInfo: {
       title: 'Thông Tin Nhanh',
       location: 'Vị Trí',
-      locationValue: 'Hà Nội, Việt Nam 🇻🇳',
+      locationValue: 'Hà Nội, Việt Nam',
       role: 'Vai Trò',
       roleValue: 'Kỹ Sư AI',
       education: 'Học Vấn',
@@ -124,8 +124,8 @@ export default {
     readArticle: 'Đọc Bài Viết',
     emptyState: 'Không tìm thấy bài viết',
     clearFilters: 'Xóa bộ lọc',
-    english: '🇺🇸 English',
-    vietnamese: '🇻🇳 Tiếng Việt',
+    english: 'English',
+    vietnamese: 'Tiếng Việt',
     filter: {
       all: 'Tất Cả',
       aiml: 'AI/ML',

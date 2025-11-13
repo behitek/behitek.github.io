@@ -2,6 +2,28 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import remarkDirective from 'remark-directive';
+import { visit } from 'unist-util-visit';
+import { h } from 'hastscript';
+
+// Custom remark plugin to handle admonitions (:::tip:::, :::warning:::, etc.)
+function remarkAdmonitions() {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (
+        node.type === 'textDirective' ||
+        node.type === 'leafDirective' ||
+        node.type === 'containerDirective'
+      ) {
+        const data = node.data || (node.data = {});
+        const tagName = node.type === 'textDirective' ? 'span' : 'div';
+
+        data.hName = tagName;
+        data.hProperties = h(tagName, { class: `admonition admonition-${node.name}` }).properties;
+      }
+    });
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,13 +43,22 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    remarkPlugins: [remarkDirective, remarkAdmonitions],
     shikiConfig: {
-      theme: 'github-dark',
       themes: {
         light: 'github-light',
-        dark: 'github-dark',
+        dark: 'github-dark-dimmed',
       },
       wrap: true,
+      transformers: [
+        {
+          name: 'add-copy-button',
+          pre(node) {
+            // Add a data attribute to enable copy button
+            this.addClassToHast(node, 'code-block-wrapper');
+          },
+        },
+      ],
     },
   },
 });

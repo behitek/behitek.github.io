@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '@components/TableOfContents.astro';
 import Giscus from '@components/Giscus.astro';
 import LanguageBadge from '@components/LanguageBadge.astro';
+import SocialIcon from '@components/SocialIcon.astro';
 import { formatDate, getCategoryColor } from '@utils/helpers';
 import type { CollectionEntry } from 'astro:content';
 
@@ -102,23 +103,31 @@ const { title, description, date, updated, author, category, tags, language } = 
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="btn-secondary text-sm"
+              class="btn-secondary text-sm flex items-center gap-2"
+              aria-label="Share on Twitter"
             >
-              🐦 Twitter
+              <SocialIcon name="twitter" class="w-4 h-4" />
+              <span>Twitter</span>
             </a>
             <a
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="btn-secondary text-sm"
+              class="btn-secondary text-sm flex items-center gap-2"
+              aria-label="Share on LinkedIn"
             >
-              💼 LinkedIn
+              <SocialIcon name="linkedin" class="w-4 h-4" />
+              <span>LinkedIn</span>
             </a>
             <button
               id="copy-link"
-              class="btn-secondary text-sm"
+              class="btn-secondary text-sm flex items-center gap-2"
+              aria-label="Copy link to clipboard"
             >
-              🔗 Copy Link
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+              </svg>
+              <span>Copy Link</span>
             </button>
           </div>
         </div>
@@ -155,13 +164,49 @@ const { title, description, date, updated, author, category, tags, language } = 
   document.getElementById('copy-link')?.addEventListener('click', async () => {
     await navigator.clipboard.writeText(window.location.href);
     const button = document.getElementById('copy-link');
-    const originalText = button?.textContent || '';
-    if (button) {
-      button.textContent = '✓ Copied!';
+    const span = button?.querySelector('span');
+    if (span) {
+      const originalText = span.textContent || '';
+      span.textContent = '✓ Copied!';
       setTimeout(() => {
-        button.textContent = originalText;
+        span.textContent = originalText;
       }, 2000);
     }
+  });
+
+  // Add copy buttons to code blocks
+  document.querySelectorAll('.prose pre').forEach((pre) => {
+    // Create copy button
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = 'Copy';
+    button.setAttribute('aria-label', 'Copy code to clipboard');
+
+    // Add click handler
+    button.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const text = code.textContent || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy code:', err);
+          button.textContent = 'Failed';
+          setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 2000);
+        }
+      }
+    });
+
+    // Append button to pre element
+    pre.appendChild(button);
   });
 
   // Smooth scroll for anchor links

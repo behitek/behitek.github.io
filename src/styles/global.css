@@ -133,11 +133,34 @@
 }
 
 .prose pre {
-  @apply bg-slate-900 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto my-6;
+  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-4 overflow-x-auto my-6 relative;
+  position: relative;
 }
 
 .prose pre code {
-  @apply bg-transparent text-slate-100 p-0;
+  @apply bg-transparent p-0;
+}
+
+/* Code block wrapper with copy button */
+.prose .code-block-wrapper {
+  @apply relative;
+}
+
+.prose pre:hover .copy-button {
+  @apply opacity-100;
+}
+
+.prose .copy-button {
+  @apply absolute top-2 right-2 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white text-xs rounded opacity-0 transition-all duration-200 cursor-pointer font-sans;
+  z-index: 10;
+}
+
+.prose .copy-button:hover {
+  @apply shadow-lg;
+}
+
+.prose .copy-button.copied {
+  @apply bg-green-600 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-600;
 }
 
 .prose blockquote {
@@ -185,6 +208,56 @@
 
 .lang-badge-vi {
   @apply bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300;
+}
+
+/* Admonitions (:::tip:::, :::warning:::, etc.) */
+.prose .admonition {
+  @apply my-6 p-4 rounded-lg border-l-4;
+}
+
+.prose .admonition-tip {
+  @apply bg-blue-50 dark:bg-blue-950 border-blue-500 text-blue-900 dark:text-blue-100;
+}
+
+.prose .admonition-tip::before {
+  content: '💡 Tip';
+  @apply block font-bold mb-2 text-blue-700 dark:text-blue-300;
+}
+
+.prose .admonition-warning {
+  @apply bg-yellow-50 dark:bg-yellow-950 border-yellow-500 text-yellow-900 dark:text-yellow-100;
+}
+
+.prose .admonition-warning::before {
+  content: '⚠️ Warning';
+  @apply block font-bold mb-2 text-yellow-700 dark:text-yellow-300;
+}
+
+.prose .admonition-danger {
+  @apply bg-red-50 dark:bg-red-950 border-red-500 text-red-900 dark:text-red-100;
+}
+
+.prose .admonition-danger::before {
+  content: '🚨 Danger';
+  @apply block font-bold mb-2 text-red-700 dark:text-red-300;
+}
+
+.prose .admonition-note {
+  @apply bg-gray-50 dark:bg-gray-950 border-gray-500 text-gray-900 dark:text-gray-100;
+}
+
+.prose .admonition-note::before {
+  content: '📝 Note';
+  @apply block font-bold mb-2 text-gray-700 dark:text-gray-300;
+}
+
+.prose .admonition-info {
+  @apply bg-cyan-50 dark:bg-cyan-950 border-cyan-500 text-cyan-900 dark:text-cyan-100;
+}
+
+.prose .admonition-info::before {
+  content: 'ℹ️ Info';
+  @apply block font-bold mb-2 text-cyan-700 dark:text-cyan-300;
 }
 
 /* Category badges */
