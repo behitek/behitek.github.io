@@ -14,14 +14,11 @@ const alternateCountry = alternateLang === 'en' ? 'us' : 'vn';
 <div class="language-switcher">
   <a
     href={alternateUrl}
-    class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+    class="flex items-center justify-center p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
     aria-label={`Switch to ${languages[alternateLang]}`}
     title={`Switch to ${languages[alternateLang]}`}
   >
-    <FlagIcon country={alternateCountry} class="w-5 h-5" />
-    <span class="text-sm font-medium">
-      {languages[alternateLang]}
-    </span>
+    <FlagIcon country={alternateCountry} class="w-6 h-6" />
   </a>
 </div>
 
