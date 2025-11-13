@@ -1,3 +1,0 @@
----
-title: Depth-First Search
----
