@@ -1,6 +1,5 @@
 ---
 import { languages, defaultLang, getLangFromUrl, getLocalizedPath } from '@i18n/utils';
-import FlagIcon from './FlagIcon.astro';
 
 const currentLang = getLangFromUrl(Astro.url);
 const currentPath = Astro.url.pathname.replace(new RegExp(`^/${currentLang}`), '') || '/';
@@ -8,17 +7,18 @@ const currentPath = Astro.url.pathname.replace(new RegExp(`^/${currentLang}`), '
 // Generate alternate language URL
 const alternateLang = currentLang === 'en' ? 'vi' : 'en';
 const alternateUrl = getLocalizedPath(currentPath, alternateLang);
-const alternateCountry = alternateLang === 'en' ? 'us' : 'vn';
 ---
 
 <div class="language-switcher">
   <a
     href={alternateUrl}
-    class="flex items-center justify-center p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+    class="flex items-center justify-center px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
     aria-label={`Switch to ${languages[alternateLang]}`}
     title={`Switch to ${languages[alternateLang]}`}
   >
-    <FlagIcon country={alternateCountry} class="w-6 h-6" />
+    <span class="text-sm font-medium">
+      {alternateLang.toUpperCase()}
+    </span>
   </a>
 </div>
 
