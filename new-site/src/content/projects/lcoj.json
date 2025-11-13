@@ -2,7 +2,7 @@
   "title": "LCOJ",
   "description": "A modern open-source online judge and contest platform system for Vietnamese students. Features automated code evaluation, interactive programming practice, and 1000+ programming exercises with comprehensive solutions.",
   "category": "Product",
-  "tech": ["Python", "C++", "Vue", "JavaScript", "Docker"],
+  "tech": ["Python", "Django", "Vue", "JavaScript", "Docker"],
   "links": {
     "website": "https://luyencode.net",
     "github": "https://github.com/luyencode"

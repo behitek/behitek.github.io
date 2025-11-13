@@ -2,6 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ProjectCard from '@components/ProjectCard.astro';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 // Get all projects
 const allProjects = await getCollection('projects');
@@ -13,18 +17,24 @@ const projectsByCategory = categories.map((category) => ({
   category,
   projects: sortedProjects.filter((p) => p.data.category === category),
 })).filter((group) => group.projects.length > 0);
+
+// Category translations
+const getCategoryName = (category: string) => {
+  const key = category.toLowerCase() as keyof typeof t.projects.filter;
+  return t.projects.filter[key] || category;
+};
 ---
 
 <BaseLayout
-  title="Projects"
-  description="Building solutions with AI & Code - from production platforms to research and educational content"
+  title={t.projects.title}
+  description={t.projects.subtitle}
 >
   <div class="container py-12">
     <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">🚀 Projects</h1>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">🚀 {t.projects.title}</h1>
       <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        Building solutions with AI & Code - from production platforms to research and educational content
+        {t.projects.subtitle}
       </p>
     </div>
 
@@ -34,14 +44,14 @@ const projectsByCategory = categories.map((category) => ({
         class="category-filter-btn active px-4 py-2 rounded-lg font-medium transition-all"
         data-category="all"
       >
-        All Projects ({sortedProjects.length})
+        {t.projects.allProjects} ({sortedProjects.length})
       </button>
       {projectsByCategory.map((group) => (
         <button
           class="category-filter-btn px-4 py-2 rounded-lg font-medium transition-all"
           data-category={group.category.toLowerCase()}
         >
-          {group.category} ({group.projects.length})
+          {getCategoryName(group.category)} ({group.projects.length})
         </button>
       ))}
     </div>
@@ -66,7 +76,7 @@ const projectsByCategory = categories.map((category) => ({
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-cyan-600 hover:from-primary-700 hover:to-cyan-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
       >
-        <span>View More Projects</span>
+        <span>{t.projects.viewMore}</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
         </svg>
@@ -75,9 +85,9 @@ const projectsByCategory = categories.map((category) => ({
 
     <!-- Empty State -->
     <div id="empty-state" class="hidden text-center py-16">
-      <p class="text-2xl text-[var(--color-text-muted)] mb-4">No projects found in this category</p>
+      <p class="text-2xl text-[var(--color-text-muted)] mb-4">{t.projects.emptyState}</p>
       <button id="reset-category-filters" class="link text-lg">
-        View all projects
+        {t.projects.viewAll}
       </button>
     </div>
   </div>

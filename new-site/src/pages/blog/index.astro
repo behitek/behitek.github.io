@@ -3,6 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogCard from '@components/BlogCard.astro';
 import { readingTime } from '@utils/helpers';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
 
 // Get all published blog posts
 const allPosts = await getCollection('blog', ({ data }) => {
@@ -21,15 +25,15 @@ const featuredPost = sortedPosts[0];
 ---
 
 <BaseLayout
-  title="Blog"
-  description="Learning, building, and sharing insights about AI, ML, NLP, and software engineering"
+  title={t.blog.title}
+  description={t.blog.subtitle}
 >
   <div class="container py-12">
     <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">✍️ Blog</h1>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">✍️ {t.blog.title}</h1>
       <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        Learning, building, and sharing insights about AI/ML, NLP, RAG, and software engineering
+        {t.blog.subtitle}
       </p>
     </div>
 
@@ -39,7 +43,7 @@ const featuredPost = sortedPosts[0];
         class="filter-btn active px-4 py-2 rounded-lg font-medium transition-all"
         data-filter="all"
       >
-        All Posts ({sortedPosts.length})
+        {t.blog.allPosts} ({sortedPosts.length})
       </button>
       {languages.map((lang) => {
         const count = sortedPosts.filter((p) => p.data.language === lang).length;
@@ -48,7 +52,7 @@ const featuredPost = sortedPosts[0];
             class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
             data-filter={`lang-${lang}`}
           >
-            {lang === 'en' ? '🇺🇸 English' : '🇻🇳 Vietnamese'} ({count})
+            {lang === 'en' ? t.blog.english : t.blog.vietnamese} ({count})
           </button>
         );
       })}
@@ -70,7 +74,7 @@ const featuredPost = sortedPosts[0];
       <div class="mb-16 card bg-gradient-to-br from-primary-50 to-accent-cyan/5 dark:from-primary-950 dark:to-slate-900 border-primary-200 dark:border-primary-800">
         <div class="flex items-center gap-2 mb-3">
           <span class="px-3 py-1 bg-primary-600 text-white text-sm font-bold rounded-full">
-            📌 FEATURED
+            📌 {t.blog.featured}
           </span>
         </div>
         <h2 class="text-3xl font-bold mb-3">
@@ -90,11 +94,11 @@ const featuredPost = sortedPosts[0];
             {new Date(featuredPost.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </span>
           <span class="text-sm text-[var(--color-text-muted)]">
-            {readingTime(featuredPost.body)} min read
+            {readingTime(featuredPost.body)} {t.blog.minRead}
           </span>
         </div>
         <a href={`/blog/${featuredPost.slug}`} class="mt-4 btn-primary inline-flex items-center">
-          Read Article
+          {t.blog.readArticle}
           <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
@@ -104,7 +108,7 @@ const featuredPost = sortedPosts[0];
 
     <!-- All Posts Grid -->
     <div class="mb-8">
-      <h2 class="text-2xl font-bold mb-6">All Posts ({sortedPosts.length})</h2>
+      <h2 class="text-2xl font-bold mb-6">{t.blog.allPosts} ({sortedPosts.length})</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
@@ -129,9 +133,9 @@ const featuredPost = sortedPosts[0];
 
     <!-- Empty State -->
     <div id="empty-state" class="hidden text-center py-16">
-      <p class="text-2xl text-[var(--color-text-muted)] mb-4">No posts found</p>
+      <p class="text-2xl text-[var(--color-text-muted)] mb-4">{t.blog.emptyState}</p>
       <button id="reset-filters" class="link text-lg">
-        Clear filters
+        {t.blog.clearFilters}
       </button>
     </div>
   </div>

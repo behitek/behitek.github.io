@@ -59,7 +59,11 @@ export default {
   // Projects Page
   projects: {
     title: 'Projects',
-    subtitle: 'Personal and open source projects I\'ve built',
+    subtitle: 'Building solutions with AI & Code - from production platforms to research and educational content',
+    allProjects: 'All Projects',
+    viewMore: 'View More Projects',
+    emptyState: 'No projects found in this category',
+    viewAll: 'View all projects',
     filter: {
       all: 'All',
       product: 'Product',
@@ -114,7 +118,14 @@ export default {
   // Blog Page
   blog: {
     title: 'Blog',
-    subtitle: 'Articles about AI, ML, and software engineering',
+    subtitle: 'Learning, building, and sharing insights about AI/ML, NLP, RAG, and software engineering',
+    allPosts: 'All Posts',
+    featured: 'FEATURED',
+    readArticle: 'Read Article',
+    emptyState: 'No posts found',
+    clearFilters: 'Clear filters',
+    english: '🇺🇸 English',
+    vietnamese: '🇻🇳 Vietnamese',
     filter: {
       all: 'All',
       aiml: 'AI/ML',

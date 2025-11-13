@@ -59,7 +59,11 @@ export default {
   // Projects Page
   projects: {
     title: 'Dự Án',
-    subtitle: 'Các dự án cá nhân và open source mà tôi đã xây dựng',
+    subtitle: 'Xây dựng các giải pháp với AI & Code - từ nền tảng production đến nghiên cứu và nội dung giáo dục',
+    allProjects: 'Tất Cả Dự Án',
+    viewMore: 'Xem Thêm Dự Án',
+    emptyState: 'Không tìm thấy dự án nào trong danh mục này',
+    viewAll: 'Xem tất cả dự án',
     filter: {
       all: 'Tất Cả',
       product: 'Sản Phẩm',
@@ -114,7 +118,14 @@ export default {
   // Blog Page
   blog: {
     title: 'Blog',
-    subtitle: 'Bài viết về AI, ML và kỹ thuật phần mềm',
+    subtitle: 'Học hỏi, xây dựng và chia sẻ kiến thức về AI/ML, NLP, RAG và kỹ thuật phần mềm',
+    allPosts: 'Tất Cả Bài Viết',
+    featured: 'NỔI BẬT',
+    readArticle: 'Đọc Bài Viết',
+    emptyState: 'Không tìm thấy bài viết',
+    clearFilters: 'Xóa bộ lọc',
+    english: '🇺🇸 English',
+    vietnamese: '🇻🇳 Tiếng Việt',
     filter: {
       all: 'Tất Cả',
       aiml: 'AI/ML',
