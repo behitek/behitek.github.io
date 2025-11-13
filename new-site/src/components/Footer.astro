@@ -1,0 +1,79 @@
+---
+import { SITE, SOCIAL_LINKS } from '@utils/constants';
+import SocialIcon from '@components/SocialIcon.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@i18n/utils';
+
+const currentYear = new Date().getFullYear();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] mt-24">
+  <div class="container py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Brand -->
+      <div>
+        <h3 class="font-bold text-xl gradient-text mb-3">{SITE.title}</h3>
+        <p class="text-[var(--color-text-muted)] text-sm">{SITE.description}</p>
+        <p class="text-[var(--color-text-muted)] text-sm mt-2">{SITE.tagline}</p>
+      </div>
+
+      <!-- Connect -->
+      <div>
+        <h4 class="font-semibold mb-3">Connect</h4>
+        <ul class="space-y-2">
+          {Object.values(SOCIAL_LINKS).map((social) => (
+            <li>
+              <a
+                href={social.href}
+                class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm flex items-center space-x-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SocialIcon name={social.icon} class="w-4 h-4" />
+                <span>{social.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Discover -->
+      <div>
+        <h4 class="font-semibold mb-3">Discover</h4>
+        <ul class="space-y-2">
+          <li>
+            <a href={getLocalizedPath('/blog', lang)} class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
+              {t.nav.blog}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/projects', lang)} class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
+              {t.nav.projects}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/contact', lang)} class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
+              {t.nav.contact}
+            </a>
+          </li>
+          <li>
+            <a href="/rss.xml" class="text-[var(--color-text-muted)] hover:text-primary-600 transition-colors text-sm">
+              RSS Feed
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="border-t border-[var(--color-border)] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <p class="text-[var(--color-text-muted)] text-sm">
+        © {currentYear} {SITE.title} • {t.footer.rights}
+      </p>
+      <p class="text-[var(--color-text-muted)] text-sm">
+        {t.footer.builtWith} <a href="https://astro.build" class="link" target="_blank" rel="noopener noreferrer">Astro</a> {t.footer.and} <a href="https://tailwindcss.com" class="link" target="_blank" rel="noopener noreferrer">TailwindCSS</a>
+      </p>
+    </div>
+  </div>
+</footer>

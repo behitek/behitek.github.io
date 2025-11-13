@@ -1,0 +1,12 @@
+{
+  "title": "Beli5",
+  "description": "Vietnamese programming education platform teaching Python, Java, C++, and Rust using ELI5 approach (Explain Like I'm 5). Features child-friendly design, progressive difficulty levels, and culturally relevant examples for Vietnamese learners aged 8-16.",
+  "category": "Tutorial",
+  "tech": ["Docusaurus", "JavaScript", "React", "Markdown"],
+  "links": {
+    "website": "https://behitek.com/beli5",
+    "github": "https://github.com/behitek/beli5"
+  },
+  "featured": true,
+  "order": 3
+}

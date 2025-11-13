@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SocialIcon from '@components/SocialIcon.astro';
+import { SITE, SOCIAL_LINKS } from '@utils/constants';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  title={t.contact.title}
+  description={t.contact.subtitle}
+>
+  <div class="container py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{t.contact.title}</h1>
+      <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
+        {t.contact.subtitle}
+      </p>
+    </div>
+
+    <!-- Contact Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Left: Social Links -->
+      <div class="space-y-4">
+        <h2 class="text-2xl font-bold mb-6">{t.contact.getInTouch}</h2>
+
+        {Object.entries(SOCIAL_LINKS).map(([key, social]) => (
+          <a
+            href={social.href}
+            target={social.href.startsWith('mailto:') ? undefined : '_blank'}
+            rel="noopener noreferrer"
+            class="card group hover:border-primary-600 transition-all flex items-center gap-4"
+          >
+            <div class="text-primary-600">
+              <SocialIcon name={social.icon} class="w-10 h-10" />
+            </div>
+            <div>
+              <h3 class="font-semibold group-hover:text-primary-600 transition-colors">
+                {social.label}
+              </h3>
+              <p class="text-sm text-[var(--color-text-muted)]">
+                {key === 'email' && SITE.email}
+                {key === 'linkedin' && '@behitek'}
+                {key === 'github' && '@behitek (355 followers)'}
+                {key === 'twitter' && '@behitek_'}
+              </p>
+            </div>
+            <svg
+              class="w-5 h-5 ml-auto text-[var(--color-text-muted)] group-hover:text-primary-600 group-hover:translate-x-1 transition-all"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        ))}
+      </div>
+
+      <!-- Right: Info Cards -->
+      <div class="space-y-6">
+        <!-- Quick Info -->
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">{t.contact.quickInfo.title}</h3>
+          <div class="space-y-3 text-[var(--color-text-muted)]">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">📍</span>
+              <div>
+                <p class="font-medium text-[var(--color-text-base)]">{t.contact.quickInfo.location}</p>
+                <p>{t.contact.quickInfo.locationValue}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">💼</span>
+              <div>
+                <p class="font-medium text-[var(--color-text-base)]">{t.contact.quickInfo.role}</p>
+                <p>{t.contact.quickInfo.roleValue}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🎓</span>
+              <div>
+                <p class="font-medium text-[var(--color-text-base)]">{t.contact.quickInfo.education}</p>
+                <p>{t.contact.quickInfo.educationValue}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">{t.contact.interests.title}</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="category-badge category-ai">{t.contact.interests.aiml}</span>
+            <span class="category-badge category-ai">{t.contact.interests.nlp}</span>
+            <span class="category-badge category-ai">{t.contact.interests.rag}</span>
+            <span class="category-badge category-ai">{t.contact.interests.llms}</span>
+            <span class="category-badge category-python">{t.contact.interests.python}</span>
+            <span class="category-badge category-data">{t.contact.interests.ir}</span>
+            <span class="category-badge category-tutorial">{t.contact.interests.teaching}</span>
+            <span class="px-3 py-1 text-sm font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+              {t.contact.interests.selfHosting}
+            </span>
+          </div>
+        </div>
+
+        <!-- Availability -->
+        <div class="card bg-gradient-to-br from-primary-50 to-accent-cyan/5 dark:from-primary-950 dark:to-slate-900 border-primary-200 dark:border-primary-800">
+          <h3 class="text-xl font-bold mb-3">{t.contact.availability.title}</h3>
+          <p class="text-[var(--color-text-muted)]">
+            {t.contact.availability.text}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center mt-16 p-8 card bg-gradient-to-br from-primary-600 to-accent-cyan text-white">
+      <h2 class="text-2xl font-bold mb-3">{t.contact.cta.title}</h2>
+      <p class="text-lg mb-6 opacity-90">
+        {t.contact.cta.subtitle}
+      </p>
+      <a
+        href="mailto:hello@behitek.com?subject=Collaboration Inquiry"
+        class="btn bg-white text-primary-600 hover:bg-slate-50 inline-flex items-center"
+      >
+        {t.contact.cta.button}
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,175 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '@components/TableOfContents.astro';
+import Giscus from '@components/Giscus.astro';
+import LanguageBadge from '@components/LanguageBadge.astro';
+import { formatDate, getCategoryColor } from '@utils/helpers';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  headings: { slug: string; text: string; depth: number }[];
+  readingTime: number;
+}
+
+const { post, headings, readingTime } = Astro.props;
+const { title, description, date, updated, author, category, tags, language } = post.data;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  article={true}
+  publishedTime={date}
+  modifiedTime={updated}
+>
+  <!-- Reading Progress Bar -->
+  <div id="reading-progress" class="reading-progress" style="width: 0%"></div>
+
+  <article class="container py-12">
+    <!-- Breadcrumbs -->
+    <nav class="text-sm text-[var(--color-text-muted)] mb-6">
+      <a href="/" class="hover:text-primary-600">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/blog" class="hover:text-primary-600">Blog</a>
+      <span class="mx-2">/</span>
+      <span>{category}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto mb-12">
+      <div class="flex items-center gap-2 mb-4 flex-wrap">
+        <LanguageBadge language={language} />
+        <span class={`category-badge ${getCategoryColor(category)}`}>
+          {category}
+        </span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
+
+      <p class="text-xl text-[var(--color-text-muted)] mb-6">{description}</p>
+
+      <div class="flex items-center gap-4 text-sm text-[var(--color-text-muted)] flex-wrap">
+        <div class="flex items-center gap-2">
+          <img
+            src="https://avatars.githubusercontent.com/u/12376486"
+            alt={author}
+            class="w-8 h-8 rounded-full"
+          />
+          <span>{author}</span>
+        </div>
+        <span>•</span>
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        {updated && (
+          <>
+            <span>•</span>
+            <span>Updated: {formatDate(updated)}</span>
+          </>
+        )}
+        <span>•</span>
+        <span>{readingTime} min read</span>
+      </div>
+
+      {tags.length > 0 && (
+        <div class="flex items-center gap-2 mt-4 flex-wrap">
+          {tags.map((tag) => (
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Content Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Table of Contents (Desktop) -->
+      <aside class="hidden lg:block lg:col-span-3">
+        <TableOfContents headings={headings} />
+      </aside>
+
+      <!-- Main Content -->
+      <div class="lg:col-span-9 max-w-4xl">
+        <div class="prose prose-lg">
+          <slot />
+        </div>
+
+        <!-- Share Buttons -->
+        <div class="mt-12 pt-8 border-t border-[var(--color-border)]">
+          <h3 class="text-lg font-bold mb-4">Share this article</h3>
+          <div class="flex items-center gap-4">
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary text-sm"
+            >
+              🐦 Twitter
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary text-sm"
+            >
+              💼 LinkedIn
+            </a>
+            <button
+              id="copy-link"
+              class="btn-secondary text-sm"
+            >
+              🔗 Copy Link
+            </button>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <Giscus />
+      </div>
+    </div>
+
+    <!-- Back to Blog -->
+    <div class="text-center mt-12">
+      <a href="/blog" class="link text-lg">
+        ← Back to Blog
+      </a>
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  // Reading progress bar
+  const updateReadingProgress = () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+      progressBar.style.width = scrolled + '%';
+    }
+  };
+
+  window.addEventListener('scroll', updateReadingProgress);
+
+  // Copy link button
+  document.getElementById('copy-link')?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    const button = document.getElementById('copy-link');
+    const originalText = button?.textContent || '';
+    if (button) {
+      button.textContent = '✓ Copied!';
+      setTimeout(() => {
+        button.textContent = originalText;
+      }, 2000);
+    }
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href') || '');
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>

@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-text-base: #1e293b;
+    --color-text-muted: #64748b;
+    --color-bg-base: #ffffff;
+    --color-bg-secondary: #f8fafc;
+    --color-border: #e2e8f0;
+  }
+
+  .dark {
+    --color-text-base: #f8fafc;
+    --color-text-muted: #cbd5e1;
+    --color-bg-base: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-border: #334155;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[var(--color-bg-base)] text-[var(--color-text-base)] transition-colors duration-300;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-700;
+  }
+}
+
+@layer components {
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-medium hover:shadow-large hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-950 focus:ring-primary-500;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-6 shadow-soft transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
+  }
+
+  /* Link styles */
+  .link {
+    @apply text-primary-600 hover:text-primary-700 underline-offset-4 hover:underline transition-colors;
+  }
+
+  /* Section container */
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Glass morphism */
+  .glass {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/20 dark:border-slate-700/20;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-accent-cyan bg-clip-text text-transparent;
+  }
+
+  /* Focus visible */
+  .focus-outline {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900;
+  }
+}
+
+/* Prose styles for blog content */
+.prose {
+  @apply max-w-none;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply font-bold text-[var(--color-text-base)] scroll-mt-20;
+}
+
+.prose h1 {
+  @apply text-4xl mb-6;
+}
+
+.prose h2 {
+  @apply text-3xl mt-12 mb-4 border-b-2 border-primary-600 pb-2;
+}
+
+.prose h3 {
+  @apply text-2xl mt-8 mb-3;
+}
+
+.prose p {
+  @apply text-[var(--color-text-base)] leading-relaxed mb-4;
+}
+
+.prose a {
+  @apply link;
+}
+
+.prose code {
+  @apply bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono text-primary-600 dark:text-primary-400;
+}
+
+.prose pre {
+  @apply bg-slate-900 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto my-6;
+}
+
+.prose pre code {
+  @apply bg-transparent text-slate-100 p-0;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary-600 pl-4 italic text-[var(--color-text-muted)] my-6;
+}
+
+.prose ul,
+.prose ol {
+  @apply ml-6 mb-4;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose img {
+  @apply rounded-lg shadow-medium my-8;
+}
+
+.prose table {
+  @apply w-full my-8;
+}
+
+.prose th {
+  @apply bg-slate-100 dark:bg-slate-800 px-4 py-2 text-left font-semibold;
+}
+
+.prose td {
+  @apply border border-[var(--color-border)] px-4 py-2;
+}
+
+/* Reading progress bar */
+.reading-progress {
+  @apply fixed top-0 left-0 h-1 bg-gradient-to-r from-primary-600 to-accent-cyan z-50 transition-all duration-150;
+}
+
+/* Language badge */
+.lang-badge {
+  @apply inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full;
+}
+
+.lang-badge-en {
+  @apply bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300;
+}
+
+.lang-badge-vi {
+  @apply bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300;
+}
+
+/* Category badges */
+.category-badge {
+  @apply inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors;
+}
+
+.category-ai {
+  @apply bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300;
+}
+
+.category-python {
+  @apply bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300;
+}
+
+.category-tutorial {
+  @apply bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300;
+}
+
+.category-data {
+  @apply bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300;
+}
