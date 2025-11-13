@@ -27,7 +27,7 @@ export default {
       title: 'About Me',
       subtitle: 'AI Engineer with Master\'s degree from JAIST, specializing in production ML systems',
       greeting: 'Hello there!',
-      bio1: 'I\'m Hieu Nguyen, an AI Engineer from Vietnam 🇻🇳 with a passion for transforming research into production-ready systems.',
+      bio1: 'I\'m Hieu Nguyen, an AI Engineer from Vietnam with a passion for transforming research into production-ready systems.',
       bio2: 'My expertise lies in Natural Language Processing, RAG systems, and Large Language Models. I specialize in building scalable AI solutions that solve real-world problems.',
       bio3: 'I hold a {degree} from {school} in Japan, where I deepened my knowledge in information retrieval and machine learning.',
       bio4: 'When I\'m not coding, you\'ll find me exploring self-hosted solutions, contributing to open source, or writing about AI/ML on my blog.',
@@ -87,7 +87,7 @@ export default {
     quickInfo: {
       title: 'Quick Info',
       location: 'Location',
-      locationValue: 'Hanoi, Vietnam 🇻🇳',
+      locationValue: 'Hanoi, Vietnam',
       role: 'Role',
       roleValue: 'AI Engineer',
       education: 'Education',
@@ -124,8 +124,8 @@ export default {
     readArticle: 'Read Article',
     emptyState: 'No posts found',
     clearFilters: 'Clear filters',
-    english: '🇺🇸 English',
-    vietnamese: '🇻🇳 Vietnamese',
+    english: 'English',
+    vietnamese: 'Vietnamese',
     filter: {
       all: 'All',
       aiml: 'AI/ML',

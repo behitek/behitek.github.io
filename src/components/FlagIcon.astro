@@ -1,6 +1,6 @@
 ---
 interface Props {
-  country: 'us' | 'vn';
+  country: 'us' | 'vn' | 'jp';
   class?: string;
 }
 
@@ -31,5 +31,12 @@ const { country, class: className = 'w-4 h-4' } = Astro.props;
   <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="24" height="24" rx="2" fill="#DA251D"/>
     <path d="M12 6L13.545 10.764H18.708L14.582 13.736L16.127 18.5L12 15.528L7.873 18.5L9.418 13.736L5.292 10.764H10.455L12 6Z" fill="#FFFF00"/>
+  </svg>
+)}
+
+{country === 'jp' && (
+  <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="24" height="24" rx="2" fill="white"/>
+    <circle cx="12" cy="12" r="6" fill="#BC002D"/>
   </svg>
 )}

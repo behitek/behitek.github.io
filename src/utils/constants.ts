@@ -4,7 +4,7 @@ export const SITE = {
   url: 'https://behitek.com',
   author: 'Hieu Nguyen',
   email: 'hello@behitek.com',
-  tagline: 'AI Engineer • Vietnam 🇻🇳',
+  tagline: 'AI Engineer • Vietnam',
   bio: 'I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLMs, and information retrieval.',
 };
 
@@ -40,7 +40,7 @@ export const NAV_LINKS = [
 export const EDUCATION = {
   degree: "Master's in Information Science",
   school: 'Japan Advanced Institute of Science and Technology (JAIST)',
-  country: '🇯🇵 Japan',
+  country: 'Japan',
 };
 
 export const TECH_STACK = {

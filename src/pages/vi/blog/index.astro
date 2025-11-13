@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogCard from '@components/BlogCard.astro';
+import FlagIcon from '@components/FlagIcon.astro';
 import { readingTime } from '@utils/helpers';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
@@ -87,7 +88,8 @@ const featuredPost = sortedPosts[0];
         </p>
         <div class="flex items-center gap-4 flex-wrap">
           <span class={`lang-badge ${featuredPost.data.language === 'vi' ? 'lang-badge-vi' : 'lang-badge-en'}`}>
-            {featuredPost.data.language === 'vi' ? '🇻🇳 VI' : '🇺🇸 EN'}
+            <FlagIcon country={featuredPost.data.language === 'vi' ? 'vn' : 'us'} class="w-4 h-4" />
+            <span>{featuredPost.data.language === 'vi' ? 'VI' : 'EN'}</span>
           </span>
           <span class="category-badge category-ai">{featuredPost.data.category}</span>
           <span class="text-sm text-[var(--color-text-muted)]">
