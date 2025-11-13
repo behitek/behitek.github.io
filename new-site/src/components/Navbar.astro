@@ -2,16 +2,16 @@
 import { SITE } from '@utils/constants';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@i18n/utils';
 
 const currentPath = Astro.url.pathname;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const NAV_LINKS = [
-  { label: t.nav.blog, href: '/blog' },
-  { label: t.nav.projects, href: '/projects' },
-  { label: t.nav.contact, href: '/contact' },
+  { label: t.nav.blog, href: getLocalizedPath('/blog', lang) },
+  { label: t.nav.projects, href: getLocalizedPath('/projects', lang) },
+  { label: t.nav.contact, href: getLocalizedPath('/contact', lang) },
 ];
 ---
 
@@ -19,7 +19,7 @@ const NAV_LINKS = [
   <div class="container">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center space-x-2 font-bold text-xl hover:text-primary-600 transition-colors">
+      <a href={getLocalizedPath('/', lang)} class="flex items-center space-x-2 font-bold text-xl hover:text-primary-600 transition-colors">
         <span class="gradient-text">{SITE.title}</span>
       </a>
 

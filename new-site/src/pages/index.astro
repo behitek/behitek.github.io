@@ -6,7 +6,7 @@ import ProjectCard from '@components/ProjectCard.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { SITE, EDUCATION, TECH_STACK, STATS, SOCIAL_LINKS } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -66,13 +66,13 @@ const recentPosts = allPosts
 
             <!-- CTA Buttons -->
             <div class="flex flex-wrap items-center gap-4 mb-8">
-              <a href="/projects" class="btn-primary">
+              <a href={getLocalizedPath('/projects', lang)} class="btn-primary">
                 {t.home.cta.viewWork}
                 <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
               </a>
-              <a href="/contact" class="btn-secondary">
+              <a href={getLocalizedPath('/contact', lang)} class="btn-secondary">
                 {t.home.cta.getInTouch}
               </a>
             </div>
@@ -227,7 +227,7 @@ const recentPosts = allPosts
       </div>
 
       <div class="text-center">
-        <a href="/projects" class="btn-primary">
+        <a href={getLocalizedPath('/projects', lang)} class="btn-primary">
           {t.home.featuredProjects.viewAll}
           <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -263,7 +263,7 @@ const recentPosts = allPosts
         </div>
 
         <div class="text-center">
-          <a href="/blog" class="btn-primary">
+          <a href={getLocalizedPath('/blog', lang)} class="btn-primary">
             {t.home.latestArticles.viewAll}
             <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -289,10 +289,10 @@ const recentPosts = allPosts
         {t.home.cta2.subtitle}
       </p>
       <div class="flex items-center justify-center gap-4 flex-wrap">
-        <a href="/contact" class="btn bg-white text-primary-600 hover:bg-slate-50 text-lg px-8 py-4">
+        <a href={getLocalizedPath('/contact', lang)} class="btn bg-white text-primary-600 hover:bg-slate-50 text-lg px-8 py-4">
           {t.home.cta2.getInTouch}
         </a>
-        <a href="/projects" class="btn border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-4">
+        <a href={getLocalizedPath('/projects', lang)} class="btn border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-4">
           {t.home.cta2.viewWork}
         </a>
       </div>
