@@ -4,47 +4,39 @@ interface Props {
   class?: string;
 }
 
-const { country, class: className = 'w-6 h-4' } = Astro.props;
+const { country, class: className = 'w-5 h-5' } = Astro.props;
 ---
 
 {country === 'us' && (
-  <svg class={className} viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="30" height="20" rx="1" fill="#B22234"/>
-    <path d="M0 2.46154H30M0 4.30769H30M0 6.15385H30M0 8H30M0 9.84615H30M0 11.6923H30M0 13.5385H30" stroke="white" stroke-width="1.2"/>
-    <rect width="12" height="10.7692" rx="0.5" fill="#3C3B6E"/>
-    <circle cx="2" cy="2" r="0.4" fill="white"/>
-    <circle cx="4" cy="2" r="0.4" fill="white"/>
-    <circle cx="6" cy="2" r="0.4" fill="white"/>
-    <circle cx="8" cy="2" r="0.4" fill="white"/>
-    <circle cx="10" cy="2" r="0.4" fill="white"/>
-    <circle cx="2" cy="4" r="0.4" fill="white"/>
-    <circle cx="4" cy="4" r="0.4" fill="white"/>
-    <circle cx="6" cy="4" r="0.4" fill="white"/>
-    <circle cx="8" cy="4" r="0.4" fill="white"/>
-    <circle cx="10" cy="4" r="0.4" fill="white"/>
-    <circle cx="2" cy="6" r="0.4" fill="white"/>
-    <circle cx="4" cy="6" r="0.4" fill="white"/>
-    <circle cx="6" cy="6" r="0.4" fill="white"/>
-    <circle cx="8" cy="6" r="0.4" fill="white"/>
-    <circle cx="10" cy="6" r="0.4" fill="white"/>
-    <circle cx="2" cy="8" r="0.4" fill="white"/>
-    <circle cx="4" cy="8" r="0.4" fill="white"/>
-    <circle cx="6" cy="8" r="0.4" fill="white"/>
-    <circle cx="8" cy="8" r="0.4" fill="white"/>
-    <circle cx="10" cy="8" r="0.4" fill="white"/>
+  <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="24" height="24" rx="2" fill="#B22234"/>
+    <path d="M0 3.69231H24M0 6.46154H24M0 9.23077H24M0 12H24M0 14.7692H24M0 17.5385H24M0 20.3077H24" stroke="white" stroke-width="1.8"/>
+    <rect width="10" height="12.9231" rx="1" fill="#3C3B6E"/>
+    <circle cx="2.5" cy="2.5" r="0.5" fill="white"/>
+    <circle cx="5" cy="2.5" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="2.5" r="0.5" fill="white"/>
+    <circle cx="2.5" cy="5" r="0.5" fill="white"/>
+    <circle cx="5" cy="5" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="5" r="0.5" fill="white"/>
+    <circle cx="2.5" cy="7.5" r="0.5" fill="white"/>
+    <circle cx="5" cy="7.5" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="7.5" r="0.5" fill="white"/>
+    <circle cx="2.5" cy="10" r="0.5" fill="white"/>
+    <circle cx="5" cy="10" r="0.5" fill="white"/>
+    <circle cx="7.5" cy="10" r="0.5" fill="white"/>
   </svg>
 )}
 
 {country === 'vn' && (
-  <svg class={className} viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="30" height="20" rx="1" fill="#DA251D"/>
-    <path d="M15 5L17.045 11.527H24.27L18.612 15.446L20.657 22L15 18.081L9.343 22L11.388 15.446L5.73 11.527H12.955L15 5Z" fill="#FFFF00"/>
+  <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="24" height="24" rx="2" fill="#DA251D"/>
+    <path d="M12 6L13.545 10.764H18.708L14.582 13.736L16.127 18.5L12 15.528L7.873 18.5L9.418 13.736L5.292 10.764H10.455L12 6Z" fill="#FFFF00"/>
   </svg>
 )}
 
 {country === 'jp' && (
-  <svg class={className} viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="30" height="20" rx="1" fill="white"/>
-    <circle cx="15" cy="10" r="6" fill="#BC002D"/>
+  <svg class={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="24" height="24" rx="2" fill="white"/>
+    <circle cx="12" cy="12" r="6" fill="#BC002D"/>
   </svg>
 )}
