@@ -1,0 +1,146 @@
+---
+// This component renders all the modals at the page level (outside cards)
+interface Props {
+  projects: Array<{
+    id: string;
+    title: string;
+    images?: string[];
+  }>;
+}
+
+const { projects } = Astro.props;
+---
+
+<!-- Render modals for all projects at page level -->
+{projects.filter(p => p.images && p.images.length > 0).map((project) => (
+  <div 
+    id={`gallery-modal-${project.id}`}
+    class="fixed inset-0 bg-black/95 z-[9999] hidden items-center justify-center p-4 backdrop-blur-sm"
+    onclick={`closeImageGallery('${project.id}')`}
+  >
+    <div class="relative max-w-7xl w-full h-full flex items-center justify-center">
+      <!-- Project Title -->
+      <div class="absolute top-4 left-4 z-10 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
+        <h3 class="font-semibold text-lg">{project.title}</h3>
+      </div>
+
+      <!-- Close Button -->
+      <button
+        type="button"
+        class="absolute top-4 right-4 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-2 backdrop-blur-sm transition-colors"
+        onclick={`event.stopPropagation(); closeImageGallery('${project.id}')`}
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Navigation Buttons -->
+      {project.images && project.images.length > 1 && (
+        <>
+          <button
+            type="button"
+            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
+            onclick={`event.stopPropagation(); navigateGallery('${project.id}', -1)`}
+          >
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          
+          <button
+            type="button"
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
+            onclick={`event.stopPropagation(); navigateGallery('${project.id}', 1)`}
+          >
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </>
+      )}
+
+      <!-- Image Container -->
+      <div class="relative flex items-center justify-center max-w-full max-h-full" onclick="event.stopPropagation()">
+        <img
+          id={`gallery-image-${project.id}`}
+          src=""
+          alt=""
+          class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+        />
+        
+        <!-- Image Counter -->
+        {project.images && project.images.length > 1 && (
+          <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm">
+            <span id={`gallery-counter-${project.id}`}>1 / {project.images.length}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+))}
+
+<script>
+  // Global gallery functions
+  window.openImageGallery = function(id, index = 0) {
+    const modal = document.getElementById(`gallery-modal-${id}`);
+    const image = document.getElementById(`gallery-image-${id}`);
+    const counter = document.getElementById(`gallery-counter-${id}`);
+    
+    if (modal && image && window.galleryData && window.galleryData[id]) {
+      window.galleryData[id].currentIndex = index;
+      const currentImage = window.galleryData[id].images[index];
+      
+      image.src = currentImage;
+      image.alt = `Gallery image ${index + 1}`;
+      
+      if (counter) {
+        counter.textContent = `${index + 1} / ${window.galleryData[id].images.length}`;
+      }
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeImageGallery = function(id) {
+    const modal = document.getElementById(`gallery-modal-${id}`);
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    }
+  };
+
+  window.navigateGallery = function(id, direction) {
+    if (!window.galleryData || !window.galleryData[id]) return;
+    
+    const data = window.galleryData[id];
+    const newIndex = (data.currentIndex + direction + data.images.length) % data.images.length;
+    
+    window.openImageGallery(id, newIndex);
+  };
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    const openModal = document.querySelector('[id^="gallery-modal-"]:not(.hidden)');
+    if (!openModal) return;
+    
+    const modalId = openModal.id.replace('gallery-modal-', '');
+    
+    switch(e.key) {
+      case 'Escape':
+        window.closeImageGallery(modalId);
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        window.navigateGallery(modalId, -1);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        window.navigateGallery(modalId, 1);
+        break;
+    }
+  });
+</script>

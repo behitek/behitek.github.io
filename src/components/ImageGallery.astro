@@ -1,0 +1,46 @@
+---
+interface Props {
+  images: string[];
+  title: string;
+  projectId: string;
+}
+
+const { images, title, projectId } = Astro.props;
+---
+
+<!-- Only render thumbnails here, modal will be at page level -->
+{images && images.length > 0 && (
+  <div class="mb-4">
+    <div class="grid grid-cols-4 gap-2">
+      {images.slice(0, 4).map((image, index) => (
+        <button
+          type="button"
+          class="relative overflow-hidden rounded-lg border-2 border-transparent hover:border-primary-500 transition-all duration-200 focus:outline-none focus:border-primary-500 transform hover:scale-105 aspect-square"
+          onclick={`openImageGallery('${projectId}', ${index})`}
+        >
+          <img
+            src={image}
+            alt={`${title} screenshot ${index + 1}`}
+            class="w-full h-full object-cover"
+          />
+          {index === 3 && images.length > 4 && (
+            <div class="absolute inset-0 bg-black/70 flex items-center justify-center backdrop-blur-sm">
+              <span class="text-white text-lg font-bold">+{images.length - 4}</span>
+            </div>
+          )}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
+
+<script define:vars={{ images, projectId }}>
+  // Store gallery data globally
+  if (typeof window !== 'undefined') {
+    window.galleryData = window.galleryData || {};
+    window.galleryData[projectId] = {
+      images: images || [],
+      currentIndex: 0
+    };
+  }
+</script>
