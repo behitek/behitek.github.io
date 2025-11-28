@@ -27,8 +27,8 @@ const { projects } = Astro.props;
       <!-- Close Button -->
       <button
         type="button"
-        class="absolute top-4 right-4 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-2 backdrop-blur-sm transition-colors"
-        onclick={`event.stopPropagation(); closeImageGallery('${project.id}')`}
+        class="gallery-close-btn absolute top-4 right-4 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-2 backdrop-blur-sm transition-colors"
+        data-gallery-id={project.id}
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -40,8 +40,8 @@ const { projects } = Astro.props;
         <>
           <button
             type="button"
-            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
-            onclick={`event.stopPropagation(); navigateGallery('${project.id}', -1)`}
+            class="gallery-prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
+            data-gallery-id={project.id}
           >
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
@@ -50,8 +50,8 @@ const { projects } = Astro.props;
           
           <button
             type="button"
-            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
-            onclick={`event.stopPropagation(); navigateGallery('${project.id}', 1)`}
+            class="gallery-next-btn absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
+            data-gallery-id={project.id}
           >
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
@@ -61,7 +61,7 @@ const { projects } = Astro.props;
       )}
 
       <!-- Image Container -->
-      <div class="relative flex items-center justify-center max-w-full max-h-full" onclick="event.stopPropagation()">
+      <div class="gallery-image-container relative flex items-center justify-center max-w-full max-h-full">
         <img
           id={`gallery-image-${project.id}`}
           src=""
@@ -84,7 +84,7 @@ const { projects } = Astro.props;
   // Global gallery functions
   window.openImageGallery = function(id, index = 0) {
     const modal = document.getElementById(`gallery-modal-${id}`);
-    const image = document.getElementById(`gallery-image-${id}`);
+    const image = document.getElementById(`gallery-image-${id}`) as HTMLImageElement;
     const counter = document.getElementById(`gallery-counter-${id}`);
     
     if (modal && image && window.galleryData && window.galleryData[id]) {
@@ -142,5 +142,42 @@ const { projects } = Astro.props;
         window.navigateGallery(modalId, 1);
         break;
     }
+  });
+
+  // Setup event listeners for all gallery buttons
+  document.addEventListener('DOMContentLoaded', function() {
+    // Close buttons
+    document.querySelectorAll('.gallery-close-btn').forEach(btn => {
+      btn.addEventListener('click', function(e: Event) {
+        e.stopPropagation();
+        const id = (e.currentTarget as HTMLElement).getAttribute('data-gallery-id');
+        if (id) window.closeImageGallery(id);
+      });
+    });
+
+    // Previous buttons
+    document.querySelectorAll('.gallery-prev-btn').forEach(btn => {
+      btn.addEventListener('click', function(e: Event) {
+        e.stopPropagation();
+        const id = (e.currentTarget as HTMLElement).getAttribute('data-gallery-id');
+        if (id) window.navigateGallery(id, -1);
+      });
+    });
+
+    // Next buttons
+    document.querySelectorAll('.gallery-next-btn').forEach(btn => {
+      btn.addEventListener('click', function(e: Event) {
+        e.stopPropagation();
+        const id = (e.currentTarget as HTMLElement).getAttribute('data-gallery-id');
+        if (id) window.navigateGallery(id, 1);
+      });
+    });
+
+    // Image containers - prevent clicks from closing modal
+    document.querySelectorAll('.gallery-image-container').forEach(container => {
+      container.addEventListener('click', function(e: Event) {
+        e.stopPropagation();
+      });
+    });
   });
 </script>
