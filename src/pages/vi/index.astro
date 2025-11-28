@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogCard from '@components/BlogCard.astro';
 import ProjectCard from '@components/ProjectCard.astro';
+import ImageGalleryModal from '@components/ImageGalleryModal.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { SITE, EDUCATION, TECH_STACK, STATS, SOCIAL_LINKS } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
@@ -222,7 +223,7 @@ const recentPosts = allPosts
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {featuredProjects.map((project) => (
-          <ProjectCard {...project.data} />
+          <ProjectCard {...project.data} id={project.data.id} />
         ))}
       </div>
 
@@ -298,4 +299,7 @@ const recentPosts = allPosts
       </div>
     </div>
   </section>
+
+  <!-- Image Gallery Modals (rendered at page level) -->
+  <ImageGalleryModal projects={featuredProjects.map(p => ({ id: p.data.id, title: p.data.title, images: p.data.images }))} />
 </BaseLayout>
