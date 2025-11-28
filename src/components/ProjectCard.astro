@@ -1,5 +1,6 @@
 ---
 import SocialIcon from '@components/SocialIcon.astro';
+import ImageGallery from '@components/ImageGallery.astro';
 
 interface Props {
   title: string;
@@ -7,14 +8,16 @@ interface Props {
   category: string;
   tech: string[];
   image?: string;
+  images?: string[];
   links?: {
     website?: string;
     github?: string;
     blog?: string;
   };
+  id: string;
 }
 
-const { title, description, category, tech, image, links } = Astro.props;
+const { title, description, category, tech, image, images, links, id } = Astro.props;
 
 const categoryIcons: Record<string, string> = {
   Product: '🚀',
@@ -23,6 +26,9 @@ const categoryIcons: Record<string, string> = {
   Tool: '🛠️',
   Fun: '🎮',
 };
+
+const hasLinks = links && (links.website || links.github || links.blog);
+const isPrivate = !hasLinks;
 ---
 
 <article class="card group">
@@ -39,15 +45,35 @@ const categoryIcons: Record<string, string> = {
   <div class="flex items-center gap-2 mb-3">
     <span class="text-2xl">{categoryIcons[category] || '📦'}</span>
     <span class="text-sm font-medium text-[var(--color-text-muted)]">{category}</span>
+    {isPrivate && (
+      <span class="ml-auto px-2 py-1 text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded inline-flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+        </svg>
+        Private
+      </span>
+    )}
   </div>
 
   <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors">
-    {title}
+    {images && images.length > 0 ? (
+      <button 
+        type="button"
+        class="text-left hover:text-primary-600 transition-colors cursor-pointer"
+        onclick={`openImageGallery('${id}', 0)`}
+      >
+        {title}
+      </button>
+    ) : (
+      title
+    )}
   </h3>
 
   <p class="text-[var(--color-text-muted)] mb-4">
     {description}
   </p>
+
+  <ImageGallery images={images || []} title={title} projectId={id} />
 
   <div class="flex flex-wrap gap-2 mb-4">
     {tech.map((t) => (
@@ -57,7 +83,7 @@ const categoryIcons: Record<string, string> = {
     ))}
   </div>
 
-  {links && (
+  {hasLinks && (
     <div class="flex items-center gap-3">
       {links.website && (
         <a
