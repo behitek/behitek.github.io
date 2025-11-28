@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ProjectCard from '@components/ProjectCard.astro';
+import ImageGalleryModal from '@components/ImageGalleryModal.astro';
 import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -63,7 +64,7 @@ const getCategoryName = (category: string) => {
           class="project-item"
           data-category={project.data.category.toLowerCase()}
         >
-          <ProjectCard {...project.data} />
+          <ProjectCard {...project.data} id={project.data.id} />
         </div>
       ))}
     </div>
@@ -91,6 +92,9 @@ const getCategoryName = (category: string) => {
       </button>
     </div>
   </div>
+
+  <!-- Image Gallery Modals (rendered at page level) -->
+  <ImageGalleryModal projects={sortedProjects.map(p => ({ id: p.data.id, title: p.data.title, images: p.data.images }))} />
 </BaseLayout>
 
 <style>
