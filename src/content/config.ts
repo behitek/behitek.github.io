@@ -19,11 +19,13 @@ const blog = defineCollection({
 const projects = defineCollection({
   type: 'data',
   schema: z.object({
+    id: z.string(),
     title: z.string(),
     description: z.string(),
     category: z.enum(['Product', 'Research', 'Tutorial', 'Tool', 'Fun']),
     tech: z.array(z.string()),
     image: z.string().optional(),
+    images: z.array(z.string()).optional(),
     links: z.object({
       website: z.string().url().optional(),
       github: z.string().url().optional(),
