@@ -1,0 +1,25 @@
+{
+  "id": "nexusai",
+  "title": "NexusAI",
+  "description": "An intelligent retrieval-augmented generation system that processes and queries across multiple content types including text documents, images, and videos. Features custom vector embeddings, hybrid search, and LLM-powered re-ranking for precise multimodal information retrieval.",
+  "category": "Product",
+  "tech": [
+    "Python",
+    "FastAPI",
+    "OpenAI GPT-4V",
+    "LangGraph",
+    "ChromaDB",
+    "PyMuPDF",
+    "Whisper API"
+  ],
+  "images": [
+    "/images/project/nexusai-home.png",
+    "/images/project/nexusai-dashboard.png",
+    "/images/project/nexusai-search.png",
+    "/images/project/nexusai-chat.png"
+  ],
+  "links": {
+  },
+  "featured": true,
+  "order": 1
+}

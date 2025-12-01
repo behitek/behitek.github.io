@@ -1,0 +1,26 @@
+{
+  "id": "linguistai",
+  "title": "LinguistAI",
+  "description": "A comprehensive English proficiency assessment platform powered by AI. Features adaptive reading tests with LLM-generated questions, speech-to-text evaluation for speaking tests using Whisper, and detailed AI feedback on writing. Provides personalized insights on grammar, vocabulary, fluency, and coherence across all skills.",
+  "category": "Product",
+  "tech": [
+    "Python",
+    "FastAPI",
+    "OpenAI GPT-4",
+    "Anthropic Claude",
+    "Whisper API",
+    "LangGraph",
+    "React"
+  ],
+  "images": [
+    "/images/project/linguistai-home.png",
+    "/images/project/linguistai-reading.png",
+    "/images/project/linguistai-speaking.png",
+    "/images/project/linguistai-writting.png",
+    "/images/project/linguistai-result.png"
+  ],
+  "links": {
+  },
+  "featured": true,
+  "order": 2
+}

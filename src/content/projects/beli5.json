@@ -19,6 +19,6 @@
     "website": "https://behitek.com/beli5",
     "github": "https://github.com/behitek/beli5"
   },
-  "featured": true,
-  "order": 3
+  "featured": false,
+  "order": 5
 }

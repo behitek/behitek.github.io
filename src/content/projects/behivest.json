@@ -20,6 +20,6 @@
     "website": "https://behitek.com/behivest",
     "github": "https://github.com/behitek/behivest"
   },
-  "featured": true,
-  "order": 2
+  "featured": false,
+  "order": 4
 }
