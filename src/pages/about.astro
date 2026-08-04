@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Timeline from '@components/Timeline.astro';
+import AwardsList from '@components/AwardsList.astro';
+import { SOCIAL_LINKS } from '@utils/constants';
+
+const SKILLS = ['LLM', 'RAG', 'NLP', 'Agentic AI', 'Python', 'FastAPI', 'Docker', 'Kubernetes', 'PostgreSQL', 'Redis'];
+
+const TIMELINE = [
+  {
+    years: '2023 — nay',
+    role: 'AI Engineer — VMO',
+    description: 'Thiết kế hệ thống AI, biến bài toán nghiệp vụ mơ hồ thành sản phẩm có thể đo lường.',
+    dotAccent: true,
+  },
+  {
+    years: '2019 — 2022',
+    role: 'AI Engineer — Zalo',
+    description:
+      'Speech cho Zalo & trợ lý ảo KiKi: text normalization, +12% độ chính xác ASR, −15% lỗi dịch vụ trên Kubernetes.',
+  },
+  {
+    years: '2020 — 2022',
+    role: 'Thạc sĩ KH Thông tin — JAIST, Nhật Bản',
+    description: 'Information retrieval & machine learning.',
+  },
+  {
+    years: '2018 — 2019',
+    role: 'AI Engineer — VCCorp',
+    description: 'Hệ thống lọc bình luận spam bằng NLP.',
+  },
+];
+
+const AWARDS = [
+  'Champion — AI4VN National Grand Finale Hackathon',
+  'Giải Nhất — ALQAC (Legal Document Retrieval)',
+  'Giải Nhì — ACM/ICPC Việt Nam National Contest',
+  'Giải Nhì — Speech-to-Text Shared Task, VLSP 2019',
+];
+---
+
+<BaseLayout title="Giới thiệu" description="Hiếu Nguyễn — AI Engineer tại Hà Nội, 7+ năm kinh nghiệm.">
+  <div class="rgrid grid grid-cols-[380px_1fr]">
+    <div class="rpad px-12 py-12 border-r-2 border-ink">
+      <img
+        src="/images/me.jpeg"
+        alt="Hiếu Nguyễn"
+        class="w-[180px] h-[180px] object-cover border-2 border-ink mb-5 block grayscale-photo"
+      />
+      <h1 class="font-heading font-extrabold text-[34px] text-ink mb-1">Hiếu Nguyễn</h1>
+      <div class="font-heading font-bold text-[15px] text-accent mb-4.5">AI Engineer · Hà Nội</div>
+      <div class="font-mono text-[13px] leading-[2.1] text-ink flex flex-col">
+        <a href={SOCIAL_LINKS.email.href}>hello@behitek.com</a>
+        <a href={SOCIAL_LINKS.github.href} target="_blank" rel="noopener noreferrer">github.com/behitek</a>
+        <a href={SOCIAL_LINKS.linkedin.href} target="_blank" rel="noopener noreferrer">linkedin.com/in/behitek</a>
+      </div>
+      <div class="h-0.5 bg-ink my-5"></div>
+      <div class="font-mono text-[11px] font-semibold text-neutral-600 tracking-[0.08em] mb-3">KỸ NĂNG</div>
+      <div class="flex flex-wrap gap-1.5">
+        {SKILLS.map((s) => <span class="tag-pill text-[11.5px]">{s}</span>)}
+      </div>
+      <div class="h-0.5 bg-ink my-5"></div>
+      <div class="font-mono text-[11px] font-semibold text-neutral-600 tracking-[0.08em] mb-3">NGÔN NGỮ</div>
+      <div class="text-[13.5px] leading-[1.9] text-ink">
+        Tiếng Việt (bản ngữ)<br />
+        English (professional)
+      </div>
+    </div>
+
+    <div class="p-12">
+      <div class="kicker mb-5">$ cat kinh-nghiem.log</div>
+      <Timeline entries={TIMELINE} />
+
+      <div class="kicker mt-6 mb-4">$ cat giai-thuong.log</div>
+      <AwardsList awards={AWARDS} />
+    </div>
+  </div>
+</BaseLayout>

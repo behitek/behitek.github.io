@@ -1,0 +1,11 @@
+---
+interface Props {
+  awards: string[];
+}
+
+const { awards } = Astro.props;
+---
+
+<div class="border-t-2 border-ink">
+  {awards.map((award) => <div class="py-3.5 border-b border-border-light font-medium text-sm text-ink">{award}</div>)}
+</div>

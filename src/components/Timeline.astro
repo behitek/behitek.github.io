@@ -1,0 +1,31 @@
+---
+interface Entry {
+  years: string;
+  role: string;
+  description: string;
+  dotAccent?: boolean;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="flex flex-col">
+  {
+    entries.map((entry) => (
+      <div class="grid grid-cols-[150px_1fr] gap-5 pb-6 pl-6 border-l-2 border-ink relative">
+        <span
+          class={`absolute -left-[6px] top-1 w-2.5 h-2.5 ${entry.dotAccent ? 'bg-accent' : 'bg-ink'}`}
+        />
+        <span class="font-mono text-[13px] text-neutral-600">{entry.years}</span>
+        <div>
+          <div class="font-heading font-bold text-lg text-ink">{entry.role}</div>
+          <div class="text-sm leading-relaxed text-neutral-700">{entry.description}</div>
+        </div>
+      </div>
+    ))
+  }
+</div>
