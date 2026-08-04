@@ -1,0 +1,30 @@
+---
+interface Props {
+  active: 'online-judge' | 'ai' | 'software';
+}
+
+const { active } = Astro.props;
+
+const TABS = [
+  { id: 'online-judge', label: 'online-judge', href: '/services' },
+  { id: 'ai', label: 'dự án AI', href: '/services/ai' },
+  { id: 'software', label: 'phần mềm', href: '/services/software' },
+] as const;
+---
+
+<div class="px-12 pt-8">
+  <div class="flex border-2 border-ink w-fit">
+    {
+      TABS.map((tab, i) => (
+        <a
+          href={tab.href}
+          class={`font-mono text-xs font-semibold px-4 py-2 no-underline hover:text-accent ${i > 0 ? 'border-l border-border-light' : ''} ${
+            active === tab.id ? 'bg-ink text-bg' : 'text-ink'
+          }`}
+        >
+          {tab.label}
+        </a>
+      ))
+    }
+  </div>
+</div>

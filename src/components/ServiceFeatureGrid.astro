@@ -1,0 +1,32 @@
+---
+interface Feature {
+  kicker: string;
+  title: string;
+  bullets: string[];
+  highlighted?: boolean;
+}
+
+interface Props {
+  features: Feature[];
+}
+
+const { features } = Astro.props;
+---
+
+<div class="rgrid grid grid-cols-3 border-2 border-ink">
+  {
+    features.map((f, i) => (
+      <div
+        class={`p-7 bg-white ${i < features.length - 1 ? 'border-r-2 border-ink' : ''} ${f.highlighted ? 'border-t-4 border-t-accent' : ''}`}
+      >
+        <div class="font-mono text-[11px] font-semibold text-neutral-600 mb-2.5">{f.kicker}</div>
+        <h3 class="font-heading font-bold text-xl text-ink mb-3.5">{f.title}</h3>
+        <ul class="font-mono text-[13px] leading-[2] text-ink m-0 pl-0 list-none">
+          {f.bullets.map((b) => (
+            <li>✓ {b}</li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>

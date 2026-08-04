@@ -1,0 +1,45 @@
+---
+const CLIENTS = [
+  { name: 'cothilaptrinh.vn', note: 'trung tâm luyện thi HSG tin học' },
+  { name: 'laptrinh.online', note: 'lớp học lập trình trực tuyến' },
+  { name: 'codebuddy.vn', note: 'nền tảng luyện code cho sinh viên' },
+];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      'Chúng tôi không có đội kỹ thuật riêng, nhưng mọi vấn đề đều được xử lý trong ngày. Backup và cập nhật tự động nên hoàn toàn yên tâm vận hành.',
+    attribution: 'Trần Thu Hà, Quản lý vận hành, laptrinh.online',
+  },
+  {
+    quote:
+      'Sinh viên thi thử đồng thời hơn 300 người mà hệ thống vẫn chấm mượt. Đội ngũ không phải lo gì về hạ tầng hay vận hành.',
+    attribution: 'Lê Quốc Bảo, Đồng sáng lập, codebuddy.vn',
+  },
+];
+---
+
+<div class="rgrid grid grid-cols-2 border-t-2 border-ink bg-white">
+  <div class="rpad px-12 py-9 border-r-2 border-ink">
+    <h2 class="font-heading font-extrabold text-[26px] text-ink mb-4.5">Đơn vị đang vận hành</h2>
+    <div class="flex flex-col gap-3 font-mono text-sm text-ink">
+      {
+        CLIENTS.map((c) => (
+          <div>
+            <span class="text-accent">●</span> {c.name} <span class="text-neutral-600">— {c.note}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div class="bg-bg flex flex-col">
+    {
+      TESTIMONIALS.map((t, i) => (
+        <div class={`px-12 py-9 flex-1 ${i > 0 ? 'border-t-2 border-ink' : ''}`}>
+          <p class="font-medium text-[17px] leading-[1.55] text-ink mb-3.5">“{t.quote}”</p>
+          <div class="font-mono text-xs text-neutral-600">— {t.attribution}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

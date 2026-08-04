@@ -1,0 +1,28 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  kicker: string;
+  steps: Step[];
+}
+
+const { kicker, steps } = Astro.props;
+const cols = steps.length === 3 ? 'grid-cols-3' : 'grid-cols-4';
+---
+
+<div class="kicker mb-6">{kicker}</div>
+<div class={`rgrid grid ${cols} border-t-2 border-ink`}>
+  {
+    steps.map((step, i) => (
+      <div class={`py-5 ${i < steps.length - 1 ? 'pr-6' : ''}`}>
+        <div class="font-heading font-extrabold text-[34px] text-accent">{step.number}</div>
+        <div class="font-heading font-bold text-[15px] text-ink mt-1.5 mb-1">{step.title}</div>
+        <div class="text-[13px] leading-relaxed text-neutral-600">{step.description}</div>
+      </div>
+    ))
+  }
+</div>

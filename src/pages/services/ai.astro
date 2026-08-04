@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceTabs from '@components/ServiceTabs.astro';
+import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import CTABand from '@components/CTABand.astro';
+
+const FEATURES = [
+  {
+    kicker: 'HẠNG MỤC 01',
+    title: 'Chatbot & trợ lý nghiệp vụ',
+    bullets: ['Trả lời trên tài liệu nội bộ', 'Tích hợp Slack, web, Zalo OA', 'Guardrails & kiểm soát chi phí'],
+  },
+  {
+    kicker: 'HẠNG MỤC 02',
+    title: 'RAG & tìm kiếm ngữ nghĩa',
+    bullets: ['Hybrid search + re-rank', 'Văn bản, hình ảnh, video', 'Bộ đo chất lượng truy hồi'],
+    highlighted: true,
+  },
+  {
+    kicker: 'HẠNG MỤC 03',
+    title: 'Fine-tune & đánh giá mô hình',
+    bullets: ['LoRA / SFT trên dữ liệu riêng', 'Benchmark trước–sau rõ ràng', 'Tối ưu suy luận, self-host'],
+  },
+];
+
+const STEPS = [
+  {
+    number: '01',
+    title: 'Tư vấn kiến trúc',
+    description: 'Đánh giá bài toán, chọn mô hình và stack phù hợp ngân sách.',
+  },
+  {
+    number: '02',
+    title: 'PoC 2–4 tuần',
+    description: 'Bản chạy được trên dữ liệu thật, kèm số liệu để ra quyết định.',
+  },
+  {
+    number: '03',
+    title: 'Đưa lên production',
+    description: 'Triển khai, giám sát chất lượng và chi phí, bàn giao tài liệu.',
+  },
+];
+---
+
+<BaseLayout title="Dự án AI" description="RAG, LLM, NLP cho bài toán nghiệp vụ thực tế — từ PoC đến production.">
+  <ServiceTabs active="ai" />
+  <ServiceHero
+    breadcrumb="ai"
+    title="Dự án AI — từ PoC đến production"
+    description="RAG, LLM, NLP cho bài toán nghiệp vụ thực tế: tư vấn kiến trúc, xây dựng PoC nhanh, và đưa hệ thống lên production với chi phí vận hành đo lường được."
+    ctas={[
+      { label: 'Đặt lịch tư vấn →', href: '/contact?need=ai', variant: 'primary' },
+      { label: 'Xem case study', href: '/projects', variant: 'secondary' },
+    ]}
+  />
+
+  <div class="px-12 pb-12">
+    <ServiceFeatureGrid features={FEATURES} />
+  </div>
+
+  <div class="px-12 pb-12">
+    <ProcessSteps kicker="$ ./engagement" steps={STEPS} />
+  </div>
+
+  <CTABand
+    title="Có bài toán AI cần lời giải?"
+    buttonLabel="Trao đổi miễn phí 30 phút →"
+    buttonHref="/contact?need=ai"
+  />
+</BaseLayout>

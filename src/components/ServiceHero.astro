@@ -1,0 +1,40 @@
+---
+interface CTA {
+  label: string;
+  href: string;
+  variant: 'primary' | 'secondary';
+  external?: boolean;
+}
+
+interface Props {
+  breadcrumb: string;
+  title: string;
+  description: string;
+  ctas: CTA[];
+}
+
+const { breadcrumb, title, description, ctas } = Astro.props;
+---
+
+<div class="px-12 pt-10 pb-10">
+  <div class="font-mono text-xs text-neutral-600 mb-4">
+    ~/services/<span class="text-accent">{breadcrumb}</span>
+  </div>
+  <h1 class="font-heading font-extrabold text-[52px] leading-[1.05] text-ink mb-4 max-w-[820px]">{title}</h1>
+  <p class="text-[17px] leading-relaxed text-neutral-700 mb-7 max-w-[680px]">{description}</p>
+  <div class="rwrap flex gap-3.5">
+    {
+      ctas.map((cta) =>
+        cta.variant === 'primary' ? (
+          <a href={cta.href} class="btn-primary" target={cta.external ? '_blank' : undefined} rel={cta.external ? 'noopener' : undefined}>
+            {cta.label}
+          </a>
+        ) : (
+          <a href={cta.href} class="btn-secondary" target={cta.external ? '_blank' : undefined} rel={cta.external ? 'noopener' : undefined}>
+            {cta.label}
+          </a>
+        )
+      )
+    }
+  </div>
+</div>

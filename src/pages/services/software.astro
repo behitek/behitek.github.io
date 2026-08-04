@@ -1,0 +1,64 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceTabs from '@components/ServiceTabs.astro';
+import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import CTABand from '@components/CTABand.astro';
+
+const FEATURES = [
+  {
+    kicker: 'HẠNG MỤC 01',
+    title: 'Web app & API',
+    bullets: ['FastAPI · Django · React/Vue', 'PostgreSQL, Redis', 'Thiết kế API sạch, có tài liệu'],
+    highlighted: true,
+  },
+  {
+    kicker: 'HẠNG MỤC 02',
+    title: 'Hạ tầng & DevOps',
+    bullets: ['Docker, CI/CD tự động', 'Self-host tiết kiệm chi phí', 'Giám sát, backup định kỳ'],
+  },
+  {
+    kicker: 'HẠNG MỤC 03',
+    title: 'Bảo trì & tối ưu',
+    bullets: ['Tiếp quản hệ thống có sẵn', 'Tối ưu hiệu năng, chi phí hạ tầng', 'SLA phản hồi trong ngày'],
+  },
+];
+
+const STEPS = [
+  { number: '01', title: 'Trao đổi yêu cầu', description: 'Xác định phạm vi, ưu tiên và ngân sách.' },
+  { number: '02', title: 'Báo giá cố định', description: 'Mốc bàn giao rõ ràng theo tuần.' },
+  { number: '03', title: 'Phát triển & demo', description: 'Demo hàng tuần, phản hồi sớm.' },
+  { number: '04', title: 'Bàn giao & bảo trì', description: 'Mã nguồn, tài liệu, hỗ trợ dài hạn.' },
+];
+---
+
+<BaseLayout
+  title="Phần mềm full-stack"
+  description="Web app, API và hạ tầng cho đội ngũ nhỏ — trọn gói từ ý tưởng đến triển khai."
+>
+  <ServiceTabs active="software" />
+  <ServiceHero
+    breadcrumb="software"
+    title="Phần mềm full-stack, trọn gói từ ý tưởng đến triển khai"
+    description="Web app, API và hạ tầng cho đội ngũ nhỏ: thiết kế, phát triển, triển khai và bảo trì — một đầu mối duy nhất, chi phí rõ ràng."
+    ctas={[
+      { label: 'Nhận tư vấn →', href: '/contact?need=software', variant: 'primary' },
+      { label: 'Xem dự án đã làm', href: '/projects', variant: 'secondary' },
+    ]}
+  />
+
+  <div class="px-12 pb-12">
+    <ServiceFeatureGrid features={FEATURES} />
+  </div>
+
+  <div class="px-12 pb-12">
+    <ProcessSteps kicker="$ ./process" steps={STEPS} />
+  </div>
+
+  <CTABand
+    title="Cần xây phần mềm cho đội ngũ của bạn?"
+    buttonLabel="Nhận tư vấn miễn phí →"
+    buttonHref="/contact?need=software"
+  />
+</BaseLayout>
