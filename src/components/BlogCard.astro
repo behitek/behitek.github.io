@@ -1,7 +1,5 @@
 ---
 import { formatDate } from '@utils/helpers';
-import { getCategoryColor } from '@utils/helpers';
-import LanguageBadge from './LanguageBadge.astro';
 
 interface Props {
   title: string;
@@ -11,43 +9,41 @@ interface Props {
   language: 'en' | 'vi';
   slug: string;
   readingTime?: number;
+  variant?: 'list' | 'compact';
 }
 
-const { title, description, date, category, language, slug, readingTime } = Astro.props;
+const { title, description, date, category, language, slug, readingTime, variant = 'list' } = Astro.props;
+const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
 ---
 
-<article class="card group">
-  <div class="flex items-center gap-2 mb-3">
-    <LanguageBadge language={language} />
-    <span class={`category-badge ${getCategoryColor(category)}`}>
-      {category}
-    </span>
-  </div>
-
-  <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors">
-    <a href={`/blog/${slug}`} class="hover:underline">
-      {title}
+{
+  variant === 'compact' ? (
+    <a
+      href={`/blog/${slug}`}
+      class="grid grid-cols-[100px_130px_1fr_auto] md:grid-cols-[120px_130px_1fr_auto] gap-5 items-baseline py-[18px] border-b border-border-light no-underline hover:bg-neutral-200 -mx-2 px-2"
+    >
+      <span class="font-mono text-xs text-neutral-600">{formatDate(date)}</span>
+      <span class="font-mono text-[10.5px] font-semibold text-neutral-600">{tagline}</span>
+      <span class="font-heading font-bold text-lg text-ink">{title}</span>
+      <span class="text-ink">→</span>
     </a>
-  </h3>
-
-  <p class="text-[var(--color-text-muted)] mb-4 line-clamp-3">
-    {description}
-  </p>
-
-  <div class="flex items-center justify-between text-sm text-[var(--color-text-muted)]">
-    <time datetime={date.toISOString()}>
-      {formatDate(date)}
-    </time>
-    {readingTime && <span>{readingTime} min read</span>}
-  </div>
-
-  <a
-    href={`/blog/${slug}`}
-    class="mt-4 inline-flex items-center text-primary-600 hover:text-primary-700 font-medium group"
-  >
-    Read more
-    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-    </svg>
-  </a>
-</article>
+  ) : (
+    <a
+      href={`/blog/${slug}`}
+      class="grid grid-cols-[130px_1fr_100px] md:grid-cols-[130px_1fr_140px] gap-6 py-6 border-b border-border-light no-underline hover:bg-neutral-200 -mx-2 px-2"
+    >
+      <div class="font-mono text-xs leading-[1.8] text-neutral-600">
+        {formatDate(date)}
+        <br />
+        <span>{tagline}</span>
+      </div>
+      <div>
+        <h2 class="font-heading font-bold text-[22px] text-ink mb-1.5">{title}</h2>
+        <p class="text-sm leading-relaxed text-neutral-700 m-0">{description}</p>
+      </div>
+      <div class="font-mono text-xs text-neutral-600 text-right">
+        {readingTime} phút đọc →
+      </div>
+    </a>
+  )
+}

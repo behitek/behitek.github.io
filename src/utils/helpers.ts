@@ -22,24 +22,6 @@ export function slugify(text: string): string {
     .replace(/\-\-+/g, '-');
 }
 
-export function getCategoryColor(category: string): string {
-  const categoryMap: Record<string, string> = {
-    'AI/ML': 'category-ai',
-    'Python': 'category-python',
-    'Tutorial': 'category-tutorial',
-    'Data': 'category-data',
-  };
-  return categoryMap[category] || 'category-badge';
-}
-
-export function getLanguageInfo(lang: string): { label: string; flag: string; class: string } {
-  const langMap: Record<string, { label: string; flag: string; class: string }> = {
-    en: { label: 'English', flag: '🇺🇸', class: 'lang-badge-en' },
-    vi: { label: 'Tiếng Việt', flag: '🇻🇳', class: 'lang-badge-vi' },
-  };
-  return langMap[lang] || langMap.en;
-}
-
 export function generateTableOfContents(content: string): { slug: string; text: string; depth: number }[] {
   const headings: { slug: string; text: string; depth: number }[] = [];
   const regex = /^(#{2,3})\s+(.+)$/gm;

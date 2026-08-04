@@ -2,9 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '@components/TableOfContents.astro';
 import Giscus from '@components/Giscus.astro';
-import LanguageBadge from '@components/LanguageBadge.astro';
-import SocialIcon from '@components/SocialIcon.astro';
-import { formatDate, getCategoryColor } from '@utils/helpers';
+import { formatDate } from '@utils/helpers';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -14,140 +12,103 @@ interface Props {
 }
 
 const { post, headings, readingTime } = Astro.props;
-const { title, description, date, updated, author, category, tags, language } = post.data;
+const { title, description, date, updated, category, tags, language } = post.data;
+
+const shareUrl = new URL(`/blog/${post.slug}`, Astro.site).toString();
+const shareTitle = encodeURIComponent(title);
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  article={true}
-  publishedTime={date}
-  modifiedTime={updated}
->
-  <!-- Reading Progress Bar -->
+<BaseLayout title={title} description={description} article={true} publishedTime={date} modifiedTime={updated}>
   <div id="reading-progress" class="reading-progress" style="width: 0%"></div>
 
-  <article class="container py-12">
-    <!-- Breadcrumbs -->
-    <nav class="text-sm text-[var(--color-text-muted)] mb-6">
-      <a href="/" class="hover:text-primary-600">Home</a>
-      <span class="mx-2">/</span>
-      <a href="/blog" class="hover:text-primary-600">Blog</a>
-      <span class="mx-2">/</span>
-      <span>{category}</span>
-    </nav>
+  <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr]">
+    <aside class="hidden lg:block py-12 pl-12 border-r border-border-light">
+      <a href="/blog" class="font-mono text-xs text-neutral-600 no-underline hover:text-accent mb-5 inline-block">
+        ← cd ../blog
+      </a>
+      <TableOfContents headings={headings} />
+    </aside>
 
-    <!-- Header -->
-    <header class="max-w-4xl mx-auto mb-12">
-      <div class="flex items-center gap-2 mb-4 flex-wrap">
-        <LanguageBadge language={language} />
-        <span class={`category-badge ${getCategoryColor(category)}`}>
-          {category}
-        </span>
+    <article class="p-8 md:p-12 max-w-[760px]">
+      <div class="font-mono text-xs text-neutral-600 mb-3.5">
+        ~/blog/<span class="text-accent">{post.slug}</span> · {formatDate(date)} · {readingTime} phút đọc ·{' '}
+        <span class="text-accent">{category.toUpperCase()} · {language.toUpperCase()}</span>
       </div>
 
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
+      <h1 class="font-heading font-extrabold text-[40px] leading-[1.1] text-ink mb-5">{title}</h1>
 
-      <p class="text-xl text-[var(--color-text-muted)] mb-6">{description}</p>
+      <p class="text-base leading-relaxed text-neutral-700 mb-5">{description}</p>
 
-      <div class="flex items-center gap-4 text-sm text-[var(--color-text-muted)] flex-wrap">
-        <div class="flex items-center gap-2">
-          <img
-            src="https://avatars.githubusercontent.com/u/12376486"
-            alt={author}
-            class="w-8 h-8 rounded-full"
-          />
-          <span>{author}</span>
-        </div>
-        <span>•</span>
-        <time datetime={date.toISOString()}>{formatDate(date)}</time>
-        {updated && (
-          <>
-            <span>•</span>
-            <span>Updated: {formatDate(updated)}</span>
-          </>
-        )}
-        <span>•</span>
-        <span>{readingTime} min read</span>
+      <div class="prose prose-lg">
+        <slot />
       </div>
 
-      {tags.length > 0 && (
-        <div class="flex items-center gap-2 mt-4 flex-wrap">
-          {tags.map((tag) => (
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">
-              #{tag}
-            </span>
-          ))}
-        </div>
-      )}
-    </header>
+      {
+        tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-6 mb-6">
+            {tags.map((tag) => (
+              <span class="tag-pill">#{tag}</span>
+            ))}
+          </div>
+        )
+      }
 
-    <!-- Content Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <!-- Table of Contents (Desktop) -->
-      <aside class="hidden lg:block lg:col-span-3">
-        <TableOfContents headings={headings} />
-      </aside>
+      <div class="flex items-center gap-3 border-t-2 border-ink py-4 my-6">
+        <span class="font-mono text-[11px] font-semibold text-neutral-600 tracking-[0.08em]">CHIA SẺ</span>
+        <a
+          href={`https://x.com/intent/tweet?text=${shareTitle}&url=${encodeURIComponent(shareUrl)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-xs font-semibold border-2 border-ink text-ink no-underline px-3.5 py-1.5 hover:bg-ink hover:text-bg"
+        >
+          X
+        </a>
+        <a
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-xs font-semibold border-2 border-ink text-ink no-underline px-3.5 py-1.5 hover:bg-ink hover:text-bg"
+        >
+          LinkedIn
+        </a>
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-xs font-semibold border-2 border-ink text-ink no-underline px-3.5 py-1.5 hover:bg-ink hover:text-bg"
+        >
+          Facebook
+        </a>
+        <button
+          id="copy-link"
+          type="button"
+          class="font-mono text-xs font-semibold border-2 border-ink text-ink px-3.5 py-1.5 cursor-pointer bg-transparent hover:bg-ink hover:text-bg"
+        >
+          copy link
+        </button>
+      </div>
 
-      <!-- Main Content -->
-      <div class="lg:col-span-9 max-w-4xl">
-        <div class="prose prose-lg">
-          <slot />
-        </div>
-
-        <!-- Share Buttons -->
-        <div class="mt-12 pt-8 border-t border-[var(--color-border)]">
-          <h3 class="text-lg font-bold mb-4">Share this article</h3>
-          <div class="flex items-center gap-4">
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-secondary text-sm flex items-center gap-2"
-              aria-label="Share on Twitter"
-            >
-              <SocialIcon name="twitter" class="w-4 h-4" />
-              <span>Twitter</span>
-            </a>
-            <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-secondary text-sm flex items-center gap-2"
-              aria-label="Share on LinkedIn"
-            >
-              <SocialIcon name="linkedin" class="w-4 h-4" />
-              <span>LinkedIn</span>
-            </a>
-            <button
-              id="copy-link"
-              class="btn-secondary text-sm flex items-center gap-2"
-              aria-label="Copy link to clipboard"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-              </svg>
-              <span>Copy Link</span>
-            </button>
+      <div class="flex items-center gap-5 border-2 border-ink bg-white p-5">
+        <img
+          src="/images/me.jpeg"
+          alt="Hiếu Nguyễn"
+          class="w-16 h-16 object-cover flex-none border border-ink grayscale-photo"
+        />
+        <div class="flex-1">
+          <div class="font-heading font-bold text-[15px] text-ink">Hiếu Nguyễn — AI Engineer</div>
+          <div class="text-[13px] leading-relaxed text-neutral-700">
+            7+ năm xây hệ thống AI production. Nhận tư vấn RAG/LLM và triển khai online judge.
           </div>
         </div>
-
-        <!-- Comments -->
-        <Giscus />
+        <a href="/contact" class="btn-primary text-sm flex-none py-2.5 px-4">Liên hệ →</a>
       </div>
-    </div>
 
-    <!-- Back to Blog -->
-    <div class="text-center mt-12">
-      <a href="/blog" class="link text-lg">
-        ← Back to Blog
-      </a>
-    </div>
-  </article>
+      <Giscus />
+    </article>
+  </div>
 </BaseLayout>
 
 <script>
-  // Reading progress bar
   const updateReadingProgress = () => {
     const winScroll = document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -160,29 +121,24 @@ const { title, description, date, updated, author, category, tags, language } = 
 
   window.addEventListener('scroll', updateReadingProgress);
 
-  // Copy link button
   document.getElementById('copy-link')?.addEventListener('click', async () => {
     await navigator.clipboard.writeText(window.location.href);
     const button = document.getElementById('copy-link');
-    const span = button?.querySelector('span');
-    if (span) {
-      const originalText = span.textContent || '';
-      span.textContent = '✓ Copied!';
+    if (button) {
+      const originalText = button.textContent;
+      button.textContent = '✓ đã copy';
       setTimeout(() => {
-        span.textContent = originalText;
+        button.textContent = originalText;
       }, 2000);
     }
   });
 
-  // Add copy buttons to code blocks
   document.querySelectorAll('.prose pre').forEach((pre) => {
-    // Create copy button
     const button = document.createElement('button');
     button.className = 'copy-button';
     button.textContent = 'Copy';
     button.setAttribute('aria-label', 'Copy code to clipboard');
 
-    // Add click handler
     button.addEventListener('click', async () => {
       const code = pre.querySelector('code');
       if (code) {
@@ -205,11 +161,9 @@ const { title, description, date, updated, author, category, tags, language } = 
       }
     });
 
-    // Append button to pre element
     pre.appendChild(button);
   });
 
-  // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
       e.preventDefault();

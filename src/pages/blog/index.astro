@@ -2,213 +2,131 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import BlogCard from '@components/BlogCard.astro';
-import FlagIcon from '@components/FlagIcon.astro';
 import { readingTime } from '@utils/helpers';
-import { getLangFromUrl, useTranslations } from '@i18n/utils';
 
-const currentLang = getLangFromUrl(Astro.url);
-const t = useTranslations(currentLang);
-
-// Get all published blog posts
-const allPosts = await getCollection('blog', ({ data }) => {
-  return data.draft !== true;
-});
-
-// Sort by date (newest first)
+const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Get unique categories and languages
-const categories = [...new Set(sortedPosts.map((post) => post.data.category))];
 const languages = [...new Set(sortedPosts.map((post) => post.data.language))];
+const categories = [...new Set(sortedPosts.map((post) => post.data.category))];
 
-// Featured post (most recent)
-const featuredPost = sortedPosts[0];
+const filters = [
+  { key: 'all', label: 'tất cả', count: sortedPosts.length },
+  ...languages.map((lang) => ({
+    key: `lang-${lang}`,
+    label: lang === 'vi' ? 'lang:vi' : 'lang:en',
+    count: sortedPosts.filter((p) => p.data.language === lang).length,
+  })),
+  ...categories.map((cat) => ({
+    key: `cat-${cat.toLowerCase().replace(/\//g, '-')}`,
+    label: cat.toLowerCase(),
+    count: sortedPosts.filter((p) => p.data.category === cat).length,
+  })),
+];
 ---
 
-<BaseLayout
-  title={t.blog.title}
-  description={t.blog.subtitle}
->
-  <div class="container py-12">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">✍️ {t.blog.title}</h1>
-      <p class="text-xl text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        {t.blog.subtitle}
-      </p>
-    </div>
-
-    <!-- Filters -->
-    <div class="flex flex-wrap items-center justify-center gap-4 mb-12" id="blog-filters">
-      <button
-        class="filter-btn active px-4 py-2 rounded-lg font-medium transition-all"
-        data-filter="all"
-      >
-        {t.blog.allPosts} ({sortedPosts.length})
-      </button>
-      {languages.map((lang) => {
-        const count = sortedPosts.filter((p) => p.data.language === lang).length;
-        return (
+<BaseLayout title="Blog" description="Bài viết về AI/ML, RAG, LLM, Python và vận hành hệ thống.">
+  <div class="px-12 pt-14 pb-6">
+    <div class="kicker mb-3.5">$ ls ./blog | sort -r</div>
+    <h1 class="font-heading font-extrabold text-[48px] text-ink mb-6">Blog</h1>
+    <div class="flex flex-wrap border-2 border-ink w-fit" id="blog-filters">
+      {
+        filters.map((f, i) => (
           <button
-            class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
-            data-filter={`lang-${lang}`}
+            type="button"
+            class={`filter-btn font-mono text-xs font-semibold px-4 py-2 cursor-pointer bg-transparent text-ink hover:text-accent ${i > 0 ? 'border-l border-border-light' : ''} ${
+              f.key === 'all' ? 'active' : ''
+            }`}
+            data-filter={f.key}
           >
-            {lang === 'en' ? t.blog.english : t.blog.vietnamese} ({count})
+            {f.label} ({f.count})
           </button>
-        );
-      })}
-      {categories.map((cat) => {
-        const count = sortedPosts.filter((p) => p.data.category === cat).length;
-        return (
-          <button
-            class="filter-btn px-4 py-2 rounded-lg font-medium transition-all"
-            data-filter={`cat-${cat.toLowerCase().replace(/\//g, '-')}`}
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="px-12 pb-14">
+    <div class="border-t-2 border-ink" id="posts-list">
+      {
+        sortedPosts.map((post) => (
+          <div
+            class="blog-post-item"
+            data-lang={post.data.language}
+            data-category={post.data.category.toLowerCase().replace(/\//g, '-')}
           >
-            {cat} ({count})
-          </button>
-        );
-      })}
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              category={post.data.category}
+              language={post.data.language}
+              slug={post.slug}
+              readingTime={readingTime(post.body)}
+            />
+          </div>
+        ))
+      }
     </div>
-
-    <!-- Featured Post -->
-    {featuredPost && (
-      <div class="mb-16 card bg-gradient-to-br from-primary-50 to-accent-cyan/5 dark:from-primary-950 dark:to-slate-900 border-primary-200 dark:border-primary-800">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 bg-primary-600 text-white text-sm font-bold rounded-full">
-            📌 {t.blog.featured}
-          </span>
-        </div>
-        <h2 class="text-3xl font-bold mb-3">
-          <a href={`/blog/${featuredPost.slug}`} class="hover:text-primary-600 transition-colors">
-            {featuredPost.data.title}
-          </a>
-        </h2>
-        <p class="text-lg text-[var(--color-text-muted)] mb-4">
-          {featuredPost.data.description}
-        </p>
-        <div class="flex items-center gap-4 flex-wrap">
-          <span class={`lang-badge ${featuredPost.data.language === 'vi' ? 'lang-badge-vi' : 'lang-badge-en'}`}>
-            <FlagIcon country={featuredPost.data.language === 'vi' ? 'vn' : 'us'} class="w-4 h-4" />
-            <span>{featuredPost.data.language === 'vi' ? 'VI' : 'EN'}</span>
-          </span>
-          <span class="category-badge category-ai">{featuredPost.data.category}</span>
-          <span class="text-sm text-[var(--color-text-muted)]">
-            {new Date(featuredPost.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </span>
-          <span class="text-sm text-[var(--color-text-muted)]">
-            {readingTime(featuredPost.body)} {t.blog.minRead}
-          </span>
-        </div>
-        <a href={`/blog/${featuredPost.slug}`} class="mt-4 btn-primary inline-flex items-center">
-          {t.blog.readArticle}
-          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-          </svg>
-        </a>
-      </div>
-    )}
-
-    <!-- All Posts Grid -->
-    <div class="mb-8">
-      <h2 class="text-2xl font-bold mb-6">{t.blog.allPosts} ({sortedPosts.length})</h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
-      {sortedPosts.map((post) => (
-        <div
-          class="blog-post-item"
-          data-lang={post.data.language}
-          data-category={post.data.category.toLowerCase().replace(/\//g, '-')}
-        >
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            date={post.data.date}
-            category={post.data.category}
-            language={post.data.language}
-            slug={post.slug}
-            readingTime={readingTime(post.body)}
-          />
-        </div>
-      ))}
-    </div>
-
-    <!-- Empty State -->
     <div id="empty-state" class="hidden text-center py-16">
-      <p class="text-2xl text-[var(--color-text-muted)] mb-4">{t.blog.emptyState}</p>
-      <button id="reset-filters" class="link text-lg">
-        {t.blog.clearFilters}
-      </button>
+      <p class="text-lg text-neutral-600 mb-4">Không có bài viết phù hợp bộ lọc.</p>
+      <button id="reset-filters" class="link text-base">Xoá bộ lọc</button>
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .filter-btn {
-    @apply bg-slate-100 dark:bg-slate-800 text-[var(--color-text-base)] hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300;
-  }
-
   .filter-btn.active {
-    @apply bg-primary-600 text-white hover:bg-primary-700;
+    @apply bg-ink text-bg;
+  }
+  .filter-btn.active:hover {
+    @apply text-bg;
   }
 </style>
 
 <script>
-  // Client-side filtering
   const filterButtons = document.querySelectorAll('.filter-btn');
   const postItems = document.querySelectorAll('.blog-post-item');
   const emptyState = document.getElementById('empty-state');
-  const postsGrid = document.getElementById('posts-grid');
+  const postsList = document.getElementById('posts-list');
   const resetButton = document.getElementById('reset-filters');
 
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const filter = button.getAttribute('data-filter') || 'all';
 
-      // Update active state
       filterButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
 
-      // Filter posts
       let visibleCount = 0;
 
       postItems.forEach((item) => {
-        if (filter === 'all') {
+        let visible = filter === 'all';
+        if (filter.startsWith('lang-')) {
+          visible = item.getAttribute('data-lang') === filter.replace('lang-', '');
+        } else if (filter.startsWith('cat-')) {
+          visible = item.getAttribute('data-category') === filter.replace('cat-', '');
+        }
+
+        if (visible) {
           item.classList.remove('hidden');
           visibleCount++;
-        } else if (filter.startsWith('lang-')) {
-          const lang = filter.replace('lang-', '');
-          if (item.getAttribute('data-lang') === lang) {
-            item.classList.remove('hidden');
-            visibleCount++;
-          } else {
-            item.classList.add('hidden');
-          }
-        } else if (filter.startsWith('cat-')) {
-          const category = filter.replace('cat-', '');
-          if (item.getAttribute('data-category') === category) {
-            item.classList.remove('hidden');
-            visibleCount++;
-          } else {
-            item.classList.add('hidden');
-          }
+        } else {
+          item.classList.add('hidden');
         }
       });
 
-      // Show/hide empty state
       if (visibleCount === 0) {
-        postsGrid?.classList.add('hidden');
+        postsList?.classList.add('hidden');
         emptyState?.classList.remove('hidden');
       } else {
-        postsGrid?.classList.remove('hidden');
+        postsList?.classList.remove('hidden');
         emptyState?.classList.add('hidden');
       }
     });
   });
 
-  // Reset filters
   resetButton?.addEventListener('click', () => {
-    const allButton = document.querySelector('[data-filter="all"]') as HTMLButtonElement;
-    allButton?.click();
+    (document.querySelector('[data-filter="all"]') as HTMLButtonElement)?.click();
   });
 </script>

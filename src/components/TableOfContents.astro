@@ -12,26 +12,27 @@ interface Props {
 const { headings } = Astro.props;
 ---
 
-{headings.length > 0 && (
-  <nav class="toc card sticky top-20">
-    <h2 class="text-lg font-bold mb-4">📑 Table of Contents</h2>
-    <ul class="space-y-2 text-sm">
-      {headings.map((heading) => (
-        <li style={`margin-left: ${(heading.depth - 2) * 1}rem`}>
-          <a
-            href={`#${heading.slug}`}
-            class="toc-link text-[var(--color-text-muted)] hover:text-primary-600 transition-colors block py-1"
-          >
-            {heading.text}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-)}
+{
+  headings.length > 0 && (
+    <nav class="toc sticky top-20">
+      <div class="font-mono text-[11px] font-semibold text-neutral-600 tracking-[0.08em] mb-3.5">MỤC LỤC</div>
+      <ul class="flex flex-col gap-2.5 text-sm list-none m-0 p-0 pr-6">
+        {headings.map((heading) => (
+          <li style={`margin-left: ${(heading.depth - 2) * 0.75}rem`}>
+            <a
+              href={`#${heading.slug}`}
+              class="toc-link block py-0 text-neutral-700 no-underline border-l-2 border-transparent pl-2.5 -ml-2.5"
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
 
 <script>
-  // Highlight active section in TOC
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -40,11 +41,11 @@ const { headings } = Astro.props;
 
         if (entry.isIntersecting) {
           document.querySelectorAll('.toc-link').forEach((link) => {
-            link.classList.remove('text-primary-600', 'font-semibold');
-            link.classList.add('text-[var(--color-text-muted)]');
+            link.classList.remove('text-accent', 'border-accent', 'font-semibold');
+            link.classList.add('text-neutral-700', 'border-transparent');
           });
-          tocLink?.classList.remove('text-[var(--color-text-muted)]');
-          tocLink?.classList.add('text-primary-600', 'font-semibold');
+          tocLink?.classList.remove('text-neutral-700', 'border-transparent');
+          tocLink?.classList.add('text-accent', 'border-accent', 'font-semibold');
         }
       });
     },
