@@ -1,365 +1,155 @@
-# Behitek Portfolio - Astro Edition
+# behitek.github.io
 
-> A blazing-fast, modern portfolio website for an AI Engineer, built with Astro 4.x and TailwindCSS.
+Personal site and portfolio for Hieu Nguyen (behitek) — AI engineer. Built with Astro 4 and
+TailwindCSS, statically generated and deployed to GitHub Pages.
 
-🌐 **Live Site:** [behitek.com](https://behitek.com)
-🎨 **Framework:** Astro 4.x
-💅 **Styling:** TailwindCSS 3.x
-📝 **Content:** MDX for blog posts
+🌐 **Live site:** [behitek.com](https://behitek.com)
 
----
+## Tech stack
 
-## ✨ Features
+- **Framework:** [Astro 4](https://astro.build) (static output, no client-side framework)
+- **Styling:** [TailwindCSS 3](https://tailwindcss.com)
+- **Content:** MDX blog posts + JSON project entries via Astro Content Collections
+- **Language:** TypeScript (strict)
+- **Comments:** [Giscus](https://giscus.app) (GitHub Discussions)
+- **Analytics:** Google Tag Manager
+- **Hosting:** GitHub Pages via GitHub Actions
 
-### Core Features
-- ⚡ **Lightning Fast**: < 1s load time with minimal JavaScript
-- 🌙 **Dark Mode**: Smooth theme switching with persistence
-- 📱 **Fully Responsive**: Mobile-first design
-- 🎨 **Modern UI**: Glass morphism, gradient accents, smooth animations
-- 🔍 **SEO Optimized**: Complete meta tags, OpenGraph, Twitter cards
-- 📊 **RSS Feed**: Subscribe to blog updates
-- ♿ **Accessible**: WCAG 2.1 AA compliant
+## Getting started
 
-### Blog Features
-- 📝 10+ technical articles about AI/ML, NLP, RAG, Python
-- 🌐 **Bilingual Support**: English & Vietnamese posts (tagged)
-- 🏷️ **Smart Filtering**: Filter by language and category
-- 📖 **Table of Contents**: Auto-generated with active section highlighting
-- 📈 **Reading Progress**: Visual progress bar
-- 💬 **Comments**: Giscus (GitHub Discussions)
-- 🔗 **Share Buttons**: Twitter, LinkedIn, Copy link
-- ⏱️ **Reading Time**: Estimated time for each post
-
-### Project Showcase
-- 🚀 Featured projects: LCOJ, Inverted HyDE, hoc-bash
-- 📂 Categorized: Product, Research, Tutorial, Tool, Fun
-- 🏷️ Tech stack tags
-- 🔗 Links to GitHub, live demos, blog posts
-
-### Technical Highlights
-- 🎯 TypeScript for type safety
-- 🎨 Custom Tailwind theme with emerald green branding
-- 📦 Content Collections for type-safe content
-- 🖼️ Optimized images with Astro Image
-- 🤖 Google Tag Manager integration
-- 🚀 GitHub Actions deployment
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 20.x or higher
-- npm or pnpm
-
-### Installation
+Requires Node.js 20+.
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev       # http://localhost:4321
+npm run build     # type-checks (astro check) then builds to dist/
+npm run preview   # preview the production build
 ```
 
-### Development Commands
+There is no separate lint/test script — `npm run build` running `astro check` is the main
+correctness gate.
 
-```bash
-npm run dev          # Start dev server (http://localhost:4321)
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run astro        # Run Astro CLI commands
-```
-
----
-
-## 📁 Project Structure
+## Project structure
 
 ```
-/
-├── public/              # Static assets
-│   ├── images/          # Images (copied from old site)
-│   │   ├── blog/        # Blog post images
-│   │   └── me.jpeg      # Profile picture
-│   ├── favicon.ico
-│   ├── CNAME            # Custom domain config
-│   └── .nojekyll        # GitHub Pages config
-│
-├── src/
-│   ├── components/      # Reusable components
-│   │   ├── Navbar.astro
-│   │   ├── Footer.astro
-│   │   ├── ThemeToggle.astro
-│   │   ├── BlogCard.astro
-│   │   ├── ProjectCard.astro
-│   │   ├── LanguageBadge.astro
-│   │   ├── TableOfContents.astro
-│   │   ├── Giscus.astro
-│   │   └── SEO.astro
-│   │
-│   ├── layouts/         # Page layouts
-│   │   ├── BaseLayout.astro
-│   │   └── BlogPostLayout.astro
-│   │
-│   ├── pages/           # Routes
-│   │   ├── index.astro           # Homepage
-│   │   ├── blog/
-│   │   │   ├── index.astro       # Blog listing
-│   │   │   └── [...slug].astro   # Blog post pages
-│   │   ├── projects.astro
-│   │   ├── contact.astro
-│   │   ├── 404.astro
-│   │   └── rss.xml.ts            # RSS feed
-│   │
-│   ├── content/         # Content collections
-│   │   ├── blog/        # Blog posts (MDX)
-│   │   │   └── inverted-hyde.mdx
-│   │   ├── projects/    # Projects (JSON)
-│   │   │   ├── lcoj.json
-│   │   │   ├── inverted-hyde.json
-│   │   │   └── hoc-bash.json
-│   │   └── config.ts    # Content collection schemas
-│   │
-│   ├── styles/          # Global styles
-│   │   └── global.css   # Tailwind + custom styles
-│   │
-│   └── utils/           # Utility functions
-│       ├── constants.ts
-│       └── helpers.ts
-│
-├── .github/
-│   └── workflows/
-│       └── deploy.yml   # GitHub Actions deployment
-│
-├── astro.config.mjs     # Astro configuration
-├── tailwind.config.mjs  # Tailwind configuration
-├── tsconfig.json        # TypeScript configuration
-└── package.json
+src/
+├── components/     # Astro components (Navbar, Footer, ServiceCard, ProjectCard, BlogCard,
+│                   #   ContactForm, image gallery, TableOfContents, Giscus, SEO, ...)
+├── layouts/
+│   ├── BaseLayout.astro       # shared shell: head/SEO, fonts, GTM, Navbar + Footer
+│   └── BlogPostLayout.astro   # post chrome: TOC, reading progress, Giscus
+├── pages/
+│   ├── index.astro            # homepage
+│   ├── about.astro
+│   ├── projects.astro
+│   ├── blog/index.astro        # listing
+│   ├── blog/[...slug].astro    # post pages, generated from the `blog` collection
+│   ├── contact.astro           # mock lead-capture form (client-side only, no backend)
+│   ├── services/index.astro    # Online Judge (DMOJ) service
+│   ├── services/ai.astro       # AI project service
+│   ├── services/software.astro # full-stack software service
+│   ├── 404.astro
+│   └── rss.xml.ts
+├── content/
+│   ├── blog/        # blog posts (.mdx)
+│   ├── projects/    # project entries (.json)
+│   └── config.ts    # content collection schemas
+├── styles/global.css   # Tailwind layers + design tokens/utilities
+└── utils/               # constants.ts, helpers.ts
+
+public/                  # static assets: images, favicon, CNAME, .nojekyll
+.github/workflows/        # deploy.yml (GitHub Pages), test-deploy.yml (build check on PRs)
 ```
 
----
+## Design system
 
-## 🎨 Design System
+The site uses a brutalist/terminal-inspired look ("Modernist"): sharp corners (no border-radius
+except pills), 2px `border-ink` borders, monospace labels for nav/kickers, and a single warm red
+accent. All content is in Vietnamese by default.
 
-### Color Palette
+Tokens live in `tailwind.config.mjs`:
 
-```css
-Primary (Emerald Green):
-  - #10B981 (Main)
-  - #059669 (Dark)
-  - #34D399 (Light)
-
-Accent:
-  - #06B6D4 (Cyan) - For highlights
-  - #8B5CF6 (Purple) - For AI/ML content
-
-Neutral (Slate):
-  - Light mode: #FFFFFF background, #0F172A text
-  - Dark mode: #0F172A background, #F8FAFC text
+```
+bg        #f3f2f2   surface   #eae9e9   ink (text)  #201e1d
+accent    #ec3013   accent-2  #e15b47   neutral      100–900 gray ramp
 ```
 
-### Typography
+- **Font:** Archivo (Google Fonts) for both headings and body; system monospace for code/labels.
+- **Reusable classes** (`src/styles/global.css` `@layer components`): `.btn` / `.btn-primary` /
+  `.btn-secondary`, `.card`, `.tag-pill`, `.kicker` (e.g. `01 /`), `.blink-cursor`, `.section`,
+  `.container`.
+- There is currently no dark mode — it was removed along with the old i18n routing when the site
+  was rebuilt from its original emerald/dark-mode Docusaurus-derived design into this one.
 
-- **Headings**: Inter (Google Fonts)
-- **Body**: System fonts for performance
-- **Code**: JetBrains Mono / Fira Code
+## Content management
 
-### Components
+### Adding a blog post
 
-- **Glass Morphism**: Navbar with backdrop blur
-- **Bento Grid**: About section layout
-- **Cards**: Elevated cards with hover effects
-- **Badges**: Language (EN/VI) and category badges
-- **Buttons**: Primary (filled) and secondary (outlined)
+Add an `.mdx` file to `src/content/blog/`:
 
----
-
-## 📝 Content Management
-
-### Adding Blog Posts
-
-1. Create new MDX file in `src/content/blog/`:
-
-```markdown
+```yaml
 ---
 title: "Your Post Title"
 description: "Brief description"
-date: 2025-11-12
-author: "Hieu Nguyen"
-language: "en"  # or "vi"
-category: "AI/ML"  # AI/ML, Python, Tutorial, Data
+date: 2026-01-01
+author: "Hieu Nguyen"       # optional, defaults to "Hieu Nguyen"
+language: "en"              # "en" | "vi", defaults to "en"
+category: "AI/ML"
 tags: ["tag1", "tag2"]
 image: "/images/blog/your-image.jpg"
 draft: false
 ---
-
-Your content here...
 ```
 
-2. Add images to `public/images/blog/`
-3. Blog post will be automatically generated at `/blog/your-post-slug`
+Drop images in `public/images/blog/`. The post is served at `/blog/<filename-slug>`.
+Content supports `:::tip` / `:::warning` / `:::danger` / `:::note` / `:::info` admonition blocks
+(via a custom remark-directive plugin in `astro.config.mjs`) in addition to standard Markdown/MDX.
 
-### Adding Projects
+### Adding a project
 
-1. Create JSON file in `src/content/projects/`:
+Add a `.json` file to `src/content/projects/`:
 
 ```json
 {
+  "id": "project-slug",
   "title": "Project Name",
   "description": "Project description",
   "category": "Product",
   "tech": ["Python", "FastAPI", "Docker"],
-  "links": {
-    "website": "https://example.com",
-    "github": "https://github.com/..."
-  },
+  "links": { "website": "https://example.com", "github": "https://github.com/...", "blog": "/blog/..." },
   "featured": true,
-  "order": 1
+  "order": 1,
+  "status": "private",
+  "flagship": false,
+  "images": ["/images/project/screenshot-1.png"]
 }
 ```
 
-2. Project will appear on homepage and projects page
+Exactly one project should have `"flagship": true` — it drives the case-study spotlight on the
+homepage. `status` (`open-source` | `private`) controls the private-project indicator on the
+project card.
 
----
+## Configuration
 
-## 🔧 Configuration
+**Giscus comments** — set your repo/category IDs in `src/components/Giscus.astro`.
 
-### Giscus Comments
+**Google Tag Manager** — GTM container ID is set inline in `src/layouts/BaseLayout.astro`.
 
-1. Enable GitHub Discussions in your repository
-2. Visit [giscus.app](https://giscus.app)
-3. Configure and get your repo ID and category ID
-4. Update `src/components/Giscus.astro`:
+**Custom domain** — set in `public/CNAME`.
 
-```astro
-script.setAttribute('data-repo', 'behitek/behitek.github.io');
-script.setAttribute('data-repo-id', 'YOUR_REPO_ID');
-script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID');
-```
+## Deployment
 
-### Google Tag Manager
+Pushes to `main` (or `astro-main`) trigger `.github/workflows/deploy.yml`, which builds with
+Astro and deploys `dist/` to GitHub Pages. `.github/workflows/test-deploy.yml` runs a build check
+on pull requests into `main`.
 
-Update in `src/layouts/BaseLayout.astro`:
+To deploy manually elsewhere: `npm run build` and upload the `dist/` folder.
 
-```html
-<script is:inline>
-  (function(w,d,s,l,i){...})(window,document,'script','dataLayer','YOUR_GTM_ID');
-</script>
-```
+## Contact
 
-### Custom Domain
+- **Email:** hello@behitek.com
+- **LinkedIn:** [linkedin.com/in/behitek](https://linkedin.com/in/behitek)
+- **GitHub:** [github.com/behitek](https://github.com/behitek)
+- **Twitter/X:** [@behitek_](https://twitter.com/behitek_)
 
-Update `public/CNAME` with your domain:
-
-```
-behitek.com
-```
-
----
-
-## 🚀 Deployment
-
-### GitHub Pages (Recommended)
-
-1. Push to main branch or designated branch
-2. GitHub Actions will automatically build and deploy
-3. Enable GitHub Pages in repo settings:
-   - Settings → Pages
-   - Source: GitHub Actions
-
-### Manual Deployment
-
-```bash
-# Build
-npm run build
-
-# Deploy dist/ folder to your hosting provider
-```
-
----
-
-## 📊 Performance
-
-### Lighthouse Scores (Target)
-- Performance: 95+
-- Accessibility: 95+
-- Best Practices: 95+
-- SEO: 100
-
-### Bundle Size
-- JavaScript: ~5-10 KB (vs 200 KB with Docusaurus)
-- CSS: ~20 KB (with TailwindCSS purging)
-- First Load: < 1 second
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework**: [Astro 4.x](https://astro.build)
-- **Styling**: [TailwindCSS 3.x](https://tailwindcss.com)
-- **Content**: MDX with Content Collections
-- **Fonts**: Google Fonts (Inter)
-- **Icons**: Emoji + SVG
-- **Comments**: [Giscus](https://giscus.app)
-- **Analytics**: Google Tag Manager
-- **Hosting**: GitHub Pages
-- **CI/CD**: GitHub Actions
-
----
-
-## 📚 Migration from Docusaurus
-
-See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for detailed migration steps.
-
-**Summary**:
-- Copy blog posts from `/blog/*.md` to `/src/content/blog/*.mdx`
-- Update frontmatter format
-- Fix image paths: `/img/blog` → `/images/blog`
-- Remove `<!--truncate-->` tags
-- Test each post
-
----
-
-## 🤝 Contributing
-
-This is a personal portfolio, but suggestions and bug reports are welcome!
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-© 2025 Hieu Nguyen. All rights reserved.
-
----
-
-## 🙏 Acknowledgments
-
-- Built with [Astro](https://astro.build)
-- Styled with [TailwindCSS](https://tailwindcss.com)
-- Comments powered by [Giscus](https://giscus.app)
-- Hosted on [GitHub Pages](https://pages.github.com)
-
----
-
-## 📧 Contact
-
-- **Email**: hello@behitek.com
-- **LinkedIn**: [linkedin.com/in/behitek](https://linkedin.com/in/behitek)
-- **GitHub**: [github.com/behitek](https://github.com/behitek)
-- **Twitter**: [@behitek_](https://twitter.com/behitek_)
-
----
-
-**Built with ❤️ by Hieu Nguyen**
+© 2026 Hieu Nguyen. All rights reserved.
