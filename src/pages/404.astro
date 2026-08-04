@@ -2,71 +2,30 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="404 - Page Not Found" description="Oops! The page you're looking for doesn't exist.">
-  <div class="container py-24">
-    <div class="max-w-2xl mx-auto text-center">
-      <!-- 404 Illustration -->
-      <div class="text-9xl font-bold gradient-text mb-6">404</div>
+<BaseLayout title="404 - Không tìm thấy trang" description="Trang bạn tìm không tồn tại.">
+  <div class="px-12 py-24 text-center max-w-2xl mx-auto">
+    <div class="font-heading font-extrabold text-9xl text-accent mb-6">404</div>
 
-      <!-- Message -->
-      <h1 class="text-3xl md:text-4xl font-bold mb-4">Page Not Found</h1>
-      <p class="text-xl text-[var(--color-text-muted)] mb-8">
-        Looks like you've ventured into uncharted waters of the AI ocean 🌊
-      </p>
+    <h1 class="font-heading font-extrabold text-3xl md:text-4xl text-ink mb-4">Không tìm thấy trang</h1>
+    <p class="text-lg text-neutral-700 mb-10">Có vẻ bạn đã lạc vào vùng chưa được lập trình.</p>
 
-      <!-- Search -->
-      <div class="mb-12">
-        <p class="text-[var(--color-text-muted)] mb-4">Looking for something specific?</p>
-        <div class="flex gap-2 max-w-md mx-auto">
-          <input
-            type="search"
-            placeholder="Search..."
-            class="flex-1 px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-base)] focus:outline-none focus:ring-2 focus:ring-primary-500"
-            id="404-search"
-          />
-          <button class="btn-primary">
-            Search
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Links -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <a href="/" class="card text-center group hover:border-primary-600">
-          <span class="text-3xl mb-2 block">🏠</span>
-          <h3 class="font-semibold group-hover:text-primary-600">Home</h3>
-          <p class="text-sm text-[var(--color-text-muted)]">Back to homepage</p>
-        </a>
-
-        <a href="/blog" class="card text-center group hover:border-primary-600">
-          <span class="text-3xl mb-2 block">📝</span>
-          <h3 class="font-semibold group-hover:text-primary-600">Blog</h3>
-          <p class="text-sm text-[var(--color-text-muted)]">Read articles</p>
-        </a>
-
-        <a href="/projects" class="card text-center group hover:border-primary-600">
-          <span class="text-3xl mb-2 block">🚀</span>
-          <h3 class="font-semibold group-hover:text-primary-600">Projects</h3>
-          <p class="text-sm text-[var(--color-text-muted)]">View work</p>
-        </a>
-      </div>
-
-      <!-- Contact -->
-      <p class="text-[var(--color-text-muted)]">
-        Still lost? <a href="/contact" class="link">Get in touch</a> and I'll help you find what you need.
-      </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 border-2 border-ink mb-10">
+      <a href="/" class="p-6 border-b-2 md:border-b-0 md:border-r-2 border-ink text-center no-underline hover:bg-neutral-100">
+        <h3 class="font-heading font-bold text-ink">Trang chủ</h3>
+        <p class="text-sm text-neutral-600 m-0">Quay lại trang chủ</p>
+      </a>
+      <a href="/blog" class="p-6 border-b-2 md:border-b-0 md:border-r-2 border-ink text-center no-underline hover:bg-neutral-100">
+        <h3 class="font-heading font-bold text-ink">Blog</h3>
+        <p class="text-sm text-neutral-600 m-0">Đọc bài viết</p>
+      </a>
+      <a href="/projects" class="p-6 text-center no-underline hover:bg-neutral-100">
+        <h3 class="font-heading font-bold text-ink">Dự án</h3>
+        <p class="text-sm text-neutral-600 m-0">Xem dự án</p>
+      </a>
     </div>
+
+    <p class="text-neutral-700">
+      Vẫn chưa tìm thấy? <a href="/contact" class="link">Liên hệ</a> và tôi sẽ giúp bạn.
+    </p>
   </div>
 </BaseLayout>
-
-<script>
-  // Simple search redirect
-  document.getElementById('404-search')?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      const query = (e.target as HTMLInputElement).value;
-      if (query) {
-        window.location.href = `/blog?search=${encodeURIComponent(query)}`;
-      }
-    }
-  });
-</script>
