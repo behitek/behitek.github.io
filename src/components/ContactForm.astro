@@ -1,0 +1,163 @@
+---
+const NEEDS = [
+  { id: 'online-judge', label: 'online-judge' },
+  { id: 'ai', label: 'dự án AI' },
+  { id: 'software', label: 'phần mềm' },
+  { id: 'other', label: 'khác' },
+];
+---
+
+<div class="p-14 bg-white">
+  <div id="contact-form-state" class="flex flex-col gap-4.5">
+    <div>
+      <label for="cf-name" class="block font-mono text-xs font-semibold text-ink mb-1.5">HỌ TÊN *</label>
+      <input
+        id="cf-name"
+        type="text"
+        placeholder="Nguyễn Văn A"
+        class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-none focus-visible:border-accent"
+      />
+      <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-name">
+        Vui lòng nhập họ tên.
+      </p>
+    </div>
+
+    <div>
+      <label for="cf-email" class="block font-mono text-xs font-semibold text-ink mb-1.5">EMAIL *</label>
+      <input
+        id="cf-email"
+        type="email"
+        placeholder="ban@congty.vn"
+        class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-none focus-visible:border-accent"
+      />
+      <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-email">
+        Email chưa hợp lệ — kiểm tra lại giúp mình.
+      </p>
+    </div>
+
+    <div>
+      <div class="font-mono text-xs font-semibold text-ink mb-1.5">BẠN CẦN GÌ? *</div>
+      <div class="flex flex-wrap border-2 border-ink w-fit" id="need-selector">
+        {
+          NEEDS.map((n, i) => (
+            <button
+              type="button"
+              data-need={n.id}
+              class={`need-btn font-mono text-xs font-semibold px-4 py-2.5 cursor-pointer bg-transparent text-ink hover:text-accent ${i > 0 ? 'border-l border-border-light' : ''}`}
+            >
+              {n.label}
+            </button>
+          ))
+        }
+      </div>
+      <input type="hidden" id="cf-need" value="online-judge" />
+    </div>
+
+    <div>
+      <label for="cf-desc" class="block font-mono text-xs font-semibold text-ink mb-1.5">MÔ TẢ NHU CẦU</label>
+      <textarea
+        id="cf-desc"
+        placeholder="Ví dụ: Trung tâm của tôi cần hệ thống chấm bài cho ~500 học sinh…"
+        class="w-full box-border border-2 border-ink h-[120px] bg-bg font-mono text-[13px] p-3 outline-none resize-y focus-visible:border-accent"
+      ></textarea>
+      <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-desc">
+        Vui lòng mô tả ngắn gọn nhu cầu của bạn.
+      </p>
+    </div>
+
+    <button type="button" id="cf-submit" class="btn-primary w-fit">Gửi yêu cầu →</button>
+  </div>
+
+  <div id="contact-success-state" class="hidden">
+    <div class="border-2 border-ink bg-ink p-6">
+      <div class="font-mono text-[13px] leading-[2] text-bg">
+        <div>$ send-request --to hello@behitek.com</div>
+        <div class="text-[#5abf6e]">✓ Đã gửi thành công.</div>
+        <div class="text-neutral-500">&gt; Tôi sẽ phản hồi trong vòng 24 giờ làm việc.</div>
+        <div class="text-neutral-500">&gt; Bản sao yêu cầu đã gửi về email của bạn.</div>
+      </div>
+    </div>
+    <button
+      type="button"
+      id="cf-reset"
+      class="font-mono text-[13px] font-semibold text-ink mt-5 cursor-pointer bg-transparent border-0 p-0 hover:text-accent"
+    >
+      ← gửi yêu cầu khác
+    </button>
+  </div>
+</div>
+
+<script>
+  const needParam = new URLSearchParams(window.location.search).get('need');
+  const validNeeds = ['online-judge', 'ai', 'software', 'other'];
+  const initialNeed = needParam && validNeeds.includes(needParam) ? needParam : 'online-judge';
+
+  const needInput = document.getElementById('cf-need') as HTMLInputElement | null;
+  const needButtons = document.querySelectorAll<HTMLButtonElement>('.need-btn');
+
+  const setActiveNeed = (id: string) => {
+    if (needInput) needInput.value = id;
+    needButtons.forEach((btn) => {
+      const isActive = btn.getAttribute('data-need') === id;
+      btn.classList.toggle('bg-ink', isActive);
+      btn.classList.toggle('text-bg', isActive);
+    });
+  };
+
+  setActiveNeed(initialNeed);
+
+  needButtons.forEach((btn) => {
+    btn.addEventListener('click', () => setActiveNeed(btn.getAttribute('data-need') || 'online-judge'));
+  });
+
+  const nameInput = document.getElementById('cf-name') as HTMLInputElement | null;
+  const emailInput = document.getElementById('cf-email') as HTMLInputElement | null;
+  const descInput = document.getElementById('cf-desc') as HTMLTextAreaElement | null;
+  const submitBtn = document.getElementById('cf-submit');
+  const resetBtn = document.getElementById('cf-reset');
+  const formState = document.getElementById('contact-form-state');
+  const successState = document.getElementById('contact-success-state');
+
+  const showError = (id: string, show: boolean) => {
+    const el = document.querySelector(`[data-error-for="${id}"]`);
+    const input = document.getElementById(id);
+    el?.classList.toggle('hidden', !show);
+    input?.classList.toggle('border-accent-600', show);
+  };
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validate = () => {
+    let valid = true;
+    const nameOk = !!nameInput?.value.trim();
+    showError('cf-name', !nameOk);
+    if (!nameOk) valid = false;
+
+    const emailOk = !!emailInput?.value.trim() && emailRegex.test(emailInput.value.trim());
+    showError('cf-email', !emailOk);
+    if (!emailOk) valid = false;
+
+    const descOk = !!descInput?.value.trim();
+    showError('cf-desc', !descOk);
+    if (!descOk) valid = false;
+
+    return valid;
+  };
+
+  submitBtn?.addEventListener('click', () => {
+    if (!validate()) return;
+    formState?.classList.add('hidden');
+    successState?.classList.remove('hidden');
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    successState?.classList.add('hidden');
+    formState?.classList.remove('hidden');
+    if (nameInput) nameInput.value = '';
+    if (emailInput) emailInput.value = '';
+    if (descInput) descInput.value = '';
+    showError('cf-name', false);
+    showError('cf-email', false);
+    showError('cf-desc', false);
+  });
+</script>
