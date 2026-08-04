@@ -28,13 +28,6 @@ function remarkAdmonitions() {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://behitek.com',
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'vi'],
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
   integrations: [
     mdx(),
     sitemap(),
@@ -45,10 +38,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkDirective, remarkAdmonitions],
     shikiConfig: {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark-dimmed',
-      },
+      theme: 'github-light',
       wrap: true,
       transformers: [
         {

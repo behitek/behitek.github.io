@@ -3,96 +3,122 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --color-text-base: #1e293b;
-    --color-text-muted: #64748b;
-    --color-bg-base: #ffffff;
-    --color-bg-secondary: #f8fafc;
-    --color-border: #e2e8f0;
-  }
-
-  .dark {
-    --color-text-base: #f8fafc;
-    --color-text-muted: #cbd5e1;
-    --color-bg-base: #0f172a;
-    --color-bg-secondary: #1e293b;
-    --color-border: #334155;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-[var(--color-bg-base)] text-[var(--color-text-base)] transition-colors duration-300;
+    @apply bg-bg text-ink font-sans;
+    font-size: 15px;
+    line-height: 1.55;
   }
 
-  /* Custom scrollbar */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-extrabold;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+
+  a {
+    @apply text-ink;
+  }
+  a:hover {
+    @apply text-accent;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, #ec3013 30%, transparent);
+  }
+
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2px solid #ec3013;
+    outline-offset: 2px;
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
   }
-
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
-
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary-600 rounded-full;
+    @apply bg-accent;
   }
-
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-700;
+    @apply bg-accent-hover;
   }
 }
 
 @layer components {
-  /* Button styles */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 cursor-pointer no-underline font-heading font-extrabold text-sm px-6 py-3.5 transition-colors;
   }
-
   .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-medium hover:shadow-large hover:-translate-y-0.5;
+    @apply btn bg-accent text-bg;
   }
-
+  .btn-primary:hover {
+    @apply bg-accent-hover;
+  }
   .btn-secondary {
-    @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-950 focus:ring-primary-500;
+    @apply btn border-2 border-ink text-ink;
+  }
+  .btn-secondary:hover {
+    @apply bg-ink text-bg;
   }
 
-  /* Card styles */
   .card {
-    @apply bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-6 shadow-soft transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
+    @apply bg-white border-2 border-border p-6;
   }
 
-  /* Link styles */
   .link {
-    @apply text-primary-600 hover:text-primary-700 underline-offset-4 hover:underline transition-colors;
+    @apply text-accent hover:underline underline-offset-4;
   }
 
-  /* Section container */
+  .tag-pill {
+    @apply inline-flex items-center font-mono text-[11px] px-2 py-1 border border-border-light text-ink;
+  }
+
+  .kicker {
+    @apply font-mono text-[13px] font-semibold text-accent;
+  }
+
+  .blink-cursor {
+    @apply text-accent animate-blink;
+  }
+
   .section {
-    @apply py-16 md:py-24;
+    @apply py-14 md:py-20;
   }
 
   .container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-6 sm:px-8 lg:px-12;
   }
 }
 
 @layer utilities {
-  /* Glass morphism */
-  .glass {
-    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/20 dark:border-slate-700/20;
+  .grayscale-photo {
+    filter: grayscale(1);
   }
+}
 
-  /* Gradient text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-accent-cyan bg-clip-text text-transparent;
+/* Mobile responsive helpers — collapse grid layouts, drop right borders,
+   allow flex-wrap, and reduce side padding under 900px. */
+@media (max-width: 900px) {
+  .rgrid {
+    grid-template-columns: 1fr !important;
   }
-
-  /* Focus visible */
-  .focus-outline {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900;
+  .rgrid > * {
+    border-right: none !important;
+  }
+  .rwrap {
+    flex-wrap: wrap;
+  }
+  .rpad {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 }
 
@@ -105,7 +131,8 @@
 .prose h2,
 .prose h3,
 .prose h4 {
-  @apply font-bold text-[var(--color-text-base)] scroll-mt-20;
+  @apply font-heading font-extrabold text-ink;
+  scroll-margin-top: 6rem;
 }
 
 .prose h1 {
@@ -113,7 +140,7 @@
 }
 
 .prose h2 {
-  @apply text-3xl mt-12 mb-4 border-b-2 border-primary-600 pb-2;
+  @apply text-3xl mt-12 mb-4 pb-2 border-b-2 border-ink;
 }
 
 .prose h3 {
@@ -121,7 +148,7 @@
 }
 
 .prose p {
-  @apply text-[var(--color-text-base)] leading-relaxed mb-4;
+  @apply text-ink leading-relaxed mb-4;
 }
 
 .prose a {
@@ -129,42 +156,37 @@
 }
 
 .prose code {
-  @apply bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono text-primary-600 dark:text-primary-400;
+  @apply bg-surface px-1.5 py-0.5 font-mono text-[13px] text-accent;
 }
 
 .prose pre {
-  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-4 overflow-x-auto my-6 relative;
-  position: relative;
+  @apply bg-ink text-bg p-4 overflow-x-auto my-6 relative border-2 border-ink;
 }
 
 .prose pre code {
-  @apply bg-transparent p-0;
+  @apply bg-transparent p-0 text-bg;
 }
 
-/* Code block wrapper with copy button */
 .prose .code-block-wrapper {
-  @apply relative;
+  position: relative;
 }
 
 .prose pre:hover .copy-button {
-  @apply opacity-100;
+  opacity: 1;
 }
 
 .prose .copy-button {
-  @apply absolute top-2 right-2 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white text-xs rounded opacity-0 transition-all duration-200 cursor-pointer font-sans;
+  @apply absolute top-2 right-2 px-3 py-1.5 font-mono border border-neutral-600 text-bg text-xs opacity-0 transition-opacity cursor-pointer;
+  background: transparent;
   z-index: 10;
 }
 
-.prose .copy-button:hover {
-  @apply shadow-lg;
-}
-
 .prose .copy-button.copied {
-  @apply bg-green-600 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-600;
+  @apply border-accent text-accent;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-primary-600 pl-4 italic text-[var(--color-text-muted)] my-6;
+  @apply border-l-4 border-accent pl-4 italic text-neutral-700 my-6;
 }
 
 .prose ul,
@@ -177,7 +199,8 @@
 }
 
 .prose img {
-  @apply rounded-lg shadow-medium my-8;
+  @apply my-8 border-2 border-ink;
+  filter: grayscale(1);
 }
 
 .prose table {
@@ -185,98 +208,43 @@
 }
 
 .prose th {
-  @apply bg-slate-100 dark:bg-slate-800 px-4 py-2 text-left font-semibold;
+  @apply bg-surface px-4 py-2 text-left font-heading font-semibold border-b-2 border-ink;
 }
 
 .prose td {
-  @apply border border-[var(--color-border)] px-4 py-2;
+  @apply border-b border-border-light px-4 py-2;
 }
 
 /* Reading progress bar */
 .reading-progress {
-  @apply fixed top-0 left-0 h-1 bg-gradient-to-r from-primary-600 to-accent-cyan z-50 transition-all duration-150;
-}
-
-/* Language badge */
-.lang-badge {
-  @apply inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full;
-}
-
-.lang-badge-en {
-  @apply bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300;
-}
-
-.lang-badge-vi {
-  @apply bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300;
+  @apply fixed top-0 left-0 h-1 bg-accent z-50 transition-all duration-150;
 }
 
 /* Admonitions (:::tip:::, :::warning:::, etc.) */
 .prose .admonition {
-  @apply my-6 p-4 rounded-lg border-l-4;
+  @apply my-6 p-4 border-l-4 border-ink bg-surface;
 }
 
-.prose .admonition-tip {
-  @apply bg-blue-50 dark:bg-blue-950 border-blue-500 text-blue-900 dark:text-blue-100;
+.prose .admonition::before {
+  @apply block font-heading font-extrabold mb-2 text-accent;
 }
 
 .prose .admonition-tip::before {
   content: '💡 Tip';
-  @apply block font-bold mb-2 text-blue-700 dark:text-blue-300;
-}
-
-.prose .admonition-warning {
-  @apply bg-yellow-50 dark:bg-yellow-950 border-yellow-500 text-yellow-900 dark:text-yellow-100;
 }
 
 .prose .admonition-warning::before {
   content: '⚠️ Warning';
-  @apply block font-bold mb-2 text-yellow-700 dark:text-yellow-300;
-}
-
-.prose .admonition-danger {
-  @apply bg-red-50 dark:bg-red-950 border-red-500 text-red-900 dark:text-red-100;
 }
 
 .prose .admonition-danger::before {
   content: '🚨 Danger';
-  @apply block font-bold mb-2 text-red-700 dark:text-red-300;
-}
-
-.prose .admonition-note {
-  @apply bg-gray-50 dark:bg-gray-950 border-gray-500 text-gray-900 dark:text-gray-100;
 }
 
 .prose .admonition-note::before {
   content: '📝 Note';
-  @apply block font-bold mb-2 text-gray-700 dark:text-gray-300;
-}
-
-.prose .admonition-info {
-  @apply bg-cyan-50 dark:bg-cyan-950 border-cyan-500 text-cyan-900 dark:text-cyan-100;
 }
 
 .prose .admonition-info::before {
   content: 'ℹ️ Info';
-  @apply block font-bold mb-2 text-cyan-700 dark:text-cyan-300;
-}
-
-/* Category badges */
-.category-badge {
-  @apply inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors;
-}
-
-.category-ai {
-  @apply bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300;
-}
-
-.category-python {
-  @apply bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300;
-}
-
-.category-tutorial {
-  @apply bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300;
-}
-
-.category-data {
-  @apply bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300;
 }

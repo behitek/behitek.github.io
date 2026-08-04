@@ -33,6 +33,9 @@ const projects = defineCollection({
     }).optional(),
     featured: z.boolean().default(false),
     order: z.number().default(999),
+    status: z.enum(['open-source', 'private']).default('private'),
+    flagship: z.boolean().default(false),
+    placeholderIcon: z.string().optional(),
   }),
 });
 
