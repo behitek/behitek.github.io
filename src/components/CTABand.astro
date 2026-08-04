@@ -1,0 +1,36 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  buttonLabel: string;
+  buttonHref?: string;
+  showEmail?: boolean;
+  size?: 'lg' | 'md';
+}
+
+const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, size = 'md' } = Astro.props;
+---
+
+<div class={`rwrap rpad ${size === 'lg' ? 'px-12 py-16' : 'p-12'} bg-accent flex ${size === 'lg' ? 'flex-col' : 'justify-between items-center'} gap-6`}>
+  {kicker && <div class="font-mono text-[13px] font-semibold text-bg opacity-85 mb-3.5">{kicker}</div>}
+  <h2
+    class={`font-heading font-extrabold text-bg m-0 ${size === 'lg' ? 'text-[46px] leading-[1.05] max-w-[720px] mb-6' : 'text-[32px]'}`}
+  >
+    {title}
+  </h2>
+  <div class="rwrap flex gap-3.5 flex-none">
+    <a href={buttonHref} class="font-heading font-extrabold text-[15px] bg-white text-accent px-6 py-3.5 no-underline hover:bg-ink hover:text-bg">
+      {buttonLabel}
+    </a>
+    {
+      showEmail && (
+        <a
+          href="mailto:hello@behitek.com"
+          class="font-heading font-extrabold text-[15px] border-2 border-white text-bg px-6 py-3 no-underline"
+        >
+          hello@behitek.com
+        </a>
+      )
+    }
+  </div>
+</div>

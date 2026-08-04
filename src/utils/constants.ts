@@ -1,11 +1,9 @@
 export const SITE = {
-  title: 'Behitek',
-  description: 'Turning AI research into reality',
+  title: 'behitek',
+  description: 'Biến nghiên cứu AI thành hệ thống thực tế.',
   url: 'https://behitek.com',
   author: 'Hieu Nguyen',
   email: 'hello@behitek.com',
-  tagline: 'AI Engineer • Vietnam',
-  bio: 'I love bringing AI into production to solve real problems, with a focus on natural language processing, retrieval augmented generation (RAG), LLMs, and information retrieval.',
 };
 
 export const SOCIAL_LINKS = {
@@ -32,63 +30,10 @@ export const SOCIAL_LINKS = {
 };
 
 export const NAV_LINKS = [
-  { label: 'Blog', href: '/blog' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Contact', href: '/contact' },
+  { label: '~/home', href: '/' },
+  { label: './services', href: '/services' },
+  { label: './projects', href: '/projects' },
+  { label: './blog', href: '/blog' },
+  { label: './about', href: '/about' },
 ];
 
-export const EDUCATION = {
-  degree: "Master's in Information Science",
-  school: 'Japan Advanced Institute of Science and Technology (JAIST)',
-  country: 'Japan',
-};
-
-export const TECH_STACK = {
-  'AI/ML': [
-    'Agentic AI',
-    'LLMs',
-    'NLP',
-    'RAG',
-    'Document Retrieval',
-    'Language Modeling',
-    'Deep Learning',
-    'Machine Learning',
-  ],
-  'Languages': [
-    'Python',
-    'Java',
-    'JavaScript',
-    'C++',
-    'Bash',
-  ],
-  'Backend/APIs': [
-    'FastAPI',
-    'REST APIs',
-    'RESTful WebServices',
-  ],
-  'Databases': [
-    'MySQL',
-    'Redis',
-    'NoSQL',
-    'PostgreSQL',
-  ],
-  'DevOps/Tools': [
-    'Docker',
-    'Git',
-    'Linux',
-    'DevOps',
-  ],
-  'Data & Engineering': [
-    'Data Engineering',
-    'Data Mining',
-    'Web Crawling',
-    'Algorithms',
-  ],
-};
-
-export const STATS = {
-  followers: '355',
-  repositories: '106',
-  blogPosts: '10+',
-  experience: '5+',
-};

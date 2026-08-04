@@ -1,0 +1,44 @@
+---
+interface Props {
+  lines: string[];
+}
+
+const { lines } = Astro.props;
+const fullText = lines.join('\n') + '\n$ ';
+---
+
+<div class="border-2 border-ink bg-ink">
+  <div class="flex gap-1.5 px-3 py-2.5 border-b border-neutral-700">
+    <span class="w-[9px] h-[9px] rounded-full bg-neutral-600"></span>
+    <span class="w-[9px] h-[9px] rounded-full bg-neutral-600"></span>
+    <span class="w-[9px] h-[9px] rounded-full bg-accent"></span>
+  </div>
+  <pre
+    id="terminal-text"
+    class="font-mono text-[13px] leading-[1.9] text-bg m-0 px-[18px] py-4 whitespace-pre-wrap"
+    data-full-text={fullText}><span id="terminal-cursor" class="inline-block w-2 h-[15px] bg-accent align-[-2px] animate-blink"></span></pre>
+</div>
+
+<script>
+  const el = document.getElementById('terminal-text');
+  const cursor = document.getElementById('terminal-cursor');
+  if (el && cursor) {
+    const fullText = el.getAttribute('data-full-text') || '';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      el.textContent = fullText;
+      el.appendChild(cursor);
+    } else {
+      let i = 0;
+      const step = () => {
+        if (i >= fullText.length) return;
+        i += 2;
+        el.textContent = fullText.slice(0, i);
+        el.appendChild(cursor);
+        setTimeout(step, 24);
+      };
+      step();
+    }
+  }
+</script>

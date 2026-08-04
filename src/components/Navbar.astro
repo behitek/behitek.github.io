@@ -1,80 +1,82 @@
 ---
-import { SITE } from '@utils/constants';
-import ThemeToggle from './ThemeToggle.astro';
-import LanguageSwitcher from './LanguageSwitcher.astro';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@i18n/utils';
+import { NAV_LINKS } from '@utils/constants';
+import Toast from '@components/Toast.astro';
 
 const currentPath = Astro.url.pathname;
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
-const NAV_LINKS = [
-  { label: t.nav.blog, href: getLocalizedPath('/blog', lang) },
-  { label: t.nav.projects, href: getLocalizedPath('/projects', lang) },
-  { label: t.nav.contact, href: getLocalizedPath('/contact', lang) },
-];
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-40 glass border-b border-[var(--color-border)]">
-  <div class="container">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a href={getLocalizedPath('/', lang)} class="flex items-center space-x-2 font-bold text-xl hover:text-primary-600 transition-colors">
-        <span class="gradient-text">{SITE.title}</span>
-      </a>
+<nav
+  class="sticky top-0 z-50 flex items-center justify-between h-16 px-6 md:px-12 bg-bg border-b-2 border-ink"
+  data-screen-label="Nav"
+>
+  <a href="/" class="flex items-center gap-3 no-underline" aria-label="behitek — trang chủ">
+    <img src="/favicon.svg" alt="" width="28" height="28" class="block" />
+    <span class="font-heading font-extrabold text-xl text-ink tracking-tight"
+      >behitek<span class="blink-cursor">_</span></span
+    >
+  </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-8">
-        {NAV_LINKS.map((link) => (
-          <a
-            href={link.href}
-            class={`font-medium transition-colors hover:text-primary-600 ${
-              currentPath.startsWith(link.href) ? 'text-primary-600' : 'text-[var(--color-text-base)]'
-            }`}
-          >
-            {link.label}
-          </a>
-        ))}
-        <LanguageSwitcher />
-        <ThemeToggle />
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden flex items-center space-x-2">
-        <LanguageSwitcher />
-        <ThemeToggle />
-        <button
-          id="mobile-menu-button"
-          class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          aria-label="Toggle menu"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg-base)]">
-    <div class="container py-4 space-y-2">
-      {NAV_LINKS.map((link) => (
+  <div class="hidden md:flex items-center gap-6">
+    {
+      NAV_LINKS.map((link) => (
         <a
           href={link.href}
-          class={`block py-2 px-4 rounded-lg font-medium transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 ${
-            currentPath.startsWith(link.href) ? 'text-primary-600 bg-slate-50 dark:bg-slate-900' : ''
-          }`}
+          class={`font-mono text-[13px] no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
         >
           {link.label}
         </a>
-      ))}
+      ))
+    }
+  </div>
+
+  <div class="hidden md:flex items-center gap-[18px]">
+    <div class="flex font-mono text-[11px] font-semibold border border-ink">
+      <span class="px-2 py-1 bg-ink text-bg">VI</span>
+      <button
+        type="button"
+        id="lang-toggle"
+        class="px-2 py-1 text-ink cursor-pointer bg-transparent border-0 hover:bg-neutral-200"
+        >EN</button
+      >
     </div>
+    <a href="/contact" class="btn-primary py-2.5 px-[18px] text-sm">Nhận báo giá</a>
+  </div>
+
+  <div class="md:hidden flex items-center gap-3">
+    <button
+      id="mobile-menu-button"
+      class="p-1 text-ink"
+      aria-label="Mở menu"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
   </div>
 </nav>
 
-<!-- Spacer to prevent content from going under fixed navbar -->
-<div class="h-16"></div>
+<div id="mobile-menu" class="hidden md:hidden border-b-2 border-ink bg-bg">
+  <div class="px-6 py-4 flex flex-col gap-3">
+    {
+      NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class={`font-mono text-sm no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+    <a href="/contact" class="btn-primary text-sm w-fit">Nhận báo giá</a>
+  </div>
+</div>
+
+<Toast id="lang-toast" message="EN version dùng cùng layout — nội dung sẽ dịch khi dev (hreflang vi/en)" />
 
 <script>
   const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -84,10 +86,15 @@ const NAV_LINKS = [
     mobileMenu?.classList.toggle('hidden');
   });
 
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!mobileMenuButton?.contains(e.target as Node) && !mobileMenu?.contains(e.target as Node)) {
-      mobileMenu?.classList.add('hidden');
-    }
+  const langToggle = document.getElementById('lang-toggle');
+  const langToast = document.getElementById('lang-toast');
+  let toastTimer: ReturnType<typeof setTimeout> | undefined;
+
+  langToggle?.addEventListener('click', () => {
+    langToast?.classList.remove('hidden');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      langToast?.classList.add('hidden');
+    }, 3200);
   });
 </script>

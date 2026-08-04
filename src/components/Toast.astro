@@ -1,0 +1,15 @@
+---
+interface Props {
+  id: string;
+  message: string;
+}
+
+const { id, message } = Astro.props;
+---
+
+<div
+  id={id}
+  class="fixed top-[76px] right-6 md:right-12 z-[60] hidden bg-ink text-bg font-mono text-xs px-4 py-3 border-l-[3px] border-accent max-w-xs"
+>
+  {message}
+</div>
