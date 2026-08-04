@@ -1,0 +1,17 @@
+{
+  "id": "linguistai",
+  "title": "LinguistAI",
+  "description": "Nền tảng thi thử 4 kỹ năng tiếng Anh: đề đọc sinh bằng LLM, chấm nói qua Whisper, phản hồi chi tiết cho bài viết.",
+  "category": "Product",
+  "tech": [
+    "GPT-4",
+    "Claude",
+    "Whisper",
+    "React"
+  ],
+  "featured": true,
+  "order": 5,
+  "status": "private",
+  "flagship": false,
+  "placeholderIcon": "grading"
+}

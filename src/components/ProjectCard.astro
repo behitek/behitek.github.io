@@ -1,11 +1,10 @@
 ---
-import SocialIcon from '@components/SocialIcon.astro';
 import ImageGallery from '@components/ImageGallery.astro';
+import ProjectPlaceholderGraphic from '@components/ProjectPlaceholderGraphic.astro';
 
 interface Props {
   title: string;
   description: string;
-  category: string;
   tech: string[];
   image?: string;
   images?: string[];
@@ -14,109 +13,83 @@ interface Props {
     github?: string;
     blog?: string;
   };
+  status: 'open-source' | 'private';
+  flagship?: boolean;
   id: string;
 }
 
-const { title, description, category, tech, image, images, links, id } = Astro.props;
-
-const categoryIcons: Record<string, string> = {
-  Product: '🚀',
-  Research: '🧠',
-  Tutorial: '📚',
-  Tool: '🛠️',
-  Fun: '🎮',
-};
-
+const { title, description, tech, image, images, links, status, flagship, id } = Astro.props;
 const hasLinks = links && (links.website || links.github || links.blog);
-const isPrivate = !hasLinks;
+const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
+const heroImage = image || (images && images[0]);
 ---
 
-<article class="card group">
-  {image && (
-    <div class="mb-4 -mx-6 -mt-6">
-      <img
-        src={image}
-        alt={title}
-        class="w-full h-48 object-cover rounded-t-xl"
-      />
-    </div>
-  )}
-
-  <div class="flex items-center gap-2 mb-3">
-    <span class="text-2xl">{categoryIcons[category] || '📦'}</span>
-    <span class="text-sm font-medium text-[var(--color-text-muted)]">{category}</span>
-    {isPrivate && (
-      <span class="ml-auto px-2 py-1 text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded inline-flex items-center gap-1">
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-        </svg>
-        Private
-      </span>
-    )}
+<article
+  class="rgrid grid grid-cols-[440px_1fr] border-2 border-ink bg-white"
+  style={flagship ? 'border-top-width:4px;border-top-color:#ec3013' : ''}
+>
+  <div class="relative border-r-2 border-ink min-h-[240px]">
+    {
+      heroImage ? (
+        <img src={heroImage} alt={title} class="w-full h-full object-cover grayscale-photo" />
+      ) : (
+        <ProjectPlaceholderGraphic title={title} />
+      )
+    }
   </div>
 
-  <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors">
-    {images && images.length > 0 ? (
-      <button 
-        type="button"
-        class="text-left hover:text-primary-600 transition-colors cursor-pointer"
-        onclick={`openImageGallery('${id}', 0)`}
+  <div class="p-7 md:p-8">
+    <div class="flex gap-2.5 mb-3">
+      <span class="font-mono text-[10px] font-semibold bg-accent text-bg px-[7px] py-[3px]">SẢN PHẨM</span>
+      <span class="font-mono text-[10px] font-semibold border border-ink text-ink px-[7px] py-0.5"
+        >{statusLabel}</span
       >
-        {title}
-      </button>
-    ) : (
-      title
-    )}
-  </h3>
-
-  <p class="text-[var(--color-text-muted)] mb-4">
-    {description}
-  </p>
-
-  <ImageGallery images={images || []} title={title} projectId={id} />
-
-  <div class="flex flex-wrap gap-2 mb-4">
-    {tech.map((t) => (
-      <span class="px-2 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-[var(--color-text-base)] rounded">
-        {t}
-      </span>
-    ))}
-  </div>
-
-  {hasLinks && (
-    <div class="flex items-center gap-3">
-      {links.website && (
-        <a
-          href={links.website}
-          class="text-primary-600 hover:text-primary-700 font-medium text-sm inline-flex items-center gap-1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-          </svg>
-          Website
-        </a>
-      )}
-      {links.github && (
-        <a
-          href={links.github}
-          class="text-[var(--color-text-muted)] hover:text-primary-600 font-medium text-sm inline-flex items-center gap-1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <SocialIcon name="github" class="w-4 h-4" />
-          GitHub
-        </a>
-      )}
-      {links.blog && (
-        <a
-          href={links.blog}
-          class="text-[var(--color-text-muted)] hover:text-primary-600 font-medium text-sm inline-flex items-center gap-1"
-        >
-          📝 Read
-        </a>
-      )}
     </div>
-  )}
+
+    <h2 class="text-2xl md:text-[26px] font-heading font-extrabold text-ink mb-2">
+      {
+        images && images.length > 0 ? (
+          <button
+            type="button"
+            class="text-left bg-transparent border-0 p-0 cursor-pointer font-heading font-extrabold text-2xl md:text-[26px] text-ink hover:text-accent"
+            onclick={`openImageGallery('${id}', 0)`}
+          >
+            {title}
+          </button>
+        ) : (
+          title
+        )
+      }
+    </h2>
+
+    <p class="text-[14.5px] leading-relaxed text-neutral-700 mb-4">{description}</p>
+
+    {images && images.length > 0 && <ImageGallery images={images} title={title} projectId={id} />}
+
+    <div class="flex flex-wrap gap-2 mb-4">
+      {tech.map((t) => <span class="tag-pill">{t}</span>)}
+    </div>
+
+    {
+      hasLinks && (
+        <div class="flex items-center gap-4 font-mono text-[13px] font-semibold">
+          {links.website && (
+            <a href={links.website} target="_blank" rel="noopener noreferrer" class="text-accent no-underline">
+              Website →
+            </a>
+          )}
+          {links.github && (
+            <a href={links.github} target="_blank" rel="noopener noreferrer" class="text-ink no-underline hover:text-accent">
+              GitHub →
+            </a>
+          )}
+          {links.blog && (
+            <a href={links.blog} class="text-ink no-underline hover:text-accent">
+              Đọc thêm →
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
 </article>

@@ -1,7 +1,7 @@
 {
   "id": "lcoj",
   "title": "LCOJ",
-  "description": "A modern open-source online judge and contest platform system for Vietnamese students. Features automated code evaluation, interactive programming practice, and 1000+ programming exercises with comprehensive solutions.",
+  "description": "Online judge và nền tảng contest cho học sinh Việt Nam: chấm bài tự động, hơn 1000 bài tập kèm lời giải. Nền tảng của dịch vụ triển khai và vận hành online judge hiện nay.",
   "category": "Product",
   "tech": [
     "Python",
@@ -24,5 +24,7 @@
     "github": "https://github.com/luyencode"
   },
   "featured": true,
-  "order": 1
+  "order": 1,
+  "status": "open-source",
+  "flagship": true
 }

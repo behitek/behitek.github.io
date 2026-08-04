@@ -1,0 +1,17 @@
+{
+  "id": "nexusai",
+  "title": "NexusAI",
+  "description": "Hệ thống RAG truy vấn trên văn bản, hình ảnh và video: vector embedding tùy biến, hybrid search, re-rank bằng LLM.",
+  "category": "Product",
+  "tech": [
+    "FastAPI",
+    "GPT-4V",
+    "LangGraph",
+    "ChromaDB"
+  ],
+  "featured": true,
+  "order": 4,
+  "status": "private",
+  "flagship": false,
+  "placeholderIcon": "rag"
+}

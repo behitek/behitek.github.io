@@ -1,7 +1,7 @@
 {
   "id": "beli5",
   "title": "Beli5",
-  "description": "Vietnamese programming education platform teaching Python, Java, C++, and Rust using ELI5 approach (Explain Like I'm 5). Features child-friendly design, progressive difficulty levels, and culturally relevant examples for Vietnamese learners aged 8-16.",
+  "description": "Nền tảng học lập trình cho trẻ em Việt Nam (Python, Java, C++, Rust) theo phương pháp ELI5. Thiết kế thân thiện, độ khó tăng dần, ví dụ gần gũi văn hóa Việt cho học sinh 8-16 tuổi.",
   "category": "Tutorial",
   "tech": [
     "Docusaurus",
@@ -20,5 +20,7 @@
     "github": "https://github.com/behitek/beli5"
   },
   "featured": true,
-  "order": 3
+  "order": 3,
+  "status": "open-source",
+  "flagship": false
 }
