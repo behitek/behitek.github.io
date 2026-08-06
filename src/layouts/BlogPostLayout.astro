@@ -18,26 +18,36 @@ const shareUrl = new URL(`/blog/${post.slug}`, Astro.site).toString();
 const shareTitle = encodeURIComponent(title);
 ---
 
-<BaseLayout title={title} description={description} article={true} publishedTime={date} modifiedTime={updated}>
+<BaseLayout
+  title={title}
+  description={description}
+  article={true}
+  publishedTime={date}
+  modifiedTime={updated}
+>
   <div id="reading-progress" class="reading-progress" style="width: 0%"></div>
 
   <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr]">
-    <aside class="hidden lg:block py-12 pl-12 border-r border-border-light">
-      <a href="/blog" class="font-mono text-xs text-neutral-600 no-underline hover:text-accent mb-5 inline-block">
+    <aside class="hidden border-r border-border-light py-12 pl-12 lg:block">
+      <a
+        href="/blog"
+        class="mb-5 inline-block font-mono text-xs text-neutral-600 no-underline hover:text-accent"
+      >
         ← cd ../blog
       </a>
       <TableOfContents headings={headings} />
     </aside>
 
-    <article class="p-8 md:p-12 max-w-[760px]">
-      <div class="font-mono text-xs text-neutral-600 mb-3.5">
-        ~/blog/<span class="text-accent">{post.slug}</span> · {formatDate(date)} · {readingTime} phút đọc ·{' '}
+    <article class="max-w-[760px] p-8 md:p-12">
+      <div class="mb-3.5 font-mono text-xs text-neutral-600">
+        ~/blog/<span class="text-accent">{post.slug}</span> · {formatDate(date)} · {readingTime} phút
+        đọc ·{' '}
         <span class="text-accent">{category.toUpperCase()} · {language.toUpperCase()}</span>
       </div>
 
-      <h1 class="font-heading font-extrabold text-[40px] leading-[1.1] text-ink mb-5">{title}</h1>
+      <h1 class="mb-5 font-heading text-[40px] font-extrabold leading-[1.1] text-ink">{title}</h1>
 
-      <p class="text-base leading-relaxed text-neutral-700 mb-5">{description}</p>
+      <p class="mb-5 text-base leading-relaxed text-neutral-700">{description}</p>
 
       <div class="prose prose-lg">
         <slot />
@@ -45,7 +55,7 @@ const shareTitle = encodeURIComponent(title);
 
       {
         tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mt-6 mb-6">
+          <div class="mb-6 mt-6 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <span class="tag-pill">#{tag}</span>
             ))}
@@ -53,13 +63,15 @@ const shareTitle = encodeURIComponent(title);
         )
       }
 
-      <div class="flex items-center gap-3 border-t-2 border-ink py-4 my-6">
-        <span class="font-mono text-[11px] font-semibold text-neutral-600 tracking-[0.08em]">CHIA SẺ</span>
+      <div class="my-6 flex items-center gap-3 border-t-2 border-ink py-4">
+        <span class="font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600"
+          >CHIA SẺ</span
+        >
         <a
           href={`https://x.com/intent/tweet?text=${shareTitle}&url=${encodeURIComponent(shareUrl)}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="font-mono text-xs font-semibold border-2 border-ink text-ink no-underline px-3.5 py-1.5 hover:bg-ink hover:text-bg"
+          class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg"
         >
           X
         </a>
@@ -67,7 +79,7 @@ const shareTitle = encodeURIComponent(title);
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="font-mono text-xs font-semibold border-2 border-ink text-ink no-underline px-3.5 py-1.5 hover:bg-ink hover:text-bg"
+          class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg"
         >
           LinkedIn
         </a>
@@ -75,14 +87,14 @@ const shareTitle = encodeURIComponent(title);
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="font-mono text-xs font-semibold border-2 border-ink text-ink no-underline px-3.5 py-1.5 hover:bg-ink hover:text-bg"
+          class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg"
         >
           Facebook
         </a>
         <button
           id="copy-link"
           type="button"
-          class="font-mono text-xs font-semibold border-2 border-ink text-ink px-3.5 py-1.5 cursor-pointer bg-transparent hover:bg-ink hover:text-bg"
+          class="cursor-pointer border-2 border-ink bg-transparent px-3.5 py-1.5 font-mono text-xs font-semibold text-ink hover:bg-ink hover:text-bg"
         >
           copy link
         </button>
@@ -92,15 +104,15 @@ const shareTitle = encodeURIComponent(title);
         <img
           src="/images/me.png"
           alt="Hiếu Nguyễn"
-          class="w-16 h-16 object-cover flex-none border border-ink grayscale-photo"
+          class="grayscale-photo h-16 w-16 flex-none border border-ink object-cover"
         />
         <div class="flex-1">
-          <div class="font-heading font-bold text-[15px] text-ink">Hiếu Nguyễn — AI Engineer</div>
+          <div class="font-heading text-[15px] font-bold text-ink">Hiếu Nguyễn — AI Engineer</div>
           <div class="text-[13px] leading-relaxed text-neutral-700">
-            7+ năm xây hệ thống AI production. Nhận tư vấn RAG/LLM và triển khai online judge.
+            8 năm xây hệ thống AI production. Nhận tư vấn RAG/LLM và triển khai online judge.
           </div>
         </div>
-        <a href="/contact" class="btn-primary text-sm flex-none py-2.5 px-4">Liên hệ →</a>
+        <a href="/contact" class="btn-primary flex-none px-4 py-2.5 text-sm">Liên hệ →</a>
       </div>
 
       <Giscus />
