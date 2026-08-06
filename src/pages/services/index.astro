@@ -4,7 +4,7 @@ import ServiceHero from '@components/ServiceHero.astro';
 import ServiceTabs from '@components/ServiceTabs.astro';
 import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
 import ProcessSteps from '@components/ProcessSteps.astro';
-import PricingSplit from '@components/PricingSplit.astro';
+import ServiceTiers from '@components/ServiceTiers.astro';
 import TestimonialSplit from '@components/TestimonialSplit.astro';
 import CTABand from '@components/CTABand.astro';
 
@@ -17,18 +17,30 @@ const FEATURES = [
   {
     kicker: '02',
     title: 'Thương hiệu & vận hành',
-    bullets: ['Tùy biến giao diện, thương hiệu', 'Backup + giám sát 24/7', 'Cập nhật, hỗ trợ kỹ thuật'],
+    bullets: [
+      'Tùy biến giao diện, thương hiệu',
+      'Backup + giám sát 24/7',
+      'Cập nhật, hỗ trợ kỹ thuật',
+    ],
     highlighted: true,
   },
   {
     kicker: '03',
     title: 'Nội dung & mở rộng',
-    bullets: ['Ngân hàng 1000+ bài tập', 'Tính năng riêng (LMS, thanh toán…)', 'Đào tạo đội ngũ quản trị'],
+    bullets: [
+      'Ngân hàng 1000+ bài tập',
+      'Tính năng riêng (LMS, thanh toán…)',
+      'Đào tạo đội ngũ quản trị',
+    ],
   },
 ];
 
 const STEPS = [
-  { number: '01', title: 'Trao đổi yêu cầu', description: '30 phút gọi, xác định quy mô và hạ tầng.' },
+  {
+    number: '01',
+    title: 'Trao đổi yêu cầu',
+    description: '30 phút gọi, xác định quy mô và hạ tầng.',
+  },
   {
     number: '02',
     title: 'Kế hoạch triển khai',
@@ -50,13 +62,23 @@ const STEPS = [
     description="Hệ thống chấm bài tự động trọn gói cho trường học và trung tâm dạy lập trình: cài đặt, tùy biến thương hiệu, ngân hàng đề, và vận hành dài hạn. Miễn phí cho tổ chức giáo dục phi lợi nhuận, chi phí theo quy mô cho đơn vị khác — đã triển khai cho 3 đơn vị đang hoạt động."
     ctas={[
       { label: 'Đăng ký triển khai →', href: '/contact', variant: 'primary' },
-      { label: 'Xem hệ thống demo', href: 'https://luyencode.net', variant: 'secondary', external: true },
+      {
+        label: 'Xem hệ thống demo',
+        href: 'https://luyencode.net',
+        variant: 'secondary',
+        external: true,
+      },
     ]}
   />
 
   <div class="px-12 pb-12">
     <ServiceFeatureGrid features={FEATURES} />
-    <PricingSplit />
+
+    <div class="mb-7 mt-12 flex items-baseline gap-4">
+      <span class="kicker">01 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Ba cách bắt đầu</h2>
+    </div>
+    <ServiceTiers />
   </div>
 
   <div class="px-12 pb-12">

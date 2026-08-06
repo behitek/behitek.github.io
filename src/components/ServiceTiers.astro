@@ -1,0 +1,58 @@
+---
+import { ORGANIZATIONS, DEPLOYMENTS } from '@/data/organizations';
+
+const managed = DEPLOYMENTS.filter((d) => d.tier === 'managed');
+const branded = DEPLOYMENTS.filter((d) => d.tier === 'branded');
+
+const TIERS = [
+  {
+    kicker: 'MIỄN PHÍ, DÙNG CHUNG',
+    title: 'Tổ chức trên luyencode.net',
+    price: '0đ',
+    description:
+      'Trường học, CLB và đội tuyển có không gian riêng trên nền tảng chung: quản lý học sinh, giao bài, tổ chức contest. Không cần máy chủ, không cần đội kỹ thuật.',
+    proof: `${ORGANIZATIONS.length} trường & tổ chức đang dùng`,
+    highlighted: true,
+  },
+  {
+    kicker: 'INSTANCE RIÊNG',
+    title: 'Tên miền phụ + thương hiệu riêng',
+    price: 'Trao đổi cụ thể',
+    description:
+      'Hệ thống riêng mang tên và nhận diện của đơn vị, chạy trên hạ tầng của tôi. Phù hợp với trường muốn có online judge mang thương hiệu mình mà không phải tự vận hành.',
+    proof: branded.map((d) => d.name).join(', '),
+    highlighted: false,
+  },
+  {
+    kicker: 'TRIỂN KHAI TRỌN GÓI',
+    title: 'Tên miền, VPS, triển khai & vận hành',
+    price: 'Theo quy mô',
+    description:
+      'Hệ thống độc lập trên hạ tầng riêng của đơn vị: tư vấn tên miền và máy chủ, cài đặt, tùy biến, backup, giám sát và hỗ trợ dài hạn.',
+    proof: managed.map((d) => d.name).join(', '),
+    highlighted: false,
+  },
+];
+---
+
+<div class="rgrid grid grid-cols-3 border-2 border-ink">
+  {
+    TIERS.map((tier, i) => (
+      <div
+        class={`flex flex-col bg-white p-7 ${i < TIERS.length - 1 ? 'border-r-2 border-ink' : ''} ${
+          tier.highlighted ? 'border-t-4 border-t-accent' : ''
+        }`}
+      >
+        <div class="mb-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+          {tier.kicker}
+        </div>
+        <h3 class="mb-1.5 font-heading text-xl font-bold leading-tight text-ink">{tier.title}</h3>
+        <div class="mb-3.5 font-heading text-[22px] font-extrabold text-accent">{tier.price}</div>
+        <p class="mb-5 text-[13.5px] leading-relaxed text-neutral-700">{tier.description}</p>
+        <div class="mt-auto border-t-2 border-ink pt-3.5 font-mono text-[12px] leading-[1.6] text-neutral-600">
+          {tier.proof}
+        </div>
+      </div>
+    ))
+  }
+</div>
