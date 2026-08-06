@@ -27,10 +27,10 @@ import { NEXUS_AI, NEXUS_PIPELINE, LINGUIST_AI, KIKI_ASR } from '@/data/ai-work'
 const allProjects = await getCollection('projects');
 const flagshipProject = allProjects.find((p) => p.data.flagship);
 
-const AI_FIRST_ORDER = ['nexusai', 'linguistai', 'behivest', 'beli5'];
-const otherProjects = AI_FIRST_ORDER.map((id) => allProjects.find((p) => p.data.id === id)).filter(
-  (p): p is NonNullable<typeof p> => Boolean(p)
-);
+const OTHER_PROJECT_ORDER = ['behivest', 'beli5'];
+const otherProjects = OTHER_PROJECT_ORDER.map((id) =>
+  allProjects.find((p) => p.data.id === id)
+).filter((p): p is NonNullable<typeof p> => Boolean(p));
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
 const recentPosts = allPosts
@@ -38,15 +38,6 @@ const recentPosts = allPosts
   .slice(0, 3);
 
 const SERVICES = [
-  {
-    href: '/services',
-    path: '/services/online-judge',
-    title: 'Online Judge (DMOJ)',
-    description:
-      'Từ tổ chức miễn phí trên luyencode.net đến triển khai riêng trên VPS — 2 cách bắt đầu cho trường học và trung tâm dạy lập trình.',
-    bullets: ['Cài đặt, tùy biến giao diện', 'Ngân hàng đề, contest', 'Backup, giám sát, hỗ trợ'],
-    flagship: true,
-  },
   {
     href: '/services/ai',
     path: '/services/ai',
@@ -58,6 +49,7 @@ const SERVICES = [
       'Tìm kiếm ngữ nghĩa, RAG',
       'Fine-tune, đánh giá mô hình',
     ],
+    flagship: true,
   },
   {
     href: '/services/software',
@@ -66,6 +58,14 @@ const SERVICES = [
     description:
       'Web app, API, hạ tầng — thiết kế và phát triển trọn gói từ ý tưởng đến triển khai.',
     bullets: ['FastAPI · Django · React', 'Docker, CI/CD, self-host', 'Tối ưu chi phí hạ tầng'],
+  },
+  {
+    href: '/services',
+    path: '/services/online-judge',
+    title: 'Online Judge (DMOJ)',
+    description:
+      'Từ tổ chức miễn phí trên luyencode.net đến triển khai riêng trên VPS — 2 cách bắt đầu cho trường học và trung tâm dạy lập trình.',
+    bullets: ['Cài đặt, tùy biến giao diện', 'Ngân hàng đề, contest', 'Backup, giám sát, hỗ trợ'],
     borderRight: false,
   },
 ];
@@ -145,7 +145,7 @@ const SERVICES = [
     )
   }
 
-  <section class="p-12">
+  <section class="px-12 pb-14">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">04 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
@@ -161,7 +161,7 @@ const SERVICES = [
         <div class="mb-7 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
             <span class="kicker">05 /</span>
-            <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án</h2>
+            <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án khác</h2>
           </div>
           <a
             href="/projects"
@@ -179,8 +179,8 @@ const SERVICES = [
               status={project.data.status}
               href={project.data.links?.website}
               borderRight={i % 2 === 0}
-              borderBottom={i < otherProjects.length - 2}
-              mobileDivider={i === otherProjects.length - 2}
+              borderBottom={false}
+              mobileDivider={i === 0}
             />
           ))}
         </div>
@@ -222,9 +222,9 @@ const SERVICES = [
   }
 
   <CTABand
-    kicker="$ ./contact --quote"
-    title="Cùng xây hệ thống của bạn — từ online judge đến sản phẩm AI."
-    buttonLabel="Nhận báo giá miễn phí"
+    kicker="$ ./contact --ai-project"
+    title="Có bài toán AI cần đưa vào production? Cùng bàn từ kiến trúc tới vận hành."
+    buttonLabel="Trao đổi về dự án"
     size="lg"
     showEmail
   />
