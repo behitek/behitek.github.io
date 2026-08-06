@@ -109,12 +109,14 @@ const SERVICES = [
       <section class="px-12 pb-14">
         <div class="mb-7 flex items-baseline gap-4">
           <span class="kicker">03 /</span>
-          <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study nổi bật</h2>
+          <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">
+            Hệ thống đang vận hành
+          </h2>
         </div>
         <CaseStudySpotlight
           kicker="luyencode.net — LCOJ"
-          title="Nền tảng luyện thi lập trình cho học sinh Việt Nam"
-          description="Online judge chấm bài tự động tôi xây và vận hành liên tục từ 2020. Ngoài luyencode.net, hệ thống còn chạy trên hạ tầng riêng (VPS) cho các đơn vị khác."
+          title="Online judge tôi tự xây và vận hành liên tục từ 2020"
+          description="Hệ thống chấm bài tự động cho học sinh Việt Nam: tôi viết, triển khai, và trực tiếp vận hành nó suốt 5 năm qua — không có team hạ tầng đứng sau, không có ngân sách marketing. Số tổ chức dùng nó tăng lên hoàn toàn bằng truyền miệng. Đây là phần bằng chứng cho việc tôi không chỉ xây được hệ thống mà còn giữ cho nó chạy."
           image="/images/project/lcoj-home.png"
           stats={[
             { value: TOTAL_PLATFORM_USERS, label: 'người dùng' },
@@ -124,9 +126,17 @@ const SERVICES = [
           links={DEPLOYMENTS.map((d) => ({ label: d.name, href: d.url }))}
         >
           <div class="border-t-2 border-ink p-8">
-            <div class="mb-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
-              {ORGANIZATIONS.length} TRƯỜNG & TỔ CHỨC ĐANG SỬ DỤNG —{' '}
-              {TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')} THÀNH VIÊN
+            <div class="rwrap mb-4 flex items-baseline justify-between gap-4">
+              <div class="font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+                {ORGANIZATIONS.length} TRƯỜNG & TỔ CHỨC ĐANG SỬ DỤNG —{' '}
+                {TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')} THÀNH VIÊN
+              </div>
+              <a
+                href="/services"
+                class="flex-none font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
+              >
+                Dịch vụ triển khai →
+              </a>
             </div>
             <OrgRoster />
           </div>
