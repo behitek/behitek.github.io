@@ -1,0 +1,33 @@
+---
+interface Props {
+  items: { question: string; answer: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="border-t-2 border-ink">
+  {
+    items.map((item) => (
+      <details class="group border-b-2 border-ink">
+        <summary class="flex cursor-pointer list-none items-baseline gap-3 py-4 font-heading text-[17px] font-bold text-ink hover:text-accent">
+          <span class="flex-none font-mono text-accent">+</span>
+          {item.question}
+        </summary>
+        <p class="m-0 max-w-[760px] pb-5 pl-6 text-[14.5px] leading-relaxed text-neutral-700">
+          {item.answer}
+        </p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] summary span {
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+</style>
