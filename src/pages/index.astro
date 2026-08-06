@@ -6,6 +6,7 @@ import StatBar from '@components/StatBar.astro';
 import CareerStrip from '@components/CareerStrip.astro';
 import AwardsBand from '@components/AwardsBand.astro';
 import ServiceCard from '@components/ServiceCard.astro';
+import SkillsGrid from '@components/SkillsGrid.astro';
 import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
 import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
@@ -60,9 +61,17 @@ const SERVICES = [
   <CareerStrip />
   <AwardsBand />
 
-  <section class="p-12">
+  <section class="p-12 pb-0">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Chuyên môn</h2>
+    </div>
+    <SkillsGrid />
+  </section>
+
+  <section class="p-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">02 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
     </div>
     <div class="rgrid grid grid-cols-3 border-2 border-ink">
@@ -74,7 +83,7 @@ const SERVICES = [
     flagshipProject && (
       <section class="px-12 pb-14">
         <div class="mb-7 flex items-baseline gap-4">
-          <span class="kicker">02 /</span>
+          <span class="kicker">03 /</span>
           <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study nổi bật</h2>
         </div>
         <CaseStudySpotlight
@@ -102,7 +111,7 @@ const SERVICES = [
       <section class="px-12 pb-14">
         <div class="mb-5 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
-            <span class="kicker">03 /</span>
+            <span class="kicker">04 /</span>
             <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Bài viết mới</h2>
           </div>
           <a

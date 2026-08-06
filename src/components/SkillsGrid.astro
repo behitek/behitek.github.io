@@ -1,0 +1,52 @@
+---
+import { ORGANIZATIONS } from '@/data/organizations';
+
+interface Skill {
+  title: string;
+  areas: string;
+  tech: string[];
+  proof: string;
+}
+
+const SKILLS: Skill[] = [
+  {
+    title: 'AI & Machine Learning',
+    areas: 'LLM · RAG · NLP · Speech · Agentic AI',
+    tech: ['Python', 'PyTorch', 'LangGraph', 'ChromaDB', 'Whisper'],
+    proof: '+12% độ chính xác ASR cho trợ lý ảo KiKi (Zalo)',
+  },
+  {
+    title: 'Hệ thống & hạ tầng',
+    areas: 'API · kiến trúc · triển khai · vận hành',
+    tech: ['FastAPI', 'Django', 'Docker', 'Kubernetes', 'PostgreSQL', 'Redis'],
+    proof: '−15% lỗi dịch vụ trên Kubernetes (Zalo)',
+  },
+  {
+    title: 'Nền tảng giáo dục',
+    areas: 'Online judge · chấm tự động · contest · ngân hàng đề',
+    tech: ['DMOJ', 'Vue', 'Docker'],
+    proof: `${ORGANIZATIONS.length}+ trường, 20.000+ người dùng, 5 năm vận hành liên tục`,
+  },
+];
+---
+
+<div class="rgrid grid grid-cols-3 border-2 border-ink bg-white">
+  {
+    SKILLS.map((skill, i) => (
+      <div class={`flex flex-col p-7 ${i < SKILLS.length - 1 ? 'border-r-2 border-ink' : ''}`}>
+        <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink">
+          {skill.title}
+        </h3>
+        <p class="mb-4 font-mono text-[13px] leading-[1.9] text-neutral-700">{skill.areas}</p>
+        <div class="mb-5 flex flex-wrap gap-1.5">
+          {skill.tech.map((t) => (
+            <span class="tag-pill">{t}</span>
+          ))}
+        </div>
+        <div class="mt-auto border-t-2 border-ink pt-3.5 font-heading text-[13px] font-bold leading-[1.5] text-accent">
+          → {skill.proof}
+        </div>
+      </div>
+    ))
+  }
+</div>
