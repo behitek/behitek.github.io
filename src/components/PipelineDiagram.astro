@@ -1,0 +1,38 @@
+---
+import type { PipelineStage } from '@/data/ai-work';
+
+interface Props {
+  stages: PipelineStage[];
+  caption?: string;
+}
+
+const { stages, caption } = Astro.props;
+---
+
+<div class="flex h-full flex-col justify-center p-8">
+  {
+    caption && (
+      <div class="mb-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+        {caption}
+      </div>
+    )
+  }
+  {
+    stages.map((stage, i) => (
+      <div>
+        <div class="border-2 border-ink bg-white px-4 py-3">
+          <div class="font-mono text-[13px] font-semibold text-ink">{stage.label}</div>
+          <div class="font-mono text-[11px] leading-[1.6] text-neutral-600">{stage.detail}</div>
+        </div>
+        {i < stages.length - 1 && (
+          <div
+            class="flex h-5 items-center justify-center font-mono text-[13px] text-accent"
+            aria-hidden="true"
+          >
+            ↓
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>
