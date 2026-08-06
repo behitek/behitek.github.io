@@ -8,10 +8,12 @@ import AwardsBand from '@components/AwardsBand.astro';
 import ServiceCard from '@components/ServiceCard.astro';
 import SkillsGrid from '@components/SkillsGrid.astro';
 import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
+import OrgRoster from '@components/OrgRoster.astro';
 import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
 import { SITE } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
+import { ORGANIZATIONS, DEPLOYMENTS, TOTAL_ORG_MEMBERS } from '@/data/organizations';
 
 const allProjects = await getCollection('projects');
 const flagshipProject = allProjects.find((p) => p.data.flagship);
@@ -88,20 +90,24 @@ const SERVICES = [
         </div>
         <CaseStudySpotlight
           kicker="luyencode.net — LCOJ"
-          title={
-            flagshipProject.data.title === 'LCOJ'
-              ? 'Nền tảng luyện thi lập trình cho học sinh Việt Nam'
-              : flagshipProject.data.title
-          }
-          description={flagshipProject.data.description}
+          title="Nền tảng luyện thi lập trình cho học sinh Việt Nam"
+          description="Online judge chấm bài tự động tôi xây và vận hành liên tục từ 2020. Ngoài luyencode.net, hệ thống còn chạy dưới thương hiệu riêng và trên hạ tầng riêng cho các đơn vị khác."
+          image="/images/project/lcoj-home.png"
           stats={[
-            { value: '1000+', label: 'bài tập' },
-            { value: '15k+', label: 'người dùng' },
-            { value: '99.9%', label: 'uptime' },
+            { value: '20.000+', label: 'người dùng' },
+            { value: `${ORGANIZATIONS.length}+`, label: 'trường & tổ chức' },
+            { value: '2020', label: 'vận hành liên tục' },
           ]}
-          quote="Hệ thống chạy ổn định từ ngày đầu, học sinh nộp bài lúc cao điểm không hề chậm. Từ lúc trao đổi đến khi lên sóng chỉ mất hơn một tuần."
-          attribution="Nguyễn Văn Minh, Giám đốc đào tạo, cothilaptrinh.vn"
-        />
+          links={DEPLOYMENTS.map((d) => ({ label: d.name, href: d.url }))}
+        >
+          <div class="border-t-2 border-ink p-8">
+            <div class="mb-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+              {ORGANIZATIONS.length} TRƯỜNG & TỔ CHỨC ĐANG SỬ DỤNG —{' '}
+              {TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')} THÀNH VIÊN
+            </div>
+            <OrgRoster />
+          </div>
+        </CaseStudySpotlight>
       </section>
     )
   }

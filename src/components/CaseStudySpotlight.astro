@@ -4,31 +4,62 @@ interface Props {
   title: string;
   description: string;
   stats: { value: string; label: string }[];
-  quote: string;
-  attribution: string;
+  quote?: string;
+  attribution?: string;
+  image?: string;
+  links?: { label: string; href: string }[];
 }
 
-const { kicker, title, description, stats, quote, attribution } = Astro.props;
+const { kicker, title, description, stats, quote, attribution, image, links } = Astro.props;
+const hasQuote = Boolean(quote && attribution);
 ---
 
-<div class="rgrid grid grid-cols-[1.2fr_1fr] border-2 border-ink bg-white">
-  <div class="p-8 border-r-2 border-ink">
-    <div class="font-mono text-xs text-neutral-600 mb-2.5">{kicker}</div>
-    <h3 class="font-heading font-bold text-2xl leading-tight text-ink mb-3">{title}</h3>
-    <p class="text-[14.5px] leading-relaxed text-neutral-700 mb-5">{description}</p>
-    <div class="flex gap-7">
+<div class="border-2 border-ink bg-white">
+  <div class="rgrid grid grid-cols-[1.2fr_1fr]">
+    <div class="border-r-2 border-ink p-8">
+      <div class="mb-2.5 font-mono text-xs text-neutral-600">{kicker}</div>
+      <h3 class="mb-3 font-heading text-2xl font-bold leading-tight text-ink">{title}</h3>
+      <p class="mb-5 text-[14.5px] leading-relaxed text-neutral-700">{description}</p>
+      <div class="rwrap mb-5 flex gap-7">
+        {
+          stats.map((s) => (
+            <div>
+              <div class="font-heading text-[26px] font-extrabold text-ink">{s.value}</div>
+              <div class="font-mono text-[11px] text-neutral-600">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
       {
-        stats.map((s) => (
-          <div>
-            <div class="font-heading font-extrabold text-[26px] text-ink">{s.value}</div>
-            <div class="font-mono text-[11px] text-neutral-600">{s.label}</div>
+        links && links.length > 0 && (
+          <div class="rwrap flex gap-5 border-t-2 border-ink pt-4 font-mono text-[13px] font-semibold">
+            {links.map((link) => (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-ink no-underline hover:text-accent"
+              >
+                {link.label} →
+              </a>
+            ))}
           </div>
-        ))
+        )
+      }
+    </div>
+    <div class="flex flex-col bg-bg">
+      {image && <img src={image} alt={title} class="block h-full w-full object-cover object-top" />}
+      {
+        hasQuote && (
+          <div
+            class={`p-8 ${image ? 'border-t-2 border-ink' : 'flex h-full flex-col justify-between'}`}
+          >
+            <p class="m-0 text-[17px] font-medium leading-[1.55] text-ink">“{quote}”</p>
+            <div class="mt-4 font-mono text-xs text-neutral-600">— {attribution}</div>
+          </div>
+        )
       }
     </div>
   </div>
-  <div class="p-8 flex flex-col justify-between bg-bg">
-    <p class="font-medium text-[17px] leading-[1.55] text-ink m-0">“{quote}”</p>
-    <div class="font-mono text-xs text-neutral-600 mt-4">— {attribution}</div>
-  </div>
+  <slot />
 </div>
