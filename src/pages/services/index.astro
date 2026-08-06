@@ -73,23 +73,23 @@ const FAQ_ITEMS = [
   {
     question: 'Trường có cần máy chủ riêng không?',
     answer:
-      'Không, nếu chọn gói miễn phí hoặc instance riêng — hệ thống chạy trên hạ tầng của tôi. Chỉ gói triển khai trọn gói mới cần máy chủ riêng, và tôi sẽ tư vấn cấu hình phù hợp với quy mô để tránh trả tiền thừa.',
+      'Không, nếu chọn gói miễn phí trên luyencode.net — hệ thống chạy trên hạ tầng chung. Gói triển khai riêng cần máy chủ (VPS), và tôi sẽ tư vấn cấu hình phù hợp với quy mô để tránh trả tiền thừa; nếu là tổ chức giáo dục phi lợi nhuận chưa có domain, có thể dùng subdomain miễn phí trên luyencode.net để tiết kiệm thêm.',
   },
   {
     question: 'Trường có thể dùng đề của mình không?',
     answer:
-      'Có, nhưng tùy gói. Tổ chức trên luyencode.net được dùng toàn bộ ngân hàng đề sẵn có, miễn phí. Với instance riêng hoặc triển khai trọn gói, hệ thống không đi kèm ngân hàng đề của luyencode — đơn vị tự tạo đề riêng hoặc nhập đề từ định dạng phổ biến.',
+      'Có, nhưng tùy gói. Tổ chức trên luyencode.net được dùng toàn bộ ngân hàng đề sẵn có, miễn phí. Với gói triển khai riêng, hệ thống không đi kèm ngân hàng đề của luyencode — đơn vị tự tạo đề riêng hoặc nhập đề từ định dạng phổ biến.',
   },
   {
-    question: 'Instance riêng không có ngân hàng đề, phải làm sao?',
+    question: 'Hệ thống riêng không có ngân hàng đề, phải làm sao?',
     answer:
-      'Tôi hỗ trợ soạn đề với chi phí rất thấp, nhờ dùng AI hỗ trợ tạo nội dung — đã có kinh nghiệm và triển khai thành công thực tế. Phù hợp cho đơn vị dùng instance riêng hoặc triển khai trọn gói cần xây ngân hàng đề riêng nhanh, không phải soạn thủ công từ đầu.',
+      'Tôi hỗ trợ soạn đề với chi phí rất thấp, nhờ dùng AI hỗ trợ tạo nội dung — đã có kinh nghiệm và triển khai thành công thực tế. Phù hợp cho đơn vị triển khai riêng cần xây ngân hàng đề nhanh, không phải soạn thủ công từ đầu.',
   },
   {
     question:
       'Đang dùng gói miễn phí, sau này muốn chuyển sang hệ thống riêng thì có mất dữ liệu không?',
     answer:
-      'Không. Dữ liệu tổ chức được chuyển sang hệ thống mới khi nâng cấp. Đây là đường đi bình thường: bắt đầu miễn phí, khi quy mô lớn hơn thì chuyển sang instance riêng hoặc hạ tầng riêng.',
+      'Không. Dữ liệu tổ chức được chuyển sang hệ thống mới khi nâng cấp. Đây là đường đi bình thường: bắt đầu miễn phí, khi quy mô lớn hơn thì chuyển sang hạ tầng riêng.',
   },
   {
     question: 'Hệ thống có chịu được kỳ thi đông người cùng nộp bài không?',
@@ -107,7 +107,7 @@ const FAQ_ITEMS = [
   <ServiceHero
     breadcrumb="online-judge"
     title="Triển khai & vận hành Online Judge trên nền DMOJ"
-    description={`Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Ba cách bắt đầu: dùng miễn phí trên luyencode.net, instance mang thương hiệu riêng, hoặc triển khai trọn gói trên hạ tầng của bạn. Hiện có ${ORGANIZATIONS.length} trường và tổ chức đang sử dụng, cùng ${DEPLOYMENTS.length} hệ thống chạy độc lập.`}
+    description={`Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Hai cách bắt đầu: dùng miễn phí trên luyencode.net, hoặc triển khai riêng trên VPS với tên miền của bạn — hay subdomain miễn phí nếu là tổ chức giáo dục phi lợi nhuận. Hiện có ${ORGANIZATIONS.length} trường và tổ chức đang sử dụng, cùng ${DEPLOYMENTS.length} hệ thống chạy độc lập.`}
     ctas={[
       { label: 'Bắt đầu ngay →', href: '/contact', variant: 'primary' },
       {
@@ -122,7 +122,7 @@ const FAQ_ITEMS = [
   <div class="px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Ba cách bắt đầu</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Hai cách bắt đầu</h2>
     </div>
     <ServiceTiers />
   </div>

@@ -1,8 +1,5 @@
 ---
-import { ORGANIZATIONS, DEPLOYMENTS } from '@/data/organizations';
-
-const managed = DEPLOYMENTS.filter((d) => d.tier === 'managed');
-const branded = DEPLOYMENTS.filter((d) => d.tier === 'branded');
+import { ORGANIZATIONS, DEPLOYMENTS, ORG_LIST_URL } from '@/data/organizations';
 
 const TIERS = [
   {
@@ -11,31 +8,24 @@ const TIERS = [
     price: '0đ',
     description:
       'Trường học, CLB và đội tuyển có không gian riêng trên nền tảng chung: quản lý học sinh, giao bài, tổ chức contest. Không cần máy chủ, không cần đội kỹ thuật.',
-    proof: `${ORGANIZATIONS.length} trường & tổ chức đang dùng`,
+    proofLinks: [
+      { label: `${ORGANIZATIONS.length} trường & tổ chức đang dùng`, href: ORG_LIST_URL },
+    ],
     highlighted: true,
   },
   {
-    kicker: 'INSTANCE RIÊNG',
-    title: 'Tên miền phụ + thương hiệu riêng',
-    price: 'Miễn phí (giáo dục)',
-    description:
-      'Hệ thống riêng mang tên và nhận diện của đơn vị, chạy trên hạ tầng của tôi. Miễn phí cho tổ chức giáo dục phi lợi nhuận, đơn vị thương mại nhận báo giá riêng. Không có sẵn ngân hàng đề của luyencode — đơn vị tự tạo đề hoặc dùng dịch vụ soạn đề bằng AI, chi phí thấp.',
-    proof: branded.map((d) => d.name).join(', '),
-    highlighted: false,
-  },
-  {
-    kicker: 'TRIỂN KHAI TRỌN GÓI',
+    kicker: 'TRIỂN KHAI RIÊNG',
     title: 'Tên miền, VPS, triển khai & vận hành',
     price: 'Theo quy mô',
     description:
-      'Hệ thống độc lập trên hạ tầng riêng của đơn vị: tư vấn tên miền và máy chủ, cài đặt, tùy biến, backup, giám sát và hỗ trợ dài hạn.',
-    proof: managed.map((d) => d.name).join(', '),
+      'Hệ thống độc lập trên hạ tầng riêng (VPS) của đơn vị: tư vấn tên miền và máy chủ, cài đặt, tùy biến, backup, giám sát và hỗ trợ dài hạn. Không có sẵn ngân hàng đề của luyencode — đơn vị tự tạo đề hoặc dùng dịch vụ soạn đề bằng AI, chi phí thấp. Tổ chức giáo dục phi lợi nhuận chưa có kinh phí mua domain có thể dùng subdomain miễn phí trên luyencode.net.',
+    proofLinks: DEPLOYMENTS.map((d) => ({ label: d.name, href: d.url })),
     highlighted: false,
   },
 ];
 ---
 
-<div class="rgrid grid grid-cols-3 border-2 border-ink">
+<div class="rgrid grid grid-cols-2 border-2 border-ink">
   {
     TIERS.map((tier, i) => (
       <div
@@ -50,7 +40,16 @@ const TIERS = [
         <div class="mb-3.5 font-heading text-[22px] font-extrabold text-accent">{tier.price}</div>
         <p class="mb-5 text-[13.5px] leading-relaxed text-neutral-700">{tier.description}</p>
         <div class="mt-auto border-t-2 border-ink pt-3.5 font-mono text-[12px] leading-[1.6] text-neutral-600">
-          {tier.proof}
+          {tier.proofLinks.map((link, j) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="no-underline hover:text-accent"
+            >
+              {`${link.label}${j < tier.proofLinks.length - 1 ? ', ' : ''}`}
+            </a>
+          ))}
         </div>
       </div>
     ))

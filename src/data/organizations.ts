@@ -7,7 +7,8 @@ export interface Organization {
 export interface Deployment {
   name: string;
   url: string;
-  tier: 'branded' | 'managed';
+  /** All deployments run on a private VPS; this only distinguishes the domain arrangement. */
+  domain: 'subdomain' | 'custom';
   note: string;
 }
 
@@ -44,25 +45,25 @@ export const DEPLOYMENTS: Deployment[] = [
   {
     name: 'LNQOJ — Trường THCS Lý Nhật Quang',
     url: 'https://lynhatquang.luyencode.net',
-    tier: 'branded',
-    note: 'Đô Lương, Nghệ An — thương hiệu riêng',
+    domain: 'subdomain',
+    note: 'Đô Lương, Nghệ An — VPS riêng, subdomain miễn phí',
   },
   {
     name: 'cothilaptrinh.vn',
-    url: 'https://cothilaptrinh.vn',
-    tier: 'managed',
+    url: 'https://code.cothilaptrinh.vn',
+    domain: 'custom',
     note: 'trung tâm luyện thi HSG tin học',
   },
   {
     name: 'laptrinh.online',
     url: 'https://laptrinh.online',
-    tier: 'managed',
+    domain: 'custom',
     note: 'lớp học lập trình trực tuyến',
   },
   {
     name: 'codebuddy.vn',
     url: 'https://codebuddy.vn',
-    tier: 'managed',
+    domain: 'custom',
     note: 'nền tảng luyện code cho sinh viên',
   },
 ];
