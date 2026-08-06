@@ -130,10 +130,12 @@ Run:
 
 ```bash
 npm run build
-grep -c "slug:" src/data/organizations.ts
+grep -c "slug: '" src/data/organizations.ts
 ```
 
-Expected: build passes with 0 errors; grep prints `20`.
+Expected: build passes with 0 errors; grep prints `20`. (A plain `grep -c "slug:"` also matches
+the `slug: string;` line in the `Organization` interface declaration and prints `21` — use the
+quoted form above, which only matches data entries.)
 
 `TOTAL_ORG_MEMBERS` should evaluate to `2520`. It is computed rather than hardcoded, so it cannot drift from the list; its rendered value is confirmed visually in Task 8.
 
