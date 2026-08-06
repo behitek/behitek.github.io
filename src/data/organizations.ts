@@ -78,3 +78,9 @@ export const TOTAL_ORG_MEMBERS = ORGANIZATIONS.reduce((sum, org) => sum + org.me
  * and only totals registered members of the 20 external orgs (see TOTAL_ORG_MEMBERS, 2520).
  */
 export const TOTAL_PLATFORM_USERS = '20.000+';
+
+/** Stated figure for the size of the shared problem bank on luyencode.net. */
+export const TOTAL_PROBLEMS = '1500+';
+
+/** Stated figure for total judged submissions across the whole platform's history. */
+export const TOTAL_SUBMISSIONS = '2M+';

@@ -8,9 +8,14 @@ import ServiceTiers from '@components/ServiceTiers.astro';
 import CTABand from '@components/CTABand.astro';
 import OrgRoster from '@components/OrgRoster.astro';
 import FAQ from '@components/FAQ.astro';
-import ImageGallery from '@components/ImageGallery.astro';
-import ImageGalleryModal from '@components/ImageGalleryModal.astro';
-import { ORGANIZATIONS, DEPLOYMENTS, TOTAL_ORG_MEMBERS } from '@/data/organizations';
+import {
+  ORGANIZATIONS,
+  DEPLOYMENTS,
+  TOTAL_ORG_MEMBERS,
+  TOTAL_PLATFORM_USERS,
+  TOTAL_PROBLEMS,
+  TOTAL_SUBMISSIONS,
+} from '@/data/organizations';
 
 const FEATURES = [
   {
@@ -32,7 +37,7 @@ const FEATURES = [
     kicker: '03',
     title: 'Nội dung & mở rộng',
     bullets: [
-      'Ngân hàng 900+ bài tập',
+      `Ngân hàng ${TOTAL_PROBLEMS} bài tập`,
       'Tính năng riêng (LMS, thanh toán…)',
       'Đào tạo đội ngũ quản trị',
     ],
@@ -52,16 +57,6 @@ const STEPS = [
   },
   { number: '03', title: 'Triển khai', description: 'Thường 1–2 tuần, bàn giao kèm tài liệu.' },
   { number: '04', title: 'Vận hành dài hạn', description: 'Giám sát, backup, cập nhật định kỳ.' },
-];
-
-const LCOJ_SCREENSHOTS = [
-  '/images/project/lcoj-home.png',
-  '/images/project/lcoj-problem.png',
-  '/images/project/lcoj-contest.png',
-  '/images/project/lcoj-submission.png',
-  '/images/project/lcoj-ranking-global.png',
-  '/images/project/lcoj-contest-ranking.png',
-  '/images/project/lcoj-stats.png',
 ];
 
 const FAQ_ITEMS = [
@@ -172,40 +167,42 @@ const FAQ_ITEMS = [
   <section class="px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">04 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Ngân hàng đề sẵn có</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy mô hệ thống</h2>
     </div>
-    <div class="rgrid grid grid-cols-[1fr_1.2fr] border-2 border-ink bg-white">
-      <div class="border-r-2 border-ink p-8">
-        <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
-          900+
+    <div class="border-2 border-ink bg-white">
+      <div class="rgrid grid grid-cols-3">
+        <div class="border-r-2 border-ink p-8">
+          <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+            {TOTAL_PROBLEMS}
+          </div>
+          <div class="font-mono text-[13px] text-neutral-600">
+            bài tập kèm lời giải, dùng được ngay
+          </div>
         </div>
-        <div class="font-mono text-[13px] text-neutral-600">
-          bài tập kèm lời giải, dùng được ngay
+        <div class="border-r-2 border-ink p-8">
+          <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+            {TOTAL_PLATFORM_USERS}
+          </div>
+          <div class="font-mono text-[13px] text-neutral-600">người dùng trên toàn hệ thống</div>
+        </div>
+        <div class="p-8">
+          <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+            {TOTAL_SUBMISSIONS}
+          </div>
+          <div class="font-mono text-[13px] text-neutral-600">lượt chấm bài đã xử lý</div>
         </div>
       </div>
-      <div class="p-8">
-        <p class="m-0 text-[14.5px] leading-relaxed text-neutral-700">
-          Đơn vị không phải bắt đầu từ con số không. Ngân hàng đề phân theo chủ đề và độ khó, từ bài
-          nhập môn tới bài luyện đội tuyển, kèm lời giải và bộ test. Giáo viên có thể dùng trực
-          tiếp, chỉnh sửa, hoặc thêm đề riêng của trường.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-12 pb-12">
-    <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">05 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Xem thử hệ thống</h2>
-    </div>
-    <div class="border-2 border-ink bg-white p-8">
-      <ImageGallery images={LCOJ_SCREENSHOTS} title="LCOJ" projectId="lcoj-service" />
+      <p class="m-0 border-t-2 border-ink p-8 text-[14.5px] leading-relaxed text-neutral-700">
+        Đơn vị không phải bắt đầu từ con số không. Ngân hàng đề phân theo chủ đề và độ khó, từ bài
+        nhập môn tới bài luyện đội tuyển, kèm lời giải và bộ test. Giáo viên có thể dùng trực tiếp,
+        chỉnh sửa, hoặc thêm đề riêng của trường.
+      </p>
     </div>
   </section>
 
   <div class="px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">06 /</span>
+      <span class="kicker">05 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy trình</h2>
     </div>
     <ProcessSteps kicker="$ ./process" steps={STEPS} />
@@ -213,13 +210,11 @@ const FAQ_ITEMS = [
 
   <div class="px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">07 /</span>
+      <span class="kicker">06 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Câu hỏi thường gặp</h2>
     </div>
     <FAQ items={FAQ_ITEMS} />
   </div>
 
   <CTABand title="Cần online judge cho đơn vị của bạn?" buttonLabel="Liên hệ ngay →" />
-
-  <ImageGalleryModal projects={[{ id: 'lcoj-service', title: 'LCOJ', images: LCOJ_SCREENSHOTS }]} />
 </BaseLayout>
