@@ -1,11 +1,11 @@
 ---
 import TerminalWindow from '@components/TerminalWindow.astro';
-import { ORGANIZATIONS } from '@/data/organizations';
+import { ORGANIZATIONS, TOTAL_PLATFORM_USERS } from '@/data/organizations';
 
 const terminalLines = [
   '$ behitek --status',
   `> orgs        ${ORGANIZATIONS.length} trường & tổ chức`,
-  '> users       20.000+',
+  `> users       ${TOTAL_PLATFORM_USERS}`,
   '> uptime      99.9%',
 ];
 ---

@@ -14,7 +14,12 @@ import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
 import { SITE } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
-import { ORGANIZATIONS, DEPLOYMENTS, TOTAL_ORG_MEMBERS } from '@/data/organizations';
+import {
+  ORGANIZATIONS,
+  DEPLOYMENTS,
+  TOTAL_ORG_MEMBERS,
+  TOTAL_PLATFORM_USERS,
+} from '@/data/organizations';
 
 const allProjects = await getCollection('projects');
 const flagshipProject = allProjects.find((p) => p.data.flagship);
@@ -35,7 +40,7 @@ const SERVICES = [
     path: '/services/online-judge',
     title: 'Online Judge (DMOJ)',
     description:
-      'Triển khai & vận hành hệ thống chấm bài tự động trọn gói — miễn phí cho tổ chức giáo dục phi lợi nhuận.',
+      'Từ tổ chức miễn phí trên luyencode.net đến triển khai trọn gói riêng — 3 cách bắt đầu cho trường học và trung tâm dạy lập trình.',
     bullets: ['Cài đặt, tùy biến giao diện', 'Ngân hàng đề, contest', 'Backup, giám sát, hỗ trợ'],
     flagship: true,
   },
@@ -100,7 +105,7 @@ const SERVICES = [
           description="Online judge chấm bài tự động tôi xây và vận hành liên tục từ 2020. Ngoài luyencode.net, hệ thống còn chạy dưới thương hiệu riêng và trên hạ tầng riêng cho các đơn vị khác."
           image="/images/project/lcoj-home.png"
           stats={[
-            { value: '20.000+', label: 'người dùng' },
+            { value: TOTAL_PLATFORM_USERS, label: 'người dùng' },
             { value: `${ORGANIZATIONS.length}+`, label: 'trường & tổ chức' },
             { value: '2020', label: 'vận hành liên tục' },
           ]}

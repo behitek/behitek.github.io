@@ -71,3 +71,10 @@ export const ORG_LIST_URL = 'https://luyencode.net/organizations/';
 
 /** Computed so the figure can never drift from the list above. Currently 2520. */
 export const TOTAL_ORG_MEMBERS = ORGANIZATIONS.reduce((sum, org) => sum + org.members, 0);
+
+/**
+ * Approximate total users across the whole luyencode.net platform, including Hieu's own two
+ * organizations — a stated figure, not derivable from ORGANIZATIONS, which excludes those two
+ * and only totals registered members of the 20 external orgs (see TOTAL_ORG_MEMBERS, 2520).
+ */
+export const TOTAL_PLATFORM_USERS = '20.000+';

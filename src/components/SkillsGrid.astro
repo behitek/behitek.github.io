@@ -1,5 +1,5 @@
 ---
-import { ORGANIZATIONS } from '@/data/organizations';
+import { ORGANIZATIONS, TOTAL_PLATFORM_USERS } from '@/data/organizations';
 
 interface Skill {
   title: string;
@@ -25,7 +25,7 @@ const SKILLS: Skill[] = [
     title: 'Nền tảng giáo dục',
     areas: 'Online judge · chấm tự động · contest · ngân hàng đề',
     tech: ['DMOJ', 'Vue', 'Docker'],
-    proof: `${ORGANIZATIONS.length}+ trường, 20.000+ người dùng, 5 năm vận hành liên tục`,
+    proof: `${ORGANIZATIONS.length}+ trường, ${TOTAL_PLATFORM_USERS} người dùng, 5 năm vận hành liên tục`,
   },
 ];
 ---

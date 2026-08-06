@@ -5,7 +5,6 @@ import ServiceTabs from '@components/ServiceTabs.astro';
 import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
 import ProcessSteps from '@components/ProcessSteps.astro';
 import ServiceTiers from '@components/ServiceTiers.astro';
-import TestimonialSplit from '@components/TestimonialSplit.astro';
 import CTABand from '@components/CTABand.astro';
 import OrgRoster from '@components/OrgRoster.astro';
 import FAQ from '@components/FAQ.astro';
@@ -33,7 +32,7 @@ const FEATURES = [
     kicker: '03',
     title: 'Nội dung & mở rộng',
     bullets: [
-      'Ngân hàng 1000+ bài tập',
+      'Ngân hàng 900+ bài tập',
       'Tính năng riêng (LMS, thanh toán…)',
       'Đào tạo đội ngũ quản trị',
     ],
@@ -108,9 +107,9 @@ const FAQ_ITEMS = [
   <ServiceHero
     breadcrumb="online-judge"
     title="Triển khai & vận hành Online Judge trên nền DMOJ"
-    description="Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Ba cách bắt đầu: dùng miễn phí trên luyencode.net, instance mang thương hiệu riêng, hoặc triển khai trọn gói trên hạ tầng của bạn. Hiện có 20 trường và tổ chức đang sử dụng, cùng 4 hệ thống chạy độc lập."
+    description={`Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Ba cách bắt đầu: dùng miễn phí trên luyencode.net, instance mang thương hiệu riêng, hoặc triển khai trọn gói trên hạ tầng của bạn. Hiện có ${ORGANIZATIONS.length} trường và tổ chức đang sử dụng, cùng ${DEPLOYMENTS.length} hệ thống chạy độc lập.`}
     ctas={[
-      { label: 'Đăng ký triển khai →', href: '/contact', variant: 'primary' },
+      { label: 'Bắt đầu ngay →', href: '/contact', variant: 'primary' },
       {
         label: 'Xem hệ thống demo',
         href: 'https://luyencode.net',
@@ -220,9 +219,7 @@ const FAQ_ITEMS = [
     <FAQ items={FAQ_ITEMS} />
   </div>
 
-  <TestimonialSplit />
-
-  <CTABand title="Cần online judge cho đơn vị của bạn?" buttonLabel="Liên hệ triển khai →" />
+  <CTABand title="Cần online judge cho đơn vị của bạn?" buttonLabel="Liên hệ ngay →" />
 
   <ImageGalleryModal projects={[{ id: 'lcoj-service', title: 'LCOJ', images: LCOJ_SCREENSHOTS }]} />
 </BaseLayout>

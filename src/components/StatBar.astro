@@ -1,9 +1,9 @@
 ---
-import { ORGANIZATIONS } from '@/data/organizations';
+import { ORGANIZATIONS, TOTAL_PLATFORM_USERS } from '@/data/organizations';
 
 const STATS = [
   { value: '8 năm', label: 'kinh nghiệm AI & hệ thống' },
-  { value: '20.000+', label: 'người dùng trên hệ thống tôi vận hành' },
+  { value: TOTAL_PLATFORM_USERS, label: 'người dùng trên hệ thống tôi vận hành' },
   { value: `${ORGANIZATIONS.length}+`, label: 'tổ chức đang sử dụng' },
   { value: '[N]', label: 'lượt chấm bài đã xử lý' },
 ];
