@@ -1,5 +1,5 @@
 ---
-import { ORGANIZATIONS, TOTAL_PLATFORM_USERS } from '@/data/organizations';
+import { RAG_PROOF, SPEECH_PROOF, PRODUCTION_PROOF } from '@/data/ai-work';
 
 interface Skill {
   title: string;
@@ -10,22 +10,22 @@ interface Skill {
 
 const SKILLS: Skill[] = [
   {
-    title: 'AI & Machine Learning',
-    areas: 'LLM · RAG · NLP · Speech · Agentic AI',
-    tech: ['Python', 'PyTorch', 'LangGraph', 'ChromaDB', 'Whisper'],
-    proof: '+12% độ chính xác ASR cho trợ lý ảo KiKi (Zalo)',
+    title: 'LLM & RAG',
+    areas: 'retrieval · agent · evaluation · fine-tune',
+    tech: ['Python', 'LangGraph', 'ChromaDB', 'GPT-4', 'Claude'],
+    proof: RAG_PROOF.text,
   },
   {
-    title: 'Hệ thống & hạ tầng',
-    areas: 'API · kiến trúc · triển khai · vận hành',
-    tech: ['FastAPI', 'Django', 'Docker', 'Kubernetes', 'PostgreSQL', 'Redis'],
-    proof: '−15% lỗi dịch vụ trên Kubernetes (Zalo)',
+    title: 'Speech & NLP',
+    areas: 'ASR · TTS · chuẩn hoá văn bản · phân loại',
+    tech: ['PyTorch', 'Whisper', 'Transformers', 'Kaldi'],
+    proof: SPEECH_PROOF.text,
   },
   {
-    title: 'Nền tảng giáo dục',
-    areas: 'Online judge · chấm tự động · contest · ngân hàng đề',
-    tech: ['DMOJ', 'Vue', 'Docker'],
-    proof: `${ORGANIZATIONS.length}+ trường, ${TOTAL_PLATFORM_USERS} người dùng, 5 năm vận hành liên tục`,
+    title: 'ML trong production',
+    areas: 'serving · monitoring · tối ưu chi phí · hạ tầng',
+    tech: ['FastAPI', 'Docker', 'Kubernetes', 'PostgreSQL', 'Redis'],
+    proof: PRODUCTION_PROOF.text,
   },
 ];
 ---
