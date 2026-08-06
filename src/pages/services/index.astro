@@ -7,6 +7,11 @@ import ProcessSteps from '@components/ProcessSteps.astro';
 import ServiceTiers from '@components/ServiceTiers.astro';
 import TestimonialSplit from '@components/TestimonialSplit.astro';
 import CTABand from '@components/CTABand.astro';
+import OrgRoster from '@components/OrgRoster.astro';
+import FAQ from '@components/FAQ.astro';
+import ImageGallery from '@components/ImageGallery.astro';
+import ImageGalleryModal from '@components/ImageGalleryModal.astro';
+import { ORGANIZATIONS, DEPLOYMENTS, TOTAL_ORG_MEMBERS } from '@/data/organizations';
 
 const FEATURES = [
   {
@@ -49,6 +54,50 @@ const STEPS = [
   { number: '03', title: 'Triển khai', description: 'Thường 1–2 tuần, bàn giao kèm tài liệu.' },
   { number: '04', title: 'Vận hành dài hạn', description: 'Giám sát, backup, cập nhật định kỳ.' },
 ];
+
+const LCOJ_SCREENSHOTS = [
+  '/images/project/lcoj-home.png',
+  '/images/project/lcoj-problem.png',
+  '/images/project/lcoj-contest.png',
+  '/images/project/lcoj-submission.png',
+  '/images/project/lcoj-ranking-global.png',
+  '/images/project/lcoj-contest-ranking.png',
+  '/images/project/lcoj-stats.png',
+];
+
+const FAQ_ITEMS = [
+  {
+    question: 'Dữ liệu của trường thuộc về ai?',
+    answer:
+      'Dữ liệu học sinh, bài tập và kết quả thi thuộc về đơn vị. Với gói triển khai trọn gói, toàn bộ dữ liệu nằm trên hạ tầng của đơn vị. Với gói miễn phí trên luyencode.net, đơn vị có thể yêu cầu xuất dữ liệu bất cứ lúc nào.',
+  },
+  {
+    question: 'Nếu sau này anh không duy trì hệ thống nữa thì sao?',
+    answer:
+      'Hệ thống dựa trên DMOJ — một nền tảng mã nguồn mở đã được cộng đồng quốc tế duy trì nhiều năm, không phải phần mềm riêng của tôi. Toàn bộ cấu hình và tài liệu quản trị được bàn giao cho đơn vị, nên một kỹ thuật viên khác có thể tiếp quản. luyencode.net đã chạy liên tục từ 2020.',
+  },
+  {
+    question: 'Trường có cần máy chủ riêng không?',
+    answer:
+      'Không, nếu chọn gói miễn phí hoặc instance riêng — hệ thống chạy trên hạ tầng của tôi. Chỉ gói triển khai trọn gói mới cần máy chủ riêng, và tôi sẽ tư vấn cấu hình phù hợp với quy mô để tránh trả tiền thừa.',
+  },
+  {
+    question: 'Trường có thể dùng đề của mình không?',
+    answer:
+      'Có. Đơn vị tự tạo bài tập, bộ test và đề thi riêng; đồng thời có thể dùng ngân hàng đề sẵn có trên hệ thống. Hỗ trợ nhập đề hàng loạt từ định dạng phổ biến.',
+  },
+  {
+    question:
+      'Đang dùng gói miễn phí, sau này muốn chuyển sang hệ thống riêng thì có mất dữ liệu không?',
+    answer:
+      'Không. Dữ liệu tổ chức được chuyển sang hệ thống mới khi nâng cấp. Đây là đường đi bình thường: bắt đầu miễn phí, khi quy mô lớn hơn thì chuyển sang instance riêng hoặc hạ tầng riêng.',
+  },
+  {
+    question: 'Hệ thống có chịu được kỳ thi đông người cùng nộp bài không?',
+    answer:
+      'Có. Hệ thống dùng hàng đợi chấm bài tách riêng khỏi web, nên lượng nộp tăng đột biến không làm treo giao diện. Các kỳ thi thử với hàng trăm thí sinh đồng thời đã chạy ổn định trên hạ tầng hiện tại.',
+  },
+];
 ---
 
 <BaseLayout
@@ -59,7 +108,7 @@ const STEPS = [
   <ServiceHero
     breadcrumb="online-judge"
     title="Triển khai & vận hành Online Judge trên nền DMOJ"
-    description="Hệ thống chấm bài tự động trọn gói cho trường học và trung tâm dạy lập trình: cài đặt, tùy biến thương hiệu, ngân hàng đề, và vận hành dài hạn. Miễn phí cho tổ chức giáo dục phi lợi nhuận, chi phí theo quy mô cho đơn vị khác — đã triển khai cho 3 đơn vị đang hoạt động."
+    description="Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Ba cách bắt đầu: dùng miễn phí trên luyencode.net, instance mang thương hiệu riêng, hoặc triển khai trọn gói trên hạ tầng của bạn. Hiện có 20 trường và tổ chức đang sử dụng, cùng 4 hệ thống chạy độc lập."
     ctas={[
       { label: 'Đăng ký triển khai →', href: '/contact', variant: 'primary' },
       {
@@ -72,20 +121,108 @@ const STEPS = [
   />
 
   <div class="px-12 pb-12">
-    <ServiceFeatureGrid features={FEATURES} />
-
-    <div class="mb-7 mt-12 flex items-baseline gap-4">
+    <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Ba cách bắt đầu</h2>
     </div>
     <ServiceTiers />
   </div>
 
+  <section class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">02 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Đang chạy ở đâu</h2>
+    </div>
+    <div class="border-2 border-ink bg-white p-8">
+      <div class="mb-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+        {ORGANIZATIONS.length} TỔ CHỨC TRÊN LUYENCODE.NET — {
+          TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')
+        } THÀNH VIÊN
+      </div>
+      <OrgRoster variant="full" />
+      <div class="mb-4 mt-8 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+        HỆ THỐNG CHẠY ĐỘC LẬP
+      </div>
+      <div class="border-t-2 border-ink">
+        {
+          DEPLOYMENTS.map((d) => (
+            <a
+              href={d.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-baseline gap-3 border-b border-border-light py-3 font-mono text-[13px] text-ink no-underline hover:text-accent"
+            >
+              <span class="flex-none text-accent">●</span>
+              <span class="font-semibold">{d.name}</span>
+              <span class="text-neutral-600">— {d.note}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <div class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">03 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Có gì trong đó</h2>
+    </div>
+    <ServiceFeatureGrid features={FEATURES} />
+  </div>
+
+  <section class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">04 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Ngân hàng đề sẵn có</h2>
+    </div>
+    <div class="rgrid grid grid-cols-[1fr_1.2fr] border-2 border-ink bg-white">
+      <div class="border-r-2 border-ink p-8">
+        <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+          900+
+        </div>
+        <div class="font-mono text-[13px] text-neutral-600">
+          bài tập kèm lời giải, dùng được ngay
+        </div>
+      </div>
+      <div class="p-8">
+        <p class="m-0 text-[14.5px] leading-relaxed text-neutral-700">
+          Đơn vị không phải bắt đầu từ con số không. Ngân hàng đề phân theo chủ đề và độ khó, từ bài
+          nhập môn tới bài luyện đội tuyển, kèm lời giải và bộ test. Giáo viên có thể dùng trực
+          tiếp, chỉnh sửa, hoặc thêm đề riêng của trường.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">05 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Xem thử hệ thống</h2>
+    </div>
+    <div class="border-2 border-ink bg-white p-8">
+      <ImageGallery images={LCOJ_SCREENSHOTS} title="LCOJ" projectId="lcoj-service" />
+    </div>
+  </section>
+
+  <div class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">06 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy trình</h2>
+    </div>
     <ProcessSteps kicker="$ ./process" steps={STEPS} />
+  </div>
+
+  <div class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">07 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Câu hỏi thường gặp</h2>
+    </div>
+    <FAQ items={FAQ_ITEMS} />
   </div>
 
   <TestimonialSplit />
 
   <CTABand title="Cần online judge cho đơn vị của bạn?" buttonLabel="Liên hệ triển khai →" />
+
+  <ImageGalleryModal projects={[{ id: 'lcoj-service', title: 'LCOJ', images: LCOJ_SCREENSHOTS }]} />
 </BaseLayout>
