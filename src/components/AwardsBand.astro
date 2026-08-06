@@ -1,0 +1,19 @@
+---
+const AWARDS = [
+  { rank: 'Champion', name: 'AI4VN National Grand Finale Hackathon' },
+  { rank: 'Giải Nhất', name: 'ALQAC — Legal Document Retrieval' },
+  { rank: 'Giải Nhì', name: 'ACM/ICPC Việt Nam National Contest' },
+  { rank: 'Giải Nhì', name: 'Speech-to-Text Shared Task, VLSP 2019' },
+];
+---
+
+<div class="rgrid grid grid-cols-4 border-b-2 border-ink bg-bg">
+  {
+    AWARDS.map((award, i) => (
+      <div class={`px-12 py-[22px] ${i < AWARDS.length - 1 ? 'border-r-2 border-ink' : ''}`}>
+        <div class="mb-1 font-heading text-[15px] font-extrabold text-accent">{award.rank}</div>
+        <div class="font-mono text-[12px] leading-[1.6] text-neutral-700">{award.name}</div>
+      </div>
+    ))
+  }
+</div>
