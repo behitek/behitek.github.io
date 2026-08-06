@@ -1,9 +1,11 @@
 ---
+import { ORGANIZATIONS } from '@/data/organizations';
+
 const STATS = [
-  { value: '7+', label: 'năm kinh nghiệm' },
-  { value: '3', label: 'hệ thống OJ vận hành' },
-  { value: '4', label: 'giải thưởng quốc gia' },
-  { value: 'JAIST', label: 'Thạc sĩ KHTT, Nhật Bản' },
+  { value: '8 năm', label: 'kinh nghiệm AI & hệ thống' },
+  { value: '20.000+', label: 'người dùng trên hệ thống tôi vận hành' },
+  { value: `${ORGANIZATIONS.length}+`, label: 'tổ chức đang sử dụng' },
+  { value: '[N]', label: 'lượt chấm bài đã xử lý' },
 ];
 ---
 
@@ -11,8 +13,8 @@ const STATS = [
   {
     STATS.map((stat, i) => (
       <div class={`px-12 py-[22px] ${i < STATS.length - 1 ? 'border-r-2 border-ink' : ''}`}>
-        <div class="font-heading font-extrabold text-[30px] text-ink">{stat.value}</div>
-        <div class="font-mono text-xs text-neutral-600">{stat.label}</div>
+        <div class="font-heading text-[30px] font-extrabold text-ink">{stat.value}</div>
+        <div class="font-mono text-xs leading-[1.5] text-neutral-600">{stat.label}</div>
       </div>
     ))
   }
