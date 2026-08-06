@@ -174,7 +174,10 @@ and `OrgRoster` slot — kept, but reframed:
 - Section heading changes from `Case study nổi bật` to `Hệ thống đang vận hành`.
 - Description reframed from a service pitch to an operations claim: built in 2020, run
   continuously since, 20 organizations, no marketing.
-- Adds a link to `/services/online-judge` so the commercial path stays one click away.
+- Adds a link to the OJ service page so the commercial path stays one click away. Note
+  that page's route is `/services` (i.e. `src/pages/services/index.astro`, titled "Online
+  Judge (DMOJ)"). The `path: '/services/online-judge'` string on the service card is
+  display-only terminal-style text, not a route — there is no such page.
 
 ### 04 / Dịch vụ
 
