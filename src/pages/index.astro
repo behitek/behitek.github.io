@@ -12,6 +12,8 @@ import ProjectMiniCard from '@components/ProjectMiniCard.astro';
 import OrgRoster from '@components/OrgRoster.astro';
 import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
+import CaseStudyCard from '@components/CaseStudyCard.astro';
+import PipelineDiagram from '@components/PipelineDiagram.astro';
 import { SITE } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
 import {
@@ -20,6 +22,7 @@ import {
   TOTAL_ORG_MEMBERS,
   TOTAL_PLATFORM_USERS,
 } from '@/data/organizations';
+import { NEXUS_AI, NEXUS_PIPELINE, LINGUIST_AI, KIKI_ASR } from '@/data/ai-work';
 
 const allProjects = await getCollection('projects');
 const flagshipProject = allProjects.find((p) => p.data.flagship);
@@ -74,7 +77,7 @@ const SERVICES = [
   <CareerStrip />
   <AwardsBand />
 
-  <section class="p-12 pb-0">
+  <section class="px-12 pb-14 pt-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Chuyên môn</h2>
@@ -82,13 +85,22 @@ const SERVICES = [
     <SkillsGrid />
   </section>
 
-  <section class="p-12">
+  <section id="case-study-ai" class="px-12 pb-14">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">02 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study AI</h2>
     </div>
-    <div class="rgrid grid grid-cols-3 border-2 border-ink">
-      {SERVICES.map((service) => <ServiceCard {...service} />)}
+    <CaseStudySpotlight
+      kicker={NEXUS_AI.kicker}
+      title={NEXUS_AI.title}
+      description={NEXUS_AI.description}
+      stats={NEXUS_AI.stats}
+    >
+      <PipelineDiagram slot="media" stages={NEXUS_PIPELINE} caption="KIẾN TRÚC" />
+    </CaseStudySpotlight>
+    <div class="rgrid mt-7 grid grid-cols-2 border-2 border-ink">
+      <CaseStudyCard {...LINGUIST_AI} borderRight mobileDivider />
+      <CaseStudyCard {...KIKI_ASR} />
     </div>
   </section>
 
@@ -123,12 +135,22 @@ const SERVICES = [
     )
   }
 
+  <section class="p-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">04 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
+    </div>
+    <div class="rgrid grid grid-cols-3 border-2 border-ink">
+      {SERVICES.map((service) => <ServiceCard {...service} />)}
+    </div>
+  </section>
+
   {
     otherProjects.length > 0 && (
       <section class="px-12 pb-14">
         <div class="mb-7 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
-            <span class="kicker">04 /</span>
+            <span class="kicker">05 /</span>
             <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án</h2>
           </div>
           <a
@@ -161,7 +183,7 @@ const SERVICES = [
       <section class="px-12 pb-14">
         <div class="mb-5 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
-            <span class="kicker">05 /</span>
+            <span class="kicker">06 /</span>
             <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Viết & nghiên cứu</h2>
           </div>
           <a
