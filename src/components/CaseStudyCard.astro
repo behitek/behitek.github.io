@@ -1,0 +1,52 @@
+---
+import type { CardCaseStudy } from '@/data/ai-work';
+
+interface Props extends CardCaseStudy {
+  borderRight?: boolean;
+  mobileDivider?: boolean;
+}
+
+const {
+  kicker,
+  title,
+  problem,
+  approach,
+  result,
+  tech,
+  metric,
+  borderRight = false,
+  mobileDivider = false,
+} = Astro.props;
+
+const ROWS = [
+  { label: 'VẤN ĐỀ', text: problem },
+  { label: 'CÁCH LÀM', text: approach },
+  { label: 'KẾT QUẢ', text: result },
+];
+---
+
+<div
+  class={`flex flex-col bg-white p-7 ${borderRight ? 'border-r-2 border-ink' : ''} ${mobileDivider ? 'max-[899px]:border-b-2 max-[899px]:border-ink' : ''}`}
+>
+  <div class="mb-2.5 font-mono text-xs text-neutral-600">{kicker}</div>
+  <h3 class="mb-4 font-heading text-[21px] font-bold leading-tight text-ink">{title}</h3>
+  <dl class="m-0 mb-5">
+    {
+      ROWS.map((row) => (
+        <div class="mb-3">
+          <dt class="font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+            {row.label}
+          </dt>
+          <dd class="m-0 text-[14.5px] leading-relaxed text-neutral-700">{row.text}</dd>
+        </div>
+      ))
+    }
+  </dl>
+  <div class="mb-5 flex flex-wrap gap-1.5">
+    {tech.map((t) => <span class="tag-pill">{t}</span>)}
+  </div>
+  <div class="mt-auto flex items-baseline gap-2 border-t-2 border-ink pt-3.5">
+    <span class="font-heading text-[26px] font-extrabold text-ink">{metric.value}</span>
+    <span class="font-mono text-[11px] leading-[1.5] text-neutral-600">{metric.label}</span>
+  </div>
+</div>
