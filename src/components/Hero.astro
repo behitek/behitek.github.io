@@ -1,39 +1,46 @@
 ---
 import TerminalWindow from '@components/TerminalWindow.astro';
+import { ORGANIZATIONS } from '@/data/organizations';
 
 const terminalLines = [
-  '$ behitek --services',
-  '> online-judge   3 hệ thống đang chạy',
-  '> ai-projects    RAG · LLM · NLP',
-  '> software       full-stack',
+  '$ behitek --status',
+  `> orgs        ${ORGANIZATIONS.length} trường & tổ chức`,
+  '> users       20.000+',
+  '> uptime      99.9%',
 ];
 ---
 
 <div class="rgrid grid grid-cols-[3fr_1fr] bg-bg">
-  <div class="rpad px-12 pt-[72px] pb-14 border-r-2 border-ink">
+  <div class="rpad border-r-2 border-ink px-12 pb-14 pt-[72px]">
     <div class="kicker mb-[18px]">hieu@behitek:~ $ whoami</div>
-    <h1 class="font-heading font-extrabold text-[44px] md:text-[62px] leading-[1.02] text-ink mb-2 tracking-tight">
+    <h1
+      class="mb-2 font-heading text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink md:text-[62px]"
+    >
       Hiếu Nguyễn
     </h1>
-    <div class="font-heading font-bold text-2xl text-accent mb-5">AI Engineer · 7+ năm kinh nghiệm</div>
-    <p class="text-[17px] leading-relaxed text-neutral-700 mb-8 max-w-[840px]" style="text-wrap: pretty">
-      Biến nghiên cứu AI thành hệ thống thực tế. Tôi xây dựng hệ thống NLP, RAG, LLM ở quy mô production, đồng thời
-      trực tiếp thiết kế, triển khai và vận hành online judge phục vụ giáo dục lập trình cho hàng nghìn học sinh
-      Việt Nam. Từ bài toán nghiên cứu đến sản phẩm chạy ổn định trong tay người dùng thật — tư vấn kiến trúc, trực
-      tiếp code, và đồng hành vận hành lâu dài cùng đội ngũ kỹ thuật.
+    <div class="mb-5 font-heading text-2xl font-bold text-accent">
+      AI Engineer · Kiến trúc giải pháp · Hà Nội
+    </div>
+    <p
+      class="mb-8 max-w-[720px] text-[17px] leading-relaxed text-neutral-700"
+      style="text-wrap: pretty"
+    >
+      Tôi xây hệ thống AI chạy thật trong production — và vận hành hạ tầng luyện code miễn phí cho
+      {ORGANIZATIONS.length}+ trường học trên khắp Việt Nam, từ THPT chuyên đến trường nội trú vùng
+      cao.
     </p>
     <div class="rwrap flex gap-3.5">
       <a href="/contact" class="btn-primary gap-6">
         Nhận báo giá dịch vụ <span>→</span>
       </a>
-      <a href="/projects" class="btn-secondary">Xem dự án</a>
+      <a href="/services" class="btn-secondary">OJ miễn phí cho trường</a>
     </div>
   </div>
-  <div class="p-10 flex flex-col gap-6">
+  <div class="flex flex-col gap-6 p-10">
     <img
       src="/images/me.png"
       alt="Hiếu Nguyễn"
-      class="w-full aspect-square object-cover block border-2 border-ink grayscale-photo"
+      class="grayscale-photo block aspect-square w-full border-2 border-ink object-cover"
     />
     <TerminalWindow lines={terminalLines} />
   </div>
