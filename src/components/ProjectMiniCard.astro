@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  status: 'open-source' | 'private';
+  href?: string;
+  borderRight?: boolean;
+  borderBottom?: boolean;
+}
+
+const {
+  title,
+  description,
+  tech,
+  status,
+  href,
+  borderRight = false,
+  borderBottom = false,
+} = Astro.props;
+const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
+---
+
+<div
+  class={`p-7 bg-white ${borderRight ? 'border-r-2 border-ink' : ''} ${borderBottom ? 'border-b-2 border-ink' : ''}`}
+>
+  <div class="mb-3 flex items-center justify-between">
+    <span class="border border-ink px-[7px] py-0.5 font-mono text-[10px] font-semibold text-ink">
+      {statusLabel}
+    </span>
+  </div>
+  <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink">{title}</h3>
+  <p class="mb-4 text-sm leading-relaxed text-neutral-700">{description}</p>
+  <div class="mb-4 flex flex-wrap gap-1.5">
+    {tech.map((t) => <span class="tag-pill">{t}</span>)}
+  </div>
+  {
+    href && (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-heading text-[13px] font-bold text-accent no-underline"
+      >
+        Xem chi tiết →
+      </a>
+    )
+  }
+</div>

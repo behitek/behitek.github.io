@@ -8,6 +8,7 @@ import AwardsBand from '@components/AwardsBand.astro';
 import ServiceCard from '@components/ServiceCard.astro';
 import SkillsGrid from '@components/SkillsGrid.astro';
 import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
+import ProjectMiniCard from '@components/ProjectMiniCard.astro';
 import OrgRoster from '@components/OrgRoster.astro';
 import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
@@ -17,6 +18,11 @@ import { ORGANIZATIONS, DEPLOYMENTS, TOTAL_ORG_MEMBERS } from '@/data/organizati
 
 const allProjects = await getCollection('projects');
 const flagshipProject = allProjects.find((p) => p.data.flagship);
+
+const AI_FIRST_ORDER = ['nexusai', 'linguistai', 'behivest', 'beli5'];
+const otherProjects = AI_FIRST_ORDER.map((id) => allProjects.find((p) => p.data.id === id)).filter(
+  (p): p is NonNullable<typeof p> => Boolean(p)
+);
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
 const recentPosts = allPosts
@@ -113,11 +119,43 @@ const SERVICES = [
   }
 
   {
+    otherProjects.length > 0 && (
+      <section class="px-12 pb-14">
+        <div class="mb-7 flex items-baseline justify-between">
+          <div class="flex items-baseline gap-4">
+            <span class="kicker">04 /</span>
+            <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án</h2>
+          </div>
+          <a
+            href="/projects"
+            class="font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
+          >
+            ls ./projects →
+          </a>
+        </div>
+        <div class="rgrid grid grid-cols-2 border-2 border-ink">
+          {otherProjects.map((project, i) => (
+            <ProjectMiniCard
+              title={project.data.title}
+              description={project.data.description}
+              tech={project.data.tech}
+              status={project.data.status}
+              href={project.data.links?.website}
+              borderRight={i % 2 === 0}
+              borderBottom={i < otherProjects.length - 2}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
     recentPosts.length > 0 && (
       <section class="px-12 pb-14">
         <div class="mb-5 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
-            <span class="kicker">04 /</span>
+            <span class="kicker">05 /</span>
             <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Bài viết mới</h2>
           </div>
           <a
