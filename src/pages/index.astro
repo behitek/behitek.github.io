@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import StatBar from '@components/StatBar.astro';
-import LogosBar from '@components/LogosBar.astro';
+import CareerStrip from '@components/CareerStrip.astro';
 import ServiceCard from '@components/ServiceCard.astro';
 import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
 import BlogCard from '@components/BlogCard.astro';
@@ -15,7 +15,9 @@ const allProjects = await getCollection('projects');
 const flagshipProject = allProjects.find((p) => p.data.flagship);
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
-const recentPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 
 const SERVICES = [
   {
@@ -31,14 +33,20 @@ const SERVICES = [
     href: '/services/ai',
     path: '/services/ai',
     title: 'Dự án AI',
-    description: 'RAG, LLM, NLP — từ PoC đến production. Tư vấn kiến trúc, xây dựng và tối ưu hệ thống AI.',
-    bullets: ['Chatbot / trợ lý nghiệp vụ', 'Tìm kiếm ngữ nghĩa, RAG', 'Fine-tune, đánh giá mô hình'],
+    description:
+      'RAG, LLM, NLP — từ PoC đến production. Tư vấn kiến trúc, xây dựng và tối ưu hệ thống AI.',
+    bullets: [
+      'Chatbot / trợ lý nghiệp vụ',
+      'Tìm kiếm ngữ nghĩa, RAG',
+      'Fine-tune, đánh giá mô hình',
+    ],
   },
   {
     href: '/services/software',
     path: '/services/software',
     title: 'Phần mềm full-stack',
-    description: 'Web app, API, hạ tầng — thiết kế và phát triển trọn gói từ ý tưởng đến triển khai.',
+    description:
+      'Web app, API, hạ tầng — thiết kế và phát triển trọn gói từ ý tưởng đến triển khai.',
     bullets: ['FastAPI · Django · React', 'Docker, CI/CD, self-host', 'Tối ưu chi phí hạ tầng'],
     borderRight: false,
   },
@@ -48,12 +56,12 @@ const SERVICES = [
 <BaseLayout title="Trang chủ" description={SITE.description}>
   <Hero />
   <StatBar />
-  <LogosBar />
+  <CareerStrip />
 
   <section class="p-12">
-    <div class="flex items-baseline gap-4 mb-7">
+    <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
-      <h2 class="font-heading font-extrabold text-[34px] text-ink m-0">Dịch vụ</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
     </div>
     <div class="rgrid grid grid-cols-3 border-2 border-ink">
       {SERVICES.map((service) => <ServiceCard {...service} />)}
@@ -63,13 +71,17 @@ const SERVICES = [
   {
     flagshipProject && (
       <section class="px-12 pb-14">
-        <div class="flex items-baseline gap-4 mb-7">
+        <div class="mb-7 flex items-baseline gap-4">
           <span class="kicker">02 /</span>
-          <h2 class="font-heading font-extrabold text-[34px] text-ink m-0">Case study nổi bật</h2>
+          <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study nổi bật</h2>
         </div>
         <CaseStudySpotlight
           kicker="luyencode.net — LCOJ"
-          title={flagshipProject.data.title === 'LCOJ' ? 'Nền tảng luyện thi lập trình cho học sinh Việt Nam' : flagshipProject.data.title}
+          title={
+            flagshipProject.data.title === 'LCOJ'
+              ? 'Nền tảng luyện thi lập trình cho học sinh Việt Nam'
+              : flagshipProject.data.title
+          }
           description={flagshipProject.data.description}
           stats={[
             { value: '1000+', label: 'bài tập' },
@@ -86,12 +98,15 @@ const SERVICES = [
   {
     recentPosts.length > 0 && (
       <section class="px-12 pb-14">
-        <div class="flex items-baseline justify-between mb-5">
+        <div class="mb-5 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
             <span class="kicker">03 /</span>
-            <h2 class="font-heading font-extrabold text-[34px] text-ink m-0">Bài viết mới</h2>
+            <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Bài viết mới</h2>
           </div>
-          <a href="/blog" class="font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent">
+          <a
+            href="/blog"
+            class="font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
+          >
             ls ./blog →
           </a>
         </div>
