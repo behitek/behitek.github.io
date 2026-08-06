@@ -964,9 +964,14 @@ git commit -m "feat: add Dự án grid surfacing the four non-flagship projects"
 - Consumes: everything from Tasks 2–9
 - Produces: the final homepage composition
 
-- [ ] **Step 1: Retitle the blog section and renumber it to 05**
+- [ ] **Step 1: Retitle the blog section**
 
-In the blog section, change the kicker from `03 /` to `05 /` and the heading text from `Bài viết mới` to `Viết & nghiên cứu`. Six of the ten posts are AI/ML deep-dives; the section is a research portfolio, not a news feed.
+Task 9's dispatch already renumbered the blog section's kicker to `05 /` when it inserted the
+`04 / Dự án` section ahead of it (the original text below undercounted this — Task 6 had already
+moved the blog kicker to `04 /`, so Task 9 had to bump it again to avoid a duplicate `04 /`).
+Verify the kicker already reads `05 /` before touching anything. The only change this step makes
+is the heading text: `Bài viết mới` → `Viết & nghiên cứu`. Six of the ten posts are AI/ML
+deep-dives; the section is a research portfolio, not a news feed.
 
 - [ ] **Step 2: Verify the final section order**
 
