@@ -7,6 +7,7 @@ interface Props {
   href?: string;
   borderRight?: boolean;
   borderBottom?: boolean;
+  mobileDivider?: boolean;
 }
 
 const {
@@ -17,12 +18,13 @@ const {
   href,
   borderRight = false,
   borderBottom = false,
+  mobileDivider = false,
 } = Astro.props;
 const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
 ---
 
 <div
-  class={`p-7 bg-white ${borderRight ? 'border-r-2 border-ink' : ''} ${borderBottom ? 'border-b-2 border-ink' : ''}`}
+  class={`p-7 bg-white ${borderRight ? 'border-r-2 border-ink' : ''} ${borderBottom ? 'border-b-2 border-ink' : ''} ${mobileDivider ? 'max-[899px]:border-b-2 max-[899px]:border-ink' : ''}`}
 >
   <div class="mb-3 flex items-center justify-between">
     <span class="border border-ink px-[7px] py-0.5 font-mono text-[10px] font-semibold text-ink">

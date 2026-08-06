@@ -143,6 +143,7 @@ const SERVICES = [
               href={project.data.links?.website}
               borderRight={i % 2 === 0}
               borderBottom={i < otherProjects.length - 2}
+              mobileDivider={i === otherProjects.length - 2}
             />
           ))}
         </div>
