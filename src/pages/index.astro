@@ -14,15 +14,15 @@ import { readingTime } from '@utils/helpers';
 import { NEXUS_AI, NEXUS_PIPELINE } from '@/data/ai-work';
 
 const allProjects = await getCollection('projects');
-const FEATURED_PROJECT_ORDER = ['lcoj', 'nexusai', 'linguistai'];
+const FEATURED_PROJECT_ORDER = ['lcoj', 'linguistai', 'behivest'];
 const featuredProjects = FEATURED_PROJECT_ORDER.map((id) =>
   allProjects.find((p) => p.data.id === id)
 ).filter((p): p is NonNullable<typeof p> => Boolean(p));
 
 const PROJECT_METRICS: Record<string, string> = {
   lcoj: '20.000+ USERS',
-  nexusai: 'GIẢI NHẤT ALQAC',
   linguistai: 'CHẤM 4 KỸ NĂNG',
+  behivest: 'FINTECH & TOOLING',
 };
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
