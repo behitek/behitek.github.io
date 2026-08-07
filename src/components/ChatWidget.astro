@@ -1,70 +1,104 @@
 ---
-// ChatWidget.astro - Floating Personal Assistant UI Prototype for Behitek
+// ChatWidget.astro - Smart Personal AI Assistant Widget for Behitek
 ---
 
-<!-- Floating AI Chatbot Launcher Button -->
-<div id="ai-chat-widget-container" class="fixed bottom-6 right-6 z-50">
+<!-- Floating AI Chatbot Launcher Container -->
+<div id="ai-chat-widget-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+  
+  <!-- Interactive Hover/Greeting Speech Bubble Callout -->
+  <div
+    id="ai-chat-bubble"
+    class="mb-3 bg-ink text-bg px-4 py-2.5 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(236,48,19,1)] text-xs font-sans flex items-center gap-2 max-w-[260px] animate-bounce transition-all duration-300 relative"
+  >
+    <span class="text-accent text-sm">✨</span>
+    <span>Hỏi <strong>Behitek AI</strong> về dịch vụ, dự án & báo giá!</span>
+    <button
+      id="ai-bubble-close"
+      type="button"
+      class="text-neutral-400 hover:text-white font-bold ml-1 text-xs"
+      title="Đóng gợi ý"
+    >
+      ✕
+    </button>
+    <!-- Pointer Arrow -->
+    <div class="absolute -bottom-2 right-6 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-ink"></div>
+  </div>
+
+  <!-- Smart Launcher Button -->
   <button
     id="ai-chat-toggle-btn"
     type="button"
-    class="relative group flex items-center gap-2.5 bg-ink hover:bg-accent text-bg px-3.5 py-2.5 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(32,30,29,1)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-    aria-label="Mở AI Assistant"
+    class="relative group flex items-center gap-2.5 bg-ink hover:bg-accent text-bg px-4 py-3 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(32,30,29,1)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+    aria-label="Mở Smart AI Assistant"
   >
-    <!-- Live status dot -->
+    <!-- Live Glowing Pulse Dot -->
     <span class="relative flex h-2.5 w-2.5">
-      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent group-hover:bg-bg opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent group-hover:bg-bg"></span>
     </span>
 
-    <!-- Sleek Spark/AI Icon -->
-    <svg class="w-4 h-4 fill-current text-accent group-hover:text-bg transition-colors" viewBox="0 0 24 24">
-      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-    </svg>
+    <!-- Animated Sparkle Icon (Changes to Close icon when open) -->
+    <div id="ai-toggle-icon" class="w-4 h-4 flex items-center justify-center transition-transform duration-300">
+      <svg class="w-4 h-4 fill-current text-accent group-hover:text-bg transition-colors" viewBox="0 0 24 24">
+        <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+      </svg>
+    </div>
 
-    <span class="font-heading font-extrabold text-xs tracking-wide">
-      AI Assistant
+    <span class="font-heading font-extrabold text-xs tracking-wider uppercase">
+      Smart AI Assistant
     </span>
   </button>
 </div>
 
-<!-- Chat Window Drawer / Popup Modal -->
+<!-- Smart Chat Drawer / Popup Modal -->
 <div
   id="ai-chat-window"
-  class="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[420px] h-[580px] max-h-[82vh] bg-white border-2 border-ink shadow-[8px_8px_0px_0px_rgba(32,30,29,1)] z-50 flex flex-col hidden transition-all duration-300 font-sans"
+  class="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[430px] h-[600px] max-h-[82vh] bg-white border-2 border-ink shadow-[8px_8px_0px_0px_rgba(32,30,29,1)] z-50 flex flex-col hidden transition-all duration-300 font-sans"
   aria-live="polite"
 >
-  <!-- Window Header -->
+  <!-- Window Smart Header -->
   <div class="flex items-center justify-between px-4 py-3 bg-ink text-bg border-b-2 border-ink">
-    <div class="flex items-center gap-2.5">
-      <div class="w-7 h-7 bg-accent text-bg flex items-center justify-center font-mono font-bold text-xs border border-bg">
-        AI
+    <div class="flex items-center gap-3">
+      <!-- AI Avatar with Glowing Border -->
+      <div class="relative flex items-center justify-center w-8 h-8 bg-accent text-bg font-mono font-bold text-xs border border-bg shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+        ✨
+        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-400 border border-ink rounded-full"></span>
       </div>
+
       <div>
         <div class="flex items-center gap-2">
-          <h3 class="font-heading font-extrabold text-sm text-bg leading-none">behitek_assistant</h3>
+          <h3 class="font-heading font-extrabold text-sm text-bg leading-none">Behitek Smart AI</h3>
           <span class="bg-accent text-bg font-mono text-[9px] px-1 py-0.2 font-bold uppercase tracking-wider">
-            PROTOTYPE
+            RAG Engine
           </span>
         </div>
-        <p class="font-mono text-[10px] text-neutral-300 leading-tight mt-0.5">
-          🟢 Demo UI Mode • Online
+        <p class="font-mono text-[10px] text-neutral-300 leading-tight mt-1 flex items-center gap-1">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400"></span> ⚡ Neural Context Active • Online
         </p>
       </div>
     </div>
 
-    <!-- Header Actions -->
-    <div class="flex items-center gap-2">
+    <!-- Header Control Buttons -->
+    <div class="flex items-center gap-1.5">
       <a
         href="/assistant"
-        title="Mở trang AI Assistant đầy đủ"
-        class="text-neutral-300 hover:text-white font-mono text-xs underline p-1"
+        title="Mở toàn màn hình (Sandbox Mode)"
+        class="text-neutral-300 hover:text-white font-mono text-xs p-1 hover:bg-neutral-800 transition-colors"
       >
-         Fullscreen ↗
+        ↗ Fullscreen
       </a>
+      <button
+        id="ai-clear-btn"
+        type="button"
+        title="Xóa cuộc trò chuyện"
+        class="text-neutral-300 hover:text-accent p-1 text-xs font-mono transition-colors"
+      >
+        🗑️
+      </button>
       <button
         id="ai-chat-close-btn"
         type="button"
-        class="text-neutral-300 hover:text-accent font-bold text-lg px-2 py-0.5 hover:bg-neutral-800 transition-colors"
+        class="text-neutral-300 hover:text-accent font-bold text-base px-2 py-0.5 hover:bg-neutral-800 transition-colors"
         aria-label="Đóng chat"
       >
         ✕
@@ -72,12 +106,13 @@
     </div>
   </div>
 
-  <!-- Prototype Notice Bar -->
-  <div class="bg-accent-100 border-b border-ink px-3 py-2 flex items-start gap-2 text-xs text-ink font-mono">
-    <span class="text-accent font-bold text-sm">ℹ️</span>
-    <div class="flex-1">
-      <strong class="font-bold text-accent">PROTOTYPE UI MODE:</strong> Đây là bản giao diện demo thử nghiệm. Bạn có thể chọn câu hỏi gợi ý hoặc nhập tin nhắn để test kịch bản phản hồi!
+  <!-- Smart AI Info Banner -->
+  <div class="bg-surface border-b border-ink px-3 py-1.5 flex items-center justify-between text-[11px] text-ink font-mono">
+    <div class="flex items-center gap-1.5">
+      <span class="text-accent font-bold">🤖 Smart AI:</span>
+      <span class="text-neutral-700">Tự động trả lời thắc mắc về Behitek</span>
     </div>
+    <span class="bg-accent-100 text-accent px-1.5 py-0.5 text-[9px] font-bold border border-accent">PROTOTYPE</span>
   </div>
 
   <!-- Chat Messages Container -->
@@ -85,129 +120,174 @@
     <!-- Initial welcome message rendered dynamically via JS -->
   </div>
 
-  <!-- Quick Suggestion Chips Container -->
+  <!-- Quick Prompts Chips Container -->
   <div id="ai-chat-suggestions" class="px-3 py-2 bg-surface border-t border-ink/20 flex flex-wrap gap-1.5">
-    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Behitek làm về lĩnh vực gì?">
+    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Behitek là ai và làm việc gì?">
       💡 Behitek là ai?
     </button>
-    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Các dịch vụ AI & phần mềm của bạn?">
-      💼 Dịch vụ cung cấp
+    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Các dịch vụ tư vấn AI & phần mềm của Behitek?">
+      💼 Dịch vụ AI & Software
     </button>
-    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Tôi muốn tư vấn báo giá dự án AI">
-      🚀 Báo giá dự án
+    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Tôi muốn tư vấn & báo giá dự án AI">
+      🚀 Tư vấn báo giá
     </button>
-    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Liên hệ trực tiếp với Hieu Nguyen">
-      📞 Liên hệ
+    <button type="button" class="ai-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Phương thức liên hệ trực tiếp với Hieu Nguyen">
+      📞 Liên hệ trực tiếp
     </button>
   </div>
 
-  <!-- Typing Indicator (Hidden by default) -->
-  <div id="ai-typing-indicator" class="hidden px-4 py-2 bg-bg text-xs font-mono text-neutral-600 flex items-center gap-2 border-t border-dashed border-ink/20">
-    <span class="inline-block w-2 h-2 bg-accent rounded-full animate-bounce"></span>
-    <span class="inline-block w-2 h-2 bg-accent rounded-full animate-bounce [animation-delay:0.2s]"></span>
-    <span class="inline-block w-2 h-2 bg-accent rounded-full animate-bounce [animation-delay:0.4s]"></span>
-    <span class="italic">Behitek AI đang soạn câu trả lời demo...</span>
+  <!-- Thinking & Reasoning Indicator -->
+  <div id="ai-typing-indicator" class="hidden px-4 py-2.5 bg-bg text-xs font-mono text-neutral-700 flex flex-col gap-1 border-t border-dashed border-ink/20">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 bg-accent rounded-full animate-ping"></span>
+      <span class="font-bold text-accent">🧠 Behitek Neural Reasoning...</span>
+    </div>
+    <div class="text-[10px] text-neutral-500 pl-4 border-l-2 border-accent">
+      🔍 Đang truy vấn cơ sở dữ liệu Behitek & tổng hợp câu trả lời...
+    </div>
   </div>
 
-  <!-- Chat Input Form -->
-  <form id="ai-chat-form" class="p-3 bg-white border-t-2 border-ink flex items-center gap-2">
-    <input
-      id="ai-chat-input"
-      type="text"
-      placeholder="Nhập tin nhắn hỏi AI (Prototype)..."
-      class="flex-1 bg-bg border border-ink px-3 py-2 text-sm text-ink focus:outline-none focus:border-accent font-sans placeholder:text-neutral-400 placeholder:text-xs"
-      autocomplete="off"
-    />
-    
-    <button
-      id="ai-clear-btn"
-      type="button"
-      title="Xóa lịch sử chat"
-      class="p-2 border border-ink bg-surface hover:bg-neutral-200 text-ink text-xs font-mono transition-colors"
-    >
-      🗑️
-    </button>
+  <!-- Smart Chat Input Form -->
+  <form id="ai-chat-form" class="p-3 bg-white border-t-2 border-ink flex flex-col gap-2">
+    <div class="flex items-center gap-2">
+      <!-- Simulated Attachment Button -->
+      <button
+        type="button"
+        id="ai-attach-btn"
+        title="Tải tệp context (Demo feature)"
+        class="p-2 border border-ink bg-surface hover:bg-neutral-200 text-ink text-xs transition-colors shrink-0"
+      >
+        📎
+      </button>
 
-    <button
-      type="submit"
-      class="btn-primary py-2 px-4 text-xs flex items-center gap-1 shrink-0"
-    >
-      <span>Gửi</span>
-      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-      </svg>
-    </button>
+      <!-- Main Text Input -->
+      <input
+        id="ai-chat-input"
+        type="text"
+        placeholder="Hỏi AI bất cứ điều gì về Behitek..."
+        class="flex-1 bg-bg border border-ink px-3 py-2 text-sm text-ink focus:outline-none focus:border-accent font-sans placeholder:text-neutral-400 placeholder:text-xs"
+        autocomplete="off"
+      />
+
+      <!-- Simulated Voice Input Button -->
+      <button
+        type="button"
+        id="ai-mic-btn"
+        title="Nhập bằng giọng nói (Demo feature)"
+        class="p-2 border border-ink bg-surface hover:bg-neutral-200 text-ink text-xs transition-colors shrink-0"
+      >
+        🎤
+      </button>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn-primary py-2 px-3.5 text-xs flex items-center gap-1 shrink-0"
+      >
+        <span>Gửi</span>
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 px-1">
+      <span>💡 Tip: Nhấp các gợi ý bên trên để hỏi nhanh</span>
+      <span>Press Enter to send</span>
+    </div>
   </form>
 </div>
 
+<!-- Toast notification for simulated features -->
+<div id="ai-toast" class="fixed top-20 right-6 z-50 hidden bg-ink text-bg px-4 py-2 text-xs font-mono border-2 border-accent shadow-[4px_4px_0px_0px_rgba(236,48,19,1)]">
+  <span id="ai-toast-text">Feature notice</span>
+</div>
+
 <script>
-  // Interactive prototype chat script
+  // Interactive Smart Chat script
   const toggleBtn = document.getElementById('ai-chat-toggle-btn');
+  const toggleIcon = document.getElementById('ai-toggle-icon');
   const closeBtn = document.getElementById('ai-chat-close-btn');
   const chatWindow = document.getElementById('ai-chat-window');
+  const speechBubble = document.getElementById('ai-chat-bubble');
+  const bubbleClose = document.getElementById('ai-bubble-close');
   const messagesContainer = document.getElementById('ai-chat-messages');
   const chatForm = document.getElementById('ai-chat-form');
   const chatInput = document.getElementById('ai-chat-input') as HTMLInputElement | null;
   const typingIndicator = document.getElementById('ai-typing-indicator');
   const clearBtn = document.getElementById('ai-clear-btn');
+  const attachBtn = document.getElementById('ai-attach-btn');
+  const micBtn = document.getElementById('ai-mic-btn');
+  const toast = document.getElementById('ai-toast');
+  const toastText = document.getElementById('ai-toast-text');
   const chips = document.querySelectorAll('.ai-chip');
 
-  // Predefined intelligent prototype responses
-  const PROTOTYPE_KNOWLEDGE_BASE: Record<string, string> = {
-    'behitek là ai': `<strong>Behitek</strong> là thương hiệu cá nhân & studio giải pháp của <strong>Hieu Nguyen</strong> — nơi biến các nghiên cứu AI tiên tiến thành sản phẩm phần mềm thực tế, ổn định và có giá trị thương mại cao.<br/><br/>👉 Bạn có thể xem thêm chi tiết tại trang <a href="/about" class="text-accent underline font-bold">Về Behitek</a> hoặc <a href="/projects" class="text-accent underline font-bold">Các dự án tiêu biểu</a>.`,
+  function showToast(msg: string) {
+    if (!toast || !toastText) return;
+    toastText.innerText = msg;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 2500);
+  }
+
+  attachBtn?.addEventListener('click', () => {
+    showToast('📎 Tính năng đính kèm file tài liệu sẽ có ở bản AI RAG Backend!');
+  });
+
+  micBtn?.addEventListener('click', () => {
+    showToast('🎤 Tính năng nhập bằng giọng nói (Voice AI) đang được phát triển!');
+  });
+
+  bubbleClose?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    speechBubble?.classList.add('hidden');
+  });
+
+  // Predefined Smart Knowledge Base
+  const KNOWLEDGE_BASE: Record<string, string> = {
+    'behitek là ai': `<strong>Behitek</strong> là studio giải pháp AI & Phần mềm được sáng lập bởi <strong>Hieu Nguyen</strong> — chuyên biến các mô hình trí tuệ nhân tạo (LLM, RAG, Computer Vision) thành hệ thống thương mại thực tế.<br/><br/>👉 Xem thêm tại trang <a href="/about" class="text-accent underline font-bold">Về Behitek</a> hoặc các <a href="/projects" class="text-accent underline font-bold">Dự án tiêu biểu</a>.`,
     
-    'dịch vụ': `Behitek cung cấp 3 nhóm dịch vụ chủ lực:<br/>
-    1️⃣ <strong>AI Solution Consulting:</strong> Tư vấn kiến trúc RAG, fine-tuning LLM, tích hợp AI vào quy trình doanh nghiệp.<br/>
-    2️⃣ <strong>Full-stack Web & System Development:</strong> Phát triển ứng dụng Web high-performance với Astro, React, Node.js, Python.<br/>
-    3️⃣ <strong>MLOps & Deployment:</strong> Tối ưu hóa mô hình, triển khai hạ tầng AI trên Cloud/On-premise.<br/><br/>
-    👉 Khám phá chi tiết tại <a href="/services" class="text-accent underline font-bold">Trang Dịch vụ</a>.`,
+    'dịch vụ': `Behitek cung cấp 3 dịch vụ cốt lõi:<br/>
+    🔹 <strong>AI Solution Consulting:</strong> Xây dựng RAG Pipeline, Fine-tune LLM & tích hợp AI Agent vào doanh nghiệp.<br/>
+    🔹 <strong>Full-stack Web & Systems:</strong> Phát triển ứng dụng Web tốc độ cao (Astro, React, Python, Node.js).<br/>
+    🔹 <strong>MLOps & Cloud Deployment:</strong> Triển khai hạ tầng AI trên Docker, Kubernetes, AWS/GCP.<br/><br/>
+    👉 Khám phá chi tiết tại <a href="/services" class="text-accent underline font-bold">Trang Dịch Vụ</a>.`,
 
-    'báo giá': `Chi phí dự án được xây dựng linh hoạt theo phạm vi và yêu cầu cụ thể (Fixed-price hoặc Time & Materials).<br/><br/>
-    📩 Hãy để lại thông tin tại <a href="/contact" class="text-accent underline font-bold">Trang Liên hệ (Get Quote)</a> hoặc gửi email về <strong>hello@behitek.com</strong> để nhận tư vấn & báo giá chi tiết trong vòng 24h!`,
+    'báo giá': `Chi phí dự án được thiết kế tối ưu dựa trên quy mô bài toán:<br/>
+    • <strong>Fixed-price (Trọn gói):</strong> Phù hợp cho PoC / MVP / Dự án rõ Scope.<br/>
+    • <strong>Time & Materials (Theo giờ/tháng):</strong> Phù hợp phát triển giải pháp AI liên tục.<br/><br/>
+    📩 Để nhận tư vấn báo giá chi tiết, hãy gửi thông tin tại <a href="/contact" class="text-accent underline font-bold">Form Báo Giá Trực Tuyến</a>!`,
 
-    'liên hệ': `Bạn có thể kết nối trực tiếp với <strong>Behitek</strong> qua:<br/>
+    'liên hệ': `Kết nối trực tiếp với <strong>Behitek / Hieu Nguyen</strong> qua:<br/>
     • 📧 Email: <a href="mailto:hello@behitek.com" class="text-accent underline font-bold">hello@behitek.com</a><br/>
     • 💼 LinkedIn: <a href="https://www.linkedin.com/in/behitek/" target="_blank" class="text-accent underline">linkedin.com/in/behitek</a><br/>
-    • 💻 GitHub: <a href="https://github.com/behitek" target="_blank" class="text-accent underline">github.com/behitek</a><br/>
-    • 📝 Form liên hệ: <a href="/contact" class="text-accent underline font-bold">Form báo giá trực tuyến</a>`,
-
-    'tech stack': `Công nghệ Behitek thường sử dụng:<br/>
-    • <strong>AI / ML:</strong> Python, PyTorch, Transformers, OpenAI/Claude APIs, LangChain, Qdrant/ChromaDB.<br/>
-    • <strong>Frontend / Web:</strong> Astro, TypeScript, React, Tailwind CSS.<br/>
-    • <strong>Backend & Infra:</strong> FastAPI, Node.js, Docker, PostgreSQL, Redis, GitHub Actions.`
+    • 💻 GitHub: <a href="https://github.com/behitek" target="_blank" class="text-accent underline">github.com/behitek</a>`
   };
 
-  // Welcome message template
   const WELCOME_MSG = {
     sender: 'assistant',
-    text: `Xin chào! 👋 Tôi là **Behitek AI Assistant** *(Bản UI Prototype)*.<br/><br/>
-    Tôi có thể giúp bạn giải đáp nhanh về dịch vụ AI, các dự án thực tế & cách thức hợp tác cùng Behitek.<br/><br/>
-    <span class="inline-block bg-accent-100 text-accent font-mono text-xs px-2 py-1 border border-accent">
-      ⚡ Lưu ý: Backend AI (LLM + RAG) sẽ được kết nối ở phiên bản tiếp theo.
+    text: `Xin chào! 👋 Tôi là **Behitek Smart AI Assistant**.<br/><br/>
+    Tôi có thể hỗ trợ giải đáp tức thì các thông tin về giải pháp AI, dịch vụ lập trình & quy trình hợp tác cùng Behitek.<br/><br/>
+    <span class="inline-block bg-accent-100 text-accent font-mono text-[11px] px-2 py-1 border border-accent">
+      💡 Gợi ý: Chọn các chủ đề bên dưới để khám phá nhanh!
     </span>`,
     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   };
 
-  // Local Storage Chat History
-  const STORAGE_KEY = 'behitek_ai_chat_history_v1';
+  const STORAGE_KEY = 'behitek_smart_ai_chat_v2';
 
-  function loadMessages() {
+  function loadHistory() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error('Error parsing stored chat', e);
-      }
+      try { return JSON.parse(saved); } catch (e) {}
     }
     return [WELCOME_MSG];
   }
 
-  function saveMessages(msgs: any[]) {
+  function saveHistory(msgs: any[]) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs));
   }
 
-  let chatHistory = loadMessages();
+  let chatHistory = loadHistory();
 
   function renderMessages() {
     if (!messagesContainer) return;
@@ -215,24 +295,37 @@
 
     chatHistory.forEach((msg: any) => {
       const isUser = msg.sender === 'user';
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `flex flex-col ${isUser ? 'items-end' : 'items-start'} max-w-[90%] ${isUser ? 'ml-auto' : 'mr-auto'}`;
+      const wrapper = document.createElement('div');
+      wrapper.className = `flex flex-col ${isUser ? 'items-end' : 'items-start'} max-w-[92%] ${isUser ? 'ml-auto' : 'mr-auto'}`;
 
-      const headerDiv = document.createElement('div');
-      headerDiv.className = 'flex items-center gap-1.5 mb-1 font-mono text-[10px] text-neutral-500';
-      headerDiv.innerHTML = isUser
+      const meta = document.createElement('div');
+      meta.className = 'flex items-center gap-1.5 mb-1 font-mono text-[10px] text-neutral-500';
+      meta.innerHTML = isUser
         ? `<span>Bạn</span> • <span>${msg.time || ''}</span>`
-        : `<span class="text-accent font-bold">Behitek AI [Prototype]</span> • <span>${msg.time || ''}</span>`;
+        : `<span class="text-accent font-bold">✨ Behitek AI</span> • <span>${msg.time || ''}</span>`;
 
-      const contentDiv = document.createElement('div');
-      contentDiv.className = isUser
+      const card = document.createElement('div');
+      card.className = isUser
         ? 'bg-ink text-bg p-3 border-2 border-ink text-sm shadow-[2px_2px_0px_0px_rgba(236,48,19,1)]'
-        : 'bg-white text-ink p-3 border-2 border-ink text-sm shadow-[2px_2px_0px_0px_rgba(32,30,29,1)] leading-relaxed';
-      contentDiv.innerHTML = msg.text;
+        : 'bg-white text-ink p-3 border-2 border-ink text-sm shadow-[3px_3px_0px_0px_rgba(32,30,29,1)] leading-relaxed relative group';
+      card.innerHTML = msg.text;
 
-      msgDiv.appendChild(headerDiv);
-      msgDiv.appendChild(contentDiv);
-      messagesContainer.appendChild(msgDiv);
+      // Copy button for assistant responses
+      if (!isUser) {
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity bg-surface hover:bg-neutral-200 border border-ink text-[10px] font-mono px-1.5 py-0.5 text-ink';
+        copyBtn.innerText = '📋 Copy';
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(card.innerText);
+          copyBtn.innerText = '✓ Copied';
+          setTimeout(() => copyBtn.innerText = '📋 Copy', 1500);
+        };
+        card.appendChild(copyBtn);
+      }
+
+      wrapper.appendChild(meta);
+      wrapper.appendChild(card);
+      messagesContainer.appendChild(wrapper);
     });
 
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -242,57 +335,56 @@
   toggleBtn?.addEventListener('click', () => {
     if (!chatWindow) return;
     const isHidden = chatWindow.classList.contains('hidden');
+    speechBubble?.classList.add('hidden');
+
     if (isHidden) {
       chatWindow.classList.remove('hidden');
+      if (toggleIcon) toggleIcon.innerHTML = `<span class="font-bold text-sm">✕</span>`;
       renderMessages();
       chatInput?.focus();
     } else {
       chatWindow.classList.add('hidden');
+      if (toggleIcon) {
+        toggleIcon.innerHTML = `<svg class="w-4 h-4 fill-current text-accent group-hover:text-bg transition-colors" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>`;
+      }
     }
   });
 
   closeBtn?.addEventListener('click', () => {
     chatWindow?.classList.add('hidden');
+    if (toggleIcon) {
+      toggleIcon.innerHTML = `<svg class="w-4 h-4 fill-current text-accent group-hover:text-bg transition-colors" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>`;
+    }
   });
 
-  // Handle User Message Submission
-  function handleSendMessage(userText: string) {
+  function handleSend(userText: string) {
     if (!userText.trim()) return;
 
-    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
-    // Add user message
-    chatHistory.push({
-      sender: 'user',
-      text: userText,
-      time: currentTime
-    });
-    saveMessages(chatHistory);
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    chatHistory.push({ sender: 'user', text: userText, time });
+    saveHistory(chatHistory);
     renderMessages();
 
     if (chatInput) chatInput.value = '';
 
-    // Show typing indicator
+    // Show reasoning indicator
     typingIndicator?.classList.remove('hidden');
     if (messagesContainer) messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // Simulate AI response delay
     setTimeout(() => {
       typingIndicator?.classList.add('hidden');
 
       let reply = '';
       const lower = userText.toLowerCase();
-
-      // Find matching response in prototype knowledge base
-      let matchedKey = Object.keys(PROTOTYPE_KNOWLEDGE_BASE).find(key => lower.includes(key));
+      let matchedKey = Object.keys(KNOWLEDGE_BASE).find(k => lower.includes(k));
 
       if (matchedKey) {
-        reply = PROTOTYPE_KNOWLEDGE_BASE[matchedKey];
+        reply = KNOWLEDGE_BASE[matchedKey];
       } else {
-        reply = `Cảm ơn bạn đã hỏi câu: <em>"${userText}"</em>.<br/><br/>
-        🤖 <strong>Phản hồi Demo:</strong> Hiện tại hệ thống đang ở chế độ <strong>UI Prototype</strong>. 
-        Ở bản nâng cấp tới, backend AI (RAG + GPT-4o / Claude 3.5 Sonnet) sẽ được đấu nối trực tiếp để trả lời chính xác dựa trên cơ sở dữ liệu của Behitek.<br/><br/>
-        📌 Bạn có thể bấm các nút gợi ý bên dưới hoặc tới trang <a href="/contact" class="text-accent underline font-bold">Liên hệ</a> để nhắn tin trực tiếp với Behitek!`;
+        reply = `Cảm ơn bạn đã quan tâm đến câu hỏi: <em>"${userText}"</em>.<br/><br/>
+        🤖 <strong>Smart AI Note:</strong> Tôi hiện đang vận hành ở chế độ UI Sandbox.<br/>
+        Ở phiên bản tiếp theo, toàn bộ dữ liệu dự án & dịch vụ Behitek sẽ được truy vấn trực tiếp qua kiến trúc RAG + LLM Engine để trả lời thông minh mọi câu hỏi chuyên sâu của bạn!<br/><br/>
+        📌 Bạn có thể nhắn tin trực tiếp với Behitek qua <a href="/contact" class="text-accent underline font-bold">Form Liên Hệ</a>.`;
       }
 
       chatHistory.push({
@@ -301,33 +393,30 @@
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       });
 
-      saveMessages(chatHistory);
+      saveHistory(chatHistory);
       renderMessages();
-    }, 800);
+    }, 700);
   }
 
   chatForm?.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (chatInput) handleSendMessage(chatInput.value);
+    if (chatInput) handleSend(chatInput.value);
   });
 
-  // Handle quick suggestion chips
-  chips.forEach((chip) => {
+  chips.forEach(chip => {
     chip.addEventListener('click', () => {
       const prompt = chip.getAttribute('data-prompt');
-      if (prompt) handleSendMessage(prompt);
+      if (prompt) handleSend(prompt);
     });
   });
 
-  // Handle Clear Chat
   clearBtn?.addEventListener('click', () => {
-    if (confirm('Bạn có muốn xóa lịch sử cuộc hội thoại demo này không?')) {
+    if (confirm('Bạn có muốn làm mới cuộc trò chuyện này không?')) {
       chatHistory = [WELCOME_MSG];
-      saveMessages(chatHistory);
+      saveHistory(chatHistory);
       renderMessages();
     }
   });
 
-  // Initial render on script load if drawer is open
   renderMessages();
 </script>
