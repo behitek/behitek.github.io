@@ -11,7 +11,7 @@ const terminalLines = [
 ---
 
 <div class="rgrid grid grid-cols-[3fr_1fr] bg-bg">
-  <div class="rpad border-r-2 border-ink px-12 pb-14 pt-[72px]">
+  <div class="rpad flex flex-col justify-center border-r-2 border-ink px-12 py-12">
     <div class="kicker mb-[18px]">hieu@behitek:~ $ whoami</div>
     <h1
       class="mb-2 font-heading text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink md:text-[62px]"
@@ -36,11 +36,11 @@ const terminalLines = [
       <a href="#projects" class="btn-secondary">Xem dự án</a>
     </div>
   </div>
-  <div class="flex flex-col gap-6 p-10">
+  <div class="flex flex-col justify-center gap-5 p-8">
     <img
       src="/images/me.png"
       alt="Hiếu Nguyễn"
-      class="grayscale-photo block aspect-square w-full border-2 border-ink object-cover"
+      class="grayscale-photo mx-auto block aspect-square w-[200px] border-2 border-ink object-cover"
     />
     <TerminalWindow lines={terminalLines} />
   </div>
