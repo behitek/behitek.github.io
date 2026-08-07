@@ -3,34 +3,16 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import StatBar from '@components/StatBar.astro';
-import CareerStrip from '@components/CareerStrip.astro';
-import AwardsBand from '@components/AwardsBand.astro';
 import ServiceCard from '@components/ServiceCard.astro';
-import SkillsGrid from '@components/SkillsGrid.astro';
-import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
 import ProjectMiniCard from '@components/ProjectMiniCard.astro';
-import OrgRoster from '@components/OrgRoster.astro';
 import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
-import CaseStudyCard from '@components/CaseStudyCard.astro';
-import PipelineDiagram from '@components/PipelineDiagram.astro';
 import { SITE } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
-import {
-  ORGANIZATIONS,
-  DEPLOYMENTS,
-  TOTAL_ORG_MEMBERS,
-  TOTAL_PLATFORM_USERS,
-} from '@/data/organizations';
-import { NEXUS_AI, NEXUS_PIPELINE, LINGUIST_AI, KIKI_ASR } from '@/data/ai-work';
 
-const allProjects = await getCollection('projects');
-const flagshipProject = allProjects.find((p) => p.data.flagship);
-
-const OTHER_PROJECT_ORDER = ['behivest', 'beli5'];
-const otherProjects = OTHER_PROJECT_ORDER.map((id) =>
-  allProjects.find((p) => p.data.id === id)
-).filter((p): p is NonNullable<typeof p> => Boolean(p));
+const sortedProjects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
 const recentPosts = allPosts
@@ -42,13 +24,7 @@ const SERVICES = [
     href: '/services/ai',
     path: '/services/ai',
     title: 'Dự án AI',
-    description:
-      'RAG, LLM, NLP — từ PoC đến production. Tư vấn kiến trúc, xây dựng và tối ưu hệ thống AI.',
-    bullets: [
-      'Chatbot / trợ lý nghiệp vụ',
-      'Tìm kiếm ngữ nghĩa, RAG',
-      'Fine-tune, đánh giá mô hình',
-    ],
+    description: 'RAG, LLM, NLP — từ PoC đến production, tư vấn kiến trúc và tối ưu hệ thống AI.',
     flagship: true,
   },
   {
@@ -57,15 +33,12 @@ const SERVICES = [
     title: 'Phần mềm full-stack',
     description:
       'Web app, API, hạ tầng — thiết kế và phát triển trọn gói từ ý tưởng đến triển khai.',
-    bullets: ['FastAPI · Django · React', 'Docker, CI/CD, self-host', 'Tối ưu chi phí hạ tầng'],
   },
   {
     href: '/services',
     path: '/services/online-judge',
     title: 'Online Judge (DMOJ)',
-    description:
-      'Từ tổ chức miễn phí trên luyencode.net đến triển khai riêng trên VPS — 2 cách bắt đầu cho trường học và trung tâm dạy lập trình.',
-    bullets: ['Cài đặt, tùy biến giao diện', 'Ngân hàng đề, contest', 'Backup, giám sát, hỗ trợ'],
+    description: 'Triển khai & vận hành online judge cho trường học và trung tâm dạy lập trình.',
     borderRight: false,
   },
 ];
@@ -74,80 +47,46 @@ const SERVICES = [
 <BaseLayout title="Trang chủ" description={SITE.description}>
   <Hero />
   <StatBar />
-  <CareerStrip />
-  <AwardsBand />
 
-  <section class="px-12 pb-14 pt-12">
-    <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">01 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Chuyên môn</h2>
+  <section id="projects" class="px-12 pb-14 pt-12">
+    <div class="mb-7 flex items-baseline justify-between">
+      <div class="flex items-baseline gap-4">
+        <span class="kicker">01 /</span>
+        <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án</h2>
+      </div>
+      <a
+        href="/projects"
+        class="font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
+      >
+        ls ./projects →
+      </a>
     </div>
-    <SkillsGrid />
+    <div class="rgrid grid grid-cols-3 border-2 border-ink">
+      {
+        sortedProjects.map((project, i) => {
+          const isLastInRow = (i + 1) % 3 === 0 || i === sortedProjects.length - 1;
+          const isLastRow = i >= sortedProjects.length - (sortedProjects.length % 3 || 3);
+          return (
+            <ProjectMiniCard
+              title={project.data.title}
+              description={project.data.description}
+              tech={project.data.tech}
+              status={project.data.status}
+              href={project.data.links?.website}
+              flagship={project.data.flagship}
+              borderRight={!isLastInRow}
+              borderBottom={!isLastRow}
+              mobileDivider={isLastRow && !isLastInRow}
+            />
+          );
+        })
+      }
+    </div>
   </section>
-
-  <section id="case-study-ai" class="px-12 pb-14">
-    <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">02 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study AI</h2>
-    </div>
-    <CaseStudySpotlight
-      kicker={NEXUS_AI.kicker}
-      title={NEXUS_AI.title}
-      description={NEXUS_AI.description}
-      stats={NEXUS_AI.stats}
-    >
-      <PipelineDiagram slot="media" stages={NEXUS_PIPELINE} caption="KIẾN TRÚC" />
-    </CaseStudySpotlight>
-    <div class="rgrid mt-7 grid grid-cols-2 border-2 border-ink">
-      <CaseStudyCard {...LINGUIST_AI} borderRight mobileDivider />
-      <CaseStudyCard {...KIKI_ASR} />
-    </div>
-  </section>
-
-  {
-    flagshipProject && (
-      <section class="px-12 pb-14">
-        <div class="mb-7 flex items-baseline gap-4">
-          <span class="kicker">03 /</span>
-          <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">
-            Hệ thống đang vận hành
-          </h2>
-        </div>
-        <CaseStudySpotlight
-          kicker="luyencode.net — LCOJ"
-          title="Online judge tôi tự xây và vận hành liên tục từ 2020"
-          description="Hệ thống chấm bài tự động cho học sinh Việt Nam: tôi viết, triển khai, và trực tiếp vận hành nó suốt 5 năm qua — không có team hạ tầng đứng sau, không có ngân sách marketing. Số tổ chức dùng nó tăng lên hoàn toàn bằng truyền miệng. Đây là phần bằng chứng cho việc tôi không chỉ xây được hệ thống mà còn giữ cho nó chạy."
-          image="/images/project/lcoj-home.png"
-          stats={[
-            { value: TOTAL_PLATFORM_USERS, label: 'người dùng' },
-            { value: `${ORGANIZATIONS.length}+`, label: 'trường & tổ chức' },
-            { value: '2020', label: 'vận hành liên tục' },
-          ]}
-          links={DEPLOYMENTS.map((d) => ({ label: d.name, href: d.url }))}
-        >
-          <div class="border-t-2 border-ink p-8">
-            <div class="rwrap mb-4 flex items-baseline justify-between gap-4">
-              <div class="font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
-                {ORGANIZATIONS.length} TRƯỜNG & TỔ CHỨC ĐANG SỬ DỤNG —{' '}
-                {TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')} THÀNH VIÊN
-              </div>
-              <a
-                href="/services"
-                class="flex-none font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
-              >
-                Dịch vụ triển khai →
-              </a>
-            </div>
-            <OrgRoster />
-          </div>
-        </CaseStudySpotlight>
-      </section>
-    )
-  }
 
   <section class="px-12 pb-14">
     <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">04 /</span>
+      <span class="kicker">02 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
     </div>
     <div class="rgrid grid grid-cols-3 border-2 border-ink">
@@ -156,44 +95,11 @@ const SERVICES = [
   </section>
 
   {
-    otherProjects.length > 0 && (
-      <section class="px-12 pb-14">
-        <div class="mb-7 flex items-baseline justify-between">
-          <div class="flex items-baseline gap-4">
-            <span class="kicker">05 /</span>
-            <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án khác</h2>
-          </div>
-          <a
-            href="/projects"
-            class="font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
-          >
-            ls ./projects →
-          </a>
-        </div>
-        <div class="rgrid grid grid-cols-2 border-2 border-ink">
-          {otherProjects.map((project, i) => (
-            <ProjectMiniCard
-              title={project.data.title}
-              description={project.data.description}
-              tech={project.data.tech}
-              status={project.data.status}
-              href={project.data.links?.website}
-              borderRight={i % 2 === 0}
-              borderBottom={false}
-              mobileDivider={i === 0}
-            />
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  {
     recentPosts.length > 0 && (
       <section class="px-12 pb-14">
         <div class="mb-5 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
-            <span class="kicker">06 /</span>
+            <span class="kicker">03 /</span>
             <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Viết & nghiên cứu</h2>
           </div>
           <a

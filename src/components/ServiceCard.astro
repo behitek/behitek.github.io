@@ -4,26 +4,46 @@ interface Props {
   path: string;
   title: string;
   description: string;
-  bullets: string[];
+  bullets?: string[];
   flagship?: boolean;
   borderRight?: boolean;
 }
 
-const { href, path, title, description, bullets, flagship = false, borderRight = true } = Astro.props;
+const {
+  href,
+  path,
+  title,
+  description,
+  bullets = [],
+  flagship = false,
+  borderRight = true,
+} = Astro.props;
 ---
 
 <a
   href={href}
   class={`block p-7 bg-white no-underline hover:bg-neutral-100 ${borderRight ? 'border-r-2 border-ink' : ''} ${flagship ? 'border-t-4 border-t-accent' : ''}`}
 >
-  <div class="flex justify-between items-center mb-3">
+  <div class="mb-3 flex items-center justify-between">
     <span class="font-mono text-xs text-neutral-600">{path}</span>
-    {flagship && <span class="font-mono text-[10px] font-semibold bg-accent text-bg px-[7px] py-[3px]">CHỦ LỰC</span>}
+    {
+      flagship && (
+        <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
+          CHỦ LỰC
+        </span>
+      )
+    }
   </div>
-  <h3 class="font-heading font-bold text-[21px] leading-tight text-ink mb-2.5">{title}</h3>
-  <p class="text-sm leading-relaxed text-neutral-700 mb-4">{description}</p>
-  <ul class="font-mono text-[13px] leading-[1.9] text-ink mb-4 pl-0 list-none">
-    {bullets.map((b) => <li>› {b}</li>)}
-  </ul>
-  <div class="font-heading font-bold text-[13px] text-accent">Xem chi tiết →</div>
+  <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink">{title}</h3>
+  <p class="mb-4 text-sm leading-relaxed text-neutral-700">{description}</p>
+  {
+    bullets.length > 0 && (
+      <ul class="mb-4 list-none pl-0 font-mono text-[13px] leading-[1.9] text-ink">
+        {bullets.map((b) => (
+          <li>› {b}</li>
+        ))}
+      </ul>
+    )
+  }
+  <div class="font-heading text-[13px] font-bold text-accent">Xem chi tiết →</div>
 </a>
