@@ -7,27 +7,22 @@
   <button
     id="ai-chat-toggle-btn"
     type="button"
-    class="relative group flex items-center gap-3 bg-ink hover:bg-accent text-bg px-4 py-3.5 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(32,30,29,1)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-    aria-label="Mở AI Personal Assistant Prototype"
+    class="relative group flex items-center gap-2.5 bg-ink hover:bg-accent text-bg px-3.5 py-2.5 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(32,30,29,1)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+    aria-label="Mở AI Assistant"
   >
-    <!-- Live pulse indicator dot -->
-    <span class="relative flex h-3 w-3">
-      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 group-hover:bg-bg"></span>
-      <span class="relative inline-flex rounded-full h-3 w-3 bg-accent group-hover:bg-bg"></span>
+    <!-- Live status dot -->
+    <span class="relative flex h-2.5 w-2.5">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
     </span>
 
-    <!-- Robot / Spark Icon -->
-    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-      <path d="M12 2a2 2 0 012 2v1.071c3.283.477 5.816 3.1 6 6.429h.5a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5H20v1a3 3 0 01-3 3H7a3 3 0 01-3-3v-1h-.5A1.5 1.5 0 012 16v-3a1.5 1.5 0 011.5-1.5H4c.184-3.329 2.717-5.952 6-6.429V4a2 2 0 012-2zm-4 9.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm8 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM8 18.5h8v-1.5H8v1.5z"/>
+    <!-- Sleek Spark/AI Icon -->
+    <svg class="w-4 h-4 fill-current text-accent group-hover:text-bg transition-colors" viewBox="0 0 24 24">
+      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
     </svg>
 
-    <span class="font-heading font-extrabold text-sm tracking-wide">
+    <span class="font-heading font-extrabold text-xs tracking-wide">
       AI Assistant
-    </span>
-
-    <!-- Prototype Pill Badge -->
-    <span class="bg-accent group-hover:bg-ink text-bg group-hover:text-accent font-mono text-[10px] font-bold px-1.5 py-0.5 border border-ink uppercase">
-      Prototype
     </span>
   </button>
 </div>
