@@ -29,17 +29,22 @@ const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
   variant === 'compact' ? (
     <a
       href={`/blog/${slug}`}
-      class="-mx-2 grid grid-cols-[1fr_auto] items-baseline gap-2 border-b border-border-light px-2 py-[18px] no-underline hover:bg-neutral-200 sm:grid-cols-[100px_130px_1fr_auto] sm:gap-5 md:grid-cols-[120px_130px_1fr_auto]"
+      class="-mx-2 grid grid-cols-[1fr_auto] items-center gap-2 border-b border-border-light px-2 py-4 no-underline transition-colors hover:bg-neutral-200 sm:grid-cols-[100px_130px_1fr_100px_auto] sm:gap-4 md:grid-cols-[110px_140px_1fr_100px_auto]"
     >
       <span class="font-mono text-xs text-neutral-600">{formatDate(date)}</span>
       <span class="font-mono text-[10.5px] font-semibold text-neutral-600">{tagline}</span>
-      <span class="font-heading text-lg font-bold text-ink">{title}</span>
-      <span class="text-ink">→</span>
+      <span class="font-heading text-base font-bold text-ink sm:text-lg">{title}</span>
+      {readingTime && (
+        <span class="hidden font-mono text-[11px] text-neutral-500 sm:inline-block">
+          {readingTime} phút đọc
+        </span>
+      )}
+      <span class="font-mono text-xs text-accent">→</span>
     </a>
   ) : (
     <a
       href={`/blog/${slug}`}
-      class="-mx-2 grid grid-cols-[1fr] gap-2 border-b border-border-light px-2 py-6 no-underline hover:bg-neutral-200 sm:grid-cols-[130px_1fr_100px] sm:gap-6 md:grid-cols-[130px_1fr_140px]"
+      class="-mx-2 grid grid-cols-[1fr] gap-2 border-b border-border-light px-2 py-6 no-underline transition-colors hover:bg-neutral-200 sm:grid-cols-[130px_1fr_100px] sm:gap-6 md:grid-cols-[130px_1fr_140px]"
     >
       <div class="font-mono text-xs leading-[1.8] text-neutral-600">
         {formatDate(date)}
@@ -54,3 +59,4 @@ const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
     </a>
   )
 }
+

@@ -3,18 +3,27 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import StatBar from '@components/StatBar.astro';
+import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
+import PipelineDiagram from '@components/PipelineDiagram.astro';
 import ServiceCard from '@components/ServiceCard.astro';
 import ProjectMiniCard from '@components/ProjectMiniCard.astro';
 import BlogCard from '@components/BlogCard.astro';
 import CTABand from '@components/CTABand.astro';
 import { SITE } from '@utils/constants';
 import { readingTime } from '@utils/helpers';
+import { NEXUS_AI, NEXUS_PIPELINE } from '@/data/ai-work';
 
 const allProjects = await getCollection('projects');
 const FEATURED_PROJECT_ORDER = ['lcoj', 'nexusai', 'linguistai'];
 const featuredProjects = FEATURED_PROJECT_ORDER.map((id) =>
   allProjects.find((p) => p.data.id === id)
 ).filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const PROJECT_METRICS: Record<string, string> = {
+  lcoj: '20.000+ USERS',
+  nexusai: 'GIẢI NHẤT ALQAC',
+  linguistai: 'CHẤM 4 KỸ NĂNG',
+};
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
 const recentPosts = allPosts
@@ -27,6 +36,7 @@ const SERVICES = [
     path: '/services/ai',
     title: 'Dự án AI',
     description: 'RAG, LLM, NLP — từ PoC đến production, tư vấn kiến trúc và tối ưu hệ thống AI.',
+    bullets: ['RAG & Hybrid Search', 'LLM Fine-tuning & Re-rank', 'Model Evaluation & Benchmarking'],
     flagship: true,
   },
   {
@@ -35,12 +45,14 @@ const SERVICES = [
     title: 'Phần mềm full-stack',
     description:
       'Web app, API, hạ tầng — thiết kế và phát triển trọn gói từ ý tưởng đến triển khai.',
+    bullets: ['Backend API & Microservices', 'DevOps, Docker & K8s', 'Tối ưu hóa hiệu năng & Scale'],
   },
   {
     href: '/services',
     path: '/services/online-judge',
     title: 'Online Judge (DMOJ)',
     description: 'Triển khai & vận hành online judge cho trường học và trung tâm dạy lập trình.',
+    bullets: ['Cài đặt & Tùy biến DMOJ', 'Vận hành Sandboxed Judge', 'Hệ thống Bài tập & Chấm tự động'],
     borderRight: false,
   },
 ];
@@ -50,10 +62,41 @@ const SERVICES = [
   <Hero />
   <StatBar />
 
-  <section id="projects" class="px-12 pb-14 pt-12">
-    <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">01 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dự án</h2>
+  <section id="case-study" class="px-6 py-10 lg:px-12 lg:py-14">
+    <div class="mb-6 flex items-baseline gap-4">
+      <span class="kicker">01 / SPOTLIGHT</span>
+      <h2 class="m-0 font-heading text-[30px] font-extrabold text-ink sm:text-[34px]">
+        Dự án AI Tiêu biểu
+      </h2>
+    </div>
+    <CaseStudySpotlight
+      kicker={NEXUS_AI.kicker}
+      title={NEXUS_AI.title}
+      description={NEXUS_AI.description}
+      stats={NEXUS_AI.stats}
+      links={[
+        { label: 'Xem chi tiết dự án NexusAI', href: '/projects' },
+        { label: 'Tư vấn giải pháp RAG tương tự', href: '/services/ai' },
+      ]}
+    >
+      <PipelineDiagram slot="media" stages={NEXUS_PIPELINE} caption="KIẾN TRÚC RAG HYBRID SEARCH" />
+    </CaseStudySpotlight>
+  </section>
+
+  <section id="projects" class="px-6 pb-12 pt-4 lg:px-12 lg:pb-14">
+    <div class="mb-7 flex items-baseline justify-between">
+      <div class="flex items-baseline gap-4">
+        <span class="kicker">02 / DỰ ÁN</span>
+        <h2 class="m-0 font-heading text-[30px] font-extrabold text-ink sm:text-[34px]">
+          Sản phẩm tiêu biểu
+        </h2>
+      </div>
+      <a
+        href="/projects"
+        class="hidden font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent sm:inline-block"
+      >
+        ls ./projects →
+      </a>
     </div>
     <div class="rgrid grid grid-cols-3 border-2 border-ink">
       {
@@ -63,7 +106,8 @@ const SERVICES = [
             description={project.data.description}
             tech={project.data.tech}
             status={project.data.status}
-            href={project.data.links?.website}
+            metric={PROJECT_METRICS[project.data.id]}
+            href={project.data.links?.website || '/projects'}
             flagship={project.data.flagship}
             borderRight={i < featuredProjects.length - 1}
             mobileDivider={i < featuredProjects.length - 1}
@@ -73,16 +117,16 @@ const SERVICES = [
     </div>
     <a
       href="/projects"
-      class="mt-5 inline-block font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent"
+      class="mt-5 inline-block font-mono text-[13px] font-semibold text-ink no-underline hover:text-accent sm:hidden"
     >
       Xem tất cả dự án — ls ./projects →
     </a>
   </section>
 
-  <section class="px-12 pb-14">
+  <section class="px-6 pb-12 lg:px-12 lg:pb-14">
     <div class="mb-7 flex items-baseline gap-4">
-      <span class="kicker">02 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Dịch vụ</h2>
+      <span class="kicker">03 / DỊCH VỤ</span>
+      <h2 class="m-0 font-heading text-[30px] font-extrabold text-ink sm:text-[34px]">Dịch vụ chuyên môn</h2>
     </div>
     <div class="rgrid grid grid-cols-3 border-2 border-ink">
       {SERVICES.map((service) => <ServiceCard {...service} />)}
@@ -91,11 +135,11 @@ const SERVICES = [
 
   {
     recentPosts.length > 0 && (
-      <section class="px-12 pb-14">
+      <section class="px-6 pb-12 lg:px-12 lg:pb-14">
         <div class="mb-5 flex items-baseline justify-between">
           <div class="flex items-baseline gap-4">
-            <span class="kicker">03 /</span>
-            <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Blog</h2>
+            <span class="kicker">04 / BLOG</span>
+            <h2 class="m-0 font-heading text-[30px] font-extrabold text-ink sm:text-[34px]">Bài viết & Chia sẻ</h2>
           </div>
           <a
             href="/blog"
@@ -130,3 +174,4 @@ const SERVICES = [
     showEmail
   />
 </BaseLayout>
+

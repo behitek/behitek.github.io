@@ -11,22 +11,31 @@ interface Props {
 const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, size = 'md' } = Astro.props;
 ---
 
-<div class={`rwrap rpad ${size === 'lg' ? 'px-12 py-16' : 'p-12'} bg-accent flex ${size === 'lg' ? 'flex-col' : 'justify-between items-center'} gap-6`}>
-  {kicker && <div class="font-mono text-[13px] font-semibold text-bg opacity-85 mb-3.5">{kicker}</div>}
+<div class={`rwrap rpad ${size === 'lg' ? 'px-8 py-12 lg:px-12 lg:py-16' : 'p-8 lg:p-12'} bg-accent flex ${size === 'lg' ? 'flex-col' : 'justify-between items-center'} gap-6`}>
+  {
+    kicker && (
+      <div class="flex items-center gap-3">
+        <div class="font-mono text-[13px] font-semibold text-bg opacity-90">{kicker}</div>
+        <span class="border border-white/40 bg-white/10 px-2 py-0.5 font-mono text-[10px] font-bold text-bg">
+          ⚡ Phản hồi trong 24h
+        </span>
+      </div>
+    )
+  }
   <h2
-    class={`font-heading font-extrabold text-bg m-0 ${size === 'lg' ? 'text-[46px] leading-[1.05] max-w-[720px] mb-6' : 'text-[32px]'}`}
+    class={`font-heading font-extrabold text-bg m-0 ${size === 'lg' ? 'text-[32px] sm:text-[40px] lg:text-[46px] leading-[1.05] max-w-[760px] mb-2' : 'text-[26px] sm:text-[32px]'}`}
   >
     {title}
   </h2>
-  <div class="rwrap flex gap-3.5 flex-none">
-    <a href={buttonHref} class="font-heading font-extrabold text-[15px] bg-white text-accent px-6 py-3.5 no-underline hover:bg-ink hover:text-bg">
+  <div class="rwrap flex flex-wrap gap-3.5 flex-none items-center">
+    <a href={buttonHref} class="font-heading font-extrabold text-[15px] bg-white text-accent px-6 py-3.5 no-underline hover:bg-ink hover:text-bg transition-colors">
       {buttonLabel}
     </a>
     {
       showEmail && (
         <a
           href="mailto:hello@behitek.com"
-          class="font-heading font-extrabold text-[15px] border-2 border-white text-bg px-6 py-3 no-underline"
+          class="font-heading font-extrabold text-[15px] border-2 border-white text-bg px-6 py-3 no-underline hover:bg-white hover:text-accent transition-colors"
         >
           hello@behitek.com
         </a>
@@ -34,3 +43,4 @@ const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, 
     }
   </div>
 </div>
+

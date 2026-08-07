@@ -1,44 +1,117 @@
 ---
 interface Props {
   lines: string[];
+  interactive?: boolean;
 }
 
-const { lines } = Astro.props;
+const { lines, interactive = true } = Astro.props;
 const fullText = lines.join('\n') + '\n$ ';
+
+const PRESETS = [
+  {
+    cmd: 'cat stack.txt',
+    label: 'stack',
+    output: [
+      '$ cat stack.txt',
+      '> LLM & RAG   : GPT-4, Claude, Hybrid Search, Re-ranking, Evaluation',
+      '> Speech      : Whisper, Kaldi ASR, Text Normalization, Accent Dictionary',
+      '> Backend/Ops : Python, FastAPI, PyTorch, Docker, Kubernetes, Linux',
+    ].join('\n'),
+  },
+  {
+    cmd: 'cat highlights.txt',
+    label: 'highlights',
+    output: [
+      '$ cat highlights.txt',
+      '🏆 1st Rank ALQAC 2022 — Automated Legal Question Answering',
+      '🌟 Top 30 Employee of the Year — VMO Holdings (2023)',
+      '⚡ Champion AI4VN Hackathon 2019 & 2nd Prize VLSP ASR 2019',
+      '🎓 Master of Information Science — JAIST Japan',
+    ].join('\n'),
+  },
+  {
+    cmd: 'ls projects/',
+    label: 'projects',
+    output: [
+      '$ ls -la projects/',
+      'drwxr-xr-x  LCOJ       20.000+ users · DMOJ Online Judge',
+      'drwxr-xr-x  NexusAI    Multi-modal Enterprise RAG',
+      'drwxr-xr-x  LinguistAI Automated 4-Skill English Evaluation',
+    ].join('\n'),
+  },
+];
 ---
 
 <div class="border-2 border-ink bg-ink">
-  <div class="flex gap-1.5 px-3 py-2.5 border-b border-neutral-700">
-    <span class="w-[9px] h-[9px] rounded-full bg-neutral-600"></span>
-    <span class="w-[9px] h-[9px] rounded-full bg-neutral-600"></span>
-    <span class="w-[9px] h-[9px] rounded-full bg-accent"></span>
+  <div class="flex items-center justify-between border-b border-neutral-700 px-3 py-2">
+    <div class="flex gap-1.5">
+      <span class="h-[9px] w-[9px] rounded-full bg-neutral-600"></span>
+      <span class="h-[9px] w-[9px] rounded-full bg-neutral-600"></span>
+      <span class="h-[9px] w-[9px] rounded-full bg-accent"></span>
+    </div>
+    {
+      interactive && (
+        <div class="flex gap-1.5 font-mono text-[10px]">
+          {PRESETS.map((p) => (
+            <button
+              type="button"
+              class="term-cmd-btn border border-neutral-700 bg-neutral-900 px-2 py-0.5 text-neutral-400 hover:border-accent hover:text-accent cursor-pointer transition-colors"
+              data-cmd-output={p.output}
+            >
+              ${p.label}
+            </button>
+          ))}
+        </div>
+      )
+    }
   </div>
   <pre
     id="terminal-text"
-    class="font-mono text-[13px] leading-[1.9] text-bg m-0 px-[18px] py-4 whitespace-pre-wrap"
-    data-full-text={fullText}><span id="terminal-cursor" class="inline-block w-2 h-[15px] bg-accent align-[-2px] animate-blink"></span></pre>
+    class="m-0 whitespace-pre-wrap px-[18px] py-4 font-mono text-[13px] leading-[1.9] text-bg"
+    data-full-text={fullText}><span id="terminal-cursor" class="inline-block h-[15px] w-2 align-[-2px] bg-accent animate-blink"></span></pre>
 </div>
 
 <script>
   const el = document.getElementById('terminal-text');
   const cursor = document.getElementById('terminal-cursor');
+  const cmdBtns = document.querySelectorAll('.term-cmd-btn');
+
   if (el && cursor) {
     const fullText = el.getAttribute('data-full-text') || '';
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let typeTimer: ReturnType<typeof setTimeout> | undefined;
 
-    if (reduceMotion) {
-      el.textContent = fullText;
-      el.appendChild(cursor);
-    } else {
-      let i = 0;
-      const step = () => {
-        if (i >= fullText.length) return;
-        i += 2;
-        el.textContent = fullText.slice(0, i);
+    const typeText = (text: string) => {
+      if (typeTimer) clearTimeout(typeTimer);
+      if (reduceMotion) {
+        el.textContent = text + '\n$ ';
         el.appendChild(cursor);
-        setTimeout(step, 24);
-      };
-      step();
-    }
+      } else {
+        let i = 0;
+        const target = text + '\n$ ';
+        const step = () => {
+          if (i >= target.length) return;
+          i += 2;
+          el.textContent = target.slice(0, i);
+          el.appendChild(cursor);
+          typeTimer = setTimeout(step, 18);
+        };
+        step();
+      }
+    };
+
+    typeText(fullText.trimEnd());
+
+    cmdBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const output = btn.getAttribute('data-cmd-output');
+        if (output) {
+          cmdBtns.forEach((b) => b.classList.remove('border-accent', 'text-accent'));
+          btn.classList.add('border-accent', 'text-accent');
+          typeText(output);
+        }
+      });
+    });
   }
 </script>
+

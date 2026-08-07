@@ -3,20 +3,50 @@ import { TOTAL_PLATFORM_USERS } from '@/data/organizations';
 import { COMPANIES_SHIPPED_AT } from '@/data/ai-work';
 
 const STATS = [
-  { value: '8 năm', label: 'đưa AI vào production' },
+  { value: '8 năm', label: 'kinh nghiệm đưa AI vào production' },
   { value: COMPANIES_SHIPPED_AT.value, label: COMPANIES_SHIPPED_AT.label },
-  { value: '4', label: 'giải quốc gia về AI & thuật toán' },
-  { value: TOTAL_PLATFORM_USERS, label: 'người dùng trên hệ thống tôi vận hành' },
+  { value: '4 giải', label: 'quốc gia về AI & thuật toán' },
+  { value: TOTAL_PLATFORM_USERS, label: 'người dùng hệ thống vận hành' },
+];
+
+const TRUST_TAGS = [
+  'VMO Holdings',
+  'Zalo Group (VNG)',
+  'VCCorp',
+  'JAIST (Nhật Bản)',
+  'ĐH Sư Phạm Hà Nội',
+  '20+ Trường & Trung tâm',
 ];
 ---
 
-<div class="rgrid grid grid-cols-4 border-t-2 border-ink">
-  {
-    STATS.map((stat, i) => (
-      <div class={`px-12 py-[22px] ${i < STATS.length - 1 ? 'border-r-2 border-ink' : ''}`}>
-        <div class="font-heading text-[30px] font-extrabold text-ink">{stat.value}</div>
-        <div class="font-mono text-xs leading-[1.5] text-neutral-600">{stat.label}</div>
-      </div>
-    ))
-  }
+<div class="border-t-2 border-ink bg-white">
+  <div class="rgrid grid grid-cols-4 border-b-2 border-ink">
+    {
+      STATS.map((stat, i) => (
+        <div
+          class={`px-6 py-5 lg:px-12 lg:py-[22px] transition-colors hover:bg-neutral-50 ${
+            i < STATS.length - 1 ? 'border-r-2 border-ink' : ''
+          }`}
+        >
+          <div class="font-heading text-[28px] font-extrabold text-ink lg:text-[32px]">
+            {stat.value}
+          </div>
+          <div class="font-mono text-xs leading-[1.5] text-neutral-600">{stat.label}</div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="flex flex-wrap items-center justify-between gap-4 px-6 py-3 font-mono text-xs bg-surface lg:px-12">
+    <span class="font-bold text-neutral-700">TRACK RECORD & VẬN HÀNH TẠI:</span>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      {
+        TRUST_TAGS.map((tag) => (
+          <span class="border border-border-light bg-white px-2 py-1 text-[11px] font-medium text-ink">
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+  </div>
 </div>
+
