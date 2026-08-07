@@ -70,7 +70,7 @@ const hasMedia = Astro.slots.has('media');
             class={`p-8 ${image || hasMedia ? 'flex-none border-t-2 border-ink' : 'flex h-full flex-col justify-between'}`}
           >
             <p class="m-0 text-[17px] font-medium leading-[1.55] text-ink">“{quote}”</p>
-            <div class="mt-4 font-mono text-xs text-neutral-600">— {attribution}</div>
+            <div class="mt-4 font-mono text-xs text-neutral-600">- {attribution}</div>
           </div>
         )
       }

@@ -1,41 +1,23 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactForm from '@components/ContactForm.astro';
-import { SOCIAL_LINKS } from '@utils/constants';
 ---
 
 <BaseLayout
   title="Liên hệ"
-  description="Mô tả ngắn gọn nhu cầu của bạn — tôi sẽ phản hồi kèm đề xuất và báo giá sơ bộ trong 1 ngày làm việc."
+  description="Mô tả ngắn gọn nhu cầu của bạn, tôi sẽ phản hồi kèm đề xuất và báo giá sơ bộ trong 1 ngày làm việc."
 >
-  <div class="rgrid grid grid-cols-2 flex-1">
-    <div class="rpad px-12 py-14 border-r-2 border-ink">
-      <div class="kicker mb-4">$ ./contact --quote</div>
-      <h1 class="font-heading font-extrabold text-[44px] leading-[1.05] text-ink mb-4">
-        Nhận báo giá trong 24 giờ
-      </h1>
-      <p class="text-base leading-relaxed text-neutral-700 mb-8">
-        Mô tả ngắn gọn nhu cầu của bạn — tôi sẽ phản hồi kèm đề xuất và báo giá sơ bộ trong 1 ngày làm việc.
+  <div class="rgrid grid grid-cols-[1fr_400px]">
+    <div class="rpad border-r-2 border-ink px-8 py-10 lg:px-12 lg:py-12">
+      <div class="kicker mb-3">$ cat contact.md</div>
+      <h1 class="mb-4 font-heading text-[32px] font-extrabold text-ink lg:text-[40px]">Liên hệ hợp tác</h1>
+      <p class="mb-8 text-[15px] leading-relaxed text-neutral-700">
+        Mô tả ngắn gọn nhu cầu của bạn, tôi sẽ phản hồi kèm đề xuất và báo giá sơ bộ trong 1 ngày làm việc.
       </p>
-      <div class="flex flex-col gap-4 font-mono text-sm text-ink mb-7">
-        <div><span class="text-accent">›</span> <a href={SOCIAL_LINKS.email.href}>hello@behitek.com</a></div>
-        <div>
-          <span class="text-accent">›</span>{' '}
-          <a href={SOCIAL_LINKS.linkedin.href} target="_blank" rel="noopener noreferrer">linkedin.com/in/behitek</a>
-        </div>
-        <div>
-          <span class="text-accent">›</span>{' '}
-          <a href={SOCIAL_LINKS.github.href} target="_blank" rel="noopener noreferrer">github.com/behitek</a>
-        </div>
-      </div>
-      <div class="h-0.5 bg-ink my-7"></div>
-      <div class="font-mono text-[11px] font-semibold text-neutral-600 tracking-[0.08em] mb-3.5">
-        SAU KHI GỬI FORM
-      </div>
       <div class="text-sm leading-[2] text-neutral-700">
-        01 — Tôi phản hồi trong 24h kèm câu hỏi làm rõ<br />
-        02 — Gọi 30 phút trao đổi phạm vi (miễn phí)<br />
-        03 — Báo giá cố định + kế hoạch triển khai
+        01. Tôi phản hồi trong 24h kèm câu hỏi làm rõ<br />
+        02. Gọi 30 phút trao đổi phạm vi (miễn phí)<br />
+        03. Báo giá cố định + kế hoạch triển khai
       </div>
     </div>
 

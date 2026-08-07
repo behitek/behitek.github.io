@@ -68,22 +68,22 @@ const FAQ_ITEMS = [
   {
     question: 'Nếu sau này anh không duy trì hệ thống nữa thì sao?',
     answer:
-      'Hệ thống dựa trên DMOJ — một nền tảng mã nguồn mở đã được cộng đồng quốc tế duy trì nhiều năm, không phải phần mềm riêng của tôi. Toàn bộ cấu hình và tài liệu quản trị được bàn giao cho đơn vị, nên một kỹ thuật viên khác có thể tiếp quản. luyencode.net đã chạy liên tục từ 2020.',
+      'Hệ thống dựa trên DMOJ (nền tảng mã nguồn mở đã được cộng đồng quốc tế duy trì nhiều năm, không phải phần mềm riêng của tôi). Toàn bộ cấu hình và tài liệu quản trị được bàn giao cho đơn vị, nên một kỹ thuật viên khác có thể tiếp quản. luyencode.net đã chạy liên tục từ 2020.',
   },
   {
     question: 'Trường có cần máy chủ riêng không?',
     answer:
-      'Không, nếu chọn gói miễn phí trên luyencode.net — hệ thống chạy trên hạ tầng chung. Gói triển khai riêng cần máy chủ (VPS), và tôi sẽ tư vấn cấu hình phù hợp với quy mô để tránh trả tiền thừa; nếu là tổ chức giáo dục phi lợi nhuận chưa có domain, có thể dùng subdomain miễn phí trên luyencode.net để tiết kiệm thêm.',
+      'Không, nếu chọn gói miễn phí trên luyencode.net (hệ thống chạy trên hạ tầng chung). Gói triển khai riêng cần máy chủ (VPS), và tôi sẽ tư vấn cấu hình phù hợp với quy mô để tránh trả tiền thừa; nếu là tổ chức giáo dục phi lợi nhuận chưa có domain, có thể dùng subdomain miễn phí trên luyencode.net để tiết kiệm thêm.',
   },
   {
     question: 'Trường có thể dùng đề của mình không?',
     answer:
-      'Có, nhưng tùy gói. Tổ chức trên luyencode.net được dùng toàn bộ ngân hàng đề sẵn có, miễn phí. Với gói triển khai riêng, hệ thống không đi kèm ngân hàng đề của luyencode — đơn vị tự tạo đề riêng hoặc nhập đề từ định dạng phổ biến.',
+      'Có, nhưng tùy gói. Tổ chức trên luyencode.net được dùng toàn bộ ngân hàng đề sẵn có, miễn phí. Với gói triển khai riêng, hệ thống không đi kèm ngân hàng đề của luyencode: đơn vị tự tạo đề riêng hoặc nhập đề từ định dạng phổ biến.',
   },
   {
     question: 'Hệ thống riêng không có ngân hàng đề, phải làm sao?',
     answer:
-      'Tôi hỗ trợ soạn đề với chi phí rất thấp, nhờ dùng AI hỗ trợ tạo nội dung — đã có kinh nghiệm và triển khai thành công thực tế. Phù hợp cho đơn vị triển khai riêng cần xây ngân hàng đề nhanh, không phải soạn thủ công từ đầu.',
+      'Tôi hỗ trợ soạn đề với chi phí rất thấp, nhờ dùng AI hỗ trợ tạo nội dung (đã có kinh nghiệm và triển khai thành công thực tế). Phù hợp cho đơn vị triển khai riêng cần xây ngân hàng đề nhanh, không phải soạn thủ công từ đầu.',
   },
   {
     question:
@@ -107,7 +107,7 @@ const FAQ_ITEMS = [
   <ServiceHero
     breadcrumb="online-judge"
     title="Triển khai & vận hành Online Judge trên nền DMOJ"
-    description={`Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Hai cách bắt đầu: dùng miễn phí trên luyencode.net, hoặc triển khai riêng trên VPS với tên miền của bạn — hay subdomain miễn phí nếu là tổ chức giáo dục phi lợi nhuận. Hiện có ${ORGANIZATIONS.length} trường và tổ chức đang sử dụng, cùng ${DEPLOYMENTS.length} hệ thống chạy độc lập.`}
+    description={`Hệ thống chấm bài tự động cho trường học và trung tâm dạy lập trình. Hai cách bắt đầu: dùng miễn phí trên luyencode.net, hoặc triển khai riêng trên VPS với tên miền của bạn (hoặc subdomain miễn phí nếu là tổ chức giáo dục phi lợi nhuận). Hiện có ${ORGANIZATIONS.length} trường và tổ chức đang sử dụng, cùng ${DEPLOYMENTS.length} hệ thống chạy độc lập.`}
     ctas={[
       { label: 'Bắt đầu ngay →', href: '/contact', variant: 'primary' },
       {
@@ -134,7 +134,7 @@ const FAQ_ITEMS = [
     </div>
     <div class="border-2 border-ink bg-white p-8">
       <div class="mb-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
-        {ORGANIZATIONS.length} TỔ CHỨC TRÊN LUYENCODE.NET — {
+        {ORGANIZATIONS.length} TỔ CHỨC TRÊN LUYENCODE.NET: {
           TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')
         } THÀNH VIÊN
       </div>
@@ -153,7 +153,7 @@ const FAQ_ITEMS = [
             >
               <span class="flex-none text-accent">●</span>
               <span class="font-semibold">{d.name}</span>
-              <span class="text-neutral-600">— {d.note}</span>
+              <span class="text-neutral-600">({d.note})</span>
             </a>
           ))
         }

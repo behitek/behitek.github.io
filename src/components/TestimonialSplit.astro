@@ -4,7 +4,7 @@ import { DEPLOYMENTS } from '@/data/organizations';
 const clients = DEPLOYMENTS;
 
 /**
- * Real client quotes only. Leave empty until a real, attributable quote exists —
+ * Real client quotes only. Leave empty until a real, attributable quote exists -
  * never add an invented quote attributed to a named person at a real organization.
  */
 const TESTIMONIALS: { quote: string; attribution: string }[] = [];
@@ -25,7 +25,7 @@ const TESTIMONIALS: { quote: string; attribution: string }[] = [];
             class="text-ink no-underline hover:text-accent"
           >
             <span class="text-accent">●</span> {c.name}{' '}
-            <span class="text-neutral-600">— {c.note}</span>
+            <span class="text-neutral-600">({c.note})</span>
           </a>
         ))
       }
@@ -37,7 +37,7 @@ const TESTIMONIALS: { quote: string; attribution: string }[] = [];
         {TESTIMONIALS.map((t, i) => (
           <div class={`flex-1 px-12 py-9 ${i > 0 ? 'border-t-2 border-ink' : ''}`}>
             <p class="mb-3.5 text-[17px] font-medium leading-[1.55] text-ink">“{t.quote}”</p>
-            <div class="font-mono text-xs text-neutral-600">— {t.attribution}</div>
+            <div class="font-mono text-xs text-neutral-600">- {t.attribution}</div>
           </div>
         ))}
       </div>

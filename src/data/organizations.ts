@@ -15,7 +15,7 @@ export interface Deployment {
 /**
  * External institutions with an organization on luyencode.net.
  * Excludes Hieu's own orgs (Luyện Code Club, Luyện Code School).
- * Source: https://luyencode.net/organizations/ — verified 2026-08-06.
+ * Source: https://luyencode.net/organizations/ - verified 2026-08-06.
  */
 export const ORGANIZATIONS: Organization[] = [
   { name: 'Trường Đại học Sư phạm Hà Nội', slug: 'hnue', members: 121 },
@@ -43,10 +43,10 @@ export const ORGANIZATIONS: Organization[] = [
 /** Systems deployed and operated outside the shared luyencode.net platform. */
 export const DEPLOYMENTS: Deployment[] = [
   {
-    name: 'LNQOJ — Trường THCS Lý Nhật Quang',
+    name: 'LNQOJ: Trường THCS Lý Nhật Quang',
     url: 'https://lynhatquang.luyencode.net',
     domain: 'subdomain',
-    note: 'Đô Lương, Nghệ An — VPS riêng, subdomain miễn phí',
+    note: 'Đô Lương, Nghệ An (VPS riêng, subdomain miễn phí)',
   },
   {
     name: 'cothilaptrinh.vn',
@@ -75,7 +75,7 @@ export const TOTAL_ORG_MEMBERS = ORGANIZATIONS.reduce((sum, org) => sum + org.me
 
 /**
  * Approximate total users across the whole luyencode.net platform, including Hieu's own two
- * organizations — a stated figure, not derivable from ORGANIZATIONS, which excludes those two
+ * organizations - a stated figure, not derivable from ORGANIZATIONS, which excludes those two
  * and only totals registered members of the 20 external orgs (see TOTAL_ORG_MEMBERS, 2520).
  */
 export const TOTAL_PLATFORM_USERS = '20.000+';

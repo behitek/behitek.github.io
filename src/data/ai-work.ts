@@ -51,7 +51,7 @@ export const NEXUS_PIPELINE: PipelineStage[] = [
 ];
 
 export const NEXUS_AI: SpotlightCaseStudy = {
-  kicker: 'NexusAI — Enterprise Multimodal RAG & Inverted HyDE',
+  kicker: 'NexusAI: Enterprise Multimodal RAG & Inverted HyDE',
   title: 'Tra cứu thông minh trên kho tài liệu nội bộ đa định dạng',
   description:
     'Doanh nghiệp sở hữu kho tài liệu khổng lồ (PDF, Office, hình ảnh, video) nhưng tra cứu gặp khó khăn do lệch không gian câu chữ giữa câu hỏi và tài liệu. NexusAI áp dụng sáng kiến Inverted HyDE (sinh trước tập câu hỏi giả định ở bước indexing offline để đưa bài toán về Query-to-Query matching, triệt tiêu độ trễ LLM ở runtime) kết hợp bảo toàn cấu trúc phân cấp tài liệu (hierarchical chunking) và grounded generation luôn kèm trích dẫn nguồn chính xác.',
@@ -63,7 +63,7 @@ export const NEXUS_AI: SpotlightCaseStudy = {
 };
 
 export const LINGUIST_AI: CardCaseStudy = {
-  kicker: 'LinguistAI — LLM + speech',
+  kicker: 'LinguistAI: LLM + speech',
   title: 'Thi thử 4 kỹ năng tiếng Anh, chấm tự động',
   problem:
     'Luyện thi 4 kỹ năng bị nghẽn ở khâu chấm: nói và viết cần giáo viên, nên học viên phải chờ nhiều ngày mới có phản hồi.',
@@ -76,7 +76,7 @@ export const LINGUIST_AI: CardCaseStudy = {
 };
 
 export const KIKI_ASR: CardCaseStudy = {
-  kicker: 'KiKi (Zalo) — speech',
+  kicker: 'KiKi (Zalo): speech',
   title: 'Chuẩn hoá văn bản cho nhận dạng giọng nói tiếng Việt',
   problem:
     'Trợ lý ảo trên ô tô nghe sai những chuỗi mà người Việt đọc không theo mặt chữ: số, ngày tháng, đơn vị, tên đường và tên riêng.',
