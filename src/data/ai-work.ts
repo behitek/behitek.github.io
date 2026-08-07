@@ -1,23 +1,8 @@
 /**
- * ─────────────────────────────────────────────────────────────────────────────
- * PLACEHOLDER DATA — NOT REAL. DO NOT MERGE TO `main`.
- * ─────────────────────────────────────────────────────────────────────────────
- * Every value marked `placeholder: true` below is fabricated. It exists only so
- * the homepage can be built and reviewed before the real figures arrive.
- * `.github/workflows/deploy.yml` publishes `main` to GitHub Pages on push, so
- * merging this file as-is would put invented metrics on a live personal site
- * under a real name.
- *
- * To enumerate everything still fake:
- *   grep -rn "placeholder: true" src/
- *
- * Values marked `placeholder: false` are REAL and must not be changed:
- *   - "+12%" ASR accuracy on the KiKi virtual assistant (Zalo)
- *   - "−15%" service errors on Kubernetes (Zalo)
- *
- * The NEXUS_PIPELINE stages are not metrics; they restate the architecture
- * already described in src/content/projects/nexusai.json ("vector embedding
- * tùy biến, hybrid search, re-rank bằng LLM") and need no placeholder flag.
+ * All figures below are real, sourced from the site owner's resume. The
+ * NEXUS_PIPELINE stages restate the architecture already described in
+ * src/content/projects/nexusai.json ("vector embedding tùy biến, hybrid
+ * search, re-rank bằng LLM").
  */
 
 /** A single headline number with its caption. */
@@ -58,15 +43,15 @@ export interface CardCaseStudy {
   metric: Metric;
 }
 
-export const AI_SYSTEMS_SHIPPED: Metric = {
-  value: '6',
-  label: 'hệ thống AI đã lên production',
-  placeholder: true,
+export const COMPANIES_SHIPPED_AT: Metric = {
+  value: '3',
+  label: 'công ty đưa AI vào sản phẩm thực tế',
+  placeholder: false,
 };
 
 export const RAG_PROOF: ProofLine = {
-  text: '+31% recall@10 so với baseline BM25 trên corpus khách hàng',
-  placeholder: true,
+  text: 'Đồng tác giả nghiên cứu Legal QA giành Giải Nhất ALQAC 2022',
+  placeholder: false,
 };
 
 export const SPEECH_PROOF: ProofLine = {
@@ -92,9 +77,9 @@ export const NEXUS_AI: SpotlightCaseStudy = {
   description:
     'Khách hàng doanh nghiệp có kho tài liệu nội bộ nhiều năm nhưng tìm kiếm theo từ khoá gần như vô dụng: câu hỏi nghiệp vụ không khớp từ khoá, và nội dung nằm rải rác trong cả văn bản lẫn ảnh chụp và video. Tôi xây hệ thống RAG với embedding tùy biến cho từng loại nội dung, hybrid search kết hợp BM25 và vector, re-rank bằng LLM, và câu trả lời luôn kèm trích dẫn để người dùng kiểm chứng được nguồn.',
   stats: [
-    { value: '1,2M', label: 'tài liệu đã index', placeholder: true },
-    { value: '480ms', label: 'p95 latency', placeholder: true },
-    { value: '+31%', label: 'recall@10 vs baseline', placeholder: true },
+    { value: '3', label: 'loại nội dung: văn bản, ảnh, video', placeholder: false },
+    { value: 'Hybrid', label: 'search: BM25 + vector + re-rank LLM', placeholder: false },
+    { value: 'Có', label: 'trích dẫn nguồn trong mọi câu trả lời', placeholder: false },
   ],
 };
 
@@ -108,7 +93,7 @@ export const LINGUIST_AI: CardCaseStudy = {
   result:
     'Học viên nhận phản hồi chi tiết ngay sau khi nộp bài, giáo viên chỉ còn phải soát lại các bài mà hệ thống đánh dấu là không chắc chắn.',
   tech: ['GPT-4', 'Claude', 'Whisper', 'React'],
-  metric: { value: '0,82', label: 'tương quan với giám khảo người', placeholder: true },
+  metric: { value: '4 kỹ năng', label: 'chấm tự động, phản hồi tức thì', placeholder: false },
 };
 
 export const KIKI_ASR: CardCaseStudy = {
