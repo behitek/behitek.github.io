@@ -44,21 +44,21 @@ export const COMPANIES_SHIPPED_AT: Metric = {
 };
 
 export const NEXUS_PIPELINE: PipelineStage[] = [
-  { label: 'query', detail: 'câu hỏi ngôn ngữ tự nhiên' },
-  { label: 'hybrid retrieval', detail: 'BM25 + dense vector song song' },
-  { label: 'LLM re-rank', detail: 'chấm lại top-k theo ngữ cảnh' },
-  { label: 'grounded answer', detail: 'trả lời kèm trích dẫn nguồn' },
+  { label: 'Document Parsing & Hierarchy', detail: 'Bảo toàn cấu trúc phân cấp (pdf, images, videos, office files)' },
+  { label: 'Inverted HyDE Indexing', detail: 'Sinh câu hỏi giả định offline (Query-to-Query matching)' },
+  { label: 'Sub-second Retrieval', detail: 'Dense Vector + BM25 + Cross-Encoder Re-rank' },
+  { label: 'Grounded Answer Generation', detail: 'Câu trả lời kèm trích dẫn nguồn chuẩn xác, không bị hallucinate' },
 ];
 
 export const NEXUS_AI: SpotlightCaseStudy = {
-  kicker: 'NexusAI — RAG đa phương thức',
-  title: 'Tra cứu trên kho tài liệu văn bản, hình ảnh và video',
+  kicker: 'NexusAI — Enterprise Multimodal RAG & Inverted HyDE',
+  title: 'Tra cứu thông minh trên kho tài liệu nội bộ đa định dạng',
   description:
-    'Khách hàng doanh nghiệp có kho tài liệu nội bộ nhiều năm nhưng tìm kiếm theo từ khoá gần như vô dụng: câu hỏi nghiệp vụ không khớp từ khoá, và nội dung nằm rải rác trong cả văn bản lẫn ảnh chụp và video. Tôi xây hệ thống RAG với embedding tùy biến cho từng loại nội dung, hybrid search kết hợp BM25 và vector, re-rank bằng LLM, và câu trả lời luôn kèm trích dẫn để người dùng kiểm chứng được nguồn. Kinh nghiệm RAG này cũng là nền cho nghiên cứu Legal QA mà tôi đồng tác giả, giành Giải Nhất ALQAC 2022.',
+    'Doanh nghiệp sở hữu kho tài liệu khổng lồ (PDF, Office, hình ảnh, video) nhưng tra cứu gặp khó khăn do lệch không gian câu chữ giữa câu hỏi và tài liệu. NexusAI áp dụng sáng kiến Inverted HyDE (sinh trước tập câu hỏi giả định ở bước indexing offline để đưa bài toán về Query-to-Query matching, triệt tiêu độ trễ LLM ở runtime) kết hợp bảo toàn cấu trúc phân cấp tài liệu (hierarchical chunking) và grounded generation luôn kèm trích dẫn nguồn chính xác.',
   stats: [
-    { value: '3', label: 'loại nội dung: văn bản, ảnh, video', placeholder: false },
-    { value: 'Hybrid', label: 'search: BM25 + vector + re-rank LLM', placeholder: false },
-    { value: 'Có', label: 'trích dẫn nguồn trong mọi câu trả lời', placeholder: false },
+    { value: 'Inverted HyDE', label: 'Query-to-Query matching triệt tiêu trễ runtime', placeholder: false },
+    { value: 'Multimodal', label: 'Xử lý PDF, Office, Ảnh & Video', placeholder: false },
+    { value: '100% Grounded', label: 'Trích dẫn nguồn trực tiếp trong phản hồi', placeholder: false },
   ],
 };
 
