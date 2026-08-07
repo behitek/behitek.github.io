@@ -5,12 +5,20 @@ import ServiceTabs from '@components/ServiceTabs.astro';
 import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
 import ProcessSteps from '@components/ProcessSteps.astro';
 import CTABand from '@components/CTABand.astro';
+import CaseStudySpotlight from '@components/CaseStudySpotlight.astro';
+import CaseStudyCard from '@components/CaseStudyCard.astro';
+import PipelineDiagram from '@components/PipelineDiagram.astro';
+import { NEXUS_AI, NEXUS_PIPELINE, LINGUIST_AI, KIKI_ASR } from '@/data/ai-work';
 
 const FEATURES = [
   {
     kicker: 'HẠNG MỤC 01',
     title: 'Chatbot & trợ lý nghiệp vụ',
-    bullets: ['Trả lời trên tài liệu nội bộ', 'Tích hợp Slack, web, Zalo OA', 'Guardrails & kiểm soát chi phí'],
+    bullets: [
+      'Trả lời trên tài liệu nội bộ',
+      'Tích hợp Slack, web, Zalo OA',
+      'Guardrails & kiểm soát chi phí',
+    ],
   },
   {
     kicker: 'HẠNG MỤC 02',
@@ -21,7 +29,11 @@ const FEATURES = [
   {
     kicker: 'HẠNG MỤC 03',
     title: 'Fine-tune & đánh giá mô hình',
-    bullets: ['LoRA / SFT trên dữ liệu riêng', 'Benchmark trước–sau rõ ràng', 'Tối ưu suy luận, self-host'],
+    bullets: [
+      'LoRA / SFT trên dữ liệu riêng',
+      'Benchmark trước–sau rõ ràng',
+      'Tối ưu suy luận, self-host',
+    ],
   },
 ];
 
@@ -44,7 +56,10 @@ const STEPS = [
 ];
 ---
 
-<BaseLayout title="Dự án AI" description="RAG, LLM, NLP cho bài toán nghiệp vụ thực tế — từ PoC đến production.">
+<BaseLayout
+  title="Dự án AI"
+  description="RAG, LLM, NLP cho bài toán nghiệp vụ thực tế — từ PoC đến production."
+>
   <ServiceTabs active="ai" />
   <ServiceHero
     breadcrumb="ai"
@@ -52,15 +67,42 @@ const STEPS = [
     description="RAG, LLM, NLP cho bài toán nghiệp vụ thực tế: tư vấn kiến trúc, xây dựng PoC nhanh, và đưa hệ thống lên production với chi phí vận hành đo lường được."
     ctas={[
       { label: 'Đặt lịch tư vấn →', href: '/contact?need=ai', variant: 'primary' },
-      { label: 'Xem case study', href: '/projects', variant: 'secondary' },
+      { label: 'Xem case study', href: '#case-study', variant: 'secondary' },
     ]}
   />
 
   <div class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">01 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Hạng mục dịch vụ</h2>
+    </div>
     <ServiceFeatureGrid features={FEATURES} />
   </div>
 
+  <section id="case-study" class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">02 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study</h2>
+    </div>
+    <CaseStudySpotlight
+      kicker={NEXUS_AI.kicker}
+      title={NEXUS_AI.title}
+      description={NEXUS_AI.description}
+      stats={NEXUS_AI.stats}
+    >
+      <PipelineDiagram slot="media" stages={NEXUS_PIPELINE} caption="KIẾN TRÚC" />
+    </CaseStudySpotlight>
+    <div class="rgrid mt-7 grid grid-cols-2 border-2 border-ink">
+      <CaseStudyCard {...LINGUIST_AI} borderRight mobileDivider />
+      <CaseStudyCard {...KIKI_ASR} />
+    </div>
+  </section>
+
   <div class="px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">03 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy trình</h2>
+    </div>
     <ProcessSteps kicker="$ ./engagement" steps={STEPS} />
   </div>
 
