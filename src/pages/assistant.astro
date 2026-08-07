@@ -1,0 +1,282 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="AI Assistant Prototype | behitek"
+  description="Thử nghiệm giao diện Personal AI Assistant của Behitek (Bản Prototype Demo)."
+>
+  <div class="section py-10 md:py-16 bg-bg">
+    <div class="container max-w-6xl">
+      <!-- Top Header & Banner -->
+      <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-ink pb-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-accent text-bg font-mono text-xs px-2 py-0.5 font-bold uppercase tracking-wider">
+              Prototype Mode
+            </span>
+            <span class="font-mono text-xs text-neutral-600">v0.9.0-alpha</span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-heading font-extrabold text-ink tracking-tight">
+            Personal AI Assistant Sandbox
+          </h1>
+          <p class="text-neutral-700 text-sm md:text-base mt-2 max-w-2xl">
+            Giao diện thử nghiệm trợ lý ảo AI cho website Behitek. Hiện tại đang triển khai giao diện (UI/UX Demo) với kịch bản phản hồi mô phỏng.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="/contact" class="btn-primary py-2.5 px-4 text-xs font-mono">
+            📩 Đăng ký trải nghiệm bản Beta
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Content Grid: Left Chat Sandbox, Right Architecture & Roadmap -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left Column: Interactive Full-Page Chat Simulator (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col">
+          <div class="card p-0 flex flex-col h-[650px] shadow-[6px_6px_0px_0px_rgba(32,30,29,1)]">
+            <!-- Sandbox Header -->
+            <div class="bg-ink text-bg px-5 py-4 flex items-center justify-between border-b-2 border-ink">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-accent text-bg font-mono font-bold flex items-center justify-center border border-bg">
+                  🤖
+                </div>
+                <div>
+                  <h2 class="text-base font-extrabold font-heading text-bg leading-none">behitek_assistant_full</h2>
+                  <span class="font-mono text-[11px] text-accent-300">Persona: General Assistant & Solutions Advisor</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] bg-neutral-800 text-neutral-200 px-2 py-1 border border-neutral-700">
+                  <span class="w-2 h-2 rounded-full bg-green-400"></span> Live UI Demo
+                </span>
+              </div>
+            </div>
+
+            <!-- Notice Bar -->
+            <div class="bg-accent-100 border-b border-ink px-4 py-2 text-xs font-mono text-ink flex items-center justify-between">
+              <span>⚠️ <strong>PROTOTYPE:</strong> Tất cả câu trả lời bên dưới được khởi tạo để test UX & UI design.</span>
+              <button id="full-chat-reset" class="text-accent underline font-bold hover:text-ink">Reset Chat</button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="full-chat-messages" class="flex-1 overflow-y-auto p-5 space-y-4 bg-bg text-sm">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Prompt Suggestions -->
+            <div class="p-3 bg-surface border-t border-ink/20 flex flex-wrap gap-2 text-xs font-mono">
+              <span class="text-neutral-500 font-bold self-center mr-1">Gợi ý:</span>
+              <button type="button" class="full-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Giới thiệu chi tiết về Behitek">
+                🏢 Giới thiệu Behitek
+              </button>
+              <button type="button" class="full-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Quy trình tư vấn giải pháp AI cho doanh nghiệp">
+                📋 Quy trình tư vấn AI
+              </button>
+              <button type="button" class="full-chip tag-pill bg-white hover:bg-accent hover:text-white transition-colors cursor-pointer" data-prompt="Lộ trình xây dựng Backend AI Assistant này">
+                ⚙️ Backend Roadmap
+              </button>
+            </div>
+
+            <!-- Input Bar -->
+            <form id="full-chat-form" class="p-4 bg-white border-t-2 border-ink flex items-center gap-3">
+              <input
+                id="full-chat-input"
+                type="text"
+                placeholder="Nhập câu hỏi để test giao diện trợ lý ảo..."
+                class="flex-1 bg-bg border border-ink px-4 py-3 text-sm text-ink focus:outline-none focus:border-accent font-sans"
+                autocomplete="off"
+              />
+              <button type="submit" class="btn-primary py-3 px-5 text-sm flex items-center gap-2">
+                <span>Gửi</span>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Column: System Specs, Backend Roadmap & Architecture (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          <!-- Card 1: Status & Specifications -->
+          <div class="card shadow-[4px_4px_0px_0px_rgba(32,30,29,1)]">
+            <h3 class="text-lg font-extrabold font-heading text-ink mb-3 flex items-center gap-2">
+              <span class="text-accent">●</span> Thông số Prototype UI
+            </h3>
+            
+            <div class="space-y-2 text-xs font-mono border-t border-border-light pt-3">
+              <div class="flex justify-between py-1 border-b border-border-light">
+                <span class="text-neutral-600">Trạng thái UI:</span>
+                <span class="font-bold text-accent">🟢 Ready (Active)</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-border-light">
+                <span class="text-neutral-600">Backend Logic:</span>
+                <span class="font-bold text-neutral-800">⏳ Pending Implementation</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-border-light">
+                <span class="text-neutral-600">LLM Engine (Dự kiến):</span>
+                <span class="font-bold text-ink">Claude 3.5 Sonnet / GPT-4o</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-border-light">
+                <span class="text-neutral-600">Kiến trúc dữ liệu:</span>
+                <span class="font-bold text-ink">RAG + Vector Database</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-neutral-600">Tốc độ mô phỏng:</span>
+                <span class="font-bold text-ink">~600ms typing latency</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Backend Architecture & Implementation Plan -->
+          <div class="card shadow-[4px_4px_0px_0px_rgba(32,30,29,1)]">
+            <h3 class="text-lg font-extrabold font-heading text-ink mb-3 flex items-center gap-2">
+              🚀 Kế hoạch triển khai Backend
+            </h3>
+            <p class="text-xs text-neutral-700 leading-relaxed mb-4">
+              Sau khi hoàn thiện Prototype UI, các bước kỹ thuật tiếp theo sẽ được triển khai theo lộ trình bên dưới:
+            </p>
+
+            <ol class="relative border-l-2 border-ink ml-3 space-y-4 text-xs">
+              <li class="pl-4 relative">
+                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-accent border-2 border-ink flex items-center justify-center text-[9px] font-bold text-bg">1</span>
+                <strong class="font-extrabold text-ink block">Hoàn thiện Prototype UI/UX (Hiện tại)</strong>
+                <span class="text-neutral-600">Tạo widget nổi, trang sandbox demo, thu thập phản hồi giao diện từ người dùng.</span>
+              </li>
+              <li class="pl-4 relative">
+                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">2</span>
+                <strong class="font-extrabold text-ink block">Xây dựng Knowledge Base & Vector Index</strong>
+                <span class="text-neutral-600">Thu thập nội dung website, bài viết blog, hồ sơ năng lực & tạo vector embeddings (Qdrant / ChromaDB).</span>
+              </li>
+              <li class="pl-4 relative">
+                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">3</span>
+                <strong class="font-extrabold text-ink block">Phát triển Serverless API Endpoint</strong>
+                <span class="text-neutral-600">Viết Backend Service (FastAPI / Cloudflare Workers / Vercel Edge) xử lý RAG pipeline & LLM streaming.</span>
+              </li>
+              <li class="pl-4 relative">
+                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">4</span>
+                <strong class="font-extrabold text-ink block">Tích hợp Webhook & CRM Notification</strong>
+                <span class="text-neutral-600">Tự động thông báo lịch hẹn tư vấn và lead mới qua Telegram / Slack / Email.</span>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Card 3: Feedback Box -->
+          <div class="card bg-surface shadow-[4px_4px_0px_0px_rgba(32,30,29,1)]">
+            <h3 class="text-sm font-extrabold font-heading text-ink mb-2">
+              💡 Góp ý giao diện Prototype
+            </h3>
+            <p class="text-xs text-neutral-600 leading-relaxed mb-3">
+              Bạn muốn trải nghiệm thêm tính năng gì trên Personal AI Assistant này? Hãy chia sẻ trực tiếp với Hieu Nguyen!
+            </p>
+            <a href="/contact" class="btn-secondary w-full py-2 text-xs font-mono text-center block">
+              Gửi phản hồi / Góp ý
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fullMessages = document.getElementById('full-chat-messages');
+    const fullForm = document.getElementById('full-chat-form');
+    const fullInput = document.getElementById('full-chat-input') as HTMLInputElement | null;
+    const fullResetBtn = document.getElementById('full-chat-reset');
+    const fullChips = document.querySelectorAll('.full-chip');
+
+    const FULL_WELCOME = {
+      sender: 'assistant',
+      text: `Chào mừng bạn tới trang **Sandbox Thử nghiệm AI Assistant** của Behitek! 🚀<br/><br/>
+      Đây là nơi bạn có thể kiểm thử toàn bộ giao diện cuộc hội thoại ở kích thước lớn.<br/>
+      Hãy bấm thử các gợi ý bên dưới hoặc nhập tin nhắn bất kỳ để trải nghiệm kịch bản tương tác prototype!`,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    let history: any[] = [FULL_WELCOME];
+
+    function renderFull() {
+      if (!fullMessages) return;
+      fullMessages.innerHTML = '';
+
+      history.forEach((msg) => {
+        const isUser = msg.sender === 'user';
+        const wrap = document.createElement('div');
+        wrap.className = `flex flex-col ${isUser ? 'items-end' : 'items-start'} max-w-[85%] ${isUser ? 'ml-auto' : 'mr-auto'}`;
+
+        const meta = document.createElement('div');
+        meta.className = 'font-mono text-[11px] text-neutral-500 mb-1';
+        meta.innerHTML = isUser ? `<span>Bạn</span> • ${msg.time}` : `<span class="text-accent font-bold">Behitek AI Assistant [Demo]</span> • ${msg.time}`;
+
+        const box = document.createElement('div');
+        box.className = isUser
+          ? 'bg-ink text-bg p-3.5 border-2 border-ink text-sm shadow-[2px_2px_0px_0px_rgba(236,48,19,1)]'
+          : 'bg-white text-ink p-3.5 border-2 border-ink text-sm shadow-[2px_2px_0px_0px_rgba(32,30,29,1)] leading-relaxed';
+        box.innerHTML = msg.text;
+
+        wrap.appendChild(meta);
+        wrap.appendChild(box);
+        fullMessages.appendChild(wrap);
+      });
+
+      fullMessages.scrollTop = fullMessages.scrollHeight;
+    }
+
+    function sendFull(text: string) {
+      if (!text.trim()) return;
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      history.push({ sender: 'user', text, time: now });
+      renderFull();
+      if (fullInput) fullInput.value = '';
+
+      // Simulate response
+      setTimeout(() => {
+        let reply = '';
+        const lower = text.toLowerCase();
+        if (lower.includes('giới thiệu') || lower.includes('behitek')) {
+          reply = `<strong>Behitek</strong> là thương hiệu cá nhân và studio nghiên cứu phát triển giải pháp AI thực chiến do <strong>Hieu Nguyen</strong> sáng lập.<br/>Sứ mệnh của Behitek là đưa các công nghệ AI tiên tiến (RAG, Fine-tuning, LLM Agents) vào ứng dụng thương mại hiệu quả.`;
+        } else if (lower.includes('quy trình') || lower.includes('tư vấn')) {
+          reply = `<strong>Quy trình hợp tác tư vấn AI tại Behitek:</strong><br/>
+          1. Phân tích bài toán & thẩm định tính khả thi công nghệ.<br/>
+          2. Xây dựng PoC / UI Prototype thử nghiệm.<br/>
+          3. Triển khai kiến trúc RAG/LLM backend và huấn luyện dữ liệu.<br/>
+          4. Đánh giá hiệu năng và bàn giao chuyển giao công nghệ.`;
+        } else if (lower.includes('lộ trình') || lower.includes('roadmap')) {
+          reply = `<strong>Backend AI Assistant Roadmap:</strong><br/>
+          • Giai đoạn 1 (Đang diễn ra): Thiết kế UI/UX Prototype.<br/>
+          • Giai đoạn 2: Tích hợp Qdrant Vector DB & OpenAI API / Anthropic Claude API.<br/>
+          • Giai đoạn 3: Streaming responses & memory persistence.`;
+        } else {
+          reply = `Cảm ơn bạn đã thử nghiệm với tin nhắn: <em>"${text}"</em>.<br/>
+          ⚡ Đây là phản hồi mô phỏng giao diện Prototype. Hệ thống sẵn sàng cho việc kết nối API backend ở bước tiếp theo!`;
+        }
+
+        history.push({ sender: 'assistant', text: reply, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+        renderFull();
+      }, 600);
+    }
+
+    fullForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (fullInput) sendFull(fullInput.value);
+    });
+
+    fullChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const prompt = chip.getAttribute('data-prompt');
+        if (prompt) sendFull(prompt);
+      });
+    });
+
+    fullResetBtn?.addEventListener('click', () => {
+      history = [FULL_WELCOME];
+      renderFull();
+    });
+
+    renderFull();
+  </script>
+</BaseLayout>

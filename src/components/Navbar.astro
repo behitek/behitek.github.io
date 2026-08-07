@@ -26,9 +26,14 @@ const isActive = (href: string) => {
       NAV_LINKS.map((link) => (
         <a
           href={link.href}
-          class={`font-mono text-[13px] no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
+          class={`font-mono text-[13px] no-underline flex items-center gap-1.5 ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
         >
-          {link.label}
+          <span>{link.label}</span>
+          {link.isNew && (
+            <span class="bg-accent text-bg text-[9px] font-bold px-1 py-0.2 uppercase font-mono">
+              DEMO
+            </span>
+          )}
         </a>
       ))
     }
@@ -66,9 +71,14 @@ const isActive = (href: string) => {
       NAV_LINKS.map((link) => (
         <a
           href={link.href}
-          class={`font-mono text-sm no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
+          class={`font-mono text-sm no-underline flex items-center justify-between ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
         >
-          {link.label}
+          <span>{link.label}</span>
+          {link.isNew && (
+            <span class="bg-accent text-bg text-[10px] font-bold px-1.5 py-0.5 uppercase font-mono">
+              PROTOTYPE
+            </span>
+          )}
         </a>
       ))
     }

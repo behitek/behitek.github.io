@@ -33,6 +33,7 @@ export const NAV_LINKS = [
   { label: '~/home', href: '/' },
   { label: './services', href: '/services' },
   { label: './projects', href: '/projects' },
+  { label: './ai-assistant', href: '/assistant', isNew: true },
   { label: './blog', href: '/blog' },
   { label: './about', href: '/about' },
 ];

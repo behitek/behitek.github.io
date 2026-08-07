@@ -3,6 +3,7 @@ import '@styles/global.css';
 import Navbar from '@components/Navbar.astro';
 import Footer from '@components/Footer.astro';
 import SEO from '@components/SEO.astro';
+import ChatWidget from '@components/ChatWidget.astro';
 
 interface Props {
   title?: string;
@@ -63,6 +64,7 @@ const { title, description, image, article, publishedTime, modifiedTime } = Astr
         <slot />
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   </body>
 </html>
