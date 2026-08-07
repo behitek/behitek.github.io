@@ -28,45 +28,56 @@ const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
 ---
 
 <div
-  class={`p-7 bg-white ${flagship ? 'border-t-4 border-t-accent' : ''} ${borderRight ? 'border-r-2 border-ink' : ''} ${borderBottom ? 'border-b-2 border-ink' : ''} ${mobileDivider ? 'max-[899px]:border-b-2 max-[899px]:border-ink' : ''}`}
+  class={`flex h-full flex-col justify-between p-7 bg-white ${
+    flagship ? 'border-t-4 border-t-accent' : ''
+  } ${borderRight ? 'border-r-2 border-ink' : ''} ${
+    borderBottom ? 'border-b-2 border-ink' : ''
+  } ${mobileDivider ? 'max-[899px]:border-b-2 max-[899px]:border-ink' : ''}`}
 >
-  <div class="mb-3 flex items-center justify-between gap-2">
-    <span class="border border-ink px-[7px] py-0.5 font-mono text-[10px] font-semibold text-ink">
-      {statusLabel}
-    </span>
-    <div class="flex items-center gap-1.5">
-      {
-        metric && (
-          <span class="border border-accent bg-accent/10 px-[7px] py-[3px] font-mono text-[10px] font-bold text-accent">
-            {metric}
-          </span>
-        )
-      }
-      {
-        flagship && (
-          <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
-            CHỦ LỰC
-          </span>
-        )
-      }
+  <div>
+    <div class="mb-3 flex items-center justify-between gap-2">
+      <span class="border border-ink px-[7px] py-0.5 font-mono text-[10px] font-semibold text-ink">
+        {statusLabel}
+      </span>
+      <div class="flex items-center gap-1.5">
+        {
+          metric && (
+            <span class="border border-accent bg-accent/10 px-[7px] py-[3px] font-mono text-[10px] font-bold text-accent">
+              {metric}
+            </span>
+          )
+        }
+        {
+          flagship && (
+            <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
+              CHỦ LỰC
+            </span>
+          )
+        }
+      </div>
     </div>
-  </div>
-  <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink">{title}</h3>
-  <p class="mb-4 text-sm leading-relaxed text-neutral-700">{description}</p>
-  <div class="mb-5 flex flex-wrap gap-1.5">
-    {tech.map((t) => <span class="tag-pill">{t}</span>)}
+    <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink">{title}</h3>
+    <p class="mb-4 text-sm leading-relaxed text-neutral-700 line-clamp-3 min-h-[4rem]">
+      {description}
+    </p>
+    <div class="mb-5 flex flex-wrap items-center gap-1.5 min-h-[2.5rem]">
+      {tech.map((t) => <span class="tag-pill">{t}</span>)}
+    </div>
   </div>
   {
     href && (
-      <a
-        href={href}
-        target={href.startsWith('http') ? '_blank' : '_self'}
-        rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-        class="inline-flex items-center gap-1 font-heading text-[13px] font-bold text-accent no-underline hover:underline"
-      >
-        Xem chi tiết <span>→</span>
-      </a>
+      <div class="mt-auto pt-2">
+        <a
+          href={href}
+          target={href.startsWith('http') ? '_blank' : '_self'}
+          rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          class="inline-flex items-center gap-1 font-heading text-[13px] font-bold text-accent no-underline hover:underline"
+        >
+          Xem chi tiết <span>→</span>
+        </a>
+      </div>
     )
   }
 </div>
+
 

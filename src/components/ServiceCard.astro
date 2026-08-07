@@ -22,38 +22,41 @@ const {
 
 <a
   href={href}
-  class={`group block p-7 bg-white no-underline transition-colors hover:bg-neutral-100 ${
+  class={`group flex h-full flex-col justify-between p-7 bg-white no-underline transition-colors hover:bg-neutral-100 ${
     borderRight ? 'border-r-2 border-ink' : ''
   } ${flagship ? 'border-t-4 border-t-accent' : ''}`}
 >
-  <div class="mb-3 flex items-center justify-between">
-    <span class="font-mono text-xs text-neutral-600">{path}</span>
+  <div>
+    <div class="mb-3 flex items-center justify-between">
+      <span class="font-mono text-xs text-neutral-600">{path}</span>
+      {
+        flagship && (
+          <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
+            CHỦ LỰC
+          </span>
+        )
+      }
+    </div>
+    <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink group-hover:text-accent transition-colors">
+      {title}
+    </h3>
+    <p class="mb-4 text-sm leading-relaxed text-neutral-700 min-h-[3.5rem]">{description}</p>
     {
-      flagship && (
-        <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
-          CHỦ LỰC
-        </span>
+      bullets.length > 0 && (
+        <ul class="mb-5 list-none space-y-1 pl-0 font-mono text-[12.5px] text-ink min-h-[4.5rem]">
+          {bullets.map((b) => (
+            <li class="flex items-center gap-1.5">
+              <span class="text-accent font-bold">›</span>
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
       )
     }
   </div>
-  <h3 class="mb-2.5 font-heading text-[21px] font-bold leading-tight text-ink group-hover:text-accent transition-colors">
-    {title}
-  </h3>
-  <p class="mb-4 text-sm leading-relaxed text-neutral-700">{description}</p>
-  {
-    bullets.length > 0 && (
-      <ul class="mb-5 list-none space-y-1 pl-0 font-mono text-[12.5px] text-ink">
-        {bullets.map((b) => (
-          <li class="flex items-center gap-1.5">
-            <span class="text-accent font-bold">›</span>
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-  <div class="inline-flex items-center gap-1 font-heading text-[13px] font-bold text-accent group-hover:translate-x-1 transition-transform">
+  <div class="mt-auto pt-2 inline-flex items-center gap-1 font-heading text-[13px] font-bold text-accent group-hover:translate-x-1 transition-transform">
     Xem chi tiết service <span>→</span>
   </div>
 </a>
+
 
