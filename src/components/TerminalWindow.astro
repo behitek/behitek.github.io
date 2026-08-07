@@ -5,7 +5,7 @@ interface Props {
 }
 
 const { lines, interactive = true } = Astro.props;
-const fullText = lines.join('\n') + '\n$ ';
+const fullText = lines.join('\n');
 
 const PRESETS = [
   {
@@ -84,7 +84,7 @@ const PRESETS = [
 
     const typeText = (text: string) => {
       if (typeTimer) clearTimeout(typeTimer);
-      const cleanText = text.trim();
+      const cleanText = text.replace(/(\n\$\s*)+$/g, '').trim();
       if (reduceMotion) {
         el.textContent = cleanText + '\n$ ';
         el.appendChild(cursor);
@@ -102,7 +102,7 @@ const PRESETS = [
       }
     };
 
-    typeText(fullText.trimEnd());
+    typeText(fullText);
 
     cmdBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
