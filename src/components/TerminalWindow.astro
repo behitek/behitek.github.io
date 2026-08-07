@@ -68,8 +68,8 @@ const PRESETS = [
   </div>
   <pre
     id="terminal-text"
-    class="m-0 whitespace-pre-wrap px-[18px] py-4 font-mono text-[13px] leading-[1.9] text-bg"
-    data-full-text={fullText}><span id="terminal-cursor" class="inline-block h-[15px] w-2 align-[-2px] bg-accent animate-blink"></span></pre>
+    class="m-0 whitespace-pre-wrap px-[18px] py-4 font-mono text-[13px] leading-[1.5] text-bg"
+    data-full-text={fullText}><span id="terminal-cursor" class="inline-block h-[14px] w-2 align-[-2px] bg-accent animate-blink"></span></pre>
 </div>
 
 <script>
@@ -84,12 +84,13 @@ const PRESETS = [
 
     const typeText = (text: string) => {
       if (typeTimer) clearTimeout(typeTimer);
+      const cleanText = text.trim();
       if (reduceMotion) {
-        el.textContent = text + '\n$ ';
+        el.textContent = cleanText + '\n$ ';
         el.appendChild(cursor);
       } else {
         let i = 0;
-        const target = text + '\n$ ';
+        const target = cleanText + '\n$ ';
         const step = () => {
           if (i >= target.length) return;
           i += 2;
