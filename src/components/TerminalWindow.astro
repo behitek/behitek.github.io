@@ -9,13 +9,14 @@ const fullText = lines.join('\n') + '\n$ ';
 
 const PRESETS = [
   {
-    cmd: 'cat stack.txt',
-    label: 'stack',
+    cmd: 'cat core-strengths.txt',
+    label: 'strengths',
     output: [
-      '$ cat stack.txt',
-      '> LLM & RAG   : GPT-4, Claude, Hybrid Search, Re-ranking, Evaluation',
-      '> Speech      : Whisper, Kaldi ASR, Text Normalization, Accent Dictionary',
-      '> Backend/Ops : Python, FastAPI, PyTorch, Docker, Kubernetes, Linux',
+      '$ cat core-strengths.txt',
+      '🤖 Agentic AI   : Multi-agent Orchestration · Tool Calling · Autonomous Agents',
+      '💬 NLP          : Legal QA · Search & Re-rank · Vector Embeddings · ASR',
+      '⚡ AI in SDLC   : AI-Assisted Full-stack Software Architecture & Delivery',
+      '🛠️ Backend/Ops  : Python · FastAPI · Docker · Kubernetes · Linux',
     ].join('\n'),
   },
   {
@@ -35,7 +36,7 @@ const PRESETS = [
     output: [
       '$ ls -la projects/',
       'drwxr-xr-x  LCOJ       20.000+ users · DMOJ Online Judge',
-      'drwxr-xr-x  NexusAI    Multi-modal Enterprise RAG',
+      'drwxr-xr-x  NexusAI    Multi-modal Enterprise RAG & AI Agents',
       'drwxr-xr-x  LinguistAI Automated 4-Skill English Evaluation',
     ].join('\n'),
   },

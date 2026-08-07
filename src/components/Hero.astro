@@ -2,11 +2,11 @@
 import TerminalWindow from '@components/TerminalWindow.astro';
 
 const terminalLines = [
-  '$ behitek --stack',
-  '> llm         GPT-4 · Claude · fine-tune',
-  '> retrieval   hybrid search · re-rank · eval',
-  '> speech      Whisper · ASR · text normalization',
-  '> serving     FastAPI · Docker · K8s',
+  '$ behitek --strengths',
+  '> agentic-ai  Multi-Agent · Tool Calling · RAG Workflows',
+  '> nlp-core    Embeddings · Hybrid Search · Legal QA · ASR',
+  '> ai-sdlc     AI-Driven Fullstack Software Delivery',
+  '> serving     Python · FastAPI · Docker · Kubernetes',
 ];
 ---
 
@@ -24,14 +24,13 @@ const terminalLines = [
       Hiếu Nguyễn
     </h1>
     <div class="mb-4 font-heading text-xl font-bold text-accent sm:text-2xl">
-      Senior AI Engineer · LLM & RAG · Speech ASR · Hà Nội
+      Agentic AI · Natural Language Processing · AI in SDLC
     </div>
     <p
       class="mb-7 max-w-[720px] text-[16px] leading-relaxed text-neutral-700 sm:text-[17px]"
       style="text-wrap: pretty"
     >
-      8 năm đưa AI từ nghiên cứu vào production: hệ thống RAG đa phương thức cho doanh nghiệp, nhận
-      dạng giọng nói tiếng Việt phục vụ người dùng thật, và hạ tầng Online Judge phục vụ hơn 20.000 học viên. Tôi làm cả phần mô hình lẫn phần giữ cho hệ thống không sập.
+      8 năm đưa AI vào sản phẩm thực tế: thiết kế hệ thống Agentic AI & RAG doanh nghiệp, xử lý ngôn ngữ tự nhiên (NLP) chuyên sâu, và ứng dụng AI vào quy trình phát triển phần mềm full-stack (AI in SDLC). Tôi làm cả phần mô hình lẫn phần giữ cho hệ thống vận hành ổn định.
     </p>
     <div class="rwrap flex gap-3.5">
       <a href="/contact" class="btn-primary gap-4 text-sm sm:text-base">
@@ -57,3 +56,4 @@ const terminalLines = [
     <TerminalWindow lines={terminalLines} interactive={true} />
   </div>
 </div>
+
