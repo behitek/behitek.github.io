@@ -59,7 +59,7 @@
 - Consumes: `getCollection('projects')` (existing, from `astro:content`); `ServiceCard`, `ProjectMiniCard`, `StatBar`, `Hero`, `BlogCard`, `CTABand` (all existing).
 - Produces: `ProjectMiniCard` accepts an optional `flagship?: boolean` prop (default `false`). `ServiceCard` accepts `bullets?: string[]` (default `[]`, was required). The homepage's project section gets `id="projects"`, which `Hero.astro`'s second CTA now targets.
 
-- [ ] **Step 1: Add the `flagship` prop to `ProjectMiniCard`**
+- [x] **Step 1: Add the `flagship` prop to `ProjectMiniCard`**
 
 Replace the entire contents of `src/components/ProjectMiniCard.astro` with:
 
@@ -128,7 +128,7 @@ const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
 
 This is byte-for-byte the previous card markup plus the `flagship` branch in the header row and the matching border class. The `justify-between` header row already degrades correctly to a single child when `flagship` is `false` — no layout change for non-flagship cards.
 
-- [ ] **Step 2: Make `ServiceCard`'s bullets optional**
+- [x] **Step 2: Make `ServiceCard`'s bullets optional**
 
 In `src/components/ServiceCard.astro`, replace:
 
@@ -190,7 +190,7 @@ with:
   }
 ```
 
-- [ ] **Step 3: Repoint Hero's second CTA**
+- [x] **Step 3: Repoint Hero's second CTA**
 
 In `src/components/Hero.astro`, replace:
 
@@ -204,7 +204,7 @@ with:
       <a href="#projects" class="btn-secondary">Xem dự án</a>
 ```
 
-- [ ] **Step 4: Rewrite `index.astro`**
+- [x] **Step 4: Rewrite `index.astro`**
 
 Replace the entire contents of `src/pages/index.astro` with:
 
@@ -351,23 +351,23 @@ const SERVICES = [
 
 Note on the grid-border math: `sortedProjects` currently has 5 entries (`lcoj` order 1, `behivest` order 2, `beli5` order 3, `nexusai` order 4, `linguistai` order 5) rendered in a 3-column grid, so row 0 is indices 0–2 and row 1 is indices 3–4. `isLastInRow`/`isLastRow` are computed generically (not hardcoded to 5) so the layout keeps working if a project is added or removed later — verify the visual result in Task 4 regardless.
 
-- [ ] **Step 5: Delete the three orphaned components**
+- [x] **Step 5: Delete the three orphaned components**
 
 ```bash
 rm src/components/CareerStrip.astro src/components/AwardsBand.astro src/components/SkillsGrid.astro
 ```
 
-- [ ] **Step 6: Verify the build**
+- [x] **Step 6: Verify the build**
 
 Run: `npm run build`
 Expected: PASS.
 
-- [ ] **Step 7: Verify the deleted components have no remaining references**
+- [x] **Step 7: Verify the deleted components have no remaining references**
 
 Run: `grep -rn "CareerStrip\|AwardsBand\|SkillsGrid" src/`
 Expected: no output.
 
-- [ ] **Step 8: Verify the removed sections are gone and the new one is present**
+- [x] **Step 8: Verify the removed sections are gone and the new one is present**
 
 Run: `grep -c "Hệ thống đang vận hành\|Case study AI\|Dự án khác\|Chuyên môn" dist/index.html`
 Expected: `0`.
@@ -378,7 +378,7 @@ Expected: `1`.
 Run: `grep -c "CHỦ LỰC" dist/index.html`
 Expected: `1` — exactly the LCOJ card.
 
-- [ ] **Step 9: Verify the section numbering**
+- [x] **Step 9: Verify the section numbering**
 
 Run: `grep -o '0[0-9] /' dist/index.html`
 Expected, in this exact order:
@@ -389,7 +389,7 @@ Expected, in this exact order:
 03 /
 ```
 
-- [ ] **Step 10: Verify no duplicate project listings**
+- [x] **Step 10: Verify no duplicate project listings**
 
 Run: `grep -c "NexusAI" dist/index.html`
 Expected: `1` — it now appears only once, as a project-grid card (previously it could appear both there and in a case-study section).
@@ -397,7 +397,7 @@ Expected: `1` — it now appears only once, as a project-grid card (previously i
 Run: `grep -c "LinguistAI" dist/index.html`
 Expected: `1`.
 
-- [ ] **Step 11: Commit**
+- [x] **Step 11: Commit**
 
 ```bash
 npx prettier --write src/components/ProjectMiniCard.astro src/components/ServiceCard.astro src/components/Hero.astro src/pages/index.astro
@@ -416,7 +416,7 @@ git commit -m "feat: declutter homepage into a unified project grid, drop about/
 - Consumes: nothing.
 - Produces: `Metric`, `PipelineStage`, `SpotlightCaseStudy`, `CardCaseStudy` (types); `COMPANIES_SHIPPED_AT`, `NEXUS_PIPELINE`, `NEXUS_AI`, `LINGUIST_AI`, `KIKI_ASR` (values). The `ProofLine` type and `RAG_PROOF`/`SPEECH_PROOF`/`PRODUCTION_PROOF` values are removed — Task 3 depends on their removal already having happened, since it imports only the five names above.
 
-- [ ] **Step 1: Replace the file**
+- [x] **Step 1: Replace the file**
 
 Replace the entire contents of `src/data/ai-work.ts` with:
 
@@ -514,7 +514,7 @@ export const KIKI_ASR: CardCaseStudy = {
 
 `COMPANIES_SHIPPED_AT` is unchanged — it still feeds `StatBar.astro`, which this plan does not touch.
 
-- [ ] **Step 2: Verify**
+- [x] **Step 2: Verify**
 
 Run: `npm run build`
 Expected: PASS. `astro check` would flag an unused type/value if the trim left anything orphaned, so a green build also confirms `StatBar.astro` (the only remaining consumer of this file until Task 3) still resolves.
@@ -528,7 +528,7 @@ Expected: `1` — the RAG proof fact survived, folded into `NEXUS_AI.description
 Run: `grep -c "giảm 15% lỗi dịch vụ" src/data/ai-work.ts`
 Expected: `1` — the production proof fact survived, folded into `KIKI_ASR.result`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 npx prettier --write src/data/ai-work.ts
@@ -547,7 +547,7 @@ git commit -m "refactor: fold ai-work.ts proof lines into case-study prose, drop
 - Consumes: `NEXUS_AI`, `NEXUS_PIPELINE`, `LINGUIST_AI`, `KIKI_ASR` from `@/data/ai-work` (Task 2); `CaseStudySpotlight`, `PipelineDiagram`, `CaseStudyCard` (all pre-existing, previously only used on the homepage).
 - Produces: an anchor `id="case-study"` that the page's own hero CTA now targets.
 
-- [ ] **Step 1: Replace the file**
+- [x] **Step 1: Replace the file**
 
 Replace the entire contents of `src/pages/services/ai.astro` with:
 
@@ -659,7 +659,7 @@ const STEPS = [
 
 `FEATURES` and `STEPS` are unchanged from the current file — only copied here verbatim because the whole file is being replaced.
 
-- [ ] **Step 2: Verify the build and the anchor**
+- [x] **Step 2: Verify the build and the anchor**
 
 Run: `npm run build`
 Expected: PASS.
@@ -670,7 +670,7 @@ Expected: `1`.
 Run: `grep -c 'href="#case-study"' dist/services/ai/index.html`
 Expected: `1` — the hero CTA now resolves to the section on the same page instead of navigating to `/projects`.
 
-- [ ] **Step 3: Verify the case-study content actually rendered**
+- [x] **Step 3: Verify the case-study content actually rendered**
 
 Run: `grep -c "hybrid retrieval" dist/services/ai/index.html`
 Expected: `1`.
@@ -681,7 +681,7 @@ Expected: `1`.
 Run: `grep -c "giảm 15% lỗi dịch vụ" dist/services/ai/index.html`
 Expected: `1`.
 
-- [ ] **Step 4: Verify the section numbering on this page**
+- [x] **Step 4: Verify the section numbering on this page**
 
 Run: `grep -o '0[0-9] /' dist/services/ai/index.html`
 Expected, in this exact order:
@@ -692,7 +692,7 @@ Expected, in this exact order:
 03 /
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 npx prettier --write src/pages/services/ai.astro
@@ -713,7 +713,7 @@ No code changes unless a defect is found.
 - Consumes: the finished homepage and AI service page.
 - Produces: nothing.
 
-- [ ] **Step 1: Clean build**
+- [x] **Step 1: Clean build**
 
 ```bash
 rm -rf dist && npm run build
@@ -721,22 +721,22 @@ rm -rf dist && npm run build
 
 Expected: PASS with no `astro check` errors or warnings.
 
-- [ ] **Step 2: Confirm formatting**
+- [x] **Step 2: Confirm formatting**
 
 Run: `npx prettier --check src/pages/index.astro src/pages/services/ai.astro src/components/ProjectMiniCard.astro src/components/ServiceCard.astro src/components/Hero.astro src/data/ai-work.ts`
 Expected: `All matched files use Prettier code style!`
 
-- [ ] **Step 3: Confirm no dead references anywhere in the repo**
+- [x] **Step 3: Confirm no dead references anywhere in the repo**
 
 Run: `grep -rn "CareerStrip\|AwardsBand\|SkillsGrid\|ProofLine\|RAG_PROOF\|SPEECH_PROOF\|PRODUCTION_PROOF" src/`
 Expected: no output.
 
-- [ ] **Step 4: Confirm other pages are untouched**
+- [x] **Step 4: Confirm other pages are untouched**
 
 Run: `git diff --stat main -- src/pages/about.astro src/pages/projects.astro src/pages/services/index.astro src/pages/services/software.astro`
 Expected: no output (empty diff) — this plan never intended to touch these files.
 
-- [ ] **Step 5: Visual check — homepage, desktop width**
+- [x] **Step 5: Visual check — homepage, desktop width**
 
 ```bash
 npm run preview
@@ -748,24 +748,24 @@ Open `http://localhost:4321` at a 1440px viewport and confirm:
 - The `02 / Dịch vụ` cards show one description line each and no bullet list.
 - The hero's `Xem dự án` button scrolls to the `01 / Dự án` section.
 
-- [ ] **Step 6: Visual check — homepage, mobile width**
+- [x] **Step 6: Visual check — homepage, mobile width**
 
 At a 375px viewport confirm:
 - No horizontal overflow anywhere.
 - The project grid collapses to a single column with no orphaned right borders and a visible divider between the 4th and 5th card only.
 
-- [ ] **Step 7: Visual check — `/services/ai`, desktop and mobile**
+- [x] **Step 7: Visual check — `/services/ai`, desktop and mobile**
 
 Open `http://localhost:4321/services/ai` and confirm:
 - The `02 / Case study` section renders the NexusAI spotlight with the pipeline diagram filling its right column, followed by the two case-study cards with aligned metric baselines — visually identical to how this content rendered on the old homepage, just on this page.
 - The hero's `Xem case study` button scrolls down to that section instead of leaving the page.
 - At 375px width, no horizontal overflow.
 
-- [ ] **Step 8: Read both pages as a stranger**
+- [x] **Step 8: Read both pages as a stranger**
 
 Read `/` and `/services/ai` top to bottom. Confirm: nothing on the homepage restates specific award names, career dates, or skill tag lists (those now only exist on `/about`); nothing on the homepage shows a full org roster or deployment list (that only exists on `/services`); the AI case-study depth (pipeline diagram, problem/approach/result cards) now only exists on `/services/ai`, not duplicated on the homepage.
 
-- [ ] **Step 9: Commit any fixes**
+- [x] **Step 9: Commit any fixes**
 
 ```bash
 npx prettier --write <changed files>
