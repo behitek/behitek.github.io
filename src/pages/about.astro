@@ -5,66 +5,82 @@ import AwardsList from '@components/AwardsList.astro';
 import { SOCIAL_LINKS } from '@utils/constants';
 
 const SKILLS = [
-  'LLM',
-  'RAG',
-  'NLP',
   'Agentic AI',
+  'NLP',
+  'AI in SDLC',
+  'RAG & Inverted HyDE',
   'Python',
   'FastAPI',
+  'PyTorch',
   'Docker',
   'Kubernetes',
-  'PostgreSQL',
-  'Redis',
+  'DMOJ / Online Judge',
 ];
 
 const TIMELINE = [
   {
     years: '2023 — nay',
-    role: 'AI Engineer — VMO',
+    role: 'Senior AI Engineer — VMO Holdings',
     description:
-      'Xây dựng sản phẩm AI fullstack, thiết kế kiến trúc giải pháp, tham gia bidding và dẫn dắt một nhóm kỹ sư nhỏ.',
+      'Lead các giải pháp Agentic AI & RAG doanh nghiệp, thiết kế kiến trúc AI full-stack, tham gia bidding và dẫn dắt đội ngũ kỹ sư. Đạt danh hiệu Top 30 Employee of the Year.',
     dotAccent: true,
   },
   {
-    years: '2019 — 2022',
-    role: 'AI Engineer — Zalo',
+    years: '2021 — nay',
+    role: 'Sáng lập & Vận hành — Luyện Code (LCOJ)',
     description:
-      'Speech cho Zalo & trợ lý ảo KiKi: text normalization, +12% độ chính xác ASR, −15% lỗi dịch vụ trên Kubernetes.',
+      'Phát triển và vận hành nền tảng chấm bài lập trình tự động dựa trên DMOJ, phục vụ hơn 20.000 học viên và 20+ trường học/trung tâm tin học.',
+  },
+  {
+    years: '2019 — 2022',
+    role: 'AI Engineer — Zalo Group (VNG)',
+    description:
+      'Phát triển ASR & TTS cho trợ lý ảo KiKi: xây dựng pipeline chuẩn hoá văn bản (+12% độ chính xác ASR), tối ưu hạ tầng suy luận trên Kubernetes (−15% lỗi dịch vụ).',
   },
   {
     years: '2020 — 2022',
-    role: 'Thạc sĩ KH Thông tin — JAIST, Nhật Bản',
-    description: 'Information retrieval & machine learning. Học bổng du học toàn phần.',
+    role: 'Thạc sĩ KH Thông tin — JAIST (Nhật Bản)',
+    description:
+      'Nghiên cứu Machine Learning & Information Retrieval. Nhận học bổng du học toàn phần tại Viện Khoa học & Công nghệ Tiên tiến Nhật Bản.',
   },
   {
     years: '2018 — 2019',
-    role: 'AI Engineer — VCCorp',
-    description: 'Hệ thống lọc bình luận spam bằng NLP.',
+    role: 'NLP Developer — VCCorp',
+    description:
+      'Xây dựng hệ thống phát hiện bình luận spam bằng NLP (Word2Vec, RESTful AI Services, Hadoop/Spark).',
+  },
+  {
+    years: '2014 — 2019',
+    role: 'Cử nhân Kỹ thuật Phần mềm — ĐH Điện lực',
+    description:
+      'Tốt nghiệp GPA 3.3. Thành viên đội tuyển thi lập trình sinh viên ACM/ICPC Việt Nam trong 3 năm liên tiếp.',
   },
 ];
 
 const AWARDS = [
-  'Champion — AI4VN National Grand Finale Hackathon',
-  'Giải Nhất — ALQAC (Legal Document Retrieval)',
-  'Giải Nhì — ACM/ICPC Việt Nam National Contest',
-  'Giải Nhì — Speech-to-Text Shared Task, VLSP 2019',
-  'Top 30 — Employee of the Year, VMO Holdings',
+  'Top 30 — Employee of the Year, VMO Holdings (2023)',
+  'Giải Nhất — ALQAC 2022 (Automated Legal Question Answering)',
+  'Champion — AI4VN National Grand Finale Hackathon (2019)',
+  'Giải Nhì — VLSP Speech-to-Text Shared Task (2019)',
+  'Giải Nhì — ACM/ICPC Vietnam National Programming Contest (2018)',
 ];
 ---
 
 <BaseLayout
   title="Giới thiệu"
-  description="Hiếu Nguyễn — AI Engineer tại Hà Nội, 8 năm kinh nghiệm."
+  description="Hiếu Nguyễn — Senior AI Engineer tại Hà Nội. Agentic AI, NLP & AI in SDLC với 8 năm kinh nghiệm."
 >
-  <div class="rgrid grid grid-cols-[380px_1fr]">
-    <div class="rpad border-r-2 border-ink px-12 py-12">
+  <div class="rgrid grid grid-cols-[360px_1fr]">
+    <div class="rpad border-r-2 border-ink px-8 py-10 lg:px-12 lg:py-12">
       <img
         src="/images/me.png"
         alt="Hiếu Nguyễn"
-        class="grayscale-photo mb-5 block h-[180px] w-[180px] border-2 border-ink object-cover"
+        class="grayscale-photo mb-5 block h-[160px] w-[160px] border-2 border-ink object-cover lg:h-[180px] lg:w-[180px]"
       />
-      <h1 class="mb-1 font-heading text-[34px] font-extrabold text-ink">Hiếu Nguyễn</h1>
-      <div class="mb-4.5 font-heading text-[15px] font-bold text-accent">AI Engineer · Hà Nội</div>
+      <h1 class="mb-1 font-heading text-[32px] font-extrabold text-ink lg:text-[36px]">Hiếu Nguyễn</h1>
+      <div class="mb-4 font-heading text-[14px] font-bold text-accent lg:text-[15px]">
+        Senior AI Engineer · Hà Nội
+      </div>
       <div class="flex flex-col font-mono text-[13px] leading-[2.1] text-ink">
         <a href={SOCIAL_LINKS.email.href}>hello@behitek.com</a>
         <a href={SOCIAL_LINKS.github.href} target="_blank" rel="noopener noreferrer"
@@ -76,7 +92,7 @@ const AWARDS = [
       </div>
       <div class="my-5 h-0.5 bg-ink"></div>
       <div class="mb-3 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
-        KỸ NĂNG
+        THẾ MẠNH CỐT LÕI
       </div>
       <div class="flex flex-wrap gap-1.5">
         {SKILLS.map((s) => <span class="tag-pill text-[11.5px]">{s}</span>)}
@@ -86,17 +102,23 @@ const AWARDS = [
         NGÔN NGỮ
       </div>
       <div class="text-[13.5px] leading-[1.9] text-ink">
-        Tiếng Việt (bản ngữ)<br />
-        English (professional)
+        Tiếng Việt (Bản ngữ)<br />
+        English (B2 / Professional)
       </div>
     </div>
 
-    <div class="p-12">
+    <div class="p-8 lg:p-12">
+      <div class="kicker mb-3">$ cat bio.txt</div>
+      <p class="mb-8 text-[15.5px] leading-relaxed text-neutral-800" style="text-wrap: pretty">
+        Tôi là Senior AI Engineer với 8 năm kinh nghiệm đưa AI từ nghiên cứu vào sản phẩm thực tế. Thế mạnh chuyên sâu của tôi tập trung vào <strong>Agentic AI</strong> (hệ thống AI Agents & RAG doanh nghiệp), <strong>Natural Language Processing (NLP)</strong> và <strong>AI in SDLC</strong> (ứng dụng AI vào quy trình thiết kế, phát triển và vận hành phần mềm full-stack). Tôi làm cả phần mô hình lẫn phần giữ cho hệ thống luôn sẵn sàng và ổn định.
+      </p>
+
       <div class="kicker mb-5">$ cat experience.log</div>
       <Timeline entries={TIMELINE} />
 
-      <div class="kicker mb-4 mt-6">$ cat awards.log</div>
+      <div class="kicker mb-4 mt-8">$ cat awards.log</div>
       <AwardsList awards={AWARDS} />
     </div>
   </div>
 </BaseLayout>
+
