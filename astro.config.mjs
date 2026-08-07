@@ -38,14 +38,15 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkDirective, remarkAdmonitions],
     shikiConfig: {
-      theme: 'github-light',
+      theme: 'one-dark-pro',
       wrap: true,
       transformers: [
         {
-          name: 'add-copy-button',
+          name: 'add-code-metadata',
           pre(node) {
-            // Add a data attribute to enable copy button
             this.addClassToHast(node, 'code-block-wrapper');
+            const lang = this.options.lang || 'text';
+            node.properties['data-language'] = lang;
           },
         },
       ],

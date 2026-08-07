@@ -10,4 +10,5 @@ interface Window {
   openImageGallery: (id: string, index?: number) => void;
   closeImageGallery: (id: string) => void;
   navigateGallery: (id: string, direction: number) => void;
+  showToast?: (message?: string) => void;
 }

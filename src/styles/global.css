@@ -130,95 +130,136 @@
 
 /* Prose styles for blog content */
 .prose {
-  @apply max-w-none;
+  @apply max-w-none text-base leading-relaxed text-ink;
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  @apply font-heading font-extrabold text-ink;
+  @apply font-heading font-extrabold text-ink relative flex items-center gap-2;
   scroll-margin-top: 6rem;
 }
 
 .prose h1 {
-  @apply mb-6 text-4xl;
+  @apply mb-6 text-3xl sm:text-4xl;
 }
 
 .prose h2 {
-  @apply mb-4 mt-12 border-b-2 border-ink pb-2 text-3xl;
+  @apply mb-4 mt-12 border-b-2 border-ink pb-2 text-2xl sm:text-3xl;
 }
 
 .prose h3 {
-  @apply mb-3 mt-8 text-2xl;
+  @apply mb-3 mt-8 text-xl sm:text-2xl;
+}
+
+.prose .heading-anchor-link {
+  @apply inline-flex items-center text-accent opacity-0 no-underline transition-opacity font-mono text-base ml-1 cursor-pointer select-none;
+}
+
+.prose h2:hover .heading-anchor-link,
+.prose h3:hover .heading-anchor-link,
+.prose h4:hover .heading-anchor-link {
+  @apply opacity-100;
 }
 
 .prose p {
-  @apply mb-4 leading-relaxed text-ink;
+  @apply mb-5 leading-relaxed text-ink text-[16px];
 }
 
 .prose a {
-  @apply link;
+  @apply link font-medium;
 }
 
 .prose code {
-  @apply bg-surface px-1.5 py-0.5 font-mono text-[13px] text-accent;
+  @apply bg-surface px-1.5 py-0.5 font-mono text-[13px] text-accent border border-border-light;
+}
+
+/* Minimalist Code Block (No Header Bar, Top-Right Floating Copy Button with Opacity) */
+.prose .code-block-wrapper {
+  @apply relative my-4 overflow-hidden;
 }
 
 .prose pre {
-  @apply relative my-6 overflow-x-auto border-2 border-ink bg-ink p-4 text-bg;
+  @apply relative my-4 overflow-x-auto border-2 border-ink bg-[#282c34] p-3.5 pr-14 text-[#abb2bf] font-mono text-[13.5px] leading-snug;
+}
+
+.prose .code-block-wrapper pre {
+  @apply my-0;
 }
 
 .prose pre code {
-  @apply bg-transparent p-0 text-bg;
+  @apply bg-transparent p-0 text-[#abb2bf] border-none font-mono text-[13.5px];
 }
 
-.prose .code-block-wrapper {
-  position: relative;
+.prose pre::-webkit-scrollbar {
+  height: 5px;
 }
 
-.prose pre:hover .copy-button {
-  opacity: 1;
+.prose pre::-webkit-scrollbar-track {
+  background: #21252b;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+  background: #4b5263;
+  border-radius: 2px;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover {
+  background: #5c6370;
 }
 
 .prose .copy-button {
-  @apply absolute right-2 top-2 cursor-pointer border border-neutral-600 px-3 py-1.5 font-mono text-xs text-bg opacity-0 transition-opacity;
-  background: transparent;
-  z-index: 10;
+  @apply absolute right-2 top-2 cursor-pointer border border-neutral-600/80 bg-[#21252b]/90 px-2 py-1 font-mono text-[11px] font-semibold text-neutral-300 opacity-40 transition-all hover:opacity-100 hover:bg-accent hover:text-white hover:border-accent z-10 leading-none select-none;
+}
+
+.prose pre:hover .copy-button {
+  @apply opacity-90;
 }
 
 .prose .copy-button.copied {
-  @apply border-accent text-accent;
+  @apply border-emerald-500 bg-emerald-600 text-white opacity-100;
 }
 
 .prose blockquote {
-  @apply my-6 border-l-4 border-accent pl-4 italic text-neutral-700;
+  @apply my-6 border-l-4 border-accent bg-surface/60 p-4 pl-5 italic text-neutral-800;
 }
 
 .prose ul,
 .prose ol {
-  @apply mb-4 ml-6;
+  @apply mb-5 ml-6 leading-relaxed;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
 }
 
 .prose li {
-  @apply mb-2;
+  @apply mb-2 text-ink;
 }
 
 .prose img {
-  @apply my-8 border-2 border-ink;
-  filter: grayscale(1);
+  @apply my-8 border-2 border-ink bg-white p-1 transition-transform hover:scale-[1.01] cursor-pointer;
 }
 
 .prose table {
-  @apply my-8 w-full;
+  @apply my-8 w-full border-collapse border-2 border-ink font-sans text-sm;
 }
 
 .prose th {
-  @apply border-b-2 border-ink bg-surface px-4 py-2 text-left font-heading font-semibold;
+  @apply border-2 border-ink bg-surface px-4 py-2.5 text-left font-heading font-bold text-ink;
 }
 
 .prose td {
-  @apply border-b border-border-light px-4 py-2;
+  @apply border border-border-light px-4 py-2 text-neutral-800;
+}
+
+.prose tr:nth-child(even) {
+  @apply bg-surface/40;
 }
 
 /* Reading progress bar */
@@ -226,31 +267,52 @@
   @apply fixed left-0 top-0 z-50 h-1 bg-accent transition-all duration-150;
 }
 
-/* Admonitions (:::tip:::, :::warning:::, etc.) */
+/* Admonitions (:::tip::|, :::warning::|, etc.) */
 .prose .admonition {
-  @apply my-6 border-l-4 border-ink bg-surface p-4;
+  @apply my-6 border-l-4 border-2 border-ink p-4 font-sans text-ink bg-white shadow-sm;
 }
 
-.prose .admonition::before {
-  @apply mb-2 block font-heading font-extrabold text-accent;
+.prose .admonition-tip {
+  @apply border-l-emerald-600 bg-emerald-50/40;
 }
 
 .prose .admonition-tip::before {
-  content: '💡 Tip';
+  content: '💡 TIP';
+  @apply mb-1 block font-mono text-xs font-bold tracking-wider text-emerald-700;
+}
+
+.prose .admonition-warning {
+  @apply border-l-amber-500 bg-amber-50/40;
 }
 
 .prose .admonition-warning::before {
-  content: '⚠️ Warning';
+  content: '⚠️ WARNING';
+  @apply mb-1 block font-mono text-xs font-bold tracking-wider text-amber-700;
+}
+
+.prose .admonition-danger {
+  @apply border-l-rose-600 bg-rose-50/40;
 }
 
 .prose .admonition-danger::before {
-  content: '🚨 Danger';
+  content: '🚨 DANGER';
+  @apply mb-1 block font-mono text-xs font-bold tracking-wider text-rose-700;
+}
+
+.prose .admonition-note {
+  @apply border-l-sky-600 bg-sky-50/40;
 }
 
 .prose .admonition-note::before {
-  content: '📝 Note';
+  content: '📝 NOTE';
+  @apply mb-1 block font-mono text-xs font-bold tracking-wider text-sky-700;
+}
+
+.prose .admonition-info {
+  @apply border-l-indigo-600 bg-indigo-50/40;
 }
 
 .prose .admonition-info::before {
-  content: 'ℹ️ Info';
+  content: 'ℹ️ INFO';
+  @apply mb-1 block font-mono text-xs font-bold tracking-wider text-indigo-700;
 }

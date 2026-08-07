@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '@components/TableOfContents.astro';
 import Giscus from '@components/Giscus.astro';
+import Toast from '@components/Toast.astro';
 import { formatDate } from '@utils/helpers';
 import type { CollectionEntry } from 'astro:content';
 
@@ -27,104 +28,152 @@ const shareTitle = encodeURIComponent(title);
 >
   <div id="reading-progress" class="reading-progress" style="width: 0%"></div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr]">
-    <aside class="hidden border-r border-border-light py-12 pl-12 lg:block">
-      <a
-        href="/blog"
-        class="mb-5 inline-block font-mono text-xs text-neutral-600 no-underline hover:text-accent"
-      >
-        ← cd ../blog
-      </a>
-      <TableOfContents headings={headings} />
-    </aside>
-
-    <article class="max-w-[760px] p-8 md:p-12">
-      <div class="mb-3.5 font-mono text-xs text-neutral-600">
-        ~/blog/<span class="text-accent">{post.slug}</span> · {formatDate(date)} · {readingTime} phút
-        đọc ·{' '}
-        <span class="text-accent">{category.toUpperCase()} · {language.toUpperCase()}</span>
-      </div>
-
-      <h1 class="mb-5 font-heading text-[40px] font-extrabold leading-[1.1] text-ink">{title}</h1>
-
-      <p class="mb-5 text-base leading-relaxed text-neutral-700">{description}</p>
-
-      <div class="prose prose-lg">
-        <slot />
-      </div>
-
-      {
-        tags.length > 0 && (
-          <div class="mb-6 mt-6 flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span class="tag-pill">#{tag}</span>
-            ))}
-          </div>
-        )
-      }
-
-      <div class="my-6 flex items-center gap-3 border-t-2 border-ink py-4">
-        <span class="font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600"
-          >CHIA SẺ</span
-        >
+  {/* Main Centered Widescreen Container */}
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr] xl:gap-12">
+      <aside class="hidden border-r border-border-light py-10 pr-6 lg:block">
         <a
-          href={`https://x.com/intent/tweet?text=${shareTitle}&url=${encodeURIComponent(shareUrl)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg"
+          href="/blog"
+          class="mb-6 inline-flex items-center gap-1 font-mono text-xs text-neutral-600 no-underline hover:text-accent transition-colors"
         >
-          X
+          ← cd ../blog
         </a>
-        <a
-          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg"
-        >
-          LinkedIn
-        </a>
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg"
-        >
-          Facebook
-        </a>
-        <button
-          id="copy-link"
-          type="button"
-          class="cursor-pointer border-2 border-ink bg-transparent px-3.5 py-1.5 font-mono text-xs font-semibold text-ink hover:bg-ink hover:text-bg"
-        >
-          copy link
-        </button>
-      </div>
+        <TableOfContents headings={headings} variant="desktop" />
+      </aside>
 
-      <div class="flex items-center gap-5 border-2 border-ink bg-white p-5">
-        <img
-          src="/images/me.png"
-          alt="Hiếu Nguyễn"
-          class="grayscale-photo h-16 w-16 flex-none border border-ink object-cover"
-        />
-        <div class="flex-1">
-          <div class="font-heading text-[15px] font-bold text-ink">Hiếu Nguyễn - AI Engineer</div>
-          <div class="text-[13px] leading-relaxed text-neutral-700">
-            8 năm xây hệ thống AI production. Nhận tư vấn RAG/LLM và triển khai online judge.
-          </div>
+      <article class="w-full max-w-[840px] py-8 lg:py-10">
+        {/* Mobile back link */}
+        <div class="mb-4 lg:hidden">
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-1 font-mono text-xs text-neutral-600 no-underline hover:text-accent"
+          >
+            ← cd ../blog
+          </a>
         </div>
-        <a href="/contact" class="btn-primary flex-none px-4 py-2.5 text-sm">Liên hệ →</a>
-      </div>
 
-      <Giscus />
-    </article>
+        <div class="mb-3.5 font-mono text-xs text-neutral-600">
+          ~/blog/<span class="text-accent">{post.slug}</span> · {formatDate(date)} · {readingTime} phút
+          đọc ·{' '}
+          <span class="text-accent">{category.toUpperCase()} · {language.toUpperCase()}</span>
+        </div>
+
+        <h1 class="mb-5 font-heading text-3xl sm:text-4xl lg:text-[40px] font-extrabold leading-[1.12] text-ink">{title}</h1>
+
+        <p class="mb-6 text-base sm:text-lg leading-relaxed text-neutral-700 font-sans border-l-2 border-accent/40 pl-4 py-0.5">{description}</p>
+
+        {/* Render Mobile TOC inside article flow for small screens only */}
+        <TableOfContents headings={headings} variant="mobile" />
+
+        <div class="prose prose-lg">
+          <slot />
+        </div>
+
+        {
+          tags.length > 0 && (
+            <div class="mb-6 mt-8 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span class="tag-pill">#{tag}</span>
+              ))}
+            </div>
+          )
+        }
+
+        <div class="my-8 flex flex-wrap items-center gap-3 border-t-2 border-ink py-4">
+          <span class="font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600"
+            >CHIA SẺ</span
+          >
+          <a
+            href={`https://x.com/intent/tweet?text=${shareTitle}&url=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg transition-colors"
+          >
+            X
+          </a>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border-2 border-ink px-3.5 py-1.5 font-mono text-xs font-semibold text-ink no-underline hover:bg-ink hover:text-bg transition-colors"
+          >
+            Facebook
+          </a>
+          <button
+            id="copy-link"
+            type="button"
+            class="cursor-pointer border-2 border-ink bg-transparent px-3.5 py-1.5 font-mono text-xs font-semibold text-ink hover:bg-ink hover:text-bg transition-colors"
+          >
+            copy link
+          </button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 border-2 border-ink bg-white p-5">
+          <img
+            src="/images/me.png"
+            alt="Hiếu Nguyễn"
+            class="grayscale-photo h-16 w-16 flex-none border border-ink object-cover"
+          />
+          <div class="flex-1">
+            <div class="font-heading text-[15px] font-bold text-ink">Hiếu Nguyễn - AI Engineer</div>
+            <div class="text-[13px] leading-relaxed text-neutral-700">
+              8 năm xây hệ thống AI production. Nhận tư vấn RAG/LLM và triển khai online judge.
+            </div>
+          </div>
+          <a href="/contact" class="btn-primary flex-none px-4 py-2.5 text-sm">Liên hệ →</a>
+        </div>
+
+        <Giscus />
+      </article>
+    </div>
   </div>
+
+  <Toast />
 </BaseLayout>
 
 <script>
+  // Robust clipboard copy with fallback for non-secure HTTP contexts (e.g., http://10.10.0.65:4321)
+  const copyToClipboard = async (text: string): Promise<boolean> => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (err) {
+        console.warn('navigator.clipboard failed, fallback:', err);
+      }
+    }
+
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '-9999px';
+      textarea.setAttribute('readonly', '');
+      document.body.appendChild(textarea);
+      textarea.select();
+      const success = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return success;
+    } catch (err) {
+      console.error('Fallback copy failed:', err);
+      return false;
+    }
+  };
+
+  // 1. Reading Progress Bar
   const updateReadingProgress = () => {
     const winScroll = document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
     const progressBar = document.getElementById('reading-progress');
     if (progressBar) {
       progressBar.style.width = scrolled + '%';
@@ -133,54 +182,89 @@ const shareTitle = encodeURIComponent(title);
 
   window.addEventListener('scroll', updateReadingProgress);
 
+  // 2. Main Share Copy Button
   document.getElementById('copy-link')?.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    const button = document.getElementById('copy-link');
-    if (button) {
-      const originalText = button.textContent;
-      button.textContent = '✓ đã copy';
-      setTimeout(() => {
-        button.textContent = originalText;
-      }, 2000);
+    const ok = await copyToClipboard(window.location.href);
+    if (ok) {
+      window.showToast?.('✓ Đã copy link bài viết!');
     }
   });
 
+  // 3. Floating Top-Right Copy Button for Code Blocks (No Header Bar)
   document.querySelectorAll('.prose pre').forEach((pre) => {
-    const button = document.createElement('button');
-    button.className = 'copy-button';
-    button.textContent = 'Copy';
-    button.setAttribute('aria-label', 'Copy code to clipboard');
+    // Avoid duplicate button insertion
+    if (pre.querySelector('.copy-button')) return;
 
-    button.addEventListener('click', async () => {
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-button';
+    copyBtn.type = 'button';
+    copyBtn.textContent = 'Copy';
+    copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+
+    copyBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const code = pre.querySelector('code');
-      if (code) {
-        const text = code.textContent || '';
-        try {
-          await navigator.clipboard.writeText(text);
-          button.textContent = 'Copied!';
-          button.classList.add('copied');
-          setTimeout(() => {
-            button.textContent = 'Copy';
-            button.classList.remove('copied');
-          }, 2000);
-        } catch (err) {
-          console.error('Failed to copy code:', err);
-          button.textContent = 'Failed';
-          setTimeout(() => {
-            button.textContent = 'Copy';
-          }, 2000);
-        }
+      const text = code ? code.textContent || '' : pre.textContent || '';
+      
+      const ok = await copyToClipboard(text);
+      if (ok) {
+        copyBtn.textContent = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        window.showToast?.('✓ Đã copy mã nguồn!');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 2200);
+      } else {
+        copyBtn.textContent = 'Failed';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 2000);
       }
     });
 
-    pre.appendChild(button);
+    pre.appendChild(copyBtn);
   });
 
+  // 4. Attach Anchor Links to Headings (H2, H3, H4) with Copy Functionality
+  document.querySelectorAll('.prose h2, .prose h3, .prose h4').forEach((heading) => {
+    const id = heading.getAttribute('id');
+    if (!id) return;
+
+    const anchor = document.createElement('a');
+    anchor.className = 'heading-anchor-link';
+    anchor.href = `#${id}`;
+    anchor.title = 'Copy link trực tiếp tới phần này';
+    anchor.setAttribute('aria-label', `Link tới ${heading.textContent}`);
+    anchor.innerHTML = '#';
+
+    anchor.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const sectionUrl = `${window.location.origin}${window.location.pathname}#${id}`;
+      const ok = await copyToClipboard(sectionUrl);
+      if (ok) {
+        history.pushState(null, '', `#${id}`);
+        heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.showToast?.('✓ Đã copy link phần này!');
+      }
+    });
+
+    heading.appendChild(anchor);
+  });
+
+  // 5. Smooth Scroll for Table of Contents Anchors
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href') || '');
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const href = this.getAttribute('href');
+      if (href && href !== '#') {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.pushState(null, '', href);
+        }
+      }
     });
   });
 </script>
