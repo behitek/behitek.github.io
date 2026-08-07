@@ -39,7 +39,7 @@ const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
   ) : (
     <a
       href={`/blog/${slug}`}
-      class="-mx-2 grid grid-cols-[130px_1fr_100px] gap-6 border-b border-border-light px-2 py-6 no-underline hover:bg-neutral-200 md:grid-cols-[130px_1fr_140px]"
+      class="-mx-2 grid grid-cols-[1fr] gap-2 border-b border-border-light px-2 py-6 no-underline hover:bg-neutral-200 sm:grid-cols-[130px_1fr_100px] sm:gap-6 md:grid-cols-[130px_1fr_140px]"
     >
       <div class="font-mono text-xs leading-[1.8] text-neutral-600">
         {formatDate(date)}

@@ -1,15 +1,9 @@
 {
   "id": "lcoj",
   "title": "LCOJ",
-  "description": "Online judge và nền tảng contest cho học sinh Việt Nam: chấm bài tự động, hơn 1000 bài tập kèm lời giải. Nền tảng của dịch vụ triển khai và vận hành online judge hiện nay.",
+  "description": "Online judge và nền tảng contest cho học sinh Việt Nam: chấm bài tự động, hơn 1000 bài tập kèm lời giải. Nền tảng của dịch vụ triển khai và vận hành online judge hiện nay. Được vận hành một mình từ năm 2020, không có team hạ tầng riêng, tăng trưởng hoàn toàn qua truyền miệng.",
   "category": "Product",
-  "tech": [
-    "Python",
-    "Django",
-    "Vue",
-    "JavaScript",
-    "Docker"
-  ],
+  "tech": ["Python", "Django", "Vue", "JavaScript", "Docker"],
   "images": [
     "/images/project/lcoj-home.png",
     "/images/project/lcoj-problem.png",
