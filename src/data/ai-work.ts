@@ -12,12 +12,6 @@ export interface Metric {
   placeholder: boolean;
 }
 
-/** The accent-coloured evidence line at the bottom of a skills column. */
-export interface ProofLine {
-  text: string;
-  placeholder: boolean;
-}
-
 /** One stage in a rendered architecture diagram. */
 export interface PipelineStage {
   label: string;
@@ -49,21 +43,6 @@ export const COMPANIES_SHIPPED_AT: Metric = {
   placeholder: false,
 };
 
-export const RAG_PROOF: ProofLine = {
-  text: 'Đồng tác giả nghiên cứu Legal QA giành Giải Nhất ALQAC 2022',
-  placeholder: false,
-};
-
-export const SPEECH_PROOF: ProofLine = {
-  text: '+12% độ chính xác ASR cho trợ lý ảo KiKi (Zalo)',
-  placeholder: false,
-};
-
-export const PRODUCTION_PROOF: ProofLine = {
-  text: '−15% lỗi dịch vụ trên Kubernetes (Zalo)',
-  placeholder: false,
-};
-
 export const NEXUS_PIPELINE: PipelineStage[] = [
   { label: 'query', detail: 'câu hỏi ngôn ngữ tự nhiên' },
   { label: 'hybrid retrieval', detail: 'BM25 + dense vector song song' },
@@ -75,7 +54,7 @@ export const NEXUS_AI: SpotlightCaseStudy = {
   kicker: 'NexusAI — RAG đa phương thức',
   title: 'Tra cứu trên kho tài liệu văn bản, hình ảnh và video',
   description:
-    'Khách hàng doanh nghiệp có kho tài liệu nội bộ nhiều năm nhưng tìm kiếm theo từ khoá gần như vô dụng: câu hỏi nghiệp vụ không khớp từ khoá, và nội dung nằm rải rác trong cả văn bản lẫn ảnh chụp và video. Tôi xây hệ thống RAG với embedding tùy biến cho từng loại nội dung, hybrid search kết hợp BM25 và vector, re-rank bằng LLM, và câu trả lời luôn kèm trích dẫn để người dùng kiểm chứng được nguồn.',
+    'Khách hàng doanh nghiệp có kho tài liệu nội bộ nhiều năm nhưng tìm kiếm theo từ khoá gần như vô dụng: câu hỏi nghiệp vụ không khớp từ khoá, và nội dung nằm rải rác trong cả văn bản lẫn ảnh chụp và video. Tôi xây hệ thống RAG với embedding tùy biến cho từng loại nội dung, hybrid search kết hợp BM25 và vector, re-rank bằng LLM, và câu trả lời luôn kèm trích dẫn để người dùng kiểm chứng được nguồn. Kinh nghiệm RAG này cũng là nền cho nghiên cứu Legal QA mà tôi đồng tác giả, giành Giải Nhất ALQAC 2022.',
   stats: [
     { value: '3', label: 'loại nội dung: văn bản, ảnh, video', placeholder: false },
     { value: 'Hybrid', label: 'search: BM25 + vector + re-rank LLM', placeholder: false },
@@ -104,7 +83,7 @@ export const KIKI_ASR: CardCaseStudy = {
   approach:
     'Xây pipeline chuẩn hoá văn bản cho cả dữ liệu huấn luyện và đầu ra nhận dạng, mở rộng từ điển phát âm cho tên riêng, và dựng bộ đánh giá riêng cho từng nhóm lỗi thay vì chỉ nhìn WER tổng.',
   result:
-    'Độ chính xác nhận dạng tăng 12%, và các nhóm lỗi liên quan tới số và địa danh giảm rõ rệt trên bộ đánh giá nội bộ.',
+    'Độ chính xác nhận dạng tăng 12%, và các nhóm lỗi liên quan tới số và địa danh giảm rõ rệt trên bộ đánh giá nội bộ. Cùng giai đoạn đó, tôi cũng tối ưu dịch vụ suy luận trên Kubernetes, giảm 15% lỗi dịch vụ.',
   tech: ['PyTorch', 'Kaldi', 'Python', 'Kubernetes'],
   metric: { value: '+12%', label: 'độ chính xác ASR', placeholder: false },
 };
