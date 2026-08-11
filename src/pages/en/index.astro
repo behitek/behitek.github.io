@@ -139,8 +139,8 @@ const recentPosts = allPosts
               date={post.data.date}
               category={post.data.category}
               language={post.data.language}
-              slug={post.slug}
-              readingTime={readingTime(post.body)}
+              slug={post.id}
+              readingTime={readingTime(post.body ?? '')}
               lang={lang}
             />
           ))}

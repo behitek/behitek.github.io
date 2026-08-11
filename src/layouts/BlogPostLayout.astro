@@ -15,7 +15,7 @@ interface Props {
 const { post, headings, readingTime } = Astro.props;
 const { title, description, date, updated, category, tags, language } = post.data;
 
-const shareUrl = new URL(`/blog/${post.slug}`, Astro.site).toString();
+const shareUrl = new URL(`/blog/${post.id}`, Astro.site).toString();
 const shareTitle = encodeURIComponent(title);
 const currentLang = Astro.url.pathname.startsWith('/en') ? 'en' : language || 'vi';
 ---
@@ -55,7 +55,7 @@ const currentLang = Astro.url.pathname.startsWith('/en') ? 'en' : language || 'v
         </div>
 
         <div class="mb-3.5 font-mono text-xs text-neutral-600">
-          ~/blog/<span class="text-accent">{post.slug}</span> · {formatDate(date)} · {readingTime} phút
+          ~/blog/<span class="text-accent">{post.id}</span> · {formatDate(date)} · {readingTime} phút
           đọc ·{' '}
           <span class="text-accent">{category.toUpperCase()} · {language.toUpperCase()}</span>
         </div>
