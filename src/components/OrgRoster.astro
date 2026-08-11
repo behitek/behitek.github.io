@@ -28,7 +28,7 @@ const linkLabel =
   <div class={`rgrid grid ${cols} border-t-2 border-ink`}>
     {
       orgs.map((org) => (
-        <div class="flex items-baseline gap-2 border-b border-border-light py-2 pr-6 font-mono text-[12.5px] leading-[1.5] text-ink">
+        <div class="flex items-baseline gap-2 border-b border-border-light py-2 pr-6 font-mono text-[12.5px] leading-normal text-ink">
           <span class="flex-none text-accent">●</span>
           <span class="flex-1">{org.name}</span>
           {variant === 'full' && <span class="flex-none text-neutral-600">{org.members}</span>}

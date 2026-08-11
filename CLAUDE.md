@@ -33,27 +33,35 @@ source under `src/` (see "Current design system" below) rather than trusting the
 
 ## Architecture
 
-**Stack**: Astro 4 (static output, no SSR adapter), TailwindCSS 3, TypeScript (strict, via
-`astro/tsconfigs/strict`), MDX for blog content. Content is entirely in Vietnamese
-(`<html lang="vi">` in `BaseLayout.astro`); English blog posts exist but there is no live
-language switcher — the navbar's EN/VI control (`Navbar.astro`) only shows a toast saying
-translation is planned, it does not route anywhere.
+**Stack**: Astro 7 (static output, no SSR adapter), TailwindCSS 4 (via the `@tailwindcss/vite`
+plugin, not an Astro integration), TypeScript (strict, via `astro/tsconfigs/strict`), MDX for blog
+content. Astro 7 defaults to a new Rust-based Markdown processor ("Sätteri"); this project opts
+back into the classic `unified()`/remark pipeline by installing `@astrojs/markdown-remark`
+explicitly, since `astro.config.mjs`'s `markdown.remarkPlugins`/`shikiConfig` keys depend on it.
+Content is entirely in Vietnamese (`<html lang="vi">` in `BaseLayout.astro`); English pages exist
+under a manually-duplicated `/en/` page tree (not Astro's i18n-routing-generated pages) — the
+navbar's EN/VI control routes between the two trees directly.
 
 **Import aliases** (`tsconfig.json`): `@/*` → `src/*`, `@components/*`, `@layouts/*`,
 `@utils/*`, `@styles/*`.
 
-### Content collections (`src/content/config.ts`)
+### Content collections (`src/content.config.ts`)
 
-Two collections, both consumed via `getCollection()`:
+Two collections defined with the Content Layer API (`loader: glob({...})`), both consumed via
+`getCollection()`:
 - `blog` — MDX files in `src/content/blog/`. Frontmatter: `title`, `description`, `date`,
   `updated?`, `author` (defaults to "Hieu Nguyen"), `language` (`en`|`vi`, default `en`),
-  `category`, `tags[]`, `image?`, `draft`. Slug comes from the filename.
+  `category`, `tags[]`, `image?`, `draft`. The entry's `id` (filename-derived) is used as the
+  slug — not `.slug`, which no longer exists on Content Layer entries.
 - `projects` — JSON files in `src/content/projects/`. Schema includes `category`
   (`Product`|`Research`|`Tutorial`|`Tool`|`Fun`), `tech[]`, `image?`/`images[]`, `links`
   (`website`/`github`/`blog`), `featured`, `order`, `status` (`open-source`|`private`),
   `flagship`, `placeholderIcon?`. Exactly one project should have `flagship: true` — the homepage
   (`src/pages/index.astro`) looks it up via `allProjects.find(p => p.data.flagship)` and renders it
   as the `CaseStudySpotlight`.
+
+Rendering a blog post uses the Content Layer's `render(entry)` function imported from
+`astro:content` (not an `entry.render()` method) — see `src/pages/blog/[...slug].astro`.
 
 ### Page/layout structure
 
@@ -72,17 +80,22 @@ Two collections, both consumed via `getCollection()`:
 
 ### Current design system
 
-The palette, type scale, and component conventions live in `tailwind.config.mjs` and
-`src/styles/global.css`, not in the root markdown docs. Key facts a future edit should respect:
-- Brutalist/"Modernist" terminal aesthetic: sharp corners everywhere (`borderRadius` is zeroed
-  out except `full`), heavy 2px `border-ink` borders, monospace (`font-mono`) used for
+The palette, type scale, and component conventions live entirely in `src/styles/global.css` (there
+is no `tailwind.config.mjs` — Tailwind 4 uses CSS-based config). Key facts a future edit should
+respect:
+- Brutalist/"Modernist" terminal aesthetic: sharp corners everywhere (`--radius-*` tokens are
+  zeroed out except `full`), heavy 2px `border-ink` borders, monospace (`font-mono`) used for
   labels/kickers/nav, `font-heading`/`font-sans` both map to Archivo.
-- Color tokens: `bg`, `surface`, `ink` (near-black text), `border`/`border-light`, `accent`
-  (`#ec3013` red/orange) with a full 100–900 ramp, `accent-2`, and a `neutral` ramp. There is no
-  dark-mode variant of these tokens (no `dark:` classes exist in `src/`).
-- Reusable utility classes are defined in `global.css` `@layer components`: `.btn`/`.btn-primary`/
-  `.btn-secondary`, `.card`, `.tag-pill`, `.kicker` (mono accent-colored section labels like
-  `01 /`), `.blink-cursor` (terminal cursor animation), `.section`, `.container`.
+- Color tokens live in the `@theme` block at the top of `global.css`: `bg`, `surface`, `ink`
+  (near-black text), `border`/`border-light`, `accent` (`#ec3013` red/orange) with a full 100–900
+  ramp, `accent-2`, and a `neutral` ramp. There is no dark-mode variant of these tokens (no `dark:`
+  classes exist in `src/`).
+- Reusable utility classes are defined in `global.css` as `@utility` blocks (Tailwind 4's
+  replacement for `@layer components`): `.btn`/`.btn-primary`/`.btn-secondary`, `.card`,
+  `.tag-pill`, `.kicker` (mono accent-colored section labels like `01 /`), `.blink-cursor`
+  (terminal cursor animation), `.section`, `.container`. Any scoped `<style>` block in a `.astro`
+  component that uses `@apply` needs its own `@reference '@styles/global.css';` line — Tailwind 4
+  compiles each such block as an isolated CSS module.
 - Responsive collapsing of the bordered grid layouts (e.g. `ServiceCard` grid, homepage sections)
   is handled by custom helper classes (`.rgrid`, `.rwrap`, `.rpad`) defined in a single
   `@media (max-width: 900px)` block in `global.css`, rather than per-component Tailwind responsive

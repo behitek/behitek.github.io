@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import remarkDirective from 'remark-directive';
 import { visit } from 'unist-util-visit';
 import { h } from 'hastscript';
@@ -35,13 +35,10 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [
-    mdx(),
-    sitemap(),
-    tailwind({
-      applyBaseStyles: false,
-    }),
-  ],
+  integrations: [mdx(), sitemap()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   markdown: {
     remarkPlugins: [remarkDirective, remarkAdmonitions],
     shikiConfig: {

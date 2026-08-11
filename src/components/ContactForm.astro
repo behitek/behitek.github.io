@@ -27,7 +27,7 @@ const isEn = lang === 'en';
         id="cf-name"
         type="text"
         placeholder={isEn ? 'John Doe' : 'Nguyễn Văn A'}
-        class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-none focus-visible:border-accent"
+        class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-hidden focus-visible:border-accent"
       />
       <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-name">
         {isEn ? 'Please enter your name.' : 'Vui lòng nhập họ tên.'}
@@ -42,7 +42,7 @@ const isEn = lang === 'en';
         id="cf-email"
         type="email"
         placeholder={isEn ? 'you@company.com' : 'ban@congty.vn'}
-        class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-none focus-visible:border-accent"
+        class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-hidden focus-visible:border-accent"
       />
       <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-email">
         {isEn ? 'Please enter a valid email address.' : 'Email chưa hợp lệ, kiểm tra lại giúp mình.'}
@@ -76,7 +76,7 @@ const isEn = lang === 'en';
       <textarea
         id="cf-desc"
         placeholder={isEn ? 'Example: We need an automated online judge for ~500 students…' : 'Ví dụ: Trung tâm của tôi cần hệ thống chấm bài cho ~500 học sinh…'}
-        class="w-full box-border border-2 border-ink h-[120px] bg-bg font-mono text-[13px] p-3 outline-none resize-y focus-visible:border-accent"
+        class="w-full box-border border-2 border-ink h-[120px] bg-bg font-mono text-[13px] p-3 outline-hidden resize-y focus-visible:border-accent"
       ></textarea>
       <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-desc">
         {isEn ? 'Please describe your requirements.' : 'Vui lòng mô tả ngắn gọn nhu cầu của bạn.'}
@@ -90,7 +90,7 @@ const isEn = lang === 'en';
 
   <div id="contact-success-state" class="hidden">
     <div class="border-2 border-ink bg-ink p-6">
-      <div class="font-mono text-[13px] leading-[2] text-bg">
+      <div class="font-mono text-[13px] leading-loose text-bg">
         <div>$ send-request --to hello@behitek.com</div>
         <div class="text-[#5abf6e]">
           {isEn ? '✓ Sent successfully.' : '✓ Đã gửi thành công.'}

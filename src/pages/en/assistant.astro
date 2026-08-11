@@ -91,7 +91,7 @@ const t = useTranslations(lang);
                 id="full-chat-input"
                 type="text"
                 placeholder="Ask any question to test the assistant interface..."
-                class="flex-1 bg-bg border border-ink px-4 py-3 text-sm text-ink focus:outline-none focus:border-accent font-sans"
+                class="flex-1 bg-bg border border-ink px-4 py-3 text-sm text-ink focus:outline-hidden focus:border-accent font-sans"
                 autocomplete="off"
               />
               <button type="submit" class="btn-primary py-3 px-5 text-sm flex items-center gap-2">
@@ -145,17 +145,17 @@ const t = useTranslations(lang);
 
             <ol class="relative border-l-2 border-ink ml-3 space-y-4 text-xs">
               <li class="pl-4 relative">
-                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-accent border-2 border-ink flex items-center justify-center text-[9px] font-bold text-bg">1</span>
+                <span class="absolute left-[-9px] top-0.5 w-4 h-4 rounded-full bg-accent border-2 border-ink flex items-center justify-center text-[9px] font-bold text-bg">1</span>
                 <strong class="font-extrabold text-ink block">UI/UX Prototype Complete (Current)</strong>
                 <span class="text-neutral-600">Floating widget, sandbox page demo, gathering interface feedback.</span>
               </li>
               <li class="pl-4 relative">
-                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">2</span>
+                <span class="absolute left-[-9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">2</span>
                 <strong class="font-extrabold text-ink block">Knowledge Base & Vector Indexing</strong>
                 <span class="text-neutral-600">Indexing site content, blog posts, project specs into vector embeddings.</span>
               </li>
               <li class="pl-4 relative">
-                <span class="absolute -left-[9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">3</span>
+                <span class="absolute left-[-9px] top-0.5 w-4 h-4 rounded-full bg-white border-2 border-ink flex items-center justify-center text-[9px] font-bold text-ink">3</span>
                 <strong class="font-extrabold text-ink block">Serverless API Endpoint</strong>
                 <span class="text-neutral-600">FastAPI / Cloudflare Workers backend service for streaming RAG.</span>
               </li>

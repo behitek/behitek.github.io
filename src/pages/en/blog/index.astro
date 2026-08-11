@@ -65,8 +65,8 @@ const filters = [
               date={post.data.date}
               category={post.data.category}
               language={post.data.language}
-              slug={post.slug}
-              readingTime={readingTime(post.body)}
+              slug={post.id}
+              readingTime={readingTime(post.body ?? '')}
               lang={lang}
             />
           </div>
@@ -81,6 +81,8 @@ const filters = [
 </BaseLayout>
 
 <style>
+  @reference '@styles/global.css';
+
   .filter-btn.active {
     @apply bg-ink text-bg;
   }
