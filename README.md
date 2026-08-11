@@ -1,7 +1,7 @@
 # behitek.github.io
 
 Personal site and portfolio for Hieu Nguyen (behitek) — AI engineer. Built with Astro 4 and
-TailwindCSS, statically generated and deployed to Cloudflare Pages.
+TailwindCSS, statically generated and deployed to Cloudflare Workers (static assets).
 
 🌐 **Live site:** [behitek.com](https://behitek.com)
 
@@ -13,7 +13,7 @@ TailwindCSS, statically generated and deployed to Cloudflare Pages.
 - **Language:** TypeScript (strict)
 - **Comments:** [Giscus](https://giscus.app) (GitHub Discussions)
 - **Analytics:** Google Tag Manager
-- **Hosting:** Cloudflare Pages
+- **Hosting:** Cloudflare Workers (static assets, via Workers Builds)
 
 ## Getting started
 
@@ -58,7 +58,6 @@ src/
 └── utils/               # constants.ts, helpers.ts
 
 public/                  # static assets: images, favicon, CNAME, .nojekyll
-.github/workflows/        # test-deploy.yml (build check on PRs)
 ```
 
 ## Design system
@@ -139,11 +138,12 @@ project card.
 
 ## Deployment
 
-Pushes to `main` trigger a Cloudflare Pages build (configured in the Cloudflare dashboard), which
-builds with Astro and deploys `dist/`. `.github/workflows/test-deploy.yml` runs a build check
-on pull requests into `main`.
+Pushes and PRs trigger a Cloudflare Workers Build (configured in the Cloudflare dashboard, see
+`wrangler.jsonc`), which runs `npm run build` and deploys `dist/` as Workers static assets via
+`wrangler deploy`. There are no GitHub Actions workflows — Cloudflare's build check on PRs is the
+only CI gate.
 
-To deploy manually elsewhere: `npm run build` and upload the `dist/` folder.
+To deploy manually: `npm run build && npx wrangler deploy`.
 
 ## Contact
 
