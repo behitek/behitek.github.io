@@ -17,6 +17,7 @@ const { title, description, date, updated, category, tags, language } = post.dat
 
 const shareUrl = new URL(`/blog/${post.slug}`, Astro.site).toString();
 const shareTitle = encodeURIComponent(title);
+const currentLang = Astro.url.pathname.startsWith('/en') ? 'en' : language || 'vi';
 ---
 
 <BaseLayout
@@ -25,6 +26,7 @@ const shareTitle = encodeURIComponent(title);
   article={true}
   publishedTime={date}
   modifiedTime={updated}
+  lang={currentLang}
 >
   <div id="reading-progress" class="reading-progress" style="width: 0%"></div>
 

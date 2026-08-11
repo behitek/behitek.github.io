@@ -1,7 +1,14 @@
 ---
 import { SOCIAL_LINKS } from '@utils/constants';
+import type { Lang } from '@/i18n/ui';
 
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'vi' } = Astro.props;
 const currentYear = new Date().getFullYear();
+const homeHref = lang === 'en' ? '/en' : '/';
 
 const FOOTER_LINKS = [
   { label: 'GitHub', href: SOCIAL_LINKS.github.href },
@@ -12,7 +19,7 @@ const FOOTER_LINKS = [
 ---
 
 <footer class="rwrap rpad mt-auto flex items-center justify-between gap-5 px-6 md:px-12 py-6 bg-ink">
-  <a href="/" class="font-heading font-extrabold text-base text-bg no-underline"
+  <a href={homeHref} class="font-heading font-extrabold text-base text-bg no-underline"
     >behitek<span class="text-accent">_</span></a
   >
   <div class="flex gap-[22px] font-mono text-xs">

@@ -28,6 +28,13 @@ function remarkAdmonitions() {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://behitek.com',
+  i18n: {
+    defaultLocale: 'vi',
+    locales: ['vi', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     mdx(),
     sitemap(),

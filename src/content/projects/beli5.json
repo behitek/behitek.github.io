@@ -1,7 +1,9 @@
 {
   "id": "beli5",
   "title": "Beli5",
-  "description": "Nền tảng học lập trình cho trẻ em Việt Nam (Python, Java, C++, Rust) theo phương pháp ELI5. Thiết kế thân thiện, độ khó tăng dần, ví dụ gần gũi văn hóa Việt cho học sinh 8-16 tuổi.",
+  "description": "Nền tảng học lập trình cho trẻ em Việt Nam (Python, Java, C++, Rust) theo phương pháp ELI5.",
+  "description_vi": "Nền tảng học lập trình cho trẻ em Việt Nam (Python, Java, C++, Rust) theo phương pháp ELI5. Thiết kế thân thiện, độ khó tăng dần, ví dụ gần gũi văn hóa Việt cho học sinh 8-16 tuổi.",
+  "description_en": "Programming learning platform for kids (Python, Java, C++, Rust) using the ELI5 approach. Friendly design with progressive difficulty for students aged 8-16.",
   "category": "Tutorial",
   "tech": [
     "Docusaurus",

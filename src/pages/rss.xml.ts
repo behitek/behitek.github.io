@@ -11,7 +11,7 @@ export async function GET(context: any) {
 
   return rss({
     title: SITE.title,
-    description: SITE.description,
+    description: SITE.description.vi,
     site: context.site,
     items: sortedPosts.map((post) => ({
       title: post.data.title,

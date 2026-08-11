@@ -3,6 +3,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Timeline from '@components/Timeline.astro';
 import AwardsList from '@components/AwardsList.astro';
 import { SOCIAL_LINKS } from '@utils/constants';
+import { useTranslations } from '@/i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
 
 const SKILLS = [
   'Agentic AI',
@@ -19,68 +23,68 @@ const SKILLS = [
 
 const TIMELINE = [
   {
-    years: '2023 - nay',
+    years: '2023 - Present',
     role: 'Senior AI Engineer: VMO Holdings',
     description:
-      'Lead các giải pháp Agentic AI & RAG doanh nghiệp, thiết kế kiến trúc AI full-stack, tham gia bidding và dẫn dắt đội ngũ kỹ sư. Đạt danh hiệu Top 30 Employee of the Year.',
+      'Lead Enterprise Agentic AI & RAG solutions, architect full-stack AI systems, drive technical bidding, and mentor engineering teams. Honored as Top 30 Employee of the Year.',
     dotAccent: true,
   },
   {
-    years: '2021 - nay',
-    role: 'Sáng lập & Vận hành: Luyện Code (LCOJ)',
+    years: '2021 - Present',
+    role: 'Founder & Operator: Luyen Code (LCOJ)',
     description:
-      'Phát triển và vận hành nền tảng chấm bài lập trình tự động dựa trên DMOJ, phục vụ hơn 20.000 học viên và 20+ trường học/trung tâm tin học.',
+      'Engineered and operated an automated competitive programming judge platform based on DMOJ, serving 20,000+ students and 20+ schools/institutions.',
   },
   {
     years: '2019 - 2022',
     role: 'AI Engineer: Zalo Group (VNG)',
     description:
-      'Phát triển ASR & TTS cho trợ lý ảo KiKi: xây dựng pipeline chuẩn hoá văn bản (+12% độ chính xác ASR), tối ưu hạ tầng suy luận trên Kubernetes (−15% lỗi dịch vụ).',
+      'Developed ASR & TTS pipelines for KiKi virtual assistant: built text normalization pipeline (+12% ASR accuracy), optimized Kubernetes inference infrastructure (-15% service errors).',
   },
   {
     years: '2020 - 2022',
-    role: 'Thạc sĩ KH Thông tin: JAIST (Nhật Bản)',
+    role: 'Master of Information Science: JAIST (Japan)',
     description:
-      'Nghiên cứu Machine Learning & Information Retrieval. Nhận học bổng du học toàn phần tại Viện Khoa học & Công nghệ Tiên tiến Nhật Bản.',
+      'Researched Machine Learning & Information Retrieval. Awarded full Japanese Government scholarship at Japan Advanced Institute of Science and Technology.',
   },
   {
     years: '2018 - 2019',
     role: 'NLP Developer: VCCorp',
     description:
-      'Xây dựng hệ thống phát hiện bình luận spam bằng NLP (Word2Vec, RESTful AI Services, Hadoop/Spark).',
+      'Built real-time NLP spam comment detection systems (Word2Vec, RESTful AI Services, Hadoop/Spark).',
   },
   {
     years: '2014 - 2019',
-    role: 'Cử nhân Kỹ thuật Phần mềm: ĐH Điện lực',
+    role: 'B.S. Software Engineering: Electric Power University',
     description:
-      'Tốt nghiệp GPA 3.3. Thành viên đội tuyển thi lập trình sinh viên ACM/ICPC Việt Nam trong 3 năm liên tiếp.',
+      'Graduated with 3.3 GPA. Core team member in ACM/ICPC Vietnam National Programming Contest for 3 consecutive years.',
   },
 ];
 
 const AWARDS = [
   'Top 30 Employee of the Year, VMO Holdings (2023)',
-  'Giải Nhất: ALQAC 2022 (Automated Legal Question Answering)',
+  'First Prize: ALQAC 2022 (Automated Legal Question Answering Competition)',
   'Champion: AI4VN National Grand Finale Hackathon (2019)',
-  'Giải Nhì: VLSP Speech-to-Text Shared Task (2019)',
-  'Giải Nhì: ACM/ICPC Vietnam National Programming Contest (2018)',
+  'Second Prize: VLSP Speech-to-Text Shared Task (2019)',
+  'Second Prize: ACM/ICPC Vietnam National Programming Contest (2018)',
 ];
 ---
 
 <BaseLayout
-  title="Giới thiệu"
-  description="Hiếu Nguyễn - Senior AI Engineer tại Hà Nội. Agentic AI, NLP & AI in SDLC với 8 năm kinh nghiệm."
-  lang="vi"
+  title={t('about.meta_title')}
+  description={t('about.meta_desc')}
+  lang={lang}
 >
   <div class="rgrid grid grid-cols-[360px_1fr]">
     <div class="rpad border-r-2 border-ink px-8 py-10 lg:px-12 lg:py-12">
       <img
         src="/images/me.png"
-        alt="Hiếu Nguyễn"
+        alt="Hieu Nguyen"
         class="grayscale-photo mb-5 block h-[160px] w-[160px] border-2 border-ink object-cover lg:h-[180px] lg:w-[180px]"
       />
-      <h1 class="mb-1 font-heading text-[32px] font-extrabold text-ink lg:text-[36px]">Hiếu Nguyễn</h1>
+      <h1 class="mb-1 font-heading text-[32px] font-extrabold text-ink lg:text-[36px]">Hieu Nguyen</h1>
       <div class="mb-4 font-heading text-[14px] font-bold text-accent lg:text-[15px]">
-        Senior AI Engineer · Hà Nội
+        {t('about.role')}
       </div>
       <div class="flex flex-col font-mono text-[13px] leading-[2.1] text-ink">
         <a href={SOCIAL_LINKS.email.href}>hello@behitek.com</a>
@@ -93,25 +97,25 @@ const AWARDS = [
       </div>
       <div class="my-5 h-0.5 bg-ink"></div>
       <div class="mb-3 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
-        THẾ MẠNH CỐT LÕI
+        {t('about.core_skills')}
       </div>
       <div class="flex flex-wrap gap-1.5">
         {SKILLS.map((s) => <span class="tag-pill text-[11.5px]">{s}</span>)}
       </div>
       <div class="my-5 h-0.5 bg-ink"></div>
       <div class="mb-3 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
-        NGÔN NGỮ
+        LANGUAGES
       </div>
       <div class="text-[13.5px] leading-[1.9] text-ink">
-        Tiếng Việt (Bản ngữ)<br />
-        English (B2 / Professional)
+        Vietnamese (Native)<br />
+        English (Professional / B2)
       </div>
     </div>
 
     <div class="p-8 lg:p-12">
       <div class="kicker mb-3">$ cat bio.txt</div>
       <p class="mb-8 text-[15.5px] leading-relaxed text-neutral-800" style="text-wrap: pretty">
-        Tôi là Senior AI Engineer với 8 năm kinh nghiệm đưa AI từ nghiên cứu vào sản phẩm thực tế. Thế mạnh chuyên sâu của tôi tập trung vào <strong>Agentic AI</strong> (hệ thống AI Agents & RAG doanh nghiệp), <strong>Natural Language Processing (NLP)</strong> và <strong>AI in SDLC</strong> (ứng dụng AI vào quy trình thiết kế, phát triển và vận hành phần mềm full-stack). Tôi làm cả phần mô hình lẫn phần giữ cho hệ thống luôn sẵn sàng và ổn định.
+        I am a Senior AI Engineer with 8 years of experience taking AI from research into production systems. My core expertise focuses on <strong>Agentic AI</strong> (Enterprise AI Agents & RAG systems), <strong>Natural Language Processing (NLP)</strong>, and <strong>AI in SDLC</strong> (applying AI across full-stack software design, development, and deployment). I engineer both model intelligence and reliable production infrastructure.
       </p>
 
       <div class="kicker mb-5">$ cat experience.log</div>
@@ -122,4 +126,3 @@ const AWARDS = [
     </div>
   </div>
 </BaseLayout>
-

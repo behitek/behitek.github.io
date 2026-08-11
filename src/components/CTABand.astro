@@ -1,4 +1,6 @@
 ---
+import type { Lang } from '@/i18n/ui';
+
 interface Props {
   kicker?: string;
   title: string;
@@ -6,9 +8,13 @@ interface Props {
   buttonHref?: string;
   showEmail?: boolean;
   size?: 'lg' | 'md';
+  lang?: Lang;
 }
 
-const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, size = 'md' } = Astro.props;
+const { kicker, title, buttonLabel, buttonHref, showEmail = false, size = 'md', lang = 'vi' } = Astro.props;
+const defaultHref = lang === 'en' ? '/en/contact' : '/contact';
+const href = buttonHref || defaultHref;
+const responseText = lang === 'en' ? '⚡ Responds within 24h' : '⚡ Phản hồi trong 24h';
 ---
 
 <div class={`rwrap rpad ${size === 'lg' ? 'px-8 py-12 lg:px-12 lg:py-16' : 'p-8 lg:p-12'} bg-accent flex ${size === 'lg' ? 'flex-col' : 'justify-between items-center'} gap-6`}>
@@ -17,7 +23,7 @@ const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, 
       <div class="flex items-center gap-3">
         <div class="font-mono text-[13px] font-semibold text-bg opacity-90">{kicker}</div>
         <span class="border border-white/40 bg-white/10 px-2 py-0.5 font-mono text-[10px] font-bold text-bg">
-          ⚡ Phản hồi trong 24h
+          {responseText}
         </span>
       </div>
     )
@@ -28,7 +34,7 @@ const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, 
     {title}
   </h2>
   <div class="rwrap flex flex-wrap gap-3.5 flex-none items-center">
-    <a href={buttonHref} class="font-heading font-extrabold text-[15px] bg-white text-accent px-6 py-3.5 no-underline hover:bg-ink hover:text-bg transition-colors">
+    <a href={href} class="font-heading font-extrabold text-[15px] bg-white text-accent px-6 py-3.5 no-underline hover:bg-ink hover:text-bg transition-colors">
       {buttonLabel}
     </a>
     {
@@ -43,4 +49,3 @@ const { kicker, title, buttonLabel, buttonHref = '/contact', showEmail = false, 
     }
   </div>
 </div>
-

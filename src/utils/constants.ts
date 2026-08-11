@@ -1,6 +1,11 @@
+import type { Lang } from '@/i18n/ui';
+
 export const SITE = {
   title: 'behitek',
-  description: 'Biến nghiên cứu AI thành hệ thống thực tế.',
+  description: {
+    vi: 'Biến nghiên cứu AI thành hệ thống thực tế.',
+    en: 'Turning AI research into production systems.',
+  },
   url: 'https://behitek.com',
   author: 'Hieu Nguyen',
   email: 'hello@behitek.com',
@@ -37,3 +42,10 @@ export const NAV_LINKS = [
   { label: './about', href: '/about' },
 ];
 
+export function getNavLinks(lang: Lang) {
+  const prefix = lang === 'en' ? '/en' : '';
+  return NAV_LINKS.map((link) => ({
+    label: link.label,
+    href: link.href === '/' ? (prefix || '/') : `${prefix}${link.href}`,
+  }));
+}

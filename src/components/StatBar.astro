@@ -1,12 +1,21 @@
 ---
 import { TOTAL_PLATFORM_USERS } from '@/data/organizations';
-import { COMPANIES_SHIPPED_AT } from '@/data/ai-work';
+import { getCompaniesShippedAt } from '@/data/ai-work';
+import { useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'vi' } = Astro.props;
+const t = useTranslations(lang);
+const shipped = getCompaniesShippedAt(lang);
 
 const STATS = [
-  { value: '8 năm', label: 'kinh nghiệm đưa AI vào production' },
-  { value: COMPANIES_SHIPPED_AT.value, label: COMPANIES_SHIPPED_AT.label },
-  { value: '4 giải', label: 'quốc gia về AI & thuật toán' },
-  { value: TOTAL_PLATFORM_USERS, label: 'người dùng hệ thống vận hành' },
+  { value: t('stat.exp_val'), label: t('stat.exp_lbl') },
+  { value: shipped.value, label: shipped.label },
+  { value: t('stat.awards_val'), label: t('stat.awards_lbl') },
+  { value: TOTAL_PLATFORM_USERS, label: t('stat.users_lbl') },
 ];
 ---
 
@@ -26,5 +35,3 @@ const STATS = [
     ))
   }
 </div>
-
-

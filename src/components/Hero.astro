@@ -1,5 +1,15 @@
 ---
 import TerminalWindow from '@components/TerminalWindow.astro';
+import { useTranslations, type Lang } from '@/i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'vi' } = Astro.props;
+const t = useTranslations(lang);
+
+const contactHref = lang === 'en' ? '/en/contact' : '/contact';
 
 const terminalLines = [
   '$ behitek --strengths',
@@ -12,26 +22,26 @@ const terminalLines = [
 
 <div class="rgrid grid grid-cols-[1.6fr_1fr] bg-bg">
   <div class="rpad flex flex-col justify-center border-r-2 border-ink px-8 py-10 lg:px-12 lg:py-12">
-    <div class="kicker mb-[18px]">hieu@behitek:~ $ whoami</div>
+    <div class="kicker mb-[18px]">{t('hero.kicker')}</div>
     <h1
       class="mb-2 font-heading text-[42px] font-extrabold leading-[1.02] tracking-tight text-ink md:text-[58px] lg:text-[64px]"
     >
-      Hiếu Nguyễn
+      {t('hero.title')}
     </h1>
     <div class="mb-4 font-heading text-xl font-bold text-accent sm:text-2xl">
-      Agentic AI · Natural Language Processing · AI in SDLC
+      {t('hero.subtitle')}
     </div>
     <p
       class="mb-7 max-w-[720px] text-[16px] leading-relaxed text-neutral-700 sm:text-[17px]"
       style="text-wrap: pretty"
     >
-      8 năm đưa AI vào sản phẩm thực tế: thiết kế hệ thống Agentic AI & RAG doanh nghiệp, xử lý ngôn ngữ tự nhiên (NLP) chuyên sâu, và ứng dụng AI vào quy trình phát triển phần mềm full-stack (AI in SDLC). Tôi làm cả phần mô hình lẫn phần giữ cho hệ thống vận hành ổn định.
+      {t('hero.bio')}
     </p>
     <div class="rwrap flex gap-3.5">
-      <a href="/contact" class="btn-primary gap-4 text-sm sm:text-base">
-        Trao đổi về dự án AI <span>→</span>
+      <a href={contactHref} class="btn-primary gap-4 text-sm sm:text-base">
+        {t('hero.cta_contact')} <span>→</span>
       </a>
-      <a href="#projects" class="btn-secondary text-sm sm:text-base">Xem dự án thực tế</a>
+      <a href="#projects" class="btn-secondary text-sm sm:text-base">{t('hero.cta_projects')}</a>
     </div>
   </div>
   <div class="flex flex-col justify-center gap-5 p-6 lg:p-8">
@@ -42,7 +52,7 @@ const terminalLines = [
         class="grayscale-photo h-24 w-24 border-2 border-ink object-cover lg:h-28 lg:w-28"
       />
       <div class="space-y-1 font-mono text-xs">
-        <div class="font-bold text-ink tracking-tight">KEY CREDENTIALS</div>
+        <div class="font-bold text-ink tracking-tight">{t('hero.key_credentials')}</div>
         <div class="text-neutral-600">🌟 Top 30 VMO Employee</div>
         <div class="text-neutral-600">🎓 Master's @ JAIST</div>
         <div class="font-bold text-accent">🏆 1st Rank ALQAC 2022</div>
@@ -51,4 +61,3 @@ const terminalLines = [
     <TerminalWindow lines={terminalLines} interactive={true} />
   </div>
 </div>
-

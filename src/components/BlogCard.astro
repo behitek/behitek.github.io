@@ -1,5 +1,6 @@
 ---
 import { formatDate } from '@utils/helpers';
+import type { Lang } from '@/i18n/ui';
 
 interface Props {
   title: string;
@@ -10,6 +11,7 @@ interface Props {
   slug: string;
   readingTime?: number;
   variant?: 'list' | 'compact';
+  lang?: Lang;
 }
 
 const {
@@ -21,14 +23,18 @@ const {
   slug,
   readingTime,
   variant = 'list',
+  lang = 'vi',
 } = Astro.props;
+
 const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
+const readLabel = lang === 'en' ? 'min read' : 'phút đọc';
+const blogHref = lang === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
 ---
 
 {
   variant === 'compact' ? (
     <a
-      href={`/blog/${slug}`}
+      href={blogHref}
       class="-mx-2 grid grid-cols-[1fr_auto] items-center gap-2 border-b border-border-light px-2 py-4 no-underline transition-colors hover:bg-neutral-200 sm:grid-cols-[100px_130px_1fr_100px_auto] sm:gap-4 md:grid-cols-[110px_140px_1fr_100px_auto]"
     >
       <span class="font-mono text-xs text-neutral-600">{formatDate(date)}</span>
@@ -36,14 +42,14 @@ const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
       <span class="font-heading text-base font-bold text-ink sm:text-lg">{title}</span>
       {readingTime && (
         <span class="hidden font-mono text-[11px] text-neutral-500 sm:inline-block">
-          {readingTime} phút đọc
+          {readingTime} {readLabel}
         </span>
       )}
       <span class="font-mono text-xs text-accent">→</span>
     </a>
   ) : (
     <a
-      href={`/blog/${slug}`}
+      href={blogHref}
       class="-mx-2 grid grid-cols-[1fr] gap-2 border-b border-border-light px-2 py-6 no-underline transition-colors hover:bg-neutral-200 sm:grid-cols-[130px_1fr_100px] sm:gap-6 md:grid-cols-[130px_1fr_140px]"
     >
       <div class="font-mono text-xs leading-[1.8] text-neutral-600">
@@ -55,8 +61,7 @@ const tagline = `${category.toUpperCase()} · ${language.toUpperCase()}`;
         <h2 class="mb-1.5 font-heading text-[22px] font-bold text-ink">{title}</h2>
         <p class="m-0 text-sm leading-relaxed text-neutral-700">{description}</p>
       </div>
-      <div class="text-right font-mono text-xs text-neutral-600">{readingTime} phút đọc →</div>
+      <div class="text-right font-mono text-xs text-neutral-600">{readingTime} {readLabel} →</div>
     </a>
   )
 }
-

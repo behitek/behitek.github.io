@@ -16,6 +16,10 @@ import {
   TOTAL_PROBLEMS,
   TOTAL_SUBMISSIONS,
 } from '@/data/organizations';
+import { useTranslations } from '@/i18n/ui';
+
+const lang = 'vi';
+const t = useTranslations(lang);
 
 const FEATURES = [
   {
@@ -100,10 +104,11 @@ const FAQ_ITEMS = [
 ---
 
 <BaseLayout
-  title="Online Judge (DMOJ)"
-  description="Triển khai & vận hành Online Judge trên nền DMOJ cho trường học và trung tâm dạy lập trình."
+  title={t('services.index_title')}
+  description={t('services.index_meta_desc')}
+  lang={lang}
 >
-  <ServiceTabs active="online-judge" />
+  <ServiceTabs active="online-judge" lang={lang} />
   <ServiceHero
     breadcrumb="online-judge"
     title="Triển khai & vận hành Online Judge trên nền DMOJ"
@@ -119,15 +124,15 @@ const FAQ_ITEMS = [
     ]}
   />
 
-  <div class="px-12 pb-12">
+  <div class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Hai cách bắt đầu</h2>
     </div>
-    <ServiceTiers />
+    <ServiceTiers lang={lang} />
   </div>
 
-  <section class="px-12 pb-12">
+  <section class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">02 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Đang chạy ở đâu</h2>
@@ -138,7 +143,7 @@ const FAQ_ITEMS = [
           TOTAL_ORG_MEMBERS.toLocaleString('vi-VN')
         } THÀNH VIÊN
       </div>
-      <OrgRoster variant="full" />
+      <OrgRoster variant="full" lang={lang} />
       <div class="mb-4 mt-8 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
         HỆ THỐNG CHẠY ĐỘC LẬP
       </div>
@@ -161,7 +166,7 @@ const FAQ_ITEMS = [
     </div>
   </section>
 
-  <div class="px-12 pb-12">
+  <div class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">03 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Có gì trong đó</h2>
@@ -169,7 +174,7 @@ const FAQ_ITEMS = [
     <ServiceFeatureGrid features={FEATURES} />
   </div>
 
-  <section class="px-12 pb-12">
+  <section class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">04 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy mô hệ thống</h2>
@@ -205,7 +210,7 @@ const FAQ_ITEMS = [
     </div>
   </section>
 
-  <div class="px-12 pb-12">
+  <div class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">05 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy trình</h2>
@@ -213,7 +218,7 @@ const FAQ_ITEMS = [
     <ProcessSteps kicker="$ ./process" steps={STEPS} />
   </div>
 
-  <div class="px-12 pb-12">
+  <div class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">06 /</span>
       <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Câu hỏi thường gặp</h2>
@@ -221,5 +226,5 @@ const FAQ_ITEMS = [
     <FAQ items={FAQ_ITEMS} />
   </div>
 
-  <CTABand title="Cần online judge cho đơn vị của bạn?" buttonLabel="Liên hệ ngay →" />
+  <CTABand title="Cần online judge cho đơn vị của bạn?" buttonLabel="Liên hệ ngay →" buttonHref="/contact" lang={lang} />
 </BaseLayout>

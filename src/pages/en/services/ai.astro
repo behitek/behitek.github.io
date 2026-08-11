@@ -11,7 +11,7 @@ import PipelineDiagram from '@components/PipelineDiagram.astro';
 import { getNexusAI, getNexusPipeline, getLinguistAI, getKikiASR } from '@/data/ai-work';
 import { useTranslations } from '@/i18n/ui';
 
-const lang = 'vi';
+const lang = 'en';
 const t = useTranslations(lang);
 const nexusAI = getNexusAI(lang);
 const nexusPipeline = getNexusPipeline(lang);
@@ -20,27 +20,27 @@ const kikiASR = getKikiASR(lang);
 
 const FEATURES = [
   {
-    kicker: 'HẠNG MỤC 01',
-    title: 'Chatbot & trợ lý nghiệp vụ',
+    kicker: 'MODULE 01',
+    title: 'Chatbots & Enterprise Assistants',
     bullets: [
-      'Trả lời trên tài liệu nội bộ',
-      'Tích hợp Slack, web, Zalo OA',
-      'Guardrails & kiểm soát chi phí',
+      'Retrieval on enterprise knowledge bases',
+      'Slack, Web, and messaging integrations',
+      'Safety guardrails & inference cost control',
     ],
   },
   {
-    kicker: 'HẠNG MỤC 02',
-    title: 'RAG & tìm kiếm ngữ nghĩa',
-    bullets: ['Hybrid search + re-rank', 'Văn bản, hình ảnh, video', 'Bộ đo chất lượng truy hồi'],
+    kicker: 'MODULE 02',
+    title: 'RAG & Semantic Search',
+    bullets: ['Dense Vector + BM25 Hybrid Search & Re-ranking', 'Document, Image, and Video indexing', 'Retrieval accuracy benchmarking'],
     highlighted: true,
   },
   {
-    kicker: 'HẠNG MỤC 03',
-    title: 'Fine-tune & đánh giá mô hình',
+    kicker: 'MODULE 03',
+    title: 'Fine-tuning & Model Evaluation',
     bullets: [
-      'LoRA / SFT trên dữ liệu riêng',
-      'Benchmark trước–sau rõ ràng',
-      'Tối ưu suy luận, self-host',
+      'LoRA / SFT on proprietary data',
+      'Quantitative baseline comparison benchmarks',
+      'Inference speed optimization & self-hosting',
     ],
   },
 ];
@@ -48,18 +48,18 @@ const FEATURES = [
 const STEPS = [
   {
     number: '01',
-    title: 'Tư vấn kiến trúc',
-    description: 'Đánh giá bài toán, chọn mô hình và stack phù hợp ngân sách.',
+    title: 'Architecture Advisory',
+    description: 'Assess business domain requirements, model selection, and stack budgeting.',
   },
   {
     number: '02',
-    title: 'PoC 2–4 tuần',
-    description: 'Bản chạy được trên dữ liệu thật, kèm số liệu để ra quyết định.',
+    title: '2–4 Week PoC',
+    description: 'Functional prototype on real enterprise data with evaluation metrics.',
   },
   {
     number: '03',
-    title: 'Đưa lên production',
-    description: 'Triển khai, giám sát chất lượng và chi phí, bàn giao tài liệu.',
+    title: 'Production Deployment',
+    description: 'Cloud deployment, cost/quality observability, and full documentation handoff.',
   },
 ];
 ---
@@ -72,18 +72,18 @@ const STEPS = [
   <ServiceTabs active="ai" lang={lang} />
   <ServiceHero
     breadcrumb="ai"
-    title="Dự án AI: từ PoC đến production"
-    description="RAG, LLM, NLP cho bài toán nghiệp vụ thực tế: tư vấn kiến trúc, xây dựng PoC nhanh, và đưa hệ thống lên production với chi phí vận hành đo lường được."
+    title="AI Systems: From PoC to Production"
+    description="Enterprise RAG, LLMs, and NLP solutions for real business impact: architecture consulting, rapid PoC development, and production deployment with predictable operating costs."
     ctas={[
-      { label: 'Đặt lịch tư vấn →', href: '/contact?need=ai', variant: 'primary' },
-      { label: 'Xem case study', href: '#case-study', variant: 'secondary' },
+      { label: 'Schedule Consultation →', href: '/en/contact?need=ai', variant: 'primary' },
+      { label: 'View Case Studies', href: '#case-study', variant: 'secondary' },
     ]}
   />
 
   <div class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">01 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Hạng mục dịch vụ</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Service Capabilities</h2>
     </div>
     <ServiceFeatureGrid features={FEATURES} />
   </div>
@@ -91,7 +91,7 @@ const STEPS = [
   <section id="case-study" class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">02 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case study</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Case Studies</h2>
     </div>
     <CaseStudySpotlight
       kicker={nexusAI.kicker}
@@ -99,7 +99,7 @@ const STEPS = [
       description={nexusAI.description}
       stats={nexusAI.stats}
     >
-      <PipelineDiagram slot="media" stages={nexusPipeline} caption="KIẾN TRÚC" />
+      <PipelineDiagram slot="media" stages={nexusPipeline} caption="SYSTEM ARCHITECTURE" />
     </CaseStudySpotlight>
     <div class="rgrid mt-7 grid grid-cols-2 border-2 border-ink">
       <CaseStudyCard {...linguistAI} borderRight mobileDivider />
@@ -110,15 +110,15 @@ const STEPS = [
   <div class="px-6 lg:px-12 pb-12">
     <div class="mb-7 flex items-baseline gap-4">
       <span class="kicker">03 /</span>
-      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Quy trình</h2>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Process & Engagement</h2>
     </div>
     <ProcessSteps kicker="$ ./engagement" steps={STEPS} />
   </div>
 
   <CTABand
-    title="Có bài toán AI cần lời giải?"
-    buttonLabel="Trao đổi miễn phí 30 phút →"
-    buttonHref="/contact?need=ai"
+    title="Have an AI challenge to solve?"
+    buttonLabel="Book a free 30-min call →"
+    buttonHref="/en/contact?need=ai"
     lang={lang}
   />
 </BaseLayout>

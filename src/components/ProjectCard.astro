@@ -1,6 +1,7 @@
 ---
 import ImageGallery from '@components/ImageGallery.astro';
 import ProjectPlaceholderGraphic from '@components/ProjectPlaceholderGraphic.astro';
+import type { Lang } from '@/i18n/ui';
 
 interface Props {
   title: string;
@@ -16,11 +17,14 @@ interface Props {
   status: 'open-source' | 'private';
   flagship?: boolean;
   id: string;
+  lang?: Lang;
 }
 
-const { title, description, tech, image, images, links, status, flagship, id } = Astro.props;
+const { title, description, tech, image, images, links, status, flagship, id, lang = 'vi' } = Astro.props;
 const hasLinks = links && (links.website || links.github || links.blog);
 const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
+const productLabel = lang === 'en' ? 'PRODUCT' : 'SẢN PHẨM';
+const readMoreLabel = lang === 'en' ? 'Read article' : 'Đọc thêm';
 const heroImage = image || (images && images[0]);
 ---
 
@@ -40,7 +44,7 @@ const heroImage = image || (images && images[0]);
 
   <div class="p-7 md:p-8">
     <div class="flex gap-2.5 mb-3">
-      <span class="font-mono text-[10px] font-semibold bg-accent text-bg px-[7px] py-[3px]">SẢN PHẨM</span>
+      <span class="font-mono text-[10px] font-semibold bg-accent text-bg px-[7px] py-[3px]">{productLabel}</span>
       <span class="font-mono text-[10px] font-semibold border border-ink text-ink px-[7px] py-0.5"
         >{statusLabel}</span
       >
@@ -85,7 +89,7 @@ const heroImage = image || (images && images[0]);
           )}
           {links.blog && (
             <a href={links.blog} class="text-ink no-underline hover:text-accent">
-              Đọc thêm →
+              {readMoreLabel} →
             </a>
           )}
         </div>

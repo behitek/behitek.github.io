@@ -1,4 +1,6 @@
 ---
+import type { Lang } from '@/i18n/ui';
+
 interface Props {
   href: string;
   path: string;
@@ -7,6 +9,7 @@ interface Props {
   bullets?: string[];
   flagship?: boolean;
   borderRight?: boolean;
+  lang?: Lang;
 }
 
 const {
@@ -17,7 +20,11 @@ const {
   bullets = [],
   flagship = false,
   borderRight = true,
+  lang = 'vi',
 } = Astro.props;
+
+const flagshipLabel = lang === 'en' ? 'FLAGSHIP' : 'CHỦ LỰC';
+const detailsLabel = lang === 'en' ? 'View service details' : 'Xem chi tiết service';
 ---
 
 <a
@@ -32,7 +39,7 @@ const {
       {
         flagship && (
           <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
-            CHỦ LỰC
+            {flagshipLabel}
           </span>
         )
       }
@@ -55,8 +62,6 @@ const {
     }
   </div>
   <div class="mt-auto pt-2 inline-flex items-center gap-1 font-heading text-[13px] font-bold text-accent group-hover:translate-x-1 transition-transform">
-    Xem chi tiết service <span>→</span>
+    {detailsLabel} <span>→</span>
   </div>
 </a>
-
-

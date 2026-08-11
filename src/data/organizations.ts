@@ -1,3 +1,5 @@
+import type { Lang } from '@/i18n/ui';
+
 export interface Organization {
   name: string;
   slug: string;
@@ -7,16 +9,11 @@ export interface Organization {
 export interface Deployment {
   name: string;
   url: string;
-  /** All deployments run on a private VPS; this only distinguishes the domain arrangement. */
   domain: 'subdomain' | 'custom';
   note: string;
+  note_en?: string;
 }
 
-/**
- * External institutions with an organization on luyencode.net.
- * Excludes Hieu's own orgs (Luyện Code Club, Luyện Code School).
- * Source: https://luyencode.net/organizations/ - verified 2026-08-06.
- */
 export const ORGANIZATIONS: Organization[] = [
   { name: 'Trường Đại học Sư phạm Hà Nội', slug: 'hnue', members: 121 },
   { name: 'Trường ĐH Kinh Tế - Kỹ thuật Công nghiệp', slug: 'ktktcn', members: 213 },
@@ -40,48 +37,53 @@ export const ORGANIZATIONS: Organization[] = [
   { name: 'Thầy Minh chuyên tin', slug: 'tmct', members: 51 },
 ];
 
-/** Systems deployed and operated outside the shared luyencode.net platform. */
 export const DEPLOYMENTS: Deployment[] = [
   {
     name: 'LNQOJ: Trường THCS Lý Nhật Quang',
     url: 'https://lynhatquang.luyencode.net',
     domain: 'subdomain',
     note: 'Đô Lương, Nghệ An (VPS riêng, subdomain miễn phí)',
+    note_en: 'Do Luong, Nghe An (Dedicated VPS, free subdomain)',
   },
   {
     name: 'cothilaptrinh.vn',
     url: 'https://code.cothilaptrinh.vn',
     domain: 'custom',
     note: 'trung tâm luyện thi HSG tin học',
+    note_en: 'Competitive programming contest center',
   },
   {
     name: 'laptrinh.online',
     url: 'https://laptrinh.online',
     domain: 'custom',
     note: 'lớp học lập trình trực tuyến',
+    note_en: 'Online programming academy platform',
   },
   {
     name: 'codebuddy.vn',
     url: 'https://codebuddy.vn',
     domain: 'custom',
     note: 'nền tảng luyện code cho sinh viên',
+    note_en: 'Student coding practice platform',
   },
 ];
 
+export function getDeployments(lang: Lang): Deployment[] {
+  if (lang === 'en') {
+    return DEPLOYMENTS.map((d) => ({
+      ...d,
+      note: d.note_en || d.note,
+    }));
+  }
+  return DEPLOYMENTS;
+}
+
 export const ORG_LIST_URL = 'https://luyencode.net/organizations/';
 
-/** Computed so the figure can never drift from the list above. Currently 2520. */
 export const TOTAL_ORG_MEMBERS = ORGANIZATIONS.reduce((sum, org) => sum + org.members, 0);
 
-/**
- * Approximate total users across the whole luyencode.net platform, including Hieu's own two
- * organizations - a stated figure, not derivable from ORGANIZATIONS, which excludes those two
- * and only totals registered members of the 20 external orgs (see TOTAL_ORG_MEMBERS, 2520).
- */
 export const TOTAL_PLATFORM_USERS = '20.000+';
 
-/** Stated figure for the size of the shared problem bank on luyencode.net. */
 export const TOTAL_PROBLEMS = '1500+';
 
-/** Stated figure for total judged submissions across the whole platform's history. */
 export const TOTAL_SUBMISSIONS = '2M+';

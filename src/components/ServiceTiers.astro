@@ -1,24 +1,38 @@
 ---
 import { ORGANIZATIONS, DEPLOYMENTS, ORG_LIST_URL } from '@/data/organizations';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'vi' } = Astro.props;
 
 const TIERS = [
   {
-    kicker: 'MIỄN PHÍ, DÙNG CHUNG',
-    title: 'Tổ chức trên luyencode.net',
-    price: '0đ',
+    kicker: lang === 'en' ? 'FREE SHARED PLATFORM' : 'MIỄN PHÍ, DÙNG CHUNG',
+    title: lang === 'en' ? 'Organization on luyencode.net' : 'Tổ chức trên luyencode.net',
+    price: lang === 'en' ? '$0 / Free' : '0đ',
     description:
-      'Trường học, CLB và đội tuyển có không gian riêng trên nền tảng chung: quản lý học sinh, giao bài, tổ chức contest. Không cần máy chủ, không cần đội kỹ thuật.',
+      lang === 'en'
+        ? 'Dedicated workspace on shared infrastructure for schools, clubs, and teams: student management, assignments, contest hosting. Zero server setup or maintenance required.'
+        : 'Trường học, CLB và đội tuyển có không gian riêng trên nền tảng chung: quản lý học sinh, giao bài, tổ chức contest. Không cần máy chủ, không cần đội kỹ thuật.',
     proofLinks: [
-      { label: `${ORGANIZATIONS.length} trường & tổ chức đang dùng`, href: ORG_LIST_URL },
+      {
+        label: lang === 'en' ? `${ORGANIZATIONS.length} schools & orgs using` : `${ORGANIZATIONS.length} trường & tổ chức đang dùng`,
+        href: ORG_LIST_URL,
+      },
     ],
     highlighted: true,
   },
   {
-    kicker: 'TRIỂN KHAI RIÊNG',
-    title: 'Tên miền, VPS, triển khai & vận hành',
-    price: 'Theo quy mô',
+    kicker: lang === 'en' ? 'DEDICATED DEPLOYMENT' : 'TRIỂN KHAI RIÊNG',
+    title: lang === 'en' ? 'Custom Domain, Dedicated VPS & Operation' : 'Tên miền, VPS, triển khai & vận hành',
+    price: lang === 'en' ? 'Custom / Scale-based' : 'Theo quy mô',
     description:
-      'Hệ thống độc lập trên hạ tầng riêng (VPS) của đơn vị: tư vấn tên miền và máy chủ, cài đặt, tùy biến, backup, giám sát và hỗ trợ dài hạn. Không có sẵn ngân hàng đề của luyencode (đơn vị tự tạo đề hoặc dùng dịch vụ soạn đề bằng AI, chi phí thấp). Tổ chức giáo dục phi lợi nhuận chưa có kinh phí mua domain có thể dùng subdomain miễn phí trên luyencode.net.',
+      lang === 'en'
+        ? 'Independent system on dedicated VPS infrastructure: domain consulting, installation, customization, backups, 24/7 monitoring and long-term maintenance.'
+        : 'Hệ thống độc lập trên hạ tầng riêng (VPS) của đơn vị: tư vấn tên miền và máy chủ, cài đặt, tùy biến, backup, giám sát và hỗ trợ dài hạn. Không có sẵn ngân hàng đề của luyencode (đơn vị tự tạo đề hoặc dùng dịch vụ soạn đề bằng AI, chi phí thấp). Tổ chức giáo dục phi lợi nhuận chưa có kinh phí mua domain có thể dùng subdomain miễn phí trên luyencode.net.',
     proofLinks: DEPLOYMENTS.map((d) => ({ label: d.name, href: d.url })),
     highlighted: false,
   },

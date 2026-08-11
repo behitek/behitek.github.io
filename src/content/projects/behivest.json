@@ -1,7 +1,9 @@
 {
   "id": "behivest",
   "title": "Behivest",
-  "description": "Blog tài chính cá nhân và nền tảng affiliate marketing hiện đại cho người Việt. Có công cụ tính lãi kép, SIP, phân bổ ngân sách; nội dung MDX; kiểm thử và CI/CD đầy đủ.",
+  "description": "Blog tài chính cá nhân và nền tảng affiliate marketing hiện đại cho người Việt.",
+  "description_vi": "Blog tài chính cá nhân và nền tảng affiliate marketing hiện đại cho người Việt. Có công cụ tính lãi kép, SIP, phân bổ ngân sách; nội dung MDX; kiểm thử và CI/CD đầy đủ.",
+  "description_en": "Personal finance blog & modern affiliate marketing platform. Features compound interest calculator, SIP planner, budget allocator, MDX content, and full CI/CD.",
   "category": "Product",
   "tech": [
     "Astro",

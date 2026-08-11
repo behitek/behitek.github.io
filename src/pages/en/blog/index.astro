@@ -5,7 +5,7 @@ import BlogCard from '@components/BlogCard.astro';
 import { readingTime } from '@utils/helpers';
 import { useTranslations } from '@/i18n/ui';
 
-const lang = 'vi';
+const lang = 'en';
 const t = useTranslations(lang);
 
 const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
@@ -15,7 +15,7 @@ const languages = [...new Set(sortedPosts.map((post) => post.data.language))];
 const categories = [...new Set(sortedPosts.map((post) => post.data.category))];
 
 const filters = [
-  { key: 'all', label: 'tất cả', count: sortedPosts.length },
+  { key: 'all', label: 'all', count: sortedPosts.length },
   ...languages.map((l) => ({
     key: `lang-${l}`,
     label: l === 'vi' ? 'lang:vi' : 'lang:en',
@@ -74,8 +74,8 @@ const filters = [
       }
     </div>
     <div id="empty-state" class="hidden text-center py-16">
-      <p class="text-lg text-neutral-600 mb-4">Không có bài viết phù hợp bộ lọc.</p>
-      <button id="reset-filters" class="link text-base">Xoá bộ lọc</button>
+      <p class="text-lg text-neutral-600 mb-4">No articles found matching filter.</p>
+      <button id="reset-filters" class="link text-base">Clear filter</button>
     </div>
   </div>
 </BaseLayout>

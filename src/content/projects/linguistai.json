@@ -2,6 +2,8 @@
   "id": "linguistai",
   "title": "LinguistAI",
   "description": "Nền tảng thi thử 4 kỹ năng tiếng Anh: đề đọc sinh bằng LLM, chấm nói qua Whisper, phản hồi chi tiết cho bài viết.",
+  "description_vi": "Nền tảng thi thử 4 kỹ năng tiếng Anh: đề đọc sinh bằng LLM, chấm nói qua Whisper, phản hồi chi tiết cho bài viết.",
+  "description_en": "4-skill English mock exam platform: LLM-generated reading tasks, Whisper-powered speaking evaluation, and detailed writing criteria feedback.",
   "category": "Product",
   "tech": [
     "GPT-4",

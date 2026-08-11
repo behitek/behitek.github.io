@@ -1,18 +1,22 @@
 ---
+import type { Lang } from '@/i18n/ui';
+
 interface Props {
   active: 'online-judge' | 'ai' | 'software';
+  lang?: Lang;
 }
 
-const { active } = Astro.props;
+const { active, lang = 'vi' } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
 
 const TABS = [
-  { id: 'online-judge', label: 'online-judge', href: '/services' },
-  { id: 'ai', label: 'dự án AI', href: '/services/ai' },
-  { id: 'software', label: 'phần mềm', href: '/services/software' },
+  { id: 'online-judge', label: 'online-judge', href: `${prefix}/services` },
+  { id: 'ai', label: lang === 'en' ? 'AI projects' : 'dự án AI', href: `${prefix}/services/ai` },
+  { id: 'software', label: lang === 'en' ? 'software' : 'phần mềm', href: `${prefix}/services/software` },
 ] as const;
 ---
 
-<div class="px-12 pt-8">
+<div class="px-6 lg:px-12 pt-8">
   <div class="flex border-2 border-ink w-fit">
     {
       TABS.map((tab, i) => (

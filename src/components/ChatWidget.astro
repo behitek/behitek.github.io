@@ -1,5 +1,13 @@
 ---
-// ChatWidget.astro - Clean Modern AI Assistant Widget for Behitek
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'vi' } = Astro.props;
+const isEn = lang === 'en';
+const assistantHref = isEn ? '/en/assistant' : '/assistant';
 ---
 
 <!-- Floating AI Chatbot Launcher Container -->
@@ -11,12 +19,12 @@
     class="mb-3 bg-ink text-bg px-3.5 py-2 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(236,48,19,1)] text-xs font-sans flex items-center gap-2 max-w-[250px] transition-all duration-300 relative"
   >
     <span class="w-2 h-2 shrink-0 bg-green-500 animate-pulse" style="border-radius: 9999px;"></span>
-    <span class="text-neutral-200">Bạn cần tư vấn giải pháp AI hay dịch vụ từ Behitek?</span>
+    <span class="text-neutral-200">{isEn ? 'Need AI consulting or engineering services from Behitek?' : 'Bạn cần tư vấn giải pháp AI hay dịch vụ từ Behitek?'}</span>
     <button
       id="ai-bubble-close"
       type="button"
       class="text-neutral-400 hover:text-white font-bold ml-1 text-xs"
-      aria-label="Đóng gợi ý"
+      aria-label={isEn ? 'Close suggestion' : 'Đóng gợi ý'}
     >
       ✕
     </button>
@@ -78,8 +86,8 @@
     <!-- Header Actions -->
     <div class="flex items-center gap-1.5">
       <a
-        href="/assistant"
-        title="Mở toàn màn hình"
+        href={assistantHref}
+        title={isEn ? 'Open Fullscreen' : 'Mở toàn màn hình'}
         class="text-neutral-300 hover:text-white font-mono text-xs p-1 hover:bg-neutral-800 transition-colors"
       >
         ↗ Fullscreen

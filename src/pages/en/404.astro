@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { useTranslations } from '@/i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('notfound.title')} description={t('notfound.desc')} lang={lang}>
+  <div class="px-6 lg:px-12 py-24 text-center max-w-2xl mx-auto">
+    <div class="font-heading font-extrabold text-9xl text-accent mb-6">404</div>
+
+    <h1 class="font-heading font-extrabold text-3xl md:text-4xl text-ink mb-4">{t('notfound.heading')}</h1>
+    <p class="text-lg text-neutral-700 mb-10">{t('notfound.desc')}</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 border-2 border-ink mb-10">
+      <a href="/en" class="p-6 border-b-2 md:border-b-0 md:border-r-2 border-ink text-center no-underline hover:bg-neutral-100">
+        <h3 class="font-heading font-bold text-ink">Home</h3>
+        <p class="text-sm text-neutral-600 m-0">Back to homepage</p>
+      </a>
+      <a href="/en/blog" class="p-6 border-b-2 md:border-b-0 md:border-r-2 border-ink text-center no-underline hover:bg-neutral-100">
+        <h3 class="font-heading font-bold text-ink">Blog</h3>
+        <p class="text-sm text-neutral-600 m-0">Read articles</p>
+      </a>
+      <a href="/en/projects" class="p-6 text-center no-underline hover:bg-neutral-100">
+        <h3 class="font-heading font-bold text-ink">Projects</h3>
+        <p class="text-sm text-neutral-600 m-0">View projects</p>
+      </a>
+    </div>
+
+    <p class="text-neutral-700">
+      Still haven't found what you're looking for? <a href="/en/contact" class="link">Contact me</a> and I'll help you out.
+    </p>
+  </div>
+</BaseLayout>

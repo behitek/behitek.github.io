@@ -1,11 +1,25 @@
 ---
-import { NAV_LINKS } from '@utils/constants';
-import Toast from '@components/Toast.astro';
+import { getNavLinks } from '@utils/constants';
+import { getLangFromUrl, useTranslations, getLocalizedPath, type Lang } from '@/i18n/ui';
 
+interface Props {
+  lang?: Lang;
+}
+
+const { lang: customLang } = Astro.props;
 const currentPath = Astro.url.pathname;
+const lang = customLang || getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const navLinks = getNavLinks(lang);
+
+const homeHref = lang === 'en' ? '/en' : '/';
+const contactHref = lang === 'en' ? '/en/contact' : '/contact';
+
+const viPath = getLocalizedPath(currentPath, 'vi');
+const enPath = getLocalizedPath(currentPath, 'en');
 
 const isActive = (href: string) => {
-  if (href === '/') return currentPath === '/';
+  if (href === '/' || href === '/en') return currentPath === href;
   return currentPath.startsWith(href);
 };
 ---
@@ -14,7 +28,7 @@ const isActive = (href: string) => {
   class="sticky top-0 z-50 flex items-center justify-between h-16 px-6 md:px-12 bg-bg border-b-2 border-ink"
   data-screen-label="Nav"
 >
-  <a href="/" class="flex items-center gap-3 no-underline" aria-label="behitek - trang chủ">
+  <a href={homeHref} class="flex items-center gap-3 no-underline" aria-label="behitek">
     <img src="/favicon.svg" alt="" width="28" height="28" class="block" />
     <span class="font-heading font-extrabold text-xl text-ink tracking-tight"
       >behitek<span class="blink-cursor">_</span></span
@@ -23,10 +37,10 @@ const isActive = (href: string) => {
 
   <div class="hidden md:flex items-center gap-6">
     {
-      NAV_LINKS.map((link) => (
+      navLinks.map((link) => (
         <a
           href={link.href}
-          class={`font-mono text-[13px] no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
+          class={`font-mono text-[13px] no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink hover:text-accent'}`}
         >
           {link.label}
         </a>
@@ -36,22 +50,45 @@ const isActive = (href: string) => {
 
   <div class="hidden md:flex items-center gap-[18px]">
     <div class="flex font-mono text-[11px] font-semibold border border-ink">
-      <span class="px-2 py-1 bg-ink text-bg">VI</span>
-      <button
-        type="button"
-        id="lang-toggle"
-        class="px-2 py-1 text-ink cursor-pointer bg-transparent border-0 hover:bg-neutral-200"
-        >EN</button
-      >
+      {
+        lang === 'vi' ? (
+          <span class="px-2 py-1 bg-ink text-bg">VI</span>
+        ) : (
+          <a href={viPath} class="px-2 py-1 text-ink no-underline bg-transparent hover:bg-neutral-200">VI</a>
+        )
+      }
+      {
+        lang === 'en' ? (
+          <span class="px-2 py-1 bg-ink text-bg">EN</span>
+        ) : (
+          <a href={enPath} class="px-2 py-1 text-ink no-underline bg-transparent hover:bg-neutral-200">EN</a>
+        )
+      }
     </div>
-    <a href="/contact" class="btn-primary py-2.5 px-[18px] text-sm">Nhận báo giá</a>
+    <a href={contactHref} class="btn-primary py-2.5 px-[18px] text-sm">{t('nav.contact')}</a>
   </div>
 
   <div class="md:hidden flex items-center gap-3">
+    <div class="flex font-mono text-[11px] font-semibold border border-ink">
+      {
+        lang === 'vi' ? (
+          <span class="px-2 py-1 bg-ink text-bg">VI</span>
+        ) : (
+          <a href={viPath} class="px-2 py-1 text-ink no-underline bg-transparent">VI</a>
+        )
+      }
+      {
+        lang === 'en' ? (
+          <span class="px-2 py-1 bg-ink text-bg">EN</span>
+        ) : (
+          <a href={enPath} class="px-2 py-1 text-ink no-underline bg-transparent">EN</a>
+        )
+      }
+    </div>
     <button
       id="mobile-menu-button"
       class="p-1 text-ink"
-      aria-label="Mở menu"
+      aria-label={t('nav.mobile_menu')}
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -63,7 +100,7 @@ const isActive = (href: string) => {
 <div id="mobile-menu" class="hidden md:hidden border-b-2 border-ink bg-bg">
   <div class="px-6 py-4 flex flex-col gap-3">
     {
-      NAV_LINKS.map((link) => (
+      navLinks.map((link) => (
         <a
           href={link.href}
           class={`font-mono text-sm no-underline ${isActive(link.href) ? 'text-accent' : 'text-ink'}`}
@@ -72,11 +109,9 @@ const isActive = (href: string) => {
         </a>
       ))
     }
-    <a href="/contact" class="btn-primary text-sm w-fit">Nhận báo giá</a>
+    <a href={contactHref} class="btn-primary text-sm w-fit">{t('nav.contact')}</a>
   </div>
 </div>
-
-<Toast id="lang-toast" message="EN version dùng cùng layout (nội dung sẽ dịch khi dev)" />
 
 <script>
   const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -84,17 +119,5 @@ const isActive = (href: string) => {
 
   mobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.toggle('hidden');
-  });
-
-  const langToggle = document.getElementById('lang-toggle');
-  const langToast = document.getElementById('lang-toast');
-  let toastTimer: ReturnType<typeof setTimeout> | undefined;
-
-  langToggle?.addEventListener('click', () => {
-    langToast?.classList.remove('hidden');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      langToast?.classList.add('hidden');
-    }, 3200);
   });
 </script>

@@ -1,5 +1,6 @@
 ---
 import { SITE } from '@utils/constants';
+import { getLocalizedPath, type Lang } from '@/i18n/ui';
 
 interface Props {
   title?: string;
@@ -8,21 +9,33 @@ interface Props {
   article?: boolean;
   publishedTime?: Date;
   modifiedTime?: Date;
+  lang?: Lang;
 }
 
 const {
-  title = SITE.title,
-  description = SITE.description,
+  title,
+  description: customDescription,
   image = '/images/og-default.png',
   article = false,
   publishedTime,
   modifiedTime,
+  lang = 'vi',
 } = Astro.props;
+
+const defaultDesc = typeof SITE.description === 'string' ? SITE.description : SITE.description[lang];
+const description = customDescription || defaultDesc;
+const pageTitle = title || SITE.title;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
 
-const fullTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
+const fullTitle = pageTitle === SITE.title ? pageTitle : `${pageTitle} | ${SITE.title}`;
+
+const viPath = getLocalizedPath(Astro.url.pathname, 'vi');
+const enPath = getLocalizedPath(Astro.url.pathname, 'en');
+
+const viURL = new URL(viPath, Astro.site);
+const enURL = new URL(enPath, Astro.site);
 ---
 
 <!-- Primary Meta Tags -->
@@ -30,6 +43,11 @@ const fullTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 <meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Alternate Language Links -->
+<link rel="alternate" hreflang="vi" href={viURL} />
+<link rel="alternate" hreflang="en" href={enURL} />
+<link rel="alternate" hreflang="x-default" href={viURL} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={article ? 'article' : 'website'} />

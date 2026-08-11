@@ -1,4 +1,6 @@
 ---
+import type { Lang } from '@/i18n/ui';
+
 interface Props {
   title: string;
   description: string;
@@ -10,6 +12,7 @@ interface Props {
   borderRight?: boolean;
   borderBottom?: boolean;
   mobileDivider?: boolean;
+  lang?: Lang;
 }
 
 const {
@@ -23,8 +26,12 @@ const {
   borderRight = false,
   borderBottom = false,
   mobileDivider = false,
+  lang = 'vi',
 } = Astro.props;
+
 const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
+const flagshipLabel = lang === 'en' ? 'FLAGSHIP' : 'CHỦ LỰC';
+const viewDetailsLabel = lang === 'en' ? 'View details' : 'Xem chi tiết';
 ---
 
 <div
@@ -50,7 +57,7 @@ const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
         {
           flagship && (
             <span class="bg-accent px-[7px] py-[3px] font-mono text-[10px] font-semibold text-bg">
-              CHỦ LỰC
+              {flagshipLabel}
             </span>
           )
         }
@@ -73,11 +80,9 @@ const statusLabel = status === 'open-source' ? 'OPEN SOURCE' : 'PRIVATE';
           rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
           class="inline-flex items-center gap-1 font-heading text-[13px] font-bold text-accent no-underline hover:underline"
         >
-          Xem chi tiết <span>→</span>
+          {viewDetailsLabel} <span>→</span>
         </a>
       </div>
     )
   }
 </div>
-
-

@@ -2,6 +2,8 @@
   "id": "nexusai",
   "title": "NexusAI",
   "description": "Hệ thống RAG truy vấn trên văn bản, hình ảnh và video: vector embedding tùy biến, hybrid search, re-rank bằng LLM.",
+  "description_vi": "Hệ thống RAG truy vấn trên văn bản, hình ảnh và video: vector embedding tùy biến, hybrid search, re-rank bằng LLM.",
+  "description_en": "Enterprise Multimodal RAG system for document, image, and video retrieval: custom vector embeddings, hybrid search, and Inverted HyDE indexing.",
   "category": "Product",
   "tech": [
     "FastAPI",

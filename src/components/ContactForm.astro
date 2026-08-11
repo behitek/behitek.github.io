@@ -1,42 +1,58 @@
 ---
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'vi' } = Astro.props;
+
 const NEEDS = [
   { id: 'online-judge', label: 'online-judge' },
-  { id: 'ai', label: 'dự án AI' },
-  { id: 'software', label: 'phần mềm' },
-  { id: 'other', label: 'khác' },
+  { id: 'ai', label: lang === 'en' ? 'AI project' : 'dự án AI' },
+  { id: 'software', label: lang === 'en' ? 'software' : 'phần mềm' },
+  { id: 'other', label: lang === 'en' ? 'other' : 'khác' },
 ];
+
+const isEn = lang === 'en';
 ---
 
 <div class="p-14 bg-white">
   <div id="contact-form-state" class="flex flex-col gap-4.5">
     <div>
-      <label for="cf-name" class="block font-mono text-xs font-semibold text-ink mb-1.5">HỌ TÊN *</label>
+      <label for="cf-name" class="block font-mono text-xs font-semibold text-ink mb-1.5">
+        {isEn ? 'FULL NAME *' : 'HỌ TÊN *'}
+      </label>
       <input
         id="cf-name"
         type="text"
-        placeholder="Nguyễn Văn A"
+        placeholder={isEn ? 'John Doe' : 'Nguyễn Văn A'}
         class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-none focus-visible:border-accent"
       />
       <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-name">
-        Vui lòng nhập họ tên.
+        {isEn ? 'Please enter your name.' : 'Vui lòng nhập họ tên.'}
       </p>
     </div>
 
     <div>
-      <label for="cf-email" class="block font-mono text-xs font-semibold text-ink mb-1.5">EMAIL *</label>
+      <label for="cf-email" class="block font-mono text-xs font-semibold text-ink mb-1.5">
+        {isEn ? 'EMAIL ADDRESS *' : 'EMAIL *'}
+      </label>
       <input
         id="cf-email"
         type="email"
-        placeholder="ban@congty.vn"
+        placeholder={isEn ? 'you@company.com' : 'ban@congty.vn'}
         class="w-full box-border border-2 border-ink h-11 bg-bg font-sans text-sm px-3 outline-none focus-visible:border-accent"
       />
       <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-email">
-        Email chưa hợp lệ, kiểm tra lại giúp mình.
+        {isEn ? 'Please enter a valid email address.' : 'Email chưa hợp lệ, kiểm tra lại giúp mình.'}
       </p>
     </div>
 
     <div>
-      <div class="font-mono text-xs font-semibold text-ink mb-1.5">BẠN CẦN GÌ? *</div>
+      <div class="font-mono text-xs font-semibold text-ink mb-1.5">
+        {isEn ? 'WHAT DO YOU NEED? *' : 'BẠN CẦN GÌ? *'}
+      </div>
       <div class="flex flex-wrap border-2 border-ink w-fit" id="need-selector">
         {
           NEEDS.map((n, i) => (
@@ -54,27 +70,37 @@ const NEEDS = [
     </div>
 
     <div>
-      <label for="cf-desc" class="block font-mono text-xs font-semibold text-ink mb-1.5">MÔ TẢ NHU CẦU</label>
+      <label for="cf-desc" class="block font-mono text-xs font-semibold text-ink mb-1.5">
+        {isEn ? 'PROJECT DESCRIPTION' : 'MÔ TẢ NHU CẦU'}
+      </label>
       <textarea
         id="cf-desc"
-        placeholder="Ví dụ: Trung tâm của tôi cần hệ thống chấm bài cho ~500 học sinh…"
+        placeholder={isEn ? 'Example: We need an automated online judge for ~500 students…' : 'Ví dụ: Trung tâm của tôi cần hệ thống chấm bài cho ~500 học sinh…'}
         class="w-full box-border border-2 border-ink h-[120px] bg-bg font-mono text-[13px] p-3 outline-none resize-y focus-visible:border-accent"
       ></textarea>
       <p class="field-error hidden font-mono text-xs text-accent-600 mt-1.5 m-0" data-error-for="cf-desc">
-        Vui lòng mô tả ngắn gọn nhu cầu của bạn.
+        {isEn ? 'Please describe your requirements.' : 'Vui lòng mô tả ngắn gọn nhu cầu của bạn.'}
       </p>
     </div>
 
-    <button type="button" id="cf-submit" class="btn-primary w-fit">Gửi yêu cầu →</button>
+    <button type="button" id="cf-submit" class="btn-primary w-fit">
+      {isEn ? 'Send Request →' : 'Gửi yêu cầu →'}
+    </button>
   </div>
 
   <div id="contact-success-state" class="hidden">
     <div class="border-2 border-ink bg-ink p-6">
       <div class="font-mono text-[13px] leading-[2] text-bg">
         <div>$ send-request --to hello@behitek.com</div>
-        <div class="text-[#5abf6e]">✓ Đã gửi thành công.</div>
-        <div class="text-neutral-500">&gt; Tôi sẽ phản hồi trong vòng 24 giờ làm việc.</div>
-        <div class="text-neutral-500">&gt; Bản sao yêu cầu đã gửi về email của bạn.</div>
+        <div class="text-[#5abf6e]">
+          {isEn ? '✓ Sent successfully.' : '✓ Đã gửi thành công.'}
+        </div>
+        <div class="text-neutral-500">
+          {isEn ? '> I will respond within 24 business hours.' : '> Tôi sẽ phản hồi trong vòng 24 giờ làm việc.'}
+        </div>
+        <div class="text-neutral-500">
+          {isEn ? '> A copy has been sent to your email.' : '> Bản sao yêu cầu đã gửi về email của bạn.'}
+        </div>
       </div>
     </div>
     <button
@@ -82,7 +108,7 @@ const NEEDS = [
       id="cf-reset"
       class="font-mono text-[13px] font-semibold text-ink mt-5 cursor-pointer bg-transparent border-0 p-0 hover:text-accent"
     >
-      ← gửi yêu cầu khác
+      {isEn ? '← send another request' : '← gửi yêu cầu khác'}
     </button>
   </div>
 </div>

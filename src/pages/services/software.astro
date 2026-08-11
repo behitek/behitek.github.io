@@ -5,6 +5,10 @@ import ServiceTabs from '@components/ServiceTabs.astro';
 import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
 import ProcessSteps from '@components/ProcessSteps.astro';
 import CTABand from '@components/CTABand.astro';
+import { useTranslations } from '@/i18n/ui';
+
+const lang = 'vi';
+const t = useTranslations(lang);
 
 const FEATURES = [
   {
@@ -34,10 +38,11 @@ const STEPS = [
 ---
 
 <BaseLayout
-  title="Phần mềm & AI in SDLC"
-  description="Web app, API và hạ tầng cho đội ngũ nhỏ: trọn gói từ ý tưởng đến triển khai."
+  title={t('services.software_title')}
+  description={t('services.software_meta_desc')}
+  lang={lang}
 >
-  <ServiceTabs active="software" />
+  <ServiceTabs active="software" lang={lang} />
   <ServiceHero
     breadcrumb="software"
     title="Phát triển phần mềm & AI in SDLC"
@@ -48,11 +53,11 @@ const STEPS = [
     ]}
   />
 
-  <div class="px-12 pb-12">
+  <div class="px-6 lg:px-12 pb-12">
     <ServiceFeatureGrid features={FEATURES} />
   </div>
 
-  <div class="px-12 pb-12">
+  <div class="px-6 lg:px-12 pb-12">
     <ProcessSteps kicker="$ ./process" steps={STEPS} />
   </div>
 
@@ -60,5 +65,6 @@ const STEPS = [
     title="Cần xây phần mềm cho đội ngũ của bạn?"
     buttonLabel="Nhận tư vấn miễn phí →"
     buttonHref="/contact?need=software"
+    lang={lang}
   />
 </BaseLayout>

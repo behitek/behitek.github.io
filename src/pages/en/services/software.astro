@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceTabs from '@components/ServiceTabs.astro';
+import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import CTABand from '@components/CTABand.astro';
+import { useTranslations } from '@/i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+
+const FEATURES = [
+  {
+    kicker: 'MODULE 01',
+    title: 'Web Apps & Backend APIs',
+    bullets: ['FastAPI · Django · React/Vue', 'PostgreSQL, Redis', 'Clean, documented RESTful APIs'],
+    highlighted: true,
+  },
+  {
+    kicker: 'MODULE 02',
+    title: 'Infrastructure & DevOps',
+    bullets: ['Docker, automated CI/CD pipelines', 'Cost-effective self-hosting on VPS/Cloud', 'Periodic backups & automated monitoring'],
+  },
+  {
+    kicker: 'MODULE 03',
+    title: 'Maintenance & Performance Tuning',
+    bullets: ['Legacy codebase takeover', 'Performance & cloud cost optimization', 'Same-day SLA support'],
+  },
+];
+
+const STEPS = [
+  { number: '01', title: 'Requirement Discovery', description: 'Define scope, technical priorities, and budget.' },
+  { number: '02', title: 'Fixed Proposal', description: 'Clear milestone schedules and deliverables.' },
+  { number: '03', title: 'Development & Demos', description: 'Weekly working demos for fast feedback loops.' },
+  { number: '04', title: 'Handoff & Maintenance', description: 'Source code, complete documentation, long-term support.' },
+];
+---
+
+<BaseLayout
+  title={t('services.software_title')}
+  description={t('services.software_meta_desc')}
+  lang={lang}
+>
+  <ServiceTabs active="software" lang={lang} />
+  <ServiceHero
+    breadcrumb="software"
+    title="Software Engineering & AI in SDLC"
+    description="Web applications, APIs, and cloud infrastructure: design, build, deploy, and maintain with AI-driven velocity."
+    ctas={[
+      { label: 'Get Consultation →', href: '/en/contact?need=software', variant: 'primary' },
+      { label: 'View Shipped Projects', href: '/en/projects', variant: 'secondary' },
+    ]}
+  />
+
+  <div class="px-6 lg:px-12 pb-12">
+    <ServiceFeatureGrid features={FEATURES} />
+  </div>
+
+  <div class="px-6 lg:px-12 pb-12">
+    <ProcessSteps kicker="$ ./process" steps={STEPS} />
+  </div>
+
+  <CTABand
+    title="Need to build software for your team?"
+    buttonLabel="Get Free Consultation →"
+    buttonHref="/en/contact?need=software"
+    lang={lang}
+  />
+</BaseLayout>

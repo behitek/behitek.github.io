@@ -1,0 +1,213 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceTabs from '@components/ServiceTabs.astro';
+import ServiceFeatureGrid from '@components/ServiceFeatureGrid.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import ServiceTiers from '@components/ServiceTiers.astro';
+import CTABand from '@components/CTABand.astro';
+import OrgRoster from '@components/OrgRoster.astro';
+import FAQ from '@components/FAQ.astro';
+import {
+  ORGANIZATIONS,
+  getDeployments,
+  TOTAL_ORG_MEMBERS,
+  TOTAL_PLATFORM_USERS,
+  TOTAL_PROBLEMS,
+  TOTAL_SUBMISSIONS,
+} from '@/data/organizations';
+import { useTranslations } from '@/i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+const deployments = getDeployments(lang);
+
+const FEATURES = [
+  {
+    kicker: '01',
+    title: 'Infrastructure & Setup',
+    bullets: ['DMOJ + Sandboxed Judge Server', 'Custom domain, SSL, Email notifications', 'Full admin documentation handoff'],
+  },
+  {
+    kicker: '02',
+    title: 'Branding & Operations',
+    bullets: [
+      'Custom UI theme & organization branding',
+      'Daily automated backups + 24/7 uptime monitoring',
+      'System updates & ongoing technical support',
+    ],
+    highlighted: true,
+  },
+  {
+    kicker: '03',
+    title: 'Content & Customization',
+    bullets: [
+      `Shared problem bank of ${TOTAL_PROBLEMS} algorithmic problems`,
+      'Custom integrations (LMS, payment gateways)',
+      'Admin & teaching staff onboarding',
+    ],
+  },
+];
+
+const STEPS = [
+  {
+    number: '01',
+    title: 'Requirement Discovery',
+    description: '30-minute discovery call to determine user scale and hosting needs.',
+  },
+  {
+    number: '02',
+    title: 'Execution Roadmap',
+    description: 'Clear timeline and milestone plan provided with fixed-price proposal.',
+  },
+  { number: '03', title: 'Deployment', description: 'Typically 1–2 weeks, complete with full handoff docs.' },
+  { number: '04', title: 'Long-term Maintenance', description: 'Monitoring, backup automation, and periodic updates.' },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: 'Who owns the school\'s data?',
+    answer:
+      'All student records, problem sets, and submission histories belong entirely to your institution. For dedicated deployments, all data resides on your own private infrastructure. For free plans on luyencode.net, data exports can be requested anytime.',
+  },
+  {
+    question: 'What happens if you no longer maintain the platform?',
+    answer:
+      'The platform is powered by DMOJ (a mature, open-source project maintained globally by a large developer community, not a proprietary lock-in). All configuration files and administration manuals are handed over, enabling any sysadmin to take over smoothly.',
+  },
+  {
+    question: 'Does our institution need its own server?',
+    answer:
+      'Not if you choose the free tier on luyencode.net. Dedicated deployments require a Virtual Private Server (VPS), and I provide tailored server sizing to prevent overpaying.',
+  },
+  {
+    question: 'Can we upload our custom problem sets?',
+    answer:
+      'Yes. On luyencode.net, organizations can create private problems or utilize the shared bank. Dedicated instances allow importing custom problems in standard competitive programming formats.',
+  },
+];
+---
+
+<BaseLayout
+  title={t('services.index_title')}
+  description={t('services.index_meta_desc')}
+  lang={lang}
+>
+  <ServiceTabs active="online-judge" lang={lang} />
+  <ServiceHero
+    breadcrumb="online-judge"
+    title="Online Judge Deployment & Operations Powered by DMOJ"
+    description={`Automated grading infrastructure for schools, universities, and coding centers. Choose between a free organization on luyencode.net or a dedicated instance on custom VPS infrastructure. Currently serving ${ORGANIZATIONS.length} educational institutions and ${deployments.length} independent deployments.`}
+    ctas={[
+      { label: 'Get Started →', href: '/en/contact', variant: 'primary' },
+      {
+        label: 'View Live Demo',
+        href: 'https://luyencode.net',
+        variant: 'secondary',
+        external: true,
+      },
+    ]}
+  />
+
+  <div class="px-6 lg:px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">01 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Two Ways to Start</h2>
+    </div>
+    <ServiceTiers lang={lang} />
+  </div>
+
+  <section class="px-6 lg:px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">02 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Active Deployments</h2>
+    </div>
+    <div class="border-2 border-ink bg-white p-8">
+      <div class="mb-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+        {ORGANIZATIONS.length} ORGANIZATIONS ON LUYENCODE.NET: {
+          TOTAL_ORG_MEMBERS.toLocaleString('en-US')
+        } REGISTERED MEMBERS
+      </div>
+      <OrgRoster variant="full" lang={lang} />
+      <div class="mb-4 mt-8 font-mono text-[11px] font-semibold tracking-[0.08em] text-neutral-600">
+        INDEPENDENT DEPLOYMENTS
+      </div>
+      <div class="border-t-2 border-ink">
+        {
+          deployments.map((d) => (
+            <a
+              href={d.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-baseline gap-3 border-b border-border-light py-3 font-mono text-[13px] text-ink no-underline hover:text-accent"
+            >
+              <span class="flex-none text-accent">●</span>
+              <span class="font-semibold">{d.name}</span>
+              <span class="text-neutral-600">({d.note})</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="px-6 lg:px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">03 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Platform Capabilities</h2>
+    </div>
+    <ServiceFeatureGrid features={FEATURES} />
+  </div>
+
+  <section class="px-6 lg:px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">04 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">System Scale & Statistics</h2>
+    </div>
+    <div class="border-2 border-ink bg-white">
+      <div class="rgrid grid grid-cols-3">
+        <div class="border-r-2 border-ink p-8">
+          <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+            {TOTAL_PROBLEMS}
+          </div>
+          <div class="font-mono text-[13px] text-neutral-600">
+            ready-to-use problems with editorials
+          </div>
+        </div>
+        <div class="border-r-2 border-ink p-8">
+          <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+            {TOTAL_PLATFORM_USERS}
+          </div>
+          <div class="font-mono text-[13px] text-neutral-600">active platform users</div>
+        </div>
+        <div class="p-8">
+          <div class="mb-2 font-heading text-[46px] font-extrabold leading-none text-accent">
+            {TOTAL_SUBMISSIONS}
+          </div>
+          <div class="font-mono text-[13px] text-neutral-600">judged code submissions</div>
+        </div>
+      </div>
+      <p class="m-0 border-t-2 border-ink p-8 text-[14.5px] leading-relaxed text-neutral-700">
+        Institutions do not need to start from scratch. A structured problem repository categorized by topic and difficulty level is ready for immediate classroom use or contest hosting.
+      </p>
+    </div>
+  </section>
+
+  <div class="px-6 lg:px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">05 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Process Workflow</h2>
+    </div>
+    <ProcessSteps kicker="$ ./process" steps={STEPS} />
+  </div>
+
+  <div class="px-6 lg:px-12 pb-12">
+    <div class="mb-7 flex items-baseline gap-4">
+      <span class="kicker">06 /</span>
+      <h2 class="m-0 font-heading text-[34px] font-extrabold text-ink">Frequently Asked Questions</h2>
+    </div>
+    <FAQ items={FAQ_ITEMS} />
+  </div>
+
+  <CTABand title="Need a custom Online Judge for your organization?" buttonLabel="Contact Now →" buttonHref="/en/contact" lang={lang} />
+</BaseLayout>
