@@ -18,7 +18,7 @@ const { entries } = Astro.props;
     entries.map((entry) => (
       <div class="grid grid-cols-[150px_1fr] gap-5 pb-6 pl-6 border-l-2 border-ink relative">
         <span
-          class={`absolute -left-[6px] top-1 w-2.5 h-2.5 ${entry.dotAccent ? 'bg-accent' : 'bg-ink'}`}
+          class={`absolute left-[-6px] top-1 w-2.5 h-2.5 ${entry.dotAccent ? 'bg-accent' : 'bg-ink'}`}
         />
         <span class="font-mono text-[13px] text-neutral-600">{entry.years}</span>
         <div>

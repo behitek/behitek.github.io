@@ -15,19 +15,19 @@ const { projects } = Astro.props;
 {projects.filter(p => p.images && p.images.length > 0).map((project) => (
   <div 
     id={`gallery-modal-${project.id}`}
-    class="fixed inset-0 bg-black/95 z-[9999] hidden items-center justify-center p-4 backdrop-blur-sm"
+    class="fixed inset-0 bg-black/95 z-9999 hidden items-center justify-center p-4 backdrop-blur-xs"
     onclick={`closeImageGallery('${project.id}')`}
   >
     <div class="relative max-w-7xl w-full h-full flex items-center justify-center">
       <!-- Project Title -->
-      <div class="absolute top-4 left-4 z-10 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
+      <div class="absolute top-4 left-4 z-10 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-xs">
         <h3 class="font-semibold text-lg">{project.title}</h3>
       </div>
 
       <!-- Close Button -->
       <button
         type="button"
-        class="gallery-close-btn absolute top-4 right-4 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-2 backdrop-blur-sm transition-colors"
+        class="gallery-close-btn absolute top-4 right-4 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-2 backdrop-blur-xs transition-colors"
         data-gallery-id={project.id}
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@ const { projects } = Astro.props;
         <>
           <button
             type="button"
-            class="gallery-prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
+            class="gallery-prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-xs transition-colors hover:bg-black/50"
             data-gallery-id={project.id}
           >
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,7 +50,7 @@ const { projects } = Astro.props;
           
           <button
             type="button"
-            class="gallery-next-btn absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-sm transition-colors hover:bg-black/50"
+            class="gallery-next-btn absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/30 rounded-full p-3 backdrop-blur-xs transition-colors hover:bg-black/50"
             data-gallery-id={project.id}
           >
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ const { projects } = Astro.props;
         
         <!-- Image Counter -->
         {project.images && project.images.length > 1 && (
-          <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm">
+          <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm backdrop-blur-xs">
             <span id={`gallery-counter-${project.id}`}>1 / {project.images.length}</span>
           </div>
         )}

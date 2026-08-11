@@ -21,7 +21,7 @@ const { features } = Astro.props;
       >
         <div class="font-mono text-[11px] font-semibold text-neutral-600 mb-2.5">{f.kicker}</div>
         <h3 class="font-heading font-bold text-xl text-ink mb-3.5">{f.title}</h3>
-        <ul class="font-mono text-[13px] leading-[2] text-ink m-0 pl-0 list-none">
+        <ul class="font-mono text-[13px] leading-loose text-ink m-0 pl-0 list-none">
           {f.bullets.map((b) => (
             <li>✓ {b}</li>
           ))}

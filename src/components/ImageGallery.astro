@@ -15,7 +15,7 @@ const { images, title, projectId } = Astro.props;
       {images.slice(0, 4).map((image, index) => (
         <button
           type="button"
-          class="relative overflow-hidden rounded-lg border-2 border-transparent hover:border-primary-500 transition-all duration-200 focus:outline-none focus:border-primary-500 transform hover:scale-105 aspect-square"
+          class="relative overflow-hidden rounded-lg border-2 border-transparent hover:border-primary-500 transition-all duration-200 focus:outline-hidden focus:border-primary-500 transform hover:scale-105 aspect-square"
           onclick={`openImageGallery('${projectId}', ${index})`}
         >
           <img
@@ -24,7 +24,7 @@ const { images, title, projectId } = Astro.props;
             class="w-full h-full object-cover"
           />
           {index === 3 && images.length > 4 && (
-            <div class="absolute inset-0 bg-black/70 flex items-center justify-center backdrop-blur-sm">
+            <div class="absolute inset-0 bg-black/70 flex items-center justify-center backdrop-blur-xs">
               <span class="text-white text-lg font-bold">+{images.length - 4}</span>
             </div>
           )}
