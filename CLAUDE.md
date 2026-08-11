@@ -16,9 +16,9 @@ only automated correctness gate — always run it before considering a change do
 configured (`.prettierrc`, with `prettier-plugin-astro` and `prettier-plugin-tailwindcss`) but
 there is no `format` script wired up in `package.json`; invoke `npx prettier --write <files>` directly.
 
-CI (`.github/workflows/test-deploy.yml`) runs `npm run build` on PRs into `main`.
-`.github/workflows/deploy.yml` builds and deploys `dist/` to GitHub Pages on push to `main` or
-`astro-main`.
+CI (`.github/workflows/test-deploy.yml`) runs `npm run build` on PRs into `main`. There is no
+GitHub Pages deploy workflow — the site is hosted on Cloudflare Pages, which builds and deploys
+directly from the repo (configured in the Cloudflare dashboard, not in `.github/workflows/`).
 
 ## History note: the site was rebuilt after the Docusaurus→Astro migration
 

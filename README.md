@@ -1,7 +1,7 @@
 # behitek.github.io
 
 Personal site and portfolio for Hieu Nguyen (behitek) — AI engineer. Built with Astro 4 and
-TailwindCSS, statically generated and deployed to GitHub Pages.
+TailwindCSS, statically generated and deployed to Cloudflare Pages.
 
 🌐 **Live site:** [behitek.com](https://behitek.com)
 
@@ -13,7 +13,7 @@ TailwindCSS, statically generated and deployed to GitHub Pages.
 - **Language:** TypeScript (strict)
 - **Comments:** [Giscus](https://giscus.app) (GitHub Discussions)
 - **Analytics:** Google Tag Manager
-- **Hosting:** GitHub Pages via GitHub Actions
+- **Hosting:** Cloudflare Pages
 
 ## Getting started
 
@@ -58,7 +58,7 @@ src/
 └── utils/               # constants.ts, helpers.ts
 
 public/                  # static assets: images, favicon, CNAME, .nojekyll
-.github/workflows/        # deploy.yml (GitHub Pages), test-deploy.yml (build check on PRs)
+.github/workflows/        # test-deploy.yml (build check on PRs)
 ```
 
 ## Design system
@@ -139,8 +139,8 @@ project card.
 
 ## Deployment
 
-Pushes to `main` (or `astro-main`) trigger `.github/workflows/deploy.yml`, which builds with
-Astro and deploys `dist/` to GitHub Pages. `.github/workflows/test-deploy.yml` runs a build check
+Pushes to `main` trigger a Cloudflare Pages build (configured in the Cloudflare dashboard), which
+builds with Astro and deploys `dist/`. `.github/workflows/test-deploy.yml` runs a build check
 on pull requests into `main`.
 
 To deploy manually elsewhere: `npm run build` and upload the `dist/` folder.
